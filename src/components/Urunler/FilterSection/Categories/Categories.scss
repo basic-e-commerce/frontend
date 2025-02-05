@@ -8,6 +8,7 @@
     button {
       width: 100%;
       background-color: transparent;
+      transition: 0.25s;
       &:hover {
         background-color: rgb(215, 215, 215);
       }

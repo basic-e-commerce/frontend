@@ -3,11 +3,12 @@ import axios from "axios";
 
 const initialState = {
   categories: [],
+  selectedCategory: "",
 };
 
 export const getCategories = createAsyncThunk("category", async () => {
   const response = await axios.get(
-    "https://api.escuelajs.co/api/v1/categories"
+    "https://fakestoreapi.com/products/categories"
   );
   const data = response.data;
   return data;
@@ -16,7 +17,11 @@ export const getCategories = createAsyncThunk("category", async () => {
 export const categorySlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedCategory(state, action) {
+      state.selectedCategory = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(getCategories.fulfilled, (state, action) => {
@@ -24,5 +29,7 @@ export const categorySlice = createSlice({
     });
   },
 });
+
+export const { setSelectedCategory } = categorySlice.actions;
 
 export default categorySlice.reducer;

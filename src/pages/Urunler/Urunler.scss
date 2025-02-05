@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   gap: 6rem;
-  min-height: 300rem;
 
   .container {
     padding-top: 3rem;
@@ -14,7 +13,13 @@
     .title {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 1rem;
+
+      .titleTop {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+      }
     }
   }
 }

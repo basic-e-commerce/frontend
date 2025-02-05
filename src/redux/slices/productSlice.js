@@ -10,10 +10,21 @@ const initialState = {
 };
 
 export const getProducts = createAsyncThunk("getProducts", async () => {
-  const response = await axios.get("https://api.escuelajs.co/api/v1/products");
+  const response = await axios.get("https://fakestoreapi.com/products");
   const data = response.data;
   return data;
 });
+
+export const getProductsCategory = createAsyncThunk(
+  "getProductsCategory",
+  async (category) => {
+    const response = await axios.get(
+      `https://fakestoreapi.com/products/category/${category}`
+    );
+    const data = response.data;
+    return data;
+  }
+);
 
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
@@ -27,7 +38,14 @@ export const getProductDetail = createAsyncThunk(
 const productSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    sortingTheIncProduct(state) {
+      state.products = [...state.products].sort((a, b) => a.price - b.price);
+    },
+    sortingTheDecProduct(state) {
+      state.products = [...state.products].sort((a, b) => b.price - a.price);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state, action) => {
@@ -49,8 +67,20 @@ const productSlice = createSlice({
       })
       .addCase(getProductDetail.rejected, (state, action) => {
         state.productDetailStatus = STATUS.FAIL;
+      })
+      .addCase(getProductsCategory.pending, (state, action) => {
+        state.productsStatus = STATUS.LOADING;
+      })
+      .addCase(getProductsCategory.fulfilled, (state, action) => {
+        state.productsStatus = STATUS.SUCCESS;
+        state.products = action.payload;
+      })
+      .addCase(getProductsCategory.rejected, (state, action) => {
+        state.productsStatus = STATUS.FAIL;
       });
   },
 });
 
+export const { sortingTheIncProduct, sortingTheDecProduct } =
+  productSlice.actions;
 export default productSlice.reducer;
