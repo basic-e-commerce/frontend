@@ -1,0 +1,181 @@
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Header.scss";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import PhotoCameraFrontOutlinedIcon from "@mui/icons-material/PhotoCameraFrontOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import HeadsetIcon from "@mui/icons-material/Headset";
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 300); // 500ms (yarım saniye) gecikme
+  };
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  return (
+    <header className="header">
+      <div className="headerTop">
+        <div className="container">
+          <div className="headerTopWrapper">
+            <div className="iconss">
+              <span className="none">Bizi Takip Edin!</span>
+
+              <a
+                href="https://www.instagram.com/kayayapiinsaat_17"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon className="icon" />
+              </a>
+
+              <a
+                href="https://wa.me/905436486611"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsAppIcon className="icon" />
+              </a>
+            </div>
+
+            <div className="auth">
+              <a className="authItem" href="">
+                <PhotoCameraFrontOutlinedIcon className="icon" />
+                <span>Üye Ol</span>
+              </a>
+
+              <a className="authItem" href="">
+                <PersonIcon className="icon" />
+                <span>Giriş Yap</span>
+              </a>
+
+              <a className="authItem" href="">
+                <ShoppingCartOutlinedIcon className="icon" />
+                <span>Sepetim</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="headerCenter">
+        <div className="container">
+          <div className="headerWrapperCenter">
+            <Link className="logo" to="/">
+              <img src="/images/logo/peynirharmanılogowebson.png" alt="" />
+            </Link>
+
+            <div className="searchContainer">
+              <input
+                type="text"
+                placeholder="Ara..."
+                className="search-input"
+              />
+              <SearchIcon className="search-icon" />
+            </div>
+
+            <div className="info-container">
+              <div className="info-box">
+                <HeadsetIcon className="icon" />
+
+                <div className="info-text">
+                  <span>Destek Hattı</span>
+                  <strong>0850 305 32 02</strong>
+                </div>
+              </div>
+
+              <div className="divider"></div>
+
+              <div className="info-box">
+                <LocalShippingOutlinedIcon className="icon"/>
+                <div className="info-text">
+                  <span>1200 TL ve üzeri</span>
+                  <strong>Ücretsiz Kargo</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="hamburger" onClick={toggleMenu}>
+              {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="headerBottom">
+        <div className="container">
+          <div className="headerWrapperBottom">
+            <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <Link className="menu-link" to="/" onClick={closeMenu}>
+                    Peynir Çeşitleri
+                  </Link>
+                </li>
+                <div className="divider"></div>
+                <li>
+                  <Link
+                    className="menu-link"
+                    to="/projeler"
+                    onClick={closeMenu}
+                  >
+                    Tereyağı Ürünleri
+                  </Link>
+                </li>
+                <div className="divider"></div>
+                <li className="menu-list-item">
+                  <Link
+                    className="menu-link"
+                    to="/hakkimizda"
+                    onClick={closeMenu}
+                  >
+                    Yöresel Ürünler
+                  </Link>
+                </li>
+                <div className="divider"></div>
+                <li className="menu-list-item">
+                  <Link
+                    className="menu-link"
+                    to="/iletisim"
+                    onClick={closeMenu}
+                  >
+                    Bal Ürünleri
+                  </Link>
+                </li>
+                <div className="divider"></div>
+                <li className="menu-list-item">
+                  <Link
+                    className="menu-link"
+                    to="/urunler"
+                    onClick={closeMenu}
+                  >
+                    Tüm Ürünler
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

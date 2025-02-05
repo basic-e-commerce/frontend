@@ -1,0 +1,70 @@
+.bestTeam {
+    width: 100%;
+
+    .content {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      .left {
+        width: calc(30% - 1rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #1f7a3e;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+
+        img {
+          width: 80px;
+          height: 80px;
+        }
+        
+        .anaTitle {
+          .title,
+          .desc {
+            color: #ddd;
+          }
+        }
+      }
+
+      .TeamlistCards {
+        position: relative;
+        width: 70%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .content {
+        margin-bottom: 1rem;
+        flex-direction: column;
+
+        .left {
+          align-items: self-start;
+          width: 100%;
+
+          .anaTitle {
+            .title {
+              text-align: start;
+            }
+          }
+        }
+
+        .TeamlistCards {
+          width: 100%;
+        }
+      }
+    }
+
+    @media (max-width: 500px) {
+      .content {
+        gap: 2.5rem;
+
+        hr {
+          display: none;
+        }
+      }
+    }
+  }

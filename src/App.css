@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", serif;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #a1a1a1; /* Scroll çubuğu rengi */
+  }
+}
+/* Genel Container Ayarları */
+.container {
+  width: 100%; /* Varsayılan olarak %100 genişlik */
+  max-width: 1140px; /* Maksimum genişlik (masaüstü için) */
+  margin: 0 auto; /* Ortala */
+  padding: 16px; /* Kenarlardan boşluk */
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    max-width: 90%; /* Tablet için genişlik */
+    padding: 16px; /* Kenar boşluklarını koru */
+  }
+}
+
+/* Mobil (Telefon) */
+@media (max-width: 767px) {
+  .container {
+    max-width: 100%; /* Mobilde tam genişlik */
+    padding: 16px; /* Kenar boşluklarını koru */
+  }
+}
+
+/* Tablet */
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.btn-card {
+  background-color: black;
+  color: whitesmoke;
+  padding: 9px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+}

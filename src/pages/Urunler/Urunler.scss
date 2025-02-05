@@ -1,0 +1,20 @@
+.urunler {
+  margin-top: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  min-height: 300rem;
+
+  .container {
+    padding-top: 3rem;
+    display: flex;
+    flex: 10;
+    gap: 3rem;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+  }
+}
