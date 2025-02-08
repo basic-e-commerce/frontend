@@ -12,7 +12,6 @@
     display: flex;
     align-items: center;
     background: linear-gradient(to right, rgb(37, 36, 9), #2f6c30);
-    
 
     .container {
       .headerTopWrapper {
@@ -128,7 +127,6 @@
           .icon {
             height: 100%;
             color: #2e7d32; // Yeşil ton
-            
           }
 
           .info-text {
@@ -188,7 +186,7 @@
             height: 40px;
             background-color: #ddd;
           }
-          
+
           .menu-link {
             font-size: 1rem;
             transition: color 0.2s ease;

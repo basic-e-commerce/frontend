@@ -11,9 +11,7 @@ p {
   font-weight: normal; /* Genellikle normal (400) ağırlık */
   line-height: 1.5; /* Okunabilirliği artırmak için */
   letter-spacing: 0; /* Harf aralığı */
-  
 }
-
 
 .dikkatItems {
   display: flex;
@@ -59,10 +57,9 @@ p {
 }
 
 @media (max-width: 1024px) {
-  .dikkat{
+  .dikkat {
     padding-top: 3rem;
     padding-bottom: 3rem;
-
   }
   .dikkatItems {
     gap: 2rem;
@@ -88,13 +85,11 @@ p {
 }
 
 @media (max-width: 768px) {
-
-  .dikkat{
+  .dikkat {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-
   }
-  
+
   .dikkatItems {
     flex-direction: column;
     gap: 5rem;

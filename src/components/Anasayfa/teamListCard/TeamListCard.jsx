@@ -19,16 +19,20 @@ function TeamlisCard({ proje }) {
   return (
     <li className="glide__slide">
       <div className="card">
-        <div className="img">
+        <Link to={`/urunler/${proje.id}`} className="img">
           <img src={proje.coverImage} alt="" />
-        </div>
+        </Link>
 
         <div className="cardSection">
           <div className="CardTop">
-            <h4 className="title">{proje.title} / Adet</h4>
+            <Link to={`/urunler/${proje.id}`}>
+              <h4 className="title">{proje.title}</h4>
+            </Link>
+
             <p className="price">
-              <span className="eskiFiyat">{proje.eskiFiyat}</span> /{" "}
+              <span className="eskiFiyat">{proje.eskiFiyat}</span>
               <span className="yeniFiyat">{proje.yeniFiyat}</span>
+              <span className="">/ Adet</span>
             </p>
           </div>
           <div className="CardBottom">
@@ -47,9 +51,7 @@ function TeamlisCard({ proje }) {
                 }}
               />
             </div>
-            <Link to={`/projeler/${proje.id}`} className="btn-card">
-              Ekle
-            </Link>
+            <button className="btn-card">Ekle</button>
           </div>
         </div>
       </div>

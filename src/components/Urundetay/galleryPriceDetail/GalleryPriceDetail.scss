@@ -1,0 +1,221 @@
+.mainSectionSide {
+  padding-top: 2rem;
+  display: flex;
+  gap: 3rem;
+
+  .product-gallery {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    .single-img {
+      border: 1px solid black;
+      height: 370px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .product-thump {
+      margin-top: 0.5rem;
+      height: 79px;
+
+      img {
+        border: 1px solid transparent;
+      }
+    }
+  }
+  .rightActionSide {
+    width: calc(45% - 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .fiyatAction {
+      border-top: 1px solid #dee0ee;
+      border-bottom: 1px solid #dee0ee;
+      padding: 1.5rem 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      .price {
+        display: flex;
+        flex-direction: column;
+
+        .fiyat {
+          font-size: 1rem;
+          color: darkred;
+          display: inline-block;
+          text-decoration: line-through;
+        }
+        .indirimliFiyat {
+          font-size: 2rem;
+          color: #448d44;
+          font-weight: 600;
+          position: relative;
+          display: inline-block;
+          width: auto;
+
+          &::after {
+            content: "%4 indirim";
+            background-color: #448d44;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 5px;
+            position: absolute;
+            left: 100;
+            width: auto;
+            top: -15px;
+          }
+        }
+      }
+
+      .buttons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        .sayac {
+          padding: 10px 15px 10px 15px;
+          border-radius: 30px;
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          justify-content: start;
+          background-color: #e8e8e8;
+          .icon {
+            cursor: pointer;
+            background-color: white;
+            border-radius: 50%;
+            color: gray;
+            padding: 3px;
+
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+          .sayi,
+          .birim {
+            font-size: 1rem;
+          }
+        }
+
+        .btnSepet {
+          padding: 13px 15px 13px 15px;
+          border-radius: 50px;
+          background-color: #f7ce68;
+          color: black;
+          font-size: 1rem;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .favButton {
+          button {
+            background-color: transparent;
+            padding: 10px 15px;
+            border-radius: 50%;
+            background-color: #e8e8e8;
+
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+    }
+
+    .whatsappSiparis {
+      display: flex;
+      gap: 1rem;
+      background-color: #e8e8e8;
+      border-radius: 15px;
+      padding: 20px;
+      align-items: center;
+      transition: 0.3s;
+
+      .icon {
+        font-size: 2.3rem;
+        color: #448d44;
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgb(44, 105, 44);
+        .icon {
+          color: white;
+        }
+        h3,
+        p {
+          color: white;
+        }
+      }
+    }
+  }
+  @media (max-width: 1024px) {
+    flex-direction: column;
+
+    .single-img {
+      height: 450px;
+      img {
+        height: 100% !important;
+      }
+    }
+
+    .product-gallery {
+      width: 100%;
+      gap: 1rem;
+
+      .product-thump {
+        height: 100px;
+      }
+    }
+
+    .rightActionSide {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-gallery {
+      .single-img {
+        display: none;
+      }
+
+      .product-thump {
+        height: 380px;
+
+        img {
+          border: 1px solid transparent;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 425px) {
+    .product-gallery {
+      .product-thump {
+        height: 280px;
+      }
+    }
+
+    .projectDetay {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

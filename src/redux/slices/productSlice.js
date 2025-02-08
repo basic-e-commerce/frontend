@@ -5,8 +5,9 @@ import axios from "axios";
 const initialState = {
   products: [],
   productsStatus: STATUS.IDLE,
-  productDetail: [], // Array veya Küme
+  productDetail: {}, // Array veya Küme
   productDetailStatus: STATUS.IDLE,
+  productDetailCover: "",
 };
 
 export const getProducts = createAsyncThunk("getProducts", async () => {
@@ -45,42 +46,48 @@ const productSlice = createSlice({
     sortingTheDecProduct(state) {
       state.products = [...state.products].sort((a, b) => b.price - a.price);
     },
+    productDetailCoverChange(state, action) {
+      state.productDetailCover = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state, action) => {
+      .addCase(getProducts.pending, (state) => {
         state.productsStatus = STATUS.LOADING;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.productsStatus = STATUS.SUCCESS;
         state.products = action.payload;
       })
-      .addCase(getProducts.rejected, (state, action) => {
+      .addCase(getProducts.rejected, (state) => {
         state.productsStatus = STATUS.FAIL;
       })
-      .addCase(getProductDetail.pending, (state, action) => {
+      .addCase(getProductDetail.pending, (state) => {
         state.productDetailStatus = STATUS.LOADING;
       })
       .addCase(getProductDetail.fulfilled, (state, action) => {
         state.productDetailStatus = STATUS.SUCCESS;
         state.productDetail = action.payload;
       })
-      .addCase(getProductDetail.rejected, (state, action) => {
+      .addCase(getProductDetail.rejected, (state) => {
         state.productDetailStatus = STATUS.FAIL;
       })
-      .addCase(getProductsCategory.pending, (state, action) => {
+      .addCase(getProductsCategory.pending, (state) => {
         state.productsStatus = STATUS.LOADING;
       })
       .addCase(getProductsCategory.fulfilled, (state, action) => {
         state.productsStatus = STATUS.SUCCESS;
         state.products = action.payload;
       })
-      .addCase(getProductsCategory.rejected, (state, action) => {
+      .addCase(getProductsCategory.rejected, (state) => {
         state.productsStatus = STATUS.FAIL;
       });
   },
 });
 
-export const { sortingTheIncProduct, sortingTheDecProduct } =
-  productSlice.actions;
+export const {
+  sortingTheIncProduct,
+  sortingTheDecProduct,
+  productDetailCoverChange,
+} = productSlice.actions;
 export default productSlice.reducer;

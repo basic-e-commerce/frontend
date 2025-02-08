@@ -1,0 +1,131 @@
+.fiyatAction {
+  border-top: 1px solid #dee0ee;
+  border-bottom: 1px solid #dee0ee;
+  padding: 1.5rem 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  .price {
+    display: flex;
+    flex-direction: column;
+
+    .fiyat {
+      font-size: 1rem;
+      color: darkred;
+      display: inline-block;
+      text-decoration: line-through;
+    }
+    .indirimliFiyat {
+      font-size: 2rem;
+      color: #448d44;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+      width: auto;
+
+      &::after {
+        content: "%4 indirim";
+        background-color: #448d44;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 5px;
+        position: absolute;
+        left: 100;
+        width: auto;
+        top: -15px;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .sayac {
+      padding: 10px 15px 10px 15px;
+      border-radius: 30px;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: start;
+      background-color: #e8e8e8;
+      .icon {
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50%;
+        color: gray;
+        padding: 3px;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+      .sayi,
+      .birim {
+        font-size: 1rem;
+      }
+    }
+
+    .btnSepet {
+      padding: 13px 15px 13px 15px;
+      border-radius: 50px;
+      background-color: #f7ce68;
+      color: black;
+      font-size: 1rem;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .favButton {
+      button {
+        background-color: transparent;
+        padding: 10px 15px;
+        border-radius: 50%;
+        background-color: #e8e8e8;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    .price {
+      align-items: center;
+      .indirimliFiyat {
+        &::after {
+          display: none;
+        }
+      }
+    }
+    .buttons {
+      justify-content: center;
+
+      .sayac {
+        padding: 10px;
+        .icon {
+          font-size: 1.3rem;
+        }
+        .sayi,
+        .birim {
+          font-size: 0.85rem;
+        }
+      }
+      .btnSepet {
+        padding: 13px;
+        font-size: 0.85rem;
+      }
+
+      .favButton {
+        .icon {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}

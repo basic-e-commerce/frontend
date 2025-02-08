@@ -1,0 +1,15 @@
+.nameAndMarka {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  .marka {
+    font-size: 0.9rem;
+    color: #448d44;
+    font-weight: 600;
+  }
+
+  .name {
+    font-weight: 800;
+  }
+}

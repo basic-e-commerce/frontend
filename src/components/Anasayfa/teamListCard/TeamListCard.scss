@@ -113,4 +113,20 @@
       }
     }
   }
+
+  @media (max-width: 1024px) {
+    padding: 0;
+    &:hover {
+      border: 2px solid transparent;
+      box-shadow: none;
+      .cardSection {
+        .CardTop {
+          .title {
+            color: black;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
 }

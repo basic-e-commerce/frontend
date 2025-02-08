@@ -17,4 +17,18 @@
       row-gap: 6rem;
     }
   }
+
+  @media (max-width: 1024px) {
+    .sikcaSorulan {
+      .anaTitle {
+        align-items: self-start;
+        .title {
+          text-align: start;
+        }
+        .desc {
+          text-align: start;
+        }
+      }
+    }
+  }
 }
