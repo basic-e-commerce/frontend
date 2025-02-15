@@ -4,9 +4,9 @@ import Glide from "@glidejs/glide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TeamlisCard from "../../Anasayfa/teamListCard/TeamListCard";
 
-const ProjelerGlide = ({ projeler, perView }) => {
+const ProjelerGlide = ({ products, perView }) => {
   useEffect(() => {
-    if (projeler.length > 0) {
+    if (products.length > 0) {
       const glideDiger = new Glide(".glideDiger", {
         type: "carousel",
         gap: 20,
@@ -27,14 +27,14 @@ const ProjelerGlide = ({ projeler, perView }) => {
 
       glideDiger.mount();
     }
-  }, [projeler]);
+  }, [products]);
 
   return (
     <div className="glideDiger">
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
-          {projeler.map((proje, index) => (
-            <TeamlisCard key={index} proje={proje} />
+          {products?.map((product, index) => (
+            <TeamlisCard key={index} product={product} />
           ))}
         </ul>
       </div>
@@ -50,7 +50,7 @@ const ProjelerGlide = ({ projeler, perView }) => {
       </div>
 
       <div className="glide__bullets" data-glide-el="controls[nav]">
-        {projeler.map((item, index) => (
+        {products?.map((item, index) => (
           <button
             key={`digerUrunler${index}`}
             className="glide__bullet"

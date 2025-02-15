@@ -17,8 +17,14 @@ const Sorting = () => {
 
   return (
     <div className="sorting">
-      <select onChange={handleSortChange} className="select" name="" id="">
-        <option disabled selected>
+      <select
+        onChange={handleSortChange}
+        defaultValue={"null"}
+        className="select"
+        name=""
+        id=""
+      >
+        <option disabled value="null">
           Sırala
         </option>
         <option value="inc">Artan</option>

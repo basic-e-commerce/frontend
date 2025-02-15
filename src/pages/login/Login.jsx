@@ -1,81 +1,59 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Login.scss";
-import { Container } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import XIcon from "@mui/icons-material/X";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import {
-  handleAuthChange,
-  handleNameChange,
-  handleLastNameChange,
-  handleEmailChange,
-  handleUserTypeChange,
-} from "../../store/slices/authSlice";
+import { useDispatch } from "react-redux";
+import { setAccessToken } from "../../redux/slices/authSlice";
+import { handleApiError } from "../../utils/errorHandler";
+import api from "../../api/api";
 
 function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isAccount, setIsAccount] = useState(true);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [isAccount, setIsAcconut] = useState(true);
   const handleButtonClick = () => {
-    setIsAcconut(!isAccount);
+    setIsAccount(!isAccount);
   };
 
-  const userParametersChange = (data) => {
-    dispatch(handleAuthChange(true));
-    dispatch(handleNameChange(data.name));
-    dispatch(handleLastNameChange(data.lastName));
-    dispatch(handleEmailChange(data.email));
-    dispatch(handleUserTypeChange(data.userType));
-  };
-
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
-      const formData = new FormData(event.target);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value;
+      const response = await api.post("/api/v1/auth/c-login", {
+        username,
+        password,
       });
 
-      const response = await axios.post(
-        "http://localhost:8080/login",
-        jsonData,
-        {
-          withCredentials: true, // Çerezleri otomatik olarak gönder
-          headers: {
-            "Content-Type": "application/json", // İsteğin içeriğinin JSON olduğunu belirtiyoruz
-          },
-        }
-      );
-      userParametersChange(response.data);
-      navigate("/");
+      dispatch(setAccessToken(response.data.accessToken));
+      console.log(response.data.accessToken);
     } catch (error) {
-      console.error("Error:", error);
+      const errorMessage = handleApiError(error);
+      alert(errorMessage);
     }
   };
 
   return (
     <div className="login">
-      <Container className="cont">
-        {isAccount && (
+      <div className="container cont">
+        {isAccount ? (
           <div className="loginSection">
             <div className="loginSectionLeft">
               <div className="title">
                 <h2>Giriş Yap</h2>
                 <div className="socialMedia">
                   <InstagramIcon />
-                  <XIcon />
                 </div>
               </div>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleLogin}>
                 <div className="userName abc">
                   <p>Kullanıcı Adı</p>
-                  <input name="username" className="textInput" type="email" />
+                  <input
+                    name="username"
+                    className="textInput"
+                    type="email"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
 
                 <div className="password abc">
@@ -84,11 +62,15 @@ function Login() {
                     name="password"
                     className="textInput"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="controller">
                   <div className="button">
-                    <button className="btn-card">Giriş Yap</button>
+                    <button type="submit" className="btn-card">
+                      Giriş Yap
+                    </button>
                   </div>
                   <div className="forgetPassword">
                     <a href="lll">
@@ -101,7 +83,6 @@ function Login() {
             <div className="loginSectionRight">
               <div className="title">
                 <h3>Henüz üye değil misin?</h3>
-                {/* <p>Bir hesap açarak ilk adımı atabilirsin.</p> */}
               </div>
 
               <div className="button">
@@ -111,21 +92,19 @@ function Login() {
               </div>
             </div>
           </div>
-        )}
-        {!isAccount && (
+        ) : (
           <div className="loginSection">
             <div className="loginSectionLeft">
               <div className="title">
                 <h2>Üye Ol</h2>
                 <div className="socialMedia">
                   <InstagramIcon />
-                  <XIcon />
                 </div>
               </div>
-              <form action="">
+              <form>
                 <div className="userName abc">
                   <p>Ad Soyad</p>
-                  <input className="textInput" type="email" />
+                  <input className="textInput" type="text" />
                 </div>
 
                 <div className="userMail abc">
@@ -138,22 +117,18 @@ function Login() {
                   <input className="textInput" type="password" />
                 </div>
 
-                <div className="tryUserPassword abc">
-                  <p>Şifre Tekrar</p>
-                  <input className="textInput" type="password" />
-                </div>
                 <div className="controller">
                   <div className="button">
-                    <button className="btn-card">Üye Ol</button>
+                    <button type="submit" className="btn-card">
+                      Üye Ol
+                    </button>
                   </div>
-                  <div className="forgetPassword"></div>
                 </div>
               </form>
             </div>
             <div className="loginSectionRight">
               <div className="title">
                 <h3>Hesabın var mı?</h3>
-                {/* <p>Hemen giriş yapabilirsin.</p> */}
               </div>
 
               <div className="button">
@@ -164,7 +139,7 @@ function Login() {
             </div>
           </div>
         )}
-      </Container>
+      </div>
     </div>
   );
 }

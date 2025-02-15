@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import { useState } from "react";
 
-function TeamlisCard({ proje }) {
+function TeamlisCard({ product }) {
   const [sayi, setSayi] = useState(1);
   const azalt = () => {
     if (sayi > 1) {
@@ -17,45 +17,39 @@ function TeamlisCard({ proje }) {
   };
 
   return (
-    <li className="glide__slide">
-      <div className="card">
-        <Link to={`/urunler/${proje.id}`} className="img">
-          <img src={proje.coverImage} alt="" />
-        </Link>
-
-        <div className="cardSection">
-          <div className="CardTop">
-            <Link to={`/urunler/${proje.id}`}>
-              <h4 className="title">{proje.title}</h4>
+    <>
+      {product && (
+        <li className="glide__slide">
+          <div className="card">
+            <Link to={`/urunler/${product.id}`} className="img">
+              <img src={product.coverImage} alt="" />
             </Link>
 
-            <p className="price">
-              <span className="eskiFiyat">{proje.eskiFiyat}</span>
-              <span className="yeniFiyat">{proje.yeniFiyat}</span>
-              <span className="">/ Adet</span>
-            </p>
-          </div>
-          <div className="CardBottom">
-            <div className="sayac">
-              <HorizontalRuleIcon
-                className="icon"
-                onClick={() => {
-                  azalt();
-                }}
-              />
-              <span className="sayi">{sayi}</span>
-              <AddIcon
-                className="icon"
-                onClick={() => {
-                  arttir();
-                }}
-              />
+            <div className="cardSection">
+              <div className="CardTop">
+                <Link to={`/urunler/${product.id}`}>
+                  <h4 className="title">{product.name}</h4>
+                </Link>
+
+                <p className="price">
+                  <span className="eskiFiyat">{product.price} TL</span>
+                  <span className="yeniFiyat">{product.discountPrice} TL</span>
+                  <span className="">/ {product.unitType}</span>
+                </p>
+              </div>
+              <div className="CardBottom">
+                <div className="sayac">
+                  <HorizontalRuleIcon className="icon" onClick={azalt} />
+                  <span className="sayi">{sayi}</span>
+                  <AddIcon className="icon" onClick={arttir} />
+                </div>
+                <button className="btn-card">Ekle</button>
+              </div>
             </div>
-            <button className="btn-card">Ekle</button>
           </div>
-        </div>
-      </div>
-    </li>
+        </li>
+      )}
+    </>
   );
 }
 

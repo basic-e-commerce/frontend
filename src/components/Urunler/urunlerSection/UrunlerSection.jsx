@@ -17,7 +17,7 @@ const UrunlerSection = () => {
   const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
-    if (selectedCategory == "") {
+    if (selectedCategory == null) {
       dispatch(getProducts());
     } else {
       dispatch(getProductsCategory(selectedCategory));
@@ -30,7 +30,9 @@ const UrunlerSection = () => {
     <div className="urunlerSection">
       <div className="title">
         <div className="titleTop">
-          <h3 style={{ fontSize: "1.2rem", padding: "0.5rem" }}>Ürünler</h3>
+          <h3 style={{ fontSize: "1.2rem", padding: "0.5rem" }}>
+            {selectedCategory == null ? "Tüm Ürünler" : selectedCategory}
+          </h3>
           <Sorting />
         </div>
 
@@ -43,7 +45,7 @@ const UrunlerSection = () => {
         <>
           <ul className="urunlerMap">
             {currentItems?.map((product, index) => (
-              <TeamlisCard key={index} proje={product} />
+              <TeamlisCard key={index} product={product} />
             ))}
           </ul>
 

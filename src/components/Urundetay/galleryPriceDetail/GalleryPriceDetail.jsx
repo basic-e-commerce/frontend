@@ -6,7 +6,7 @@ import NameAndMarka from "../nameAndMarka/NameAndMarka";
 import RatingAndCode from "../ratingAndCode/RatingAndCode";
 import FiyatActions from "../fiyatActions/FiyatActions";
 
-const GalleryPriceDetail = ({ proje }) => {
+const GalleryPriceDetail = ({ productDetail }) => {
   const { productDetailCover } = useSelector((state) => state.products);
 
   return (
@@ -18,22 +18,20 @@ const GalleryPriceDetail = ({ proje }) => {
           </div>
 
           <div className="product-thump">
-            <MrGlide images={proje.images} />
+            <MrGlide images={productDetail.images} />
           </div>
         </div>
 
         <div className="rightActionSide">
-          <NameAndMarka
-            marka={"Sütaş"}
-            name={"Yöre Çanakkale Klasik Tam Yağlı Orta Sert İnek Beyaz Peynir"}
-          />
+          <NameAndMarka marka={"Sütaş"} name={productDetail.name} />
 
           <RatingAndCode rating={"4"} comments={"3"} code={"302024"} />
 
           <FiyatActions
-            birim={"Adet"}
-            fiyat={"400,00"}
-            indirimliFiyat={"360,75"}
+            id={productDetail.id}
+            birim={productDetail.unitType}
+            fiyat={productDetail.price}
+            indirimliFiyat={productDetail.discountPrice}
           />
 
           <div className="whatsappSiparis">

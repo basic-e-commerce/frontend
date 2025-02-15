@@ -10,11 +10,19 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PhotoCameraFrontOutlinedIcon from "@mui/icons-material/PhotoCameraFrontOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import HeadsetIcon from "@mui/icons-material/Headset";
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCategories,
+  setSelectedCategory,
+} from "../../redux/slices/categorySlice";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const categories = useSelector((state) => state.categories.categories);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,6 +37,10 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <header className="header">
@@ -56,20 +68,20 @@ const Header = () => {
             </div>
 
             <div className="auth">
-              <a className="authItem" href="">
+              <Link className="authItem" href="">
                 <PhotoCameraFrontOutlinedIcon className="icon" />
                 <span>Üye Ol</span>
-              </a>
+              </Link>
 
-              <a className="authItem" href="">
+              <Link className="authItem" to={"/login"}>
                 <PersonIcon className="icon" />
                 <span>Giriş Yap</span>
-              </a>
+              </Link>
 
-              <a className="authItem" href="">
+              <Link className="authItem" to={"/sepet"}>
                 <ShoppingCartOutlinedIcon className="icon" />
                 <span>Sepetim</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -104,7 +116,7 @@ const Header = () => {
               <div className="divider"></div>
 
               <div className="info-box">
-                <LocalShippingOutlinedIcon className="icon"/>
+                <LocalShippingOutlinedIcon className="icon" />
                 <div className="info-text">
                   <span>1200 TL ve üzeri</span>
                   <strong>Ücretsiz Kargo</strong>
@@ -124,47 +136,33 @@ const Header = () => {
           <div className="headerWrapperBottom">
             <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
               <ul className="menu-list">
-                <li className="menu-list-item">
-                  <Link className="menu-link" to="/" onClick={closeMenu}>
-                    Peynir Çeşitleri
-                  </Link>
-                </li>
-                <div className="divider"></div>
-                <li>
-                  <Link
-                    className="menu-link"
-                    to="/projeler"
-                    onClick={closeMenu}
-                  >
-                    Tereyağı Ürünleri
-                  </Link>
-                </li>
-                <div className="divider"></div>
-                <li className="menu-list-item">
-                  <Link
-                    className="menu-link"
-                    to="/hakkimizda"
-                    onClick={closeMenu}
-                  >
-                    Yöresel Ürünler
-                  </Link>
-                </li>
-                <div className="divider"></div>
+                {categories.length > 0 ? (
+                  categories.map((category) => (
+                    <li key={category.id} className="menu-list-item">
+                      <Link
+                        className="menu-link"
+                        to={`/urunler`}
+                        onClick={() => {
+                          dispatch(setSelectedCategory(category.id));
+                          closeMenu();
+                        }}
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li className="menu-list-item">Kategoriler yükleniyor...</li>
+                )}
+
                 <li className="menu-list-item">
                   <Link
                     className="menu-link"
-                    to="/iletisim"
-                    onClick={closeMenu}
-                  >
-                    Bal Ürünleri
-                  </Link>
-                </li>
-                <div className="divider"></div>
-                <li className="menu-list-item">
-                  <Link
-                    className="menu-link"
-                    to="/urunler"
-                    onClick={closeMenu}
+                    to={`/urunler`}
+                    onClick={() => {
+                      dispatch(setSelectedCategory(null));
+                      closeMenu();
+                    }}
                   >
                     Tüm Ürünler
                   </Link>

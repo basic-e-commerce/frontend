@@ -4,9 +4,9 @@ import "./ProjelerGlide.scss";
 import Glide from "@glidejs/glide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const ProjelerGlide = ({ projeler, perView }) => {
+const ProjelerGlide = ({ products, perView }) => {
   useEffect(() => {
-    if (projeler.length > 0) {
+    if (products.length > 0) {
       const glideDiger = new Glide(".glideDiger", {
         type: "carousel",
         gap: 20,
@@ -27,14 +27,14 @@ const ProjelerGlide = ({ projeler, perView }) => {
 
       glideDiger.mount();
     }
-  }, [projeler]);
+  }, [products]);
 
   return (
     <div className="glideDiger">
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
-          {projeler.map((proje, index) => (
-            <TeamListCard key={index} proje={proje} />
+          {products.map((product, index) => (
+            <TeamListCard key={index} product={product} />
           ))}
         </ul>
       </div>
@@ -50,8 +50,9 @@ const ProjelerGlide = ({ projeler, perView }) => {
       </div>
 
       <div className="glide__bullets" data-glide-el="controls[nav]">
-        {projeler.map((item, index) => (
+        {products.map((item, index) => (
           <button
+            key={`bestProduct${index}`}
             className="glide__bullet"
             data-glide-dir={`=${index}`}
           ></button>

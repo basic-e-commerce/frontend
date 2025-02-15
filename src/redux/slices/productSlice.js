@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/Status";
-import axios from "axios";
+
+import {
+  fetchProductDetail,
+  fetchProducts,
+  fetchProductsByCategory,
+} from "../../api/apiProduct";
 
 const initialState = {
   products: [],
@@ -11,28 +16,20 @@ const initialState = {
 };
 
 export const getProducts = createAsyncThunk("getProducts", async () => {
-  const response = await axios.get("https://fakestoreapi.com/products");
-  const data = response.data;
-  return data;
+  return await fetchProducts();
 });
 
 export const getProductsCategory = createAsyncThunk(
   "getProductsCategory",
-  async (category) => {
-    const response = await axios.get(
-      `https://fakestoreapi.com/products/category/${category}`
-    );
-    const data = response.data;
-    return data;
+  async (id) => {
+    return await fetchProductsByCategory(id);
   }
 );
 
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
   async (id) => {
-    const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
-    const data = response.data;
-    return data;
+    return await fetchProductDetail(id);
   }
 );
 
@@ -41,15 +38,20 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     sortingTheIncProduct(state) {
-      state.products = [...state.products].sort((a, b) => a.price - b.price);
+      state.products = [...state.products].sort(
+        (a, b) => a.discountPrice - b.discountPrice
+      );
     },
     sortingTheDecProduct(state) {
-      state.products = [...state.products].sort((a, b) => b.price - a.price);
+      state.products = [...state.products].sort(
+        (a, b) => b.discountPrice - a.discountPrice
+      );
     },
     productDetailCoverChange(state, action) {
       state.productDetailCover = action.payload;
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
@@ -67,6 +69,7 @@ const productSlice = createSlice({
       })
       .addCase(getProductDetail.fulfilled, (state, action) => {
         state.productDetailStatus = STATUS.SUCCESS;
+        state.productDetailCover = action.payload.coverImage;
         state.productDetail = action.payload;
       })
       .addCase(getProductDetail.rejected, (state) => {

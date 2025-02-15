@@ -4,13 +4,14 @@
   background: linear-gradient(to right, rgb(37, 36, 9), #2f6c30);
   color: #fff;
   margin-top: 6rem;
-}
-p {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 0.9rem; /* Bu, genelde body1 için varsayılan boyuttur */
-  font-weight: normal; /* Genellikle normal (400) ağırlık */
-  line-height: 1.5; /* Okunabilirliği artırmak için */
-  letter-spacing: 0; /* Harf aralığı */
+
+  p {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 0.9rem; /* Bu, genelde body1 için varsayılan boyuttur */
+    font-weight: normal; /* Genellikle normal (400) ağırlık */
+    line-height: 1.5; /* Okunabilirliği artırmak için */
+    letter-spacing: 0; /* Harf aralığı */
+  }
 }
 
 .dikkatItems {

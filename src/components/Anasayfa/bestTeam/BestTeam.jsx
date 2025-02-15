@@ -1,75 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Baslik from "../../baslik/Baslik";
 import ProjelerGlide from "../../ProjerlerGlide/ProjelerGlide";
 import "./BestTeam.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../../redux/slices/productSlice";
+import Loading from "../../Loading/Loading";
 
 const BestTeam = () => {
-  const [projeler, setProjeler] = useState([
-    {
-      id: 1,
-      title: "Organik Tereyağ",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "15.000.000 TL",
-      coverImage: "/images/anasayfa/tereyag.png",
-    },
-    {
-      id: 2,
-      title: "Örgü Peynir",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "7.500.000 TL",
-      coverImage: "/images/anasayfa/peynir.jpg",
-    },
-    {
-      id: 3,
-      title: "Organik Bal",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "7.500.000 TL",
-      coverImage: "/images/anasayfa/Bal.jpg",
-    },
-    {
-      id: 1,
-      title: "Organik Tereyağ",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "15.000.000 TL",
-      coverImage: "/images/anasayfa/tereyag.png",
-    },
-    {
-      id: 2,
-      title: "Örgü Peynir",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "7.500.000 TL",
-      coverImage: "/images/anasayfa/peynir.jpg",
-    },
-    {
-      id: 3,
-      title: "Organik Bal",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "7.500.000 TL",
-      coverImage: "/images/anasayfa/Bal.jpg",
-    },
-    {
-      id: 1,
-      title: "Organik Tereyağ",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "15.000.000 TL",
-      coverImage: "/images/anasayfa/tereyag.png",
-    },
-    {
-      id: 2,
-      title: "Örgü Peynir",
-      eskiFiyat: "1000 TL",
-      yeniFiyat: "800 TL",
-      price: "7.500.000 TL",
-      coverImage: "/images/anasayfa/peynir.jpg",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { products, productsStatus } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <div className="bestTeam">
@@ -80,11 +23,15 @@ const BestTeam = () => {
           </div>
 
           <div className="TeamlistCards">
-            <ProjelerGlide
-              key={window.location.pathname}
-              perView={3}
-              projeler={projeler}
-            />
+            {productsStatus === "LOADING" ? (
+              <Loading />
+            ) : (
+              <ProjelerGlide
+                key={window.location.pathname}
+                perView={3}
+                products={products}
+              />
+            )}
           </div>
         </div>
       </div>

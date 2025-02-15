@@ -12,7 +12,7 @@ const MrGlide = ({ images }) => {
 
   const handleImageClick = (image, index) => {
     setActiveIndex(index);
-    dispatch(productDetailCoverChange(image.filename));
+    dispatch(productDetailCoverChange(image));
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const MrGlide = ({ images }) => {
     <div className="glideResim">
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <li
               key={index}
               className={`glide__slide ${
@@ -48,7 +48,7 @@ const MrGlide = ({ images }) => {
                     : "none",
               }}
             >
-              <img src={image.filename} alt={`slide-${index}`} />
+              <img src={image} alt={`slide-${index}`} />
             </li>
           ))}
         </ul>
@@ -108,7 +108,7 @@ const MrGlide = ({ images }) => {
       </div>
 
       <div className="glide__bullets" data-glide-el="controls[nav]">
-        {images.map((item, index) => (
+        {images?.map((item, index) => (
           <button
             key={`urunImgs${index}`}
             className="glide__bullet"

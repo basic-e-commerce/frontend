@@ -16,15 +16,15 @@ const Categories = () => {
 
   return (
     <ul className="categories">
-      {categories?.map((categoryName, index) => (
+      {categories?.map((category, index) => (
         <li
           onClick={() => {
-            dispatch(setSelectedCategory(categoryName));
+            dispatch(setSelectedCategory(category.id));
           }}
           className="categoryItem"
           key={index}
         >
-          <button>{categoryName}</button>
+          <button>{category.name}</button>
         </li>
       ))}
     </ul>

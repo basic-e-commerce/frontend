@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import UrunDetay from "./pages/UrunDetay/UrunDetay";
 import ScrollToTop from "./components/scrollTop/ScrollToTop";
+import Sepet from "./pages/Sepet/Sepet";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/" element={<Anasayfa />} />
         <Route path="/urunler" element={<Urunler />} />
         <Route path="/urunler/:id" element={<UrunDetay />} />
+        <Route path="/sepet" element={<Sepet />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <FooterTop />
       <Footer />
