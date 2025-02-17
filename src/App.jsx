@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import UrunDetay from "./pages/UrunDetay/UrunDetay";
 import ScrollToTop from "./components/scrollTop/ScrollToTop";
-import Sepet from "./pages/Sepet/Sepet";
+import Sepet from "./pages/sepet/Sepet";
 import Login from "./pages/login/Login";
 
 function App() {
