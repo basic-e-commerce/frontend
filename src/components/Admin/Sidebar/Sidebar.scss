@@ -1,0 +1,57 @@
+.panelSidebar {
+  flex: 2;
+  background-color: rgb(17, 42, 15);
+
+  .top {
+    border-bottom: 0.1rem solid #dee0ea;
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      font-weight: 600;
+      color: rgb(211, 209, 209);
+    }
+  }
+
+  .bottom {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    margin-top: 4rem;
+
+    ul {
+      li {
+        a {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          cursor: pointer;
+          position: relative;
+
+          .icon {
+            font-size: 1.3rem;
+            color: rgb(215, 215, 215);
+          }
+
+          span {
+            font-size: 0.9rem;
+            margin-left: 12px;
+            color: rgb(215, 215, 215);
+          }
+
+          &:hover {
+            background-color: rgb(215, 215, 215);
+
+            span,
+            .icon,
+            .right {
+              color: rgb(14, 17, 48);
+            }
+          }
+        }
+      }
+    }
+  }
+}

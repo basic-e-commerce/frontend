@@ -21,8 +21,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
-
-  const categories = useSelector((state) => state.categories.categories);
+  const { categories } = useSelector((state) => state.categories);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -39,8 +38,10 @@ const Header = () => {
   }, [location]);
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    if (categories.length === 0) {
+      dispatch(getCategories());
+    }
+  }, [dispatch, categories.length]);
 
   return (
     <header className="header">

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Anasayfa from "./pages/Anasayfa/Anasayfa";
 import Header from "./components/Header/Header";
 import FooterTop from "./components/FooterTop/FooterTop";
@@ -11,11 +11,16 @@ import UrunDetay from "./pages/UrunDetay/UrunDetay";
 import ScrollToTop from "./components/scrollTop/ScrollToTop";
 import Sepet from "./pages/sepet/Sepet";
 import Login from "./pages/login/Login";
+import AdminDashboard from "./pages/Admin/adminDashboard/AdminDashboard";
+import UrunEkle from "./pages/Admin/adminDashboard/urunEkle/UrunEkle";
 
 function App() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <Provider store={store}>
-      <Header />
+      {!isAdminRoute && <Header />}
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Anasayfa />} />
@@ -23,9 +28,13 @@ function App() {
         <Route path="/urunler/:id" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="ekle" element={<UrunEkle />} />
+        </Route>
       </Routes>
-      <FooterTop />
-      <Footer />
+      {!isAdminRoute && <FooterTop />}
+      {!isAdminRoute && <Footer />}
     </Provider>
   );
 }
