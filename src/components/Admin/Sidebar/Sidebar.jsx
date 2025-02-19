@@ -18,19 +18,19 @@ const Sidebar = () => {
       <div className="bottom">
         <ul>
           <li style={{ marginBottom: "10px" }}>
-            <Link to="/library">
+            <Link to="/admin">
               <ArrowBackIcon className="icon" />
               <span>Çıkış Yap</span>
             </Link>
           </li>
           <li>
-            <Link to="/panel/bilgi">
+            <Link to="/admin/istatistik">
               <InfoOutlinedIcon className="icon" />
               <span>İstatistik ve Analizler</span>
             </Link>
           </li>
           <li>
-            <Link to="/panel/videolar">
+            <Link to="/admin/urunler">
               <LoopIcon className="icon" />
               <span>Ürünler</span>
             </Link>
@@ -42,28 +42,28 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/panel/teknikanalizler">
+            <Link to="/admin/kategoriler">
               <CandlestickChartIcon className="icon" />
               <span>Kategoriler</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/panel/aidroplar">
+            <Link to="/admin/kategoriekle">
               <CelebrationIcon className="icon" />
               <span>Kategori Ekle</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/panel/portfolyo">
+            <Link to="/admin/siparisler">
               <DonutLargeIcon className="icon" />
               <span>Siparişleri Listele</span>
             </Link>
           </li>
 
           <li>
-            <Link to="/panel/islemler">
+            <Link to="/admin/ayarlar">
               <TrendingUpIcon className="icon" />
               <span>Ayarlar</span>
             </Link>

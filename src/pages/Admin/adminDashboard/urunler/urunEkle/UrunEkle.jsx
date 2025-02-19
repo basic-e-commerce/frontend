@@ -1,8 +1,8 @@
 import "./UrunEkle.scss";
 import { useEffect, useState } from "react";
-import Loading from "../../../../components/Loading/Loading";
+import Loading from "../../../../../components/Loading/Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategories } from "../../../../redux/slices/categorySlice";
+import { getCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -68,19 +68,6 @@ const UrunEkle = () => {
     }
   };
 
-  const handleCategoryChange = (e) => {
-    const value = Number(e.target.value); // String olarak gelen değeri sayıya çevir
-    const checked = e.target.checked;
-
-    setFormData((prevData) => {
-      const updatedCategories = checked
-        ? [...prevData.categoryId, value]
-        : prevData.categoryId.filter((id) => id !== value);
-
-      return { ...prevData, categoryId: updatedCategories };
-    });
-  };
-
   // Form Degisiklik
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -93,6 +80,20 @@ const UrunEkle = () => {
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : newValue,
+    });
+  };
+
+  // Kategori Change
+  const handleCategoryChange = (e) => {
+    const value = Number(e.target.value); // String olarak gelen değeri sayıya çevir
+    const checked = e.target.checked;
+
+    setFormData((prevData) => {
+      const updatedCategories = checked
+        ? [...prevData.categoryId, value]
+        : prevData.categoryId.filter((id) => id !== value);
+
+      return { ...prevData, categoryId: updatedCategories };
     });
   };
 
