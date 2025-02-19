@@ -32,8 +32,12 @@ function TeamlisCard({ product }) {
                 </Link>
 
                 <p className="price">
-                  <span className="eskiFiyat">{product.price} TL</span>
-                  <span className="yeniFiyat">{product.discountPrice} TL</span>
+                  <span className="eskiFiyat">
+                    {product.price.toFixed(2)} TL
+                  </span>
+                  <span className="yeniFiyat">
+                    {product.discountPrice.toFixed(2)} TL
+                  </span>
                   <span className="">/ {product.unitType}</span>
                 </p>
               </div>
