@@ -2,14 +2,14 @@ import "./UrunEkle.scss";
 import { useEffect, useState } from "react";
 import Loading from "../../../../../components/Loading/Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { getCategories } from "../../../../../redux/slices/categorySlice";
+import { getSubCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const UrunEkle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { categories } = useSelector((state) => state.categories);
+  const { subcategories } = useSelector((state) => state.subcategories);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     productName: "",
@@ -25,7 +25,7 @@ const UrunEkle = () => {
   });
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getSubCategories());
   }, [dispatch]);
 
   // Form Submit
@@ -58,7 +58,7 @@ const UrunEkle = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log(response);
+      console.log(response.data);
       setTimeout(() => {
         navigate("/admin");
         setIsloading(false);
@@ -267,7 +267,7 @@ const UrunEkle = () => {
             >
               Ürün Kategorisi:
               <div>
-                {categories.map((category) => (
+                {subcategories?.map((category) => (
                   <label key={category.id}>
                     <input
                       type="checkbox"

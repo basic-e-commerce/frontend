@@ -7,3 +7,8 @@ export const fetchCategories = async () => {
   const response = await axios.get(`${API_URL}/parent`);
   return response.data;
 };
+
+export const fetchSubCategories = async () => {
+  const response = await axios.get(`${API_URL}/subcategory`);
+  return response.data;
+};

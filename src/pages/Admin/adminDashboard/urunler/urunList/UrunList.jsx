@@ -8,6 +8,7 @@ import { getProducts } from "../../../../../redux/slices/productSlice";
 import Pagination from "../../../../../components/Pagination/Pagination";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const UrunList = () => {
   const dispatch = useDispatch();
@@ -21,14 +22,22 @@ const UrunList = () => {
   }, [dispatch]);
 
   const handleDeleteClick = (product) => {
-    setSelectedProduct(product);
+    setSelectedProduct(product.id);
     setShowPopup(true);
   };
 
-  const handleConfirmDelete = () => {
-    console.log("Ürün silindi:", selectedProduct);
-    setShowPopup(false);
-    setSelectedProduct(null);
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/v1/product?id=${selectedProduct}`
+      );
+      setShowPopup(false);
+      setSelectedProduct(null);
+      console.log(response.data);
+      dispatch(getProducts()); // Yeniden ürünleri çek
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log(currentItems);
