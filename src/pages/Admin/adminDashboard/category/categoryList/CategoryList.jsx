@@ -1,23 +1,24 @@
-import "./UrunList.scss";
+import "./CategoryList.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../../../../redux/slices/productSlice";
 import Pagination from "../../../../../components/Pagination/Pagination";
-import StarRateIcon from "@mui/icons-material/StarRate";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getCategories } from "../../../../../redux/slices/categorySlice";
 
-const UrunList = () => {
+const CategoryList = () => {
   const dispatch = useDispatch();
-  const { products, productsStatus } = useSelector((state) => state.products);
+  const navigate = useNavigate();
+  const { categories } = useSelector((state) => state.categories);
+
   const [currentItems, setCurrentItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const handleDeleteClick = (product) => {
@@ -39,11 +40,9 @@ const UrunList = () => {
           <table className="product-table">
             <thead>
               <tr>
-                <th>Ürün İsmi</th>
-                <th>Fiyat</th>
-                <th>Stok Durumu</th>
-                <th>Kategori</th>
-                <th>Memnuniyet</th>
+                <th>Kategori İsmi</th>
+                <th>Aktiflik durumu</th>
+                <th>Açıklama</th>
                 <th></th>
               </tr>
             </thead>
@@ -58,23 +57,12 @@ const UrunList = () => {
                       </div>
                     </div>
                   </td>
+
                   <td>
-                    <span>{product.price.toFixed(2)} ₺</span>
-                  </td>
-                  <td>
-                    <span>30 kalan</span>
-                    <br />
-                    <span className="sold">20 satılmış</span>
-                  </td>
-                  <td>
-                    <span>Kategori a</span>
+                    <span>Aktif</span>
                   </td>
                   <td className="ratingAndComments">
-                    <span className="rating">
-                      <StarRateIcon className="icon" />
-                      <span>4.2</span>
-                    </span>
-                    <span className="reviews">35 Yorum</span>
+                    <span>Açıklama</span>
                   </td>
                   <td className="actions">
                     <a target="_blank" href={`/urunler/${product.id}`}>
@@ -102,7 +90,7 @@ const UrunList = () => {
 
         <Pagination
           itemsPerPage={5}
-          items={products}
+          items={categories}
           setCurrentItems={setCurrentItems}
         />
 
@@ -126,4 +114,4 @@ const UrunList = () => {
   );
 };
 
-export default UrunList;
+export default CategoryList;

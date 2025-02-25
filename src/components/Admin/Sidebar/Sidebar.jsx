@@ -36,7 +36,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/admin/ekle">
+            <Link to="/admin/urunekle">
               <SlowMotionVideoIcon className="icon" />
               <span>Ürün Ekle</span>
             </Link>

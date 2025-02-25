@@ -44,23 +44,9 @@ span {
   font-size: 0.85rem;
 }
 
-.rating {
-  display: flex;
-  gap: 0.3rem;
-  margin-bottom: 0.3rem;
-  .icon {
-    font-size: 0.9rem;
-    color: orange;
-  }
-}
-
-.reviews {
-  display: block;
-  color: gray;
-  font-size: 0.75rem;
-}
-
 .actions {
+  display: flex;
+  justify-content: end;
   .icon {
     font-size: 1.2rem;
   }
