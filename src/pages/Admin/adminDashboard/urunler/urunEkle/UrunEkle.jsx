@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const UrunEkle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { subcategories } = useSelector((state) => state.subcategories);
+  const { subcategories } = useSelector((state) => state.categories);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     productName: "",

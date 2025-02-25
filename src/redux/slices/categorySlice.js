@@ -28,6 +28,7 @@ export const categorySlice = createSlice({
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
     });
+
     builder.addCase(getSubCategories.fulfilled, (state, action) => {
       state.subcategories = action.payload;
     });

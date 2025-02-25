@@ -31,16 +31,15 @@ const UrunList = () => {
       const response = await axios.delete(
         `http://localhost:8080/api/v1/product?id=${selectedProduct}`
       );
-      setShowPopup(false);
       setSelectedProduct(null);
-      console.log(response.data);
+      setShowPopup(false);
       dispatch(getProducts()); // Yeniden ürünleri çek
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(currentItems);
   return (
     <div className="urunList">
       <div className="container">
@@ -120,7 +119,13 @@ const UrunList = () => {
             <div className="popup-inner">
               <p>Silmek istediğinize emin misiniz?</p>
               <div className="popup-buttons">
-                <button className="cancel" onClick={() => setShowPopup(false)}>
+                <button
+                  className="cancel"
+                  onClick={() => {
+                    setSelectedProduct(null);
+                    setShowPopup(false);
+                  }}
+                >
                   İptal
                 </button>
                 <button className="confirm" onClick={handleConfirmDelete}>
