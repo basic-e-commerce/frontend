@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../../../components/Pagination/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 import { getCategories } from "../../../../../redux/slices/categorySlice";
+import denemeImg from "/images/acardion/2.jpg";
 
 const CategoryList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.categories);
-
   const [currentItems, setCurrentItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -51,7 +51,7 @@ const CategoryList = () => {
                 <tr key={product.id}>
                   <td>
                     <div className="product-info">
-                      <img src={product.coverImage} alt={product.name} />
+                      <img src={denemeImg} alt={product.name} />
                       <div>
                         <p className="product-name">{product.name}</p>
                       </div>

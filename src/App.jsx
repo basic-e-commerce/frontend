@@ -37,7 +37,7 @@ function App() {
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />
 
-        <Route path="/admin" element={<AdminDashboard />}>
+        <Route path="/admins" element={<AdminDashboard />}>
           <Route path="istatistik" element={<Istatistikler />} />
           <Route path="urunler" element={<UrunList />} />
           <Route path="urunekle" element={<UrunEkle />} />
