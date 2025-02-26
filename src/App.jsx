@@ -31,13 +31,7 @@ function App() {
       {!isAdminRoute && <Header />}
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Anasayfa />} />
-        <Route path="/urunler" element={<Urunler />} />
-        <Route path="/urunler/:id" element={<UrunDetay />} />
-        <Route path="/sepet" element={<Sepet />} />
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/admin" element={<AdminDashboard />}>
+      <Route path="/admin" element={<AdminDashboard />}>
         <Route index element={<UrunList />} />  {/* Varsayılan sayfa */}
           <Route path="istatistik" element={<Istatistikler />} />
           <Route path="urunler" element={<UrunList />} />
@@ -47,6 +41,14 @@ function App() {
           <Route path="kategoriekle" element={<CategoryCreate />} />
           <Route path="kategoriler/:id" element={<CategoryEdit />} />
         </Route>
+        
+        <Route path="/" element={<Anasayfa />} />
+        <Route path="/urunler" element={<Urunler />} />
+        <Route path="/urunler/:id" element={<UrunDetay />} />
+        <Route path="/sepet" element={<Sepet />} />
+        <Route path="/login" element={<Login />} />
+
+        
         <Route path="/profil" element={<Profile />}>
           <Route path="bilgiler" element={<Bilgiler />} />
         </Route>
