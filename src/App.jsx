@@ -39,16 +39,16 @@ function App() {
 
         <Route path="/admin" element={<AdminDashboard />}>
           <Route index element={<Istatistikler />} />  {/* Varsayılan sayfa */}
-          <Route path="istatistik" element={<Istatistikler />} />
-          <Route path="urunler" element={<UrunList />} />
-          <Route path="urunekle" element={<UrunEkle />} />
-          <Route path="urunler/:id" element={<UrunDuzenle />} />
-          <Route path="kategoriler" element={<CategoryList />} />
-          <Route path="kategoriekle" element={<CategoryCreate />} />
-          <Route path="kategoriler/:id" element={<CategoryEdit />} />
+          <Route path="/istatistik" element={<Istatistikler />} />
+          <Route path="/urunler" element={<UrunList />} />
+          <Route path="/urunekle" element={<UrunEkle />} />
+          <Route path="/urunler/:id" element={<UrunDuzenle />} />
+          <Route path="/kategoriler" element={<CategoryList />} />
+          <Route path="/kategoriekle" element={<CategoryCreate />} />
+          <Route path="/kategoriler/:id" element={<CategoryEdit />} />
         </Route>
         <Route path="/profil" element={<Profile />}>
-          <Route path="bilgiler" element={<Bilgiler />} />
+          <Route path="/bilgiler" element={<Bilgiler />} />
         </Route>
       </Routes>
       {!isAdminRoute && <FooterTop />}
