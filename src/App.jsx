@@ -38,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/admin" element={<AdminDashboard />}>
+          <Route index element={<Istatistikler />} />  {/* Varsayılan sayfa */}
           <Route path="istatistik" element={<Istatistikler />} />
           <Route path="urunler" element={<UrunList />} />
           <Route path="urunekle" element={<UrunEkle />} />
