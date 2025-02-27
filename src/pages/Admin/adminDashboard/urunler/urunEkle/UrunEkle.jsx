@@ -2,14 +2,15 @@ import "./UrunEkle.scss";
 import { useEffect, useState } from "react";
 import Loading from "../../../../../components/Loading/Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { getSubCategories } from "../../../../../redux/slices/categorySlice";
+import { getCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CategoryDropdown from "./CategoryDropdown";
 
 const UrunEkle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { subcategories } = useSelector((state) => state.categories);
+  const { categories } = useSelector((state) => state.categories);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     productName: "",
@@ -25,47 +26,48 @@ const UrunEkle = () => {
   });
 
   useEffect(() => {
-    dispatch(getSubCategories());
+    dispatch(getCategories());
   }, [dispatch]);
 
   // Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     window.scrollTo(0, 0); // Sayfa her değiştiğinde en üst konuma kaydırma
-    setIsloading(true);
+    // setIsloading(true);
+    console.log(formData.categoryId);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("productName", formData.productName);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("quantity", formData.quantity);
-    formDataToSend.append("price", formData.price);
-    formDataToSend.append("discountPrice", formData.discountPrice);
-    formDataToSend.append("status", formData.status);
-    formDataToSend.append("unitType", formData.unitType);
-    formData.categoryId.forEach((id) =>
-      formDataToSend.append("categoryId", id)
-    );
-    formData.images.forEach((image) => formDataToSend.append("images", image));
-    if (formData.coverImage) {
-      formDataToSend.append("coverImage", formData.coverImage);
-    }
+    // const formDataToSend = new FormData();
+    // formDataToSend.append("productName", formData.productName);
+    // formDataToSend.append("description", formData.description);
+    // formDataToSend.append("quantity", formData.quantity);
+    // formDataToSend.append("price", formData.price);
+    // formDataToSend.append("discountPrice", formData.discountPrice);
+    // formDataToSend.append("status", formData.status);
+    // formDataToSend.append("unitType", formData.unitType);
+    // formData.categoryId.forEach((id) =>
+    //   formDataToSend.append("categoryId", id)
+    // );
+    // formData.images.forEach((image) => formDataToSend.append("images", image));
+    // if (formData.coverImage) {
+    //   formDataToSend.append("coverImage", formData.coverImage);
+    // }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/product/model",
-        formDataToSend,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      console.log(response.data);
-      setTimeout(() => {
-        navigate("/admin");
-        setIsloading(false);
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:8080/api/v1/product/model",
+    //     formDataToSend,
+    //     {
+    //       headers: { "Content-Type": "multipart/form-data" },
+    //     }
+    //   );
+    //   console.log(response.data);
+    //   setTimeout(() => {
+    //     navigate("/admins");
+    //     setIsloading(false);
+    //   }, 1000);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   // Form Degisiklik
@@ -84,17 +86,12 @@ const UrunEkle = () => {
   };
 
   // Kategori Change
-  const handleCategoryChange = (e) => {
-    const value = Number(e.target.value); // String olarak gelen değeri sayıya çevir
-    const checked = e.target.checked;
-
-    setFormData((prevData) => {
-      const updatedCategories = checked
-        ? [...prevData.categoryId, value]
-        : prevData.categoryId.filter((id) => id !== value);
-
-      return { ...prevData, categoryId: updatedCategories };
-    });
+  const handleCategoryChange = (updatedCategories) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      categoryId: updatedCategories,
+    }));
+    console.log(updatedCategories);
   };
 
   // Resim Yükleme
@@ -266,19 +263,11 @@ const UrunEkle = () => {
               }}
             >
               Ürün Kategorisi:
-              <div>
-                {subcategories?.map((category) => (
-                  <label key={category.id}>
-                    <input
-                      type="checkbox"
-                      value={category.id}
-                      checked={formData.categoryId.includes(category.id)} // category.id bir sayı olmalı
-                      onChange={handleCategoryChange}
-                    />
-                    {category.name}
-                  </label>
-                ))}
-              </div>
+              <CategoryDropdown
+                categories={categories}
+                selectedCategories={formData.categoryId}
+                onCategoryChange={handleCategoryChange}
+              />
             </div>
 
             <label>
