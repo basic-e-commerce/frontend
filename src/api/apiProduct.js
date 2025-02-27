@@ -1,6 +1,8 @@
 import axios from "axios";
+import {API_URLS} from "../utils/config";
 
-const API_URL = "http://localhost:8080/api/v1/product";
+
+const API_URL = API_URLS;
 
 // Küçük ürünleri getir
 export const fetchProducts = async () => {
