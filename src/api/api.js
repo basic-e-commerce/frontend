@@ -1,10 +1,9 @@
 import axios from "axios";
 import { store } from "../redux/store"; // Redux store'u import et
 import { setAccessToken, logout } from "../redux/slices/authSlice";
-import {BASE_URL, API_URLS} from "../utils/config";
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: "http://localhost:8080",
   withCredentials: true, // HttpOnly refresh token kullanımı için
 });
 
@@ -39,7 +38,7 @@ api.interceptors.response.use(
         isRefreshing = true;
         try {
           const res = await axios.post(
-            `${API_URLS.AUTH}/refresh`,
+            "http://localhost:8080/api/v1/auth/refresh",
             {},
             { withCredentials: true }
           );
