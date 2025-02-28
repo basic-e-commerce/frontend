@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../config/baseApi";
 
-const API_URL = "http://localhost:8080/api/v1/product";
+const API_URL = `${BASE_URL}/api/v1/product`;
 
 // Küçük ürünleri getir
 export const fetchProducts = async () => {

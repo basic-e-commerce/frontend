@@ -6,6 +6,7 @@ import { getCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CategoryDropdown from "./CategoryDropdown";
+import { BASE_URL } from "../../../../../config/baseApi";
 
 const UrunEkle = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,8 @@ const UrunEkle = () => {
 
     // try {
     //   const response = await axios.post(
-    //     "http://localhost:8080/api/v1/product/model",
+
+    //     `${BASE_URL}/api/v1/product/model`,
     //     formDataToSend,
     //     {
     //       headers: { "Content-Type": "multipart/form-data" },

@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../config/baseApi";
 
-const API_URL = "http://localhost:8080/api/v1/category";
+const API_URL = `${BASE_URL}/api/v1/category`;
 
 // Ana kategorileri getir
 export const fetchCategories = async () => {

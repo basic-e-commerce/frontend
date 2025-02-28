@@ -6,6 +6,7 @@ import { getCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductDetail } from "../../../../../redux/slices/productSlice";
+import { BASE_URL } from "../../../../../config/baseApi";
 
 const UrunDuzenle = () => {
   const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const UrunDuzenle = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/v1/product/${id}`,
+        `${BASE_URL}/api/v1/product/${id}`,
         formDataToSend,
         {
           headers: { "Content-Type": "multipart/form-data" },

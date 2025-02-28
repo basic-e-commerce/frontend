@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCategories } from "../../../../../redux/slices/categorySlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../../../config/baseApi";
 
 const CategoryCreate = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const CategoryCreate = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/product/model",
+        `${BASE_URL}/api/v1/product/model`,
         formDataToSend,
         {
           headers: { "Content-Type": "multipart/form-data" },

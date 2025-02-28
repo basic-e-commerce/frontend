@@ -9,6 +9,7 @@ import Pagination from "../../../../../components/Pagination/Pagination";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../../../../config/baseApi";
 
 const UrunList = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const UrunList = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/v1/product?id=${selectedProduct}`
+        `${BASE_URL}/api/v1/product?id=${selectedProduct}`
       );
       setSelectedProduct(null);
       setShowPopup(false);

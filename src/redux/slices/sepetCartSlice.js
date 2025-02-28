@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { STATUS } from "../../utils/status";
+import { BASE_URL } from "../../config/baseApi";
 
 const loadCartFromStorage = () => {
   const savedCart = localStorage.getItem("cart");
@@ -19,9 +20,7 @@ export const fetchCartItems = createAsyncThunk(
     const items = cartItems.map((item) => item.id);
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/order/basket?productIds=${items.join(
-          ","
-        )}`
+        `${BASE_URL}/api/v1/order/basket?productIds=${items.join(",")}`
       );
 
       const prices = response.data; // [{id:1,price:200,img:"https//aliveli.com",name:"Ali ürünü"}]
