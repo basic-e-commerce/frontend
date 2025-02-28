@@ -92,6 +92,7 @@ const Sepet = () => {
                     <th className="product-quantity">Adet / Metraj</th>
                     <th className="product-subtotal">Toplam</th>
                     <th className="controls">Kontroller</th>
+                    {/* <th className="controls">Kontroller</th> */}
                   </tr>
                 </thead>
                 <tbody className="cart-wrapper">
