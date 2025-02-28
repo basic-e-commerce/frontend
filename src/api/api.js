@@ -3,7 +3,7 @@ import { store } from "../redux/store"; // Redux store'u import et
 import { setAccessToken, logout } from "../redux/slices/authSlice";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://litysofttest1.site",
   withCredentials: true, // HttpOnly refresh token kullanımı için
 });
 

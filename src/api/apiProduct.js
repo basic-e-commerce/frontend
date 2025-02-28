@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/v1/product";
+const API_URL = "https://litysofttest1.site/api/v1/product";
 
 // Küçük ürünleri getir
 export const fetchProducts = async () => {
