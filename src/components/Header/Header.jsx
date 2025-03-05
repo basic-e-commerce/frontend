@@ -7,7 +7,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import PhotoCameraFrontOutlinedIcon from "@mui/icons-material/PhotoCameraFrontOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -69,11 +68,6 @@ const Header = () => {
             </div>
 
             <div className="auth">
-              <Link className="authItem" href="">
-                <PhotoCameraFrontOutlinedIcon className="icon" />
-                <span>Üye Ol</span>
-              </Link>
-
               <Link className="authItem" to={"/login"}>
                 <PersonIcon className="icon" />
                 <span>Giriş Yap</span>

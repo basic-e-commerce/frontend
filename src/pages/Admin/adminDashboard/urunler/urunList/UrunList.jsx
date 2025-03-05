@@ -4,7 +4,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../../../../redux/slices/productSlice";
+import {
+  getProducts,
+  resetTheProducts,
+} from "../../../../../redux/slices/productSlice";
 import Pagination from "../../../../../components/Pagination/Pagination";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Link } from "react-router-dom";
@@ -19,6 +22,7 @@ const UrunList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
+    dispatch(resetTheProducts());
     dispatch(getProducts());
   }, [dispatch]);
 
@@ -53,7 +57,7 @@ const UrunList = () => {
                 <th>Stok Durumu</th>
                 <th>Kategori</th>
                 <th>Memnuniyet</th>
-                <th></th>
+                <th>Aksiyon</th>
               </tr>
             </thead>
             <tbody>
@@ -91,7 +95,7 @@ const UrunList = () => {
                         <VisibilityIcon className="icon" />
                       </button>
                     </a>
-                    <Link to={`/admin/urunler/${product.id}`}>
+                    <Link to={`/admins/urunler/${product.id}`}>
                       <button className="edit">
                         <EditIcon className="icon" />
                       </button>

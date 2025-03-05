@@ -33,43 +33,52 @@ const UrunEkle = () => {
   // Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    window.scrollTo(0, 0); // Sayfa her değiştiğinde en üst konuma kaydırma
-    // setIsloading(true);
-    console.log(formData.categoryId);
+    window.scrollTo(0, 0);
+    setIsloading(true);
 
-    // const formDataToSend = new FormData();
-    // formDataToSend.append("productName", formData.productName);
-    // formDataToSend.append("description", formData.description);
-    // formDataToSend.append("quantity", formData.quantity);
-    // formDataToSend.append("price", formData.price);
-    // formDataToSend.append("discountPrice", formData.discountPrice);
-    // formDataToSend.append("status", formData.status);
-    // formDataToSend.append("unitType", formData.unitType);
-    // formData.categoryId.forEach((id) =>
-    //   formDataToSend.append("categoryId", id)
-    // );
-    // formData.images.forEach((image) => formDataToSend.append("images", image));
-    // if (formData.coverImage) {
-    //   formDataToSend.append("coverImage", formData.coverImage);
-    // }
+    const formDataToSend = new FormData();
+    formDataToSend.append("productName", formData.productName);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("quantity", formData.quantity);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("discountPrice", formData.discountPrice);
+    formDataToSend.append("status", formData.status);
+    formDataToSend.append("unitType", formData.unitType);
+    formData.categoryId.forEach((id) =>
+      formDataToSend.append("categoryId", id)
+    );
+    formData.images.forEach((image) => formDataToSend.append("images", image));
+    if (formData.coverImage) {
+      formDataToSend.append("coverImage", formData.coverImage);
+    }
 
-    // try {
-    //   const response = await axios.post(
-
-    //     `${BASE_URL}/api/v1/product/model`,
-    //     formDataToSend,
-    //     {
-    //       headers: { "Content-Type": "multipart/form-data" },
-    //     }
-    //   );
-    //   console.log(response.data);
-    //   setTimeout(() => {
-    //     navigate("/admins");
-    //     setIsloading(false);
-    //   }, 1000);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/product/model`,
+        formDataToSend,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log(response.data);
+      setTimeout(() => {
+        setFormData({
+          productName: "",
+          description: "",
+          quantity: "",
+          price: "",
+          discountPrice: "",
+          status: true,
+          unitType: "",
+          categoryId: [],
+          images: [],
+          coverImage: "",
+        });
+        setIsloading(false);
+      }, 500);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Form Degisiklik

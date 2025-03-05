@@ -32,6 +32,7 @@ const CategoryDropdown = ({
               value={category.id}
               checked={selectedCategories?.includes(category.id)}
               onChange={handleCategoryChange}
+              disabled={category.subCategories.length > 0}
             />
             {category.name.toUpperCase()}
           </label>

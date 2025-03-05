@@ -17,7 +17,6 @@ import UrunList from "./pages/Admin/adminDashboard/urunler/urunList/UrunList";
 import UrunDuzenle from "./pages/Admin/adminDashboard/urunler/urunDuzenle/UrunDuzenle";
 import CategoryList from "./pages/Admin/adminDashboard/category/categoryList/CategoryList";
 import CategoryCreate from "./pages/Admin/adminDashboard/category/categoryCreate/CategoryCreate";
-import CategoryEdit from "./pages/Admin/adminDashboard/category/categoryEdit/CategoryEdit";
 import Istatistikler from "./pages/Admin/adminDashboard/istatistikler/Istatistikler";
 import Profile from "./pages/profile/Profile";
 import Bilgiler from "./pages/profile/Bilgiler/Bilgiler";
@@ -44,7 +43,6 @@ function App() {
           <Route path="urunler/:id" element={<UrunDuzenle />} />
           <Route path="kategoriler" element={<CategoryList />} />
           <Route path="kategoriekle" element={<CategoryCreate />} />
-          <Route path="kategoriler/:id" element={<CategoryEdit />} />
         </Route>
         <Route path="/profil" element={<Profile />}>
           <Route path="bilgiler" element={<Bilgiler />} />

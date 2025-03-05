@@ -50,6 +50,9 @@ const productSlice = createSlice({
     productDetailCoverChange(state, action) {
       state.productDetailCover = action.payload;
     },
+    resetTheProducts(state) {
+      state.products = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -92,5 +95,6 @@ export const {
   sortingTheIncProduct,
   sortingTheDecProduct,
   productDetailCoverChange,
+  resetTheProducts,
 } = productSlice.actions;
 export default productSlice.reducer;
