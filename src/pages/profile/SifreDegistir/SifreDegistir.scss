@@ -1,0 +1,53 @@
+.sifreDegistir {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .title {
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  hr {
+    margin-bottom: 1.5rem;
+  }
+
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    label {
+      min-height: 40px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    input[type="text"],
+    select {
+      width: 40%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0056b3;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+      accent-color: rgb(31, 75, 28);
+    }
+  }
+}

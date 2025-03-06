@@ -54,36 +54,6 @@ const KullaniciBilgileri = () => {
           </label>
         </div>
       </div>
-
-      {/* <div className="sifreDegistir">
-        <div className="title">
-          <h3>Şifre İşlemleri</h3>
-        </div>
-
-        <hr />
-        <div className="bars">
-          <label>
-            <input
-              type="text"
-              name="productName"
-              //   value={formData.productName}
-              //   onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Stok:
-            <input
-              type="text"
-              name="quantity"
-              //   value={formData.quantity}
-              //   onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
-      </div> */}
     </div>
   );
 };

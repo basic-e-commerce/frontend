@@ -59,8 +59,7 @@ const CategoryList = () => {
     }
   }, [selectedCategory, categories, dispatch]);
 
-  const handleDeleteClickCategory = (category) => {
-    setSelectedCategory(category.id);
+  const handleDeleteClickCategory = () => {
     setShowPopupCategory(true);
   };
 
@@ -96,6 +95,8 @@ const CategoryList = () => {
       console.log(error);
     }
   };
+
+  console.log(selectedCategory);
 
   return (
     <div className="categoryList">
