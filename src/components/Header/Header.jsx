@@ -48,7 +48,7 @@ const Header = () => {
         <div className="container">
           <div className="headerTopWrapper">
             <div className="iconss">
-              <span className="none">Bizi Takip Edin! test</span>
+              <span className="none">Bizi Takip Edin!</span>
 
               <a
                 href="https://www.instagram.com/kayayapiinsaat_17"
@@ -105,6 +105,7 @@ const Header = () => {
                 <div className="info-text">
                   <span>Destek Hattı</span>
                   <strong>0850 305 32 02</strong>
+                  <span>test</span>
                 </div>
               </div>
 
