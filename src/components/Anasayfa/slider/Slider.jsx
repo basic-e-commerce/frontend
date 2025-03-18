@@ -27,7 +27,7 @@ const Slider = () => {
             <div className="container">
               <div className="bannerText">
                 <div className="title">
-                  <h1>Peynir Harmanı test</h1>
+                  <h1>Peynir Harmanı</h1>
                 </div>
                 <div className="button">
                   <button>Satın Al</button>
