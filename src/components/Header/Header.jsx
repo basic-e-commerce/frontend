@@ -105,7 +105,6 @@ const Header = () => {
                 <div className="info-text">
                   <span>Destek Hattı</span>
                   <strong>0850 305 32 02</strong>
-                  <span>test</span>
                 </div>
               </div>
 
