@@ -21,14 +21,11 @@ import Istatistikler from "./pages/Admin/adminDashboard/istatistikler/Istatistik
 import Profile from "./pages/profile/Profile";
 import Bilgiler from "./pages/profile/Bilgiler/Bilgiler";
 import SifreDegistir from "./pages/profile/SifreDegistir/SifreDegistir";
-<<<<<<< HEAD
 import Adres from "./pages/profile/adres/Adres";
-=======
 import Siparisler from "./pages/Admin/adminDashboard/siparisler/Siparisler";
 import Ayarlar from "./pages/Admin/adminDashboard/ayarlar/Ayarlar";
 import SiparisOlustur from "./pages/siparisOlustur/SiparisOlustur";
 import KisiAdresleri from "./pages/profile/kisiAdresleri/KisiAdresleri";
->>>>>>> c3462ec (Yerel değişiklikler kaydedildi)
 
 function App() {
   const location = useLocation();
