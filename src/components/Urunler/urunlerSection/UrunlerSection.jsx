@@ -25,6 +25,7 @@ const UrunlerSection = () => {
   }, [dispatch, selectedCategory]);
 
   console.log(products);
+  console.log(selectedCategory);
 
   return (
     <div className="urunlerSection">

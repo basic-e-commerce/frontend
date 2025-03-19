@@ -10,6 +10,7 @@ import {
   fetchCartItems,
   removeFromCart,
 } from "../../redux/slices/sepetCartSlice";
+import { Link } from "react-router-dom";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -157,7 +158,9 @@ const Sepet = () => {
                 </p>
               </div>
 
-              <button className="button">Satın Al</button>
+              <Link to={"/siparis"}>
+                <button className="button">Satın Al</button>
+              </Link>
             </Paper>
           </div>
         </div>

@@ -62,7 +62,7 @@ const CategoryCreate = () => {
                 value={formData.parentCategoryId}
                 onChange={handleChange}
               >
-                <option value="">Ana Kategori</option>
+                <option value="0">Ana Kategori</option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}

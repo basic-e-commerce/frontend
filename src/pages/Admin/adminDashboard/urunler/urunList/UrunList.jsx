@@ -45,6 +45,8 @@ const UrunList = () => {
     }
   };
 
+  console.log(currentItems);
+
   return (
     <div className="urunList">
       <div className="container">
