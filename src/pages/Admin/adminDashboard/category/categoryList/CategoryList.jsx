@@ -21,6 +21,7 @@ const CategoryList = () => {
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.categories);
   const { products, productStatus } = useSelector((state) => state.products);
+
   const [currentItems, setCurrentItems] = useState([]);
   const [showPopupCategory, setShowPopupCategory] = useState(false);
   const [showPopupProduct, setShowPopupProduct] = useState(false);
@@ -28,6 +29,7 @@ const CategoryList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
+  const [initialCategoryName, setInitialCategoryName] = useState("");
 
   useEffect(() => {
     dispatch(resetTheProducts());
@@ -36,26 +38,10 @@ const CategoryList = () => {
 
   useEffect(() => {
     if (selectedCategory) {
-      let selected = categories.find(
-        (cat) => cat.id === Number(selectedCategory)
-      );
-
-      if (!selected) {
-        // Eğer ana kategoriler içinde bulunamazsa, alt kategorileri tarayalım
-        categories.forEach((cat) => {
-          if (cat.subCategories && cat.subCategories.length > 0) {
-            const foundSubCategory = cat.subCategories.find(
-              (subCat) => subCat.id === Number(selectedCategory)
-            );
-            if (foundSubCategory) {
-              selected = foundSubCategory;
-            }
-          }
-        });
-      }
-
-      setSelectedCategoryName(selected?.name || "");
-      dispatch(getProductsCategory(selected?.id));
+      const categoryName = selectedCategory?.name || "";
+      setSelectedCategoryName(categoryName);
+      setInitialCategoryName(categoryName); // İlk değeri saklıyoruz
+      dispatch(getProductsCategory(selectedCategory?.id));
     }
   }, [selectedCategory, categories, dispatch]);
 
@@ -82,6 +68,7 @@ const CategoryList = () => {
       console.log(error);
     }
   };
+
   const handleConfirmDeleteProduct = async () => {
     try {
       const response = await axios.delete(
@@ -90,6 +77,19 @@ const CategoryList = () => {
       setSelectedProduct(null);
       setShowPopupProduct(false);
       dispatch(getProductsCategory(selectedCategory));
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDuzenleCategory = async () => {
+    try {
+      const response = await axios.put(`${BASE_URL}/api/v1/category`, {
+        id: selectedCategory, // Eğer backend id istiyorsa
+        name: selectedCategoryName,
+      });
+      dispatch(getCategories()); // Güncel kategorileri çek
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -128,7 +128,12 @@ const CategoryList = () => {
               <button onClick={handleDeleteClickCategory} className="sil">
                 Sil
               </button>
-              <button>Düzenle</button>
+              <button
+                onClick={handleDuzenleCategory}
+                disabled={selectedCategoryName === initialCategoryName}
+              >
+                Düzenle
+              </button>
             </div>
           )}
 

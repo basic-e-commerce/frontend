@@ -45,6 +45,13 @@
         cursor: pointer;
         transition: background-color 0.2s ease;
         width: 100%;
+
+        &:disabled {
+          background-color: #ccc;
+          color: #666;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
       }
 
       button:hover {

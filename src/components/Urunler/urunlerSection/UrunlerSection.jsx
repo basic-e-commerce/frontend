@@ -20,7 +20,7 @@ const UrunlerSection = () => {
     if (selectedCategory == null) {
       dispatch(getProducts());
     } else {
-      dispatch(getProductsCategory(selectedCategory));
+      dispatch(getProductsCategory(selectedCategory.id));
     }
   }, [dispatch, selectedCategory]);
 
@@ -31,7 +31,7 @@ const UrunlerSection = () => {
       <div className="title">
         <div className="titleTop">
           <h3 style={{ fontSize: "1.2rem", padding: "0.5rem" }}>
-            {selectedCategory == null ? "Tüm Ürünler" : selectedCategory}
+            {selectedCategory == null ? "Tüm Ürünler" : selectedCategory.name}
           </h3>
           <Sorting />
         </div>

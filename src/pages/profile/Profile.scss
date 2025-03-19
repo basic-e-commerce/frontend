@@ -3,7 +3,7 @@
   display: flex;
   gap: 3rem;
   width: 100%;
-  min-height: 50vh;
+  min-height: 40vh;
   flex: 10;
 
   .sidebar {
@@ -38,8 +38,11 @@
             align-items: center;
             padding-right: 10px;
             padding: 10px 0px;
+            margin-right: 5px;
+            padding-left: 10px;
             cursor: pointer;
             position: relative;
+            transition: 0.25s;
 
             .title {
               font-size: 1rem;

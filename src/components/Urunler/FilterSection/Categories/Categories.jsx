@@ -19,7 +19,7 @@ const Categories = () => {
       {categories?.map((category, index) => (
         <li
           onClick={() => {
-            dispatch(setSelectedCategory(category.id));
+            dispatch(setSelectedCategory(category));
           }}
           className="categoryItem"
           key={index}

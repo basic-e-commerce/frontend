@@ -3,6 +3,7 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LockIcon from "@mui/icons-material/Lock";
+import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { Link, Outlet } from "react-router-dom";
 
 const Profile = () => {
@@ -38,6 +39,12 @@ const Profile = () => {
                 <Link to="/profil/siparislerim">
                   <ShoppingBagIcon className="icon" />
                   <span>Siparişlerim</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/profil/siparislerim">
+                  <PowerSettingsNewRoundedIcon className="icon" />
+                  <span>Çıkış Yap</span>
                 </Link>
               </li>
             </ul>

@@ -6,11 +6,22 @@ const CategorySingleDown = ({
   setSelectedCategory,
 }) => {
   const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+    const selectedId = event.target.value;
+
+    // Seçilen kategori ya da alt kategori nesnesini bul
+    const selected = categories
+      .flatMap((category) => [category, ...category.subCategories])
+      .find((item) => item.id.toString() === selectedId);
+
+    setSelectedCategory(selected);
   };
 
   return (
-    <select value={selectedCategory} onChange={handleCategoryChange} required>
+    <select
+      value={selectedCategory ? selectedCategory.id : ""}
+      onChange={handleCategoryChange}
+      required
+    >
       <option disabled value="">
         Kategori Seç
       </option>

@@ -21,6 +21,7 @@ import Istatistikler from "./pages/Admin/adminDashboard/istatistikler/Istatistik
 import Profile from "./pages/profile/Profile";
 import Bilgiler from "./pages/profile/Bilgiler/Bilgiler";
 import SifreDegistir from "./pages/profile/SifreDegistir/SifreDegistir";
+import Adres from "./pages/profile/adres/Adres";
 
 function App() {
   const location = useLocation();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/profil" element={<Profile />}>
           <Route path="bilgiler" element={<Bilgiler />} />
           <Route path="sifredegistir" element={<SifreDegistir />} />
+          <Route path="adreslerim" element={<Adres />} />
         </Route>
       </Routes>
       {!isAdminRoute && <FooterTop />}

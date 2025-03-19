@@ -139,7 +139,7 @@ const Header = () => {
                         className="menu-link"
                         to={`/urunler`}
                         onClick={() => {
-                          dispatch(setSelectedCategory(category.id));
+                          dispatch(setSelectedCategory(category));
                           closeMenu();
                         }}
                       >
