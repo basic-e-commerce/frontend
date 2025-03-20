@@ -50,4 +50,22 @@
       accent-color: rgb(31, 75, 28);
     }
   }
+
+  .button {
+    text-align: end;
+    button {
+      margin-top: 1rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      transition: 0.2s ease;
+      padding: 15px 30px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
 }

@@ -52,6 +52,10 @@ const KullaniciBilgileri = () => {
               required
             />
           </label>
+
+          <div className="button">
+            <button>Değiştir</button>
+          </div>
         </div>
       </div>
     </div>

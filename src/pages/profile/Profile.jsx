@@ -18,19 +18,19 @@ const Profile = () => {
           <div className="center">
             <ul>
               <li>
-                <Link to="/profil/bilgiler" activeClassName="active-link">
+                <Link to="/profil/bilgiler">
                   <SpaceDashboardIcon className="icon" />
                   <span>Profilim</span>
                 </Link>
               </li>
               <li>
-                <Link to="/profil/sifredegistir" activeClassName="active-link">
+                <Link to="/profil/sifredegistir">
                   <LockIcon className="icon" />
                   <span>Şifre Ayarları</span>
                 </Link>
               </li>
               <li>
-                <Link to="/profil/adreslerim" activelassName="active-link">
+                <Link to="/profil/adreslerim">
                   <LocationOnIcon className="icon" />
                   <span>Adreslerim</span>
                 </Link>
