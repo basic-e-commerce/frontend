@@ -140,7 +140,7 @@ const KisiAdresleri = () => {
       {modalOpen && (
         <div className="modal">
           <form onSubmit={handleAddressSubmit} className="modal-content">
-            <h3>Yeni Adres Ekle</h3>
+            <h3>{editMode ? "Adresi Duzenle" : "Yeni Adres Ekle"}</h3>
             <input
               type="text"
               placeholder="Adres Başlığı (Ev, İş vb.)"
@@ -169,7 +169,7 @@ const KisiAdresleri = () => {
             ></textarea>
             <div className="buttons">
               <button onClick={() => setModalOpen(false)}>İptal</button>
-              <button type="submit">Kaydet</button>
+              <button type="submit">{editMode ? "Kaydet" : "Oluştur"}</button>
             </div>
           </form>
         </div>
