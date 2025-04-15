@@ -1,5 +1,5 @@
 .sepet {
-  margin-top: calc(230px + 2rem);
+  margin-top: calc(140px + 2rem);
   display: flex;
   align-items: center;
 
@@ -168,11 +168,11 @@
         }
 
         .button {
-          font-size: 0.8rem;
-          width: 60%;
-          padding: 10px;
-          background-color: #0b1320;
+          font-size: 0.85rem;
+          padding: 0.7rem 1rem;
+          background-color: #316032;
           color: white;
+          border-radius: 14px;
         }
       }
     }

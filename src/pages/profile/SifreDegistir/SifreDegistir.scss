@@ -28,10 +28,10 @@
       justify-content: space-between;
       gap: 1rem;
     }
-    input[type="text"],
+    input,
     select {
       width: 40%;
-      padding: 10px;
+      padding: 12px;
       font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -40,14 +40,8 @@
       transition: border-color 0.2s ease;
     }
 
-    input[type="text"]:focus {
+    input:focus {
       border-color: #0056b3;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.2);
-      accent-color: rgb(31, 75, 28);
     }
   }
 

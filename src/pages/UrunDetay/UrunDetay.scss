@@ -1,9 +1,9 @@
 .projeDetay {
-  margin-top: 230px;
+  margin-top: 140px;
   display: flex;
   flex-direction: column;
   gap: 4rem;
-  min-height: calc(100vh - 230px - 4rem - 32px);
+  min-height: calc(100vh - 140px - 4rem - 32px);
 
   .projectDetay {
     display: flex;
@@ -76,5 +76,5 @@
 }
 
 .loading-container {
-  margin-top: 230px;
+  margin-top: 140px;
 }

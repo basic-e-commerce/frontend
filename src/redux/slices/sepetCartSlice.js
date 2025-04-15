@@ -12,11 +12,54 @@ const initialState = {
   baslangıcState: loadCartFromStorage(),
   cartItems: loadCartFromStorage(),
   status: STATUS.IDLE,
+  cartTotal: {
+    totalPrice: 0,
+    kdv: 0,
+    shippingCost: 0,
+    totalWithShipping: 0,
+    progressValue: 0,
+  },
+};
+
+const calculateTotals = (bagimsizCartItems) => {
+  if (bagimsizCartItems.length == 0) {
+    return {
+      totalPrice: 0,
+      kdv: 0,
+      shippingCost: 0,
+      totalWithShipping: 0,
+      progressValue: 0,
+    };
+  }
+
+  const kdvRate = 0.2; // %20 KDV
+  const shippingThreshold = 2000;
+
+  const totalPrice = bagimsizCartItems.reduce(
+    (acc, item) => acc + item.discountPrice * item.quantity,
+    0
+  );
+
+  const kdv = (totalPrice * kdvRate) / (1 + kdvRate);
+  const shippingCost = totalPrice >= shippingThreshold ? 0 : 200;
+  const totalWithShipping = totalPrice + shippingCost;
+  const progressValue = Math.min((totalPrice / shippingThreshold) * 100, 100);
+
+  return {
+    totalPrice,
+    kdv,
+    shippingCost,
+    totalWithShipping,
+    progressValue,
+  };
 };
 
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (cartItems) => {
+    if (cartItems.length == 0) {
+      return [];
+    }
     const items = cartItems.map((item) => item.id);
     try {
       const response = await axios.get(
@@ -72,20 +115,24 @@ const sepetCartSlice = createSlice({
       );
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchCartItems.pending, (state) => {
         state.status = STATUS.LOADING;
       })
+
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         state.status = STATUS.SUCCESS;
         state.cartItems = action.payload;
+        state.cartTotal = calculateTotals(action.payload);
       })
+
       .addCase(fetchCartItems.rejected, (state) => {
         state.status = STATUS.FAIL;
       });
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = sepetCartSlice.actions;
+export const { addToCart, removeFromCart } = sepetCartSlice.actions;
 export default sepetCartSlice.reducer;

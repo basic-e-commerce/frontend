@@ -24,7 +24,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/admins/istatistik">
+            <Link to="/admins/dashboard">
               <InfoOutlinedIcon className="icon" />
               <span>İstatistik ve Analizler</span>
             </Link>

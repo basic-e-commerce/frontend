@@ -5,7 +5,7 @@ import LinearProgress, {
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   fetchCartItems,
   removeFromCart,
@@ -21,46 +21,20 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "#0b1320" : "#0b1320y",
+    backgroundColor: theme.palette.mode === "light" ? "#316032" : "#316032",
   },
 }));
 
 const Sepet = () => {
   const dispatch = useDispatch();
-  const { cartItems, status, baslangıcState } = useSelector(
+  const { cartItems, status, baslangıcState, cartTotal } = useSelector(
     (state) => state.sepet
   );
 
   useEffect(() => {
-    if (baslangıcState.length > 0) {
-      dispatch(fetchCartItems(baslangıcState)); // Sepeti backend'den güncelle
-    }
+    console.log("sepetRender");
+    dispatch(fetchCartItems(baslangıcState));
   }, [baslangıcState, dispatch]);
-
-  const { totalPrice, kdv, shippingCost, totalWithShipping, progressValue } =
-    useMemo(() => {
-      const kdvRate = 0.2; // %20 KDV
-      const totalPrice = cartItems.reduce(
-        (acc, item) => acc + item.discountPrice * item.quantity,
-        0
-      );
-      const kdv = (totalPrice * kdvRate) / (1 + kdvRate);
-      const shippingThreshold = 2000;
-      const shippingCost = totalPrice >= shippingThreshold ? 0 : 200;
-      const totalWithShipping = totalPrice + shippingCost;
-      const progressValue = Math.min(
-        (totalPrice / shippingThreshold) * 100,
-        100
-      );
-
-      return {
-        totalPrice,
-        kdv,
-        shippingCost,
-        totalWithShipping,
-        progressValue,
-      };
-    }, [cartItems]);
 
   return (
     <div className="sepet">
@@ -70,7 +44,7 @@ const Sepet = () => {
             className="form"
             sx={{
               boxShadow: 4,
-              padding: "2rem 2rem",
+              padding: "3rem 3.5rem",
               borderRadius: 1,
             }}
           >
@@ -134,7 +108,7 @@ const Sepet = () => {
                 </p>
                 <BorderLinearProgress
                   variant="determinate"
-                  value={progressValue}
+                  value={cartTotal?.progressValue}
                 />
               </div>
 
@@ -142,24 +116,26 @@ const Sepet = () => {
                 <h2 className="title">Toplam Tutar</h2>
                 <p>
                   <span>Toplam Fiyat: </span>{" "}
-                  <strong>{totalPrice.toFixed(2)} ₺</strong>
+                  <strong>{cartTotal?.totalPrice?.toFixed(2)} ₺</strong>
                 </p>
                 <p>
-                  <span>KDV:</span> <strong>{kdv.toFixed(2)} ₺</strong>
+                  <span>KDV:</span>{" "}
+                  <strong>{cartTotal?.kdv?.toFixed(2)} ₺</strong>
                 </p>
                 <p>
-                  <span>Kargo:</span> <strong>{shippingCost} ₺</strong>
+                  <span>Kargo:</span>{" "}
+                  <strong>{cartTotal?.shippingCost?.toFixed(2)} ₺</strong>
                 </p>
 
                 <hr />
                 <p>
                   <span>Toplam:</span>{" "}
-                  <strong>{totalWithShipping.toFixed(2)} ₺</strong>
+                  <strong>{cartTotal?.totalWithShipping?.toFixed(2)} ₺</strong>
                 </p>
               </div>
 
               <Link to={"/siparis"}>
-                <button className="button">Satın Al</button>
+                <button className="button">Alışverişi Tamamla</button>
               </Link>
             </Paper>
           </div>

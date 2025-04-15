@@ -1,0 +1,18 @@
+.dashboard {
+  height: 500vh;
+  .dashboardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    .infoCards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem; // Öğeler arasındaki boşluk
+    }
+
+    .two {
+      display: flex;
+      gap: 1.5rem;
+    }
+  }
+}

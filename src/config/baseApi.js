@@ -1,1 +1,1 @@
-export const BASE_URL = "https://litysofttest1.site";
+export const BASE_URL = "http://localhost8080";

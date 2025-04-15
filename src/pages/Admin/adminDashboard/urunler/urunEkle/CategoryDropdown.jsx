@@ -1,5 +1,3 @@
-import React from "react";
-
 const CategoryDropdown = ({
   categories,
   selectedCategories,
@@ -21,9 +19,11 @@ const CategoryDropdown = ({
     onCategoryChange(updatedCategories);
   };
 
+  console.log(categories);
+
   return (
     <div>
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <div key={category.id}>
           {/* Ana Kategori - Eğer alt kategorisi varsa sadece gösterilir, seçilemez */}
           <label>
@@ -34,7 +34,7 @@ const CategoryDropdown = ({
               onChange={handleCategoryChange}
               disabled={category.subCategories.length > 0}
             />
-            {category.name.toUpperCase()}
+            {category?.categoryName?.toUpperCase()}
           </label>
 
           {/* Alt Kategoriler (Eğer varsa) */}
@@ -48,7 +48,7 @@ const CategoryDropdown = ({
                     checked={selectedCategories?.includes(sub.id)}
                     onChange={handleCategoryChange}
                   />
-                  {sub.name}
+                  {sub.categoryName}
                 </label>
               ))}
             </div>

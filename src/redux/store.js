@@ -3,12 +3,18 @@ import categorySlice from "./slices/categorySlice";
 import productSlice from "./slices/productSlice";
 import sepetCartSlice from "./slices/sepetCartSlice";
 import authReducer from "./slices/authSlice";
+import siparisSliceReducer from "./slices/siparisSlice";
+import { setAccessTokenGetter, setDispatcher } from "../api/api";
 
 export const store = configureStore({
   reducer: {
     categories: categorySlice,
     products: productSlice,
     sepet: sepetCartSlice,
-    auth: authReducer,
+    authSlice: authReducer,
+    siparisSlice: siparisSliceReducer,
   },
 });
+
+setAccessTokenGetter(() => store.getState().authSlice.accessToken);
+setDispatcher(store.dispatch);

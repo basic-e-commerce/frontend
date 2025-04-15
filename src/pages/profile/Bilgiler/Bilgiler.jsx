@@ -1,8 +1,20 @@
+import { useState } from "react";
 import "./Bilgiler.scss";
 
 const KullaniciBilgileri = () => {
+  const [formData, setFormData] = useState({
+    ad: "",
+    soyad: "",
+    email: "",
+    telefon: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
-    <div className="kullaniciBİlgileri">
+    <div className="kullaniciBilgileri">
       <div className="kullaniciInput">
         <div className="title">
           <h3>Kullanıcı Bilgileriniz</h3>
@@ -10,15 +22,16 @@ const KullaniciBilgileri = () => {
 
         <hr />
 
-        <div className="bars">
+        <form className="bars">
           <label>
             Adınız:
             <input
               type="text"
-              name="productName"
-              //   value={formData.productName}
-              //   onChange={handleChange}
+              name="ad"
+              value={formData.ad}
+              onChange={handleChange}
               required
+              autoComplete="off"
             />
           </label>
 
@@ -26,37 +39,49 @@ const KullaniciBilgileri = () => {
             Soyadınız:
             <input
               type="text"
-              name="quantity"
-              //   value={formData.quantity}
-              //   onChange={handleChange}
+              name="soyad"
+              value={formData.soyad}
+              onChange={handleChange}
               required
+              autoComplete="off"
             />
           </label>
+
           <label>
             E-posta Adresiniz:
             <input
-              type="text"
-              name="quantity"
-              //   value={formData.quantity}
-              //   onChange={handleChange}
+              type="email"
+              name="email"
+              disabled
+              value={formData.email}
+              onChange={handleChange}
               required
+              autoComplete="off"
             />
           </label>
+
           <label>
             Telefon:
             <input
-              type="text"
-              name="quantity"
-              //   value={formData.quantity}
-              //   onChange={handleChange}
+              type="tel"
+              name="telefon"
+              value={formData.telefon}
+              onChange={handleChange}
               required
+              autoComplete="off"
             />
           </label>
 
           <div className="button">
-            <button>Değiştir</button>
+            <button
+              onClick={() =>
+                setFormData({ ad: "", soyad: "", email: "", telefon: "" })
+              }
+            >
+              Değiştir
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

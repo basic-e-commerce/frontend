@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import "./SiparisOlustur.scss";
-import SepetOnay from "./SepetOnay/SepetOnay";
 import Adres from "./Adres/Adres";
 import Odeme from "./Odeme/Odeme";
 import { Step, StepLabel, Stepper } from "@mui/material";
 
 const SiparisOlustur = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["Sepet Kontrol", "Adres Bilgisi", "Ödeme"];
+  const steps = ["Adres Bilgisi", "Ödeme"];
 
   const handleNext = () => {
     if (activeStep !== steps.length - 1) {
@@ -39,10 +38,8 @@ const SiparisOlustur = () => {
   const StepContent = useMemo(() => {
     switch (activeStep) {
       case 0:
-        return <SepetOnay />;
-      case 1:
         return <Adres />;
-      case 2:
+      case 1:
         return <Odeme />;
       default:
         return null;

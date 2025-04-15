@@ -1,0 +1,55 @@
+.most-selling-products-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 3;
+
+  .headerTitle {
+    margin-bottom: 16px;
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1f1f1f;
+    }
+  }
+
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+
+      .details {
+        flex-grow: 1;
+
+        .name {
+          font-weight: 500;
+          color: #1f1f1f;
+        }
+
+        .id {
+          font-size: 0.8rem;
+          color: #888;
+        }
+      }
+
+      .sales {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #555;
+      }
+    }
+  }
+}

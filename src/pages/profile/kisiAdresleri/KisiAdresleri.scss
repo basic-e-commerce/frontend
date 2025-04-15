@@ -24,7 +24,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 270px;
+      width: 100%;
       border-radius: 10px;
       border: 1px solid lightgray;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -42,7 +42,7 @@
     }
 
     .kayitliAdres {
-      width: 270px;
+      width: 100%;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -112,34 +112,54 @@
 
     .modal-content {
       background: #fff;
-      padding: 20px;
-      width: 400px;
+      padding: 30px;
+      width: 800px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       text-align: center;
       z-index: 10000; /* Header’dan bile önde olur */
-
-      h3 {
-        margin-bottom: 10px;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
 
       input,
-      textarea {
+      textarea,
+      select {
         width: 100%;
-        padding: 8px;
-        margin: 5px 0;
+        padding: 12px;
         border: 1px solid #ccc;
         border-radius: 4px;
       }
 
       textarea {
-        height: 200px;
+        height: 90px;
+        resize: none;
+      }
+
+      .modelContentSection {
+        display: flex;
+        gap: 2rem;
+        flex: 2;
+
+        .left {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .right {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          justify-content: space-between;
+        }
       }
 
       .buttons {
         display: flex;
         justify-content: space-between;
-        margin-top: 10px;
 
         button {
           padding: 8px 15px;

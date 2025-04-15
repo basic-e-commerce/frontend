@@ -1,0 +1,97 @@
+.siparisAdresSection {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  .formAdres {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3.5rem 3rem;
+
+    .address-formm {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h2 {
+          font-size: 1.2rem;
+          margin-bottom: 5px;
+          font-weight: 600;
+          border-bottom: 1px solid #ccc;
+          padding-bottom: 1rem;
+        }
+
+        input {
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+        }
+
+        label {
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .faturaTipi {
+          display: flex;
+          gap: 2rem;
+        }
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .warning {
+        width: 100%;
+        border-radius: 4px;
+        font-size: 14px;
+
+        a {
+          color: darkgreen;
+          text-decoration: underline;
+          margin-left: 4px;
+        }
+      }
+
+      .corporate-info,
+      .billing-address {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 1rem;
+      }
+
+      .submit-btn {
+        margin-top: 10px;
+        width: 30%;
+        padding: 10px;
+        background: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #333;
+        }
+      }
+    }
+  }
+}

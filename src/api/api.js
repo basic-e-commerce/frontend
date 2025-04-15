@@ -1,7 +1,16 @@
 import axios from "axios";
-import { store } from "../redux/store"; // Redux store'u import et
-import { setAccessToken, logout } from "../redux/slices/authSlice";
+import { setAccessToken, setLogout } from "../redux/slices/authSlice";
 import { BASE_URL } from "../config/baseApi";
+
+let getAccessToken = () => null; // varsayılan
+export const setAccessTokenGetter = (getterFn) => {
+  getAccessToken = getterFn;
+};
+
+let dispatch = null;
+export const setDispatcher = (dispatchFn) => {
+  dispatch = dispatchFn;
+};
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -10,7 +19,7 @@ const api = axios.create({
 
 // 🔹 API İSTEKLERİNE ACCESS TOKEN EKLEME
 api.interceptors.request.use((config) => {
-  const accessToken = store.getState().auth.accessToken;
+  const accessToken = getAccessToken();
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -45,13 +54,14 @@ api.interceptors.response.use(
           );
 
           const newAccessToken = res.data.accessToken;
-          store.dispatch(setAccessToken(newAccessToken)); // Yeni token'ı Redux'e kaydet
+          dispatch?.(setAccessToken(newAccessToken));
           isRefreshing = false;
           onRefreshed(newAccessToken);
 
           return api(originalRequest); // Orijinal isteği yeni token ile tekrar gönder
         } catch (refreshError) {
-          store.dispatch(logout()); // Refresh başarısız olursa logout yap
+          refreshSubscribers = []; // ❗️ temizlemeden önce reject edebilirsin
+          dispatch?.(setLogout());
           return Promise.reject(refreshError);
         }
       }

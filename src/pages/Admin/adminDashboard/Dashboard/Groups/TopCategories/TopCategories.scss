@@ -1,0 +1,66 @@
+.top-categories-card {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 16px;
+  }
+
+  .chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .total {
+      position: absolute;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1f1f1f;
+    }
+  }
+
+  .legend {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        margin-right: 8px;
+      }
+
+      .label {
+        font-weight: 400;
+        color: #333;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    font-size: 0.9rem;
+    color: #999;
+    cursor: pointer;
+  }
+}

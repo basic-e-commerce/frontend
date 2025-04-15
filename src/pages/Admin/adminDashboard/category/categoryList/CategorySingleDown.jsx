@@ -31,16 +31,16 @@ const CategorySingleDown = ({
           {/* Ana Kategori - Eğer alt kategorisi varsa disabled olacak */}
           <option
             value={category.id}
-            // disabled={category.subCategories.length > 0}
+            disabled={category.subCategories.length > 0}
           >
-            {category.name}
+            {category.categoryName}
           </option>
 
           {/* Alt Kategoriler (Eğer varsa) */}
           {category.subCategories.length > 0 &&
             category.subCategories.map((sub) => (
               <option key={sub.id} value={sub.id}>
-                &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;{sub.name}
+                &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;{sub.categoryName}
                 {/* Çizgi ile ayrılan alt kategori */}
               </option>
             ))}

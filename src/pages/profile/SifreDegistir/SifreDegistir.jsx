@@ -8,25 +8,29 @@ const SifreDegistir = () => {
       </div>
 
       <hr />
-      <div className="bars">
+      <form className="bars">
         <label>
           Eski Şifre:
           <input
-            type="text"
-            name="productName"
+            type="password"
+            name="oldPassword"
+            id="current-password"
             //   value={formData.productName}
             //   onChange={handleChange}
             required
+            autoComplete="off"
           />
         </label>
 
         <label>
           Yeni Şifre:
           <input
-            type="text"
-            name="quantity"
+            type="password"
+            name="newPassword"
+            id="new-password"
             //   value={formData.quantity}
             //   onChange={handleChange}
+            autoComplete="off"
             required
           />
         </label>
@@ -34,10 +38,13 @@ const SifreDegistir = () => {
         <label>
           Yeni Şifre Tekrar:
           <input
-            type="text"
-            name="quantity"
+            type="password"
+            name="confirmNewPassword"
+            id="confirm-password"
+            autoComplete="off"
             //   value={formData.quantity}
             //   onChange={handleChange}
+
             required
           />
         </label>
@@ -45,7 +52,7 @@ const SifreDegistir = () => {
         <div className="button">
           <button>Değiştir</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

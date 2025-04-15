@@ -3,11 +3,19 @@ import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/slices/sepetCartSlice";
+import axios from "axios";
+import { Co2Sharp } from "@mui/icons-material";
 
 const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
+  const { isLogin } = useSelector((state) => state.authSlice);
   const [sayi, setSayi] = useState(1);
+  const [showPopup, setShowPopup] = useState({
+    visb: false,
+    massage: "",
+    status: "",
+  });
   const dispatch = useDispatch();
 
   const azalt = () => {
@@ -20,13 +28,49 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
     setSayi(sayi + 1);
   };
 
-  const handleSepeteEkle = () => {
-    dispatch(
-      addToCart({
-        id,
-        quantity: sayi,
-      })
-    );
+  const handleSepeteEkle = async () => {
+    if (isLogin) {
+      try {
+        const response = await axios.post("url", { id: id, quantity: sayi });
+
+        if (response.status === 200) {
+          setShowPopup({
+            visb: true,
+            massage: "Sepete Eklendi",
+            status: "success",
+          });
+          setSayi(1);
+        }
+      } catch (error) {
+        setShowPopup({
+          visb: true,
+          massage: "İşlem Başarısız",
+          status: "fail",
+        });
+        setTimeout(() => {
+          setShowPopup({ visb: false, massage: "", status: "" });
+        }, 2000);
+        console.log(error);
+      }
+    } else {
+      dispatch(
+        addToCart({
+          id,
+          quantity: sayi,
+        })
+      );
+
+      setShowPopup({
+        visb: true,
+        massage: "Sepete Eklendi !",
+        status: "success",
+      });
+      setSayi(1);
+
+      setTimeout(() => {
+        setShowPopup({ visb: false, massage: "", status: "" });
+      }, 2000);
+    }
   };
 
   return (
@@ -66,6 +110,19 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
           </button>
         </div>
       </div>
+
+      {showPopup.visb && (
+        <div
+          style={
+            showPopup.status === "success"
+              ? { backgroundColor: "#4caf50" }
+              : { backgroundColor: "darkred" }
+          }
+          className="popup"
+        >
+          <p>{showPopup.massage}</p>
+        </div>
+      )}
     </div>
   );
 };

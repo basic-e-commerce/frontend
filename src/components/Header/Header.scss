@@ -4,7 +4,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 230px;
+  height: 140px;
   transition: transform 0.3s ease-in-out;
 
   .headerTop {
@@ -63,21 +63,29 @@
     }
   }
 
-  .headerCenter {
+  .headerBottom {
     height: 90px;
     background-color: whitesmoke;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgb(211, 209, 209);
+    // padding: 0 1rem;
+    border-bottom: 1px solid lightgray;
 
-    .headerWrapperCenter {
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .headerWrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       .logo {
-        height: 45px;
+        padding-top: 5px;
+        height: 50px;
         width: auto;
         img {
           width: auto;
@@ -85,108 +93,10 @@
         }
       }
 
-      .searchContainer {
-        width: 30%;
-        position: relative;
-        display: inline-block;
-
-        .search-input {
-          width: 100%;
-          padding: 10px 40px 10px 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 16px;
-          outline: none;
-
-          &:focus {
-            border-color: darkgreen;
-          }
-        }
-
-        .search-icon {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: 1.5rem;
-          color: #999;
-          cursor: pointer;
-        }
-      }
-
-      .info-container {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-
-        .info-box {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-
-          .icon {
-            height: 100%;
-            color: #2e7d32; // Yeşil ton
-          }
-
-          .info-text {
-            display: flex;
-            flex-direction: column;
-            color: #333;
-
-            span {
-              font-size: 14px;
-              color: #666;
-            }
-
-            strong {
-              font-size: 1rem;
-              font-weight: bold;
-              color: #222;
-            }
-          }
-        }
-
-        .divider {
-          width: 1px;
-          height: 40px;
-          background-color: #ddd;
-        }
-      }
-
-      .hamburger {
-        display: none;
-        font-size: 2rem;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .headerBottom {
-    height: 90px;
-    background-color: whitesmoke;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-
-    .headerWrapperBottom {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
       .navigation {
         .menu-list {
           display: flex;
           gap: 2rem;
-          align-items: center;
-
-          .divider {
-            width: 1px;
-            height: 40px;
-            background-color: #ddd;
-          }
-
           .menu-link {
             font-size: 1rem;
             transition: color 0.2s ease;
@@ -207,51 +117,47 @@
 
   // Responsive Styles
   @media (max-width: 768px) {
-    height: 140px;
+    height: 110px;
     .none {
       display: none;
     }
+    .headerBottom {
+      height: 60px;
 
-    .headerCenter {
-      .headerWrapperCenter {
+      .headerWrapper {
         .logo {
-          height: 40px;
-        }
-
-        .hamburger {
-          display: block;
+          padding-top: 5px;
+          height: 38px;
         }
       }
-    }
+      .hamburger {
+        display: block;
+      }
 
-    .headerBottom {
-      height: 0px;
-      .headerWrapperBottom {
-        .navigation {
-          display: none;
-          position: absolute;
-          top: 140px;
-          right: 0;
-          width: 100%;
-          background-color: whitesmoke;
+      .navigation {
+        display: none;
+        position: absolute;
+        top: 110px;
+        right: 0;
+        width: 100%;
+        background-color: whitesmoke;
+        flex-direction: column;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 30px;
+
+        .menu-list {
           flex-direction: column;
-          text-align: center;
-          padding-top: 20px;
-          padding-bottom: 30px;
+          gap: 1rem;
 
-          .menu-list {
-            flex-direction: column;
-            gap: 1rem;
-
-            .menu-link {
-              font-size: 0.9rem !important;
-            }
+          .menu-link {
+            font-size: 0.9rem !important;
           }
         }
+      }
 
-        .navigation.open {
-          display: flex;
-        }
+      .navigation.open {
+        display: flex;
       }
     }
   }

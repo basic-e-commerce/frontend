@@ -11,9 +11,13 @@ export const fetchProducts = async () => {
 
 // Belirli kategoriye ait ürünleri getir
 export const fetchProductsByCategory = async (categoryId) => {
-  const response = await axios.get(
-    `${API_URL}/category?categoryId=${categoryId}`
-  );
+  const response = await axios.post(`${API_URL}/filter`, {
+    categoryId: categoryId,
+    minPrice: 100.0,
+    maxPrice: 5900.0,
+    sortBy: "comparePrice",
+    sortDirection: "asc",
+  });
   return response.data;
 };
 

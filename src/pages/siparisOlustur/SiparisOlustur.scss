@@ -1,11 +1,11 @@
 .SiparisOlustur {
-  margin-top: 230px;
-  min-height: calc(100vh - 230px - 6rem);
+  margin-top: 140px;
+  min-height: calc(100vh - 140px - 6rem);
 
   .siparisOlusturContent {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
     margin-top: 2rem;
 
     .css-3hpdci-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
@@ -14,23 +14,17 @@
     }
 
     .ucusBilgileri {
-      width: 100%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 50px;
-      border-radius: 10px;
-
       .airDropsStepper {
         width: 100%;
       }
 
       .airDropSection {
         width: 100%;
-        min-height: 50vh;
       }
     }
 
     .airDropController {
-      width: 100%;
+      width: 65%;
       display: flex;
       justify-content: space-between;
 

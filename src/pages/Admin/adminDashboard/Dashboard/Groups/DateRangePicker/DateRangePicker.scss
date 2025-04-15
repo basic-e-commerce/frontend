@@ -1,0 +1,30 @@
+.date-range-picker {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  align-self: flex-end;
+
+  .date-picker-field {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 180px;
+
+      &:focus {
+        outline: none;
+        border-color: #007aff;
+      }
+    }
+  }
+}

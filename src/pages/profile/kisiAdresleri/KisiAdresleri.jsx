@@ -12,7 +12,10 @@ const KisiAdresleri = () => {
   const [tempAddress, setTempAddress] = useState({
     title: "",
     name: "",
-    address: "",
+    city: "",
+    phone: "",
+    postalCode: "",
+    addressLine1: "",
   });
 
   const [addresses, setAddresses] = useState([
@@ -20,15 +23,21 @@ const KisiAdresleri = () => {
       id: 1,
       title: "Ev",
       name: "Ömer Türkay",
-      address:
-        "Güvenevler mh 23 nolu sokak no:35 sarıkonak apt kat:2 daire:4 Şehitkamil/Gaziantep",
+      addressLine1:
+        "Güvenevler mh 23 nolu sokak no:35 Sarı konak apt kat 2 daire 4",
+      phone: "+905396928491",
+      postalCode: "17000",
+      city: "İstanbul",
     },
     {
       id: 2,
       title: "İş",
-      name: "Rozerin Türkay",
-      address:
-        "Çanakkale mh 23 nolu sokak no:35 sarıkonak apt kat:2 daire:4 Şehitkamil/Gaziantep",
+      name: "Rozerin Tanrıkulu",
+      addressLine1:
+        "Güvenevler mh 23 nolu sokak no:35 Sarı konak apt kat 2 daire 4",
+      phone: "+905396928491",
+      postalCode: "17000",
+      city: "İstanbul",
     },
   ]);
 
@@ -62,8 +71,17 @@ const KisiAdresleri = () => {
     } catch (error) {
       console.error("Adres ekleme/güncelleme hatası:", error);
     } finally {
-      setShowPopup(false);
-      setTempAddress({ title: "", name: "", address: "" });
+      setTempAddress({
+        title: "",
+        name: "",
+        addressLine1: "",
+
+        city: "",
+        phone: "",
+        postalCode: "",
+      });
+      setModalOpen(false);
+      setEditMode(false);
     }
   };
 
@@ -75,9 +93,15 @@ const KisiAdresleri = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setModalOpen(false);
-      setEditMode(false);
-      setTempAddress({ title: "", name: "", address: "" });
+      setShowPopup(false);
+      setTempAddress({
+        title: "",
+        name: "",
+        addressLine1: "",
+        city: "",
+        phone: "",
+        postalCode: "",
+      });
     }
   };
 
@@ -90,7 +114,14 @@ const KisiAdresleri = () => {
 
   const handleAddAddress = () => {
     setEditMode(false);
-    setTempAddress({ title: "", name: "", address: "" });
+    setTempAddress({
+      title: "",
+      name: "",
+      city: "",
+      phone: "",
+      postalCode: "",
+      addressLine1: "",
+    });
     setModalOpen(true);
   };
 
@@ -131,7 +162,7 @@ const KisiAdresleri = () => {
             </div>
             <div className="section">
               <p className="name">{adres.name}</p>
-              <p className="adres">{adres.address}</p>
+              <p className="adres">{adres.addressLine1}</p>
             </div>
           </div>
         ))}
@@ -141,32 +172,80 @@ const KisiAdresleri = () => {
         <div className="modal">
           <form onSubmit={handleAddressSubmit} className="modal-content">
             <h3>{editMode ? "Adresi Duzenle" : "Yeni Adres Ekle"}</h3>
-            <input
-              type="text"
-              placeholder="Adres Başlığı (Ev, İş vb.)"
-              required
-              value={tempAddress.title}
-              onChange={(e) =>
-                setTempAddress({ ...tempAddress, title: e.target.value })
-              }
-            />
-            <input
-              required
-              type="text"
-              placeholder="Ad Soyad"
-              value={tempAddress.name}
-              onChange={(e) =>
-                setTempAddress({ ...tempAddress, name: e.target.value })
-              }
-            />
-            <textarea
-              required
-              placeholder="Adres Detayları"
-              value={tempAddress.address}
-              onChange={(e) =>
-                setTempAddress({ ...tempAddress, address: e.target.value })
-              }
-            ></textarea>
+            <div className="modelContentSection">
+              <div className="left">
+                <input
+                  type="text"
+                  placeholder="Adres Başlığı (Ev, İş vb.)"
+                  required
+                  value={tempAddress.title}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, title: e.target.value })
+                  }
+                />
+                <input
+                  required
+                  type="text"
+                  placeholder="Ad Soyad"
+                  value={tempAddress.name}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, name: e.target.value })
+                  }
+                />
+
+                <input
+                  required
+                  type="tel"
+                  placeholder="Telefon Numarası"
+                  value={tempAddress.phone}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, phone: e.target.value })
+                  }
+                />
+              </div>
+
+              <div className="right">
+                <textarea
+                  required
+                  name="addressLine1"
+                  placeholder="Adres Satırı 1"
+                  value={tempAddress.addressLine1}
+                  onChange={(e) =>
+                    setTempAddress({
+                      ...tempAddress,
+                      addressLine1: e.target.value,
+                    })
+                  }
+                ></textarea>
+                <select
+                  required
+                  value={tempAddress.city}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, city: e.target.value })
+                  }
+                >
+                  <option value="">Şehir Seçin</option>
+                  <option value="İstanbul">İstanbul</option>
+                  <option value="Ankara">Ankara</option>
+                  <option value="İzmir">İzmir</option>
+                  <option value="Bursa">Bursa</option>
+                </select>
+
+                <input
+                  required
+                  type="text"
+                  placeholder="Posta Kodu"
+                  value={tempAddress.postalCode}
+                  onChange={(e) =>
+                    setTempAddress({
+                      ...tempAddress,
+                      postalCode: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
             <div className="buttons">
               <button onClick={() => setModalOpen(false)}>İptal</button>
               <button type="submit">{editMode ? "Kaydet" : "Oluştur"}</button>
@@ -177,7 +256,7 @@ const KisiAdresleri = () => {
 
       {showPopup && (
         <div className="popup">
-          <div className="popup-inner">
+          <form onSubmit={handleDeleteSubmit} className="popup-inner">
             <p>Silmek istediğinize emin misiniz?</p>
             <div className="popup-buttons">
               <button
@@ -189,11 +268,11 @@ const KisiAdresleri = () => {
               >
                 İptal
               </button>
-              <button className="confirm" onClick={handleDeleteSubmit}>
+              <button type="submit" className="confirm">
                 Sil
               </button>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </div>
