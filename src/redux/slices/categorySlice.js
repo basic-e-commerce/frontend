@@ -30,7 +30,6 @@ export const updateCategory = createAsyncThunk(
         id: formData.id,
         name: formData.name,
         description: formData.description,
-        active: formData.active,
       });
 
       if (formData.coverImage !== initialKapakImages) {

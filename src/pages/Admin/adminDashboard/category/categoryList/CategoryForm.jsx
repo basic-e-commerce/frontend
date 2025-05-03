@@ -22,20 +22,18 @@ const CategoryForm = () => {
     id: "",
     name: "",
     description: "",
-    active: false,
     coverImage: "",
   });
 
   useEffect(() => {
     if (selectedCategory) {
       setFormData({
-        id: selectedCategory.id,
-        name: selectedCategory.categoryName || "",
-        description: selectedCategory.categoryDescription || "",
-        active: selectedCategory.active || false,
-        coverImage: selectedCategory.coverImage.url || "",
+        id: selectedCategory?.id,
+        name: selectedCategory?.categoryName || "",
+        description: selectedCategory?.categoryDescription || "",
+        coverImage: selectedCategory?.coverImage?.url || "",
       });
-      setInitialKapakImages(selectedCategory.coverImage?.url || "");
+      setInitialKapakImages(selectedCategory?.coverImage?.url || "");
     }
   }, [selectedCategory]);
 
@@ -46,6 +44,7 @@ const CategoryForm = () => {
   const handleKapakImageChange = (event) => {
     const file = event.target.files[0];
     setFormData({ ...formData, coverImage: file });
+    event.target.value = "";
   };
 
   const handleSubmitDuzenleCategory = async (e) => {
@@ -95,9 +94,6 @@ const CategoryForm = () => {
       return URL.createObjectURL(formData.coverImage);
     return null;
   }, [formData.coverImage]);
-
-  console.log("1." + selectedCategory?.active);
-  console.log("2." + formData.active);
 
   return (
     <form onSubmit={handleSubmitDuzenleCategory} className="category-form">

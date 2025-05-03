@@ -22,7 +22,7 @@ function TeamlisCard({ product }) {
         <li className="glide__slide">
           <div className="card">
             <Link to={`/urunler/${product.productLinkName}`} className="img">
-              <img src={product.coverImage.url} alt={product.productName} />
+              <img src={product?.coverImage?.url} alt={product.productName} />
             </Link>
 
             <div className="cardSection">
