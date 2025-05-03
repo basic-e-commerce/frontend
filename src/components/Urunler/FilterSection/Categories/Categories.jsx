@@ -24,7 +24,7 @@ const Categories = () => {
           className="categoryItem"
           key={index}
         >
-          <button>{category.name}</button>
+          <button>{category.categoryName}</button>
         </li>
       ))}
     </ul>

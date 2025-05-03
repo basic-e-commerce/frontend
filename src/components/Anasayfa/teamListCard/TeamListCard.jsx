@@ -21,24 +21,24 @@ function TeamlisCard({ product }) {
       {product && (
         <li className="glide__slide">
           <div className="card">
-            <Link to={`/urunler/${product.id}`} className="img">
-              <img src={product.coverImage} alt="" />
+            <Link to={`/urunler/${product.productLinkName}`} className="img">
+              <img src={product.coverImage.url} alt={product.productName} />
             </Link>
 
             <div className="cardSection">
               <div className="CardTop">
                 <Link to={`/urunler/${product.id}`}>
-                  <h4 className="title">{product.name}</h4>
+                  <h4 className="title">{product.productName}</h4>
                 </Link>
 
                 <p className="price">
                   <span className="eskiFiyat">
-                    {product.price.toFixed(2)} TL
+                    {product.salePrice?.toFixed(2)} TL
                   </span>
                   <span className="yeniFiyat">
-                    {product.discountPrice.toFixed(2)} TL
+                    {product.comparePrice?.toFixed(2)} TL
                   </span>
-                  <span className="">/ {product.unitType}</span>
+                  <span className="">/ adet</span>
                 </p>
               </div>
               <div className="CardBottom">

@@ -2,13 +2,14 @@ import "./CategoryCreate.scss";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCategories } from "../../../../../redux/slices/categorySlice";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../../../../components/Loading/Loading";
 import { createCategory } from "../../../../../api/apiCategory";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
+import { handleApiError } from "../../../../../utils/errorHandler";
 
 const CategoryCreate = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [imgKapak, setImgKapak] = useState(null);
   const { categories } = useSelector((state) => state.categories);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,14 +34,23 @@ const CategoryCreate = () => {
     formDataToSend.append("image", imgKapak);
 
     try {
-      console.log(formDataToSend);
-      createCategory(formDataToSend);
-      setTimeout(() => {
-        navigate("/admins");
-        setIsLoading(false);
-      }, 1000);
+      await createCategory(formDataToSend);
+      setFormData({ name: "", description: "", parentCategoryId: "0" });
+      setImgKapak(null);
+      dispatch(
+        showAlertWithTimeout({
+          message: "Kategori başarıyla güncellendi",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.error(error);
+      dispatch(
+        showAlertWithTimeout({
+          message: handleApiError(error),
+          status: "error",
+        })
+      );
+    } finally {
       setIsLoading(false);
     }
   };
@@ -59,120 +69,81 @@ const CategoryCreate = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="projeEkle">
+        <div className="categoryCreate">
           <form onSubmit={handleSubmit}>
-            <label>
-              Kategori İsmi:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </label>
+            <div className="categoryCreate">
+              <div className="leftSide">
+                <div className="avatar">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="upload-input"
+                    id="kapakFoto"
+                    onChange={handleKapakImageChange}
+                    style={{ display: "none" }}
+                  />
 
-            <div className="uploader-container">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "2rem",
-                }}
-                className="baslikAndButton"
-              >
-                <h4>Kapak Fotoğrafı Yükle</h4>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="upload-input"
-                  id="kapakFoto"
-                  onChange={handleKapakImageChange}
-                  style={{ display: "none" }}
-                />
-
-                <div>
-                  <label
-                    htmlFor="kapakFoto"
-                    style={{
-                      cursor: "pointer",
-                      display: "inline-block",
-                      padding: "10px",
-                      backgroundColor: "#315345",
-                      color: "#fff",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    {imgKapak ? "Resiim Değiştir" : "Resim Seç"}
+                  <label htmlFor="kapakFoto" className="kapsayiciButton">
+                    {imgKapak ? (
+                      <img
+                        className="kapakImgg"
+                        src={URL.createObjectURL(imgKapak)}
+                        alt="kapakResmi"
+                      />
+                    ) : (
+                      <div className="Text">
+                        <ImageSearchIcon />
+                        Kategori Resmi Ekle
+                      </div>
+                    )}
                   </label>
                 </div>
               </div>
+              <div className="rightSection">
+                <label>
+                  Kategori İsmi:
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
 
-              {imgKapak && (
-                <div className="images-preview-container">
-                  <div
-                    className="image-container"
-                    style={{ position: "relative" }}
+                <label>
+                  Üst Kategori:
+                  <select
+                    name="parentCategoryId"
+                    value={formData.parentCategoryId}
+                    onChange={handleChange}
+                    required
                   >
-                    <img
-                      src={URL.createObjectURL(imgKapak)}
-                      alt="Kapak"
-                      style={{ maxWidth: "100%", maxHeight: "200px" }}
-                    />
-                    <button
-                      className="remove-button"
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        backgroundColor: "red",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "50%",
-                        width: "30px",
-                        height: "30px",
-                        cursor: "pointer",
-                      }}
-                      type="button"
-                      onClick={() => {
-                        setImgKapak(null);
-                      }}
-                    >
-                      ✕
-                    </button>
-                  </div>
+                    <option value="0">Ana Kategori</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.categoryName}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label>
+                  Açıklama:
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
+
+                <div className="buttonContainer">
+                  <button type="submit">Kategori Ekle</button>
                 </div>
-              )}
-            </div>
-
-            <label>
-              Üst Kategori:
-              <select
-                name="parentCategoryId"
-                value={formData.parentCategoryId}
-                onChange={handleChange}
-              >
-                <option value="0">Ana Kategori</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.categoryName}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              Açıklama:
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <div className="buttonContainer">
-              <button type="submit">Kategori Ekle</button>
+              </div>
             </div>
           </form>
         </div>

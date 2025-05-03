@@ -7,10 +7,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../redux/slices/categorySlice";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+
+  const { categories } = useSelector((state) => state.categories);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,6 +29,7 @@ const Header = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    dispatch(getCategories());
   }, [location]);
 
   return (
@@ -70,41 +76,35 @@ const Header = () => {
         <div className="container">
           <div className="headerWrapper">
             <Link className="logo" to="/">
-              <img
+              {/* <img
                 style={{ borderRadius: "5px" }}
                 src="/images/logo/peynirharmanılogowebson.png"
                 alt=""
-              />
+              /> */}
+              <h1>LOGO</h1>
             </Link>
 
             <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
               <ul className="menu-list">
+                {categories?.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      className="menu-link"
+                      to="/urunler"
+                      onClick={closeMenu}
+                    >
+                      {item.categoryName}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link className="menu-link" to="/urunler" onClick={closeMenu}>
+                    Tüm Ürünler
+                  </Link>
+                </li>
                 <li className="menu-list-item">
                   <Link className="menu-link" to="/" onClick={closeMenu}>
                     Anasayfa
-                  </Link>
-                </li>
-                <li>
-                  <Link className="menu-link" to="/urunler" onClick={closeMenu}>
-                    Ürünlerimiz
-                  </Link>
-                </li>
-                <li className="menu-list-item">
-                  <Link
-                    className="menu-link"
-                    to="/hakkimizda"
-                    onClick={closeMenu}
-                  >
-                    Hakkımızda
-                  </Link>
-                </li>
-                <li className="menu-list-item">
-                  <Link
-                    className="menu-link"
-                    to="/iletisim"
-                    onClick={closeMenu}
-                  >
-                    İletişim
                   </Link>
                 </li>
               </ul>

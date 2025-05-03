@@ -45,8 +45,6 @@ const UrunList = () => {
     }
   };
 
-  console.log(currentItems);
-
   return (
     <div className="urunList">
       <div className="container">
@@ -74,7 +72,7 @@ const UrunList = () => {
                     </div>
                   </td>
                   <td>
-                    <span>{product.price.toFixed(2)} ₺</span>
+                    <span>{product?.price?.toFixed(2)} ₺</span>
                   </td>
                   <td>
                     <span>30 kalan</span>

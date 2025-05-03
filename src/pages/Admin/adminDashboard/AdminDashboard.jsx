@@ -2,6 +2,7 @@ import "./AdminDashboard.scss";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import Navbar from "../../../components/Admin/Navbar/Navbar";
+import Alert from "./Alert/Alert";
 
 function Panel() {
   return (
@@ -12,6 +13,7 @@ function Panel() {
         <section>
           <Outlet />
         </section>
+        <Alert />
       </div>
     </div>
   );

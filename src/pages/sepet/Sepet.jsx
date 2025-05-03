@@ -32,7 +32,6 @@ const Sepet = () => {
   );
 
   useEffect(() => {
-    console.log("sepetRender");
     dispatch(fetchCartItems(baslangıcState));
   }, [baslangıcState, dispatch]);
 

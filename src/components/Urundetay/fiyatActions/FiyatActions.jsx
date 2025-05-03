@@ -118,7 +118,7 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
               ? { backgroundColor: "#4caf50" }
               : { backgroundColor: "darkred" }
           }
-          className="popup"
+          className="popupSepetEkleme"
         >
           <p>{showPopup.massage}</p>
         </div>

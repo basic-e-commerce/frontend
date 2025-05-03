@@ -21,15 +21,15 @@ export const getProducts = createAsyncThunk("getProducts", async () => {
 
 export const getProductsCategory = createAsyncThunk(
   "getProductsCategory",
-  async (id) => {
-    return await fetchProductsByCategory(id);
+  async (categoryLinkName) => {
+    return await fetchProductsByCategory(categoryLinkName);
   }
 );
 
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
-  async (id) => {
-    return await fetchProductDetail(id);
+  async (linkName) => {
+    return await fetchProductDetail(linkName);
   }
 );
 
@@ -72,7 +72,7 @@ const productSlice = createSlice({
       })
       .addCase(getProductDetail.fulfilled, (state, action) => {
         state.productDetailStatus = STATUS.SUCCESS;
-        state.productDetailCover = action.payload.coverImage;
+        state.productDetailCover = action.payload.coverImage.url;
         state.productDetail = action.payload;
       })
       .addCase(getProductDetail.rejected, (state) => {

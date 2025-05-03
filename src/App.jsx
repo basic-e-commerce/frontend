@@ -27,7 +27,7 @@ import SiparisMusteri from "./pages/profile/siparis/SiparisMusteri";
 import Dashboard from "./pages/Admin/adminDashboard/Dashboard/Dashboard";
 import AdminLogin from "./pages/Admin/adminLogin/AdminLogin";
 import { useEffect } from "react";
-import { setAccessToken, setLogin, setLogout } from "./redux/slices/authSlice";
+import { setLogin, setLogout } from "./redux/slices/authSlice";
 import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
 
@@ -46,8 +46,7 @@ function App() {
           { withCredentials: true }
         );
         const data = response.data;
-        dispatch(setAccessToken(data.accessToken));
-        dispatch(setLogin(data));
+        dispatch(setLogin(data)); // ✅ burada tüm kullanıcı bilgileri var
       } catch (err) {
         console.log("Session expired or user not logged in", err);
         dispatch(setLogout());
@@ -66,7 +65,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Anasayfa />} />
         <Route path="/urunler" element={<Urunler />} />
-        <Route path="/urunler/:id" element={<UrunDetay />} />
+        <Route path="/urunler/:linkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminlogin" element={<AdminLogin />} />

@@ -39,7 +39,7 @@ const MrGlide = ({ images }) => {
               className={`glide__slide ${
                 index === activeIndex ? "active" : ""
               }`}
-              onClick={() => handleImageClick(image, index)}
+              onClick={() => handleImageClick(image.url, index)}
               style={{
                 cursor: "pointer",
                 border:
@@ -48,7 +48,7 @@ const MrGlide = ({ images }) => {
                     : "none",
               }}
             >
-              <img src={image} alt={`slide-${index}`} />
+              <img src={image.url} alt={`slide-${index}`} />
             </li>
           ))}
         </ul>

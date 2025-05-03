@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Baslik from "../../baslik/Baslik";
 import ProjelerGlide from "../../ProjerlerGlide/ProjelerGlide";
 import "./BestTeam.scss";

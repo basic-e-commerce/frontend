@@ -7,6 +7,7 @@ const initialState = {
   lastName: "",
   userName: "",
   role: "",
+  isAuthChecked: false, // 👈 yeni eklendi
 };
 
 const authSlice = createSlice({
@@ -18,8 +19,9 @@ const authSlice = createSlice({
       state.isLogin = true;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.userName = action.payload.userName;
+      state.userName = action.payload.username;
       state.role = action.payload.role;
+      state.isAuthChecked = true; // 👈
     },
 
     setAccessToken: (state, action) => {
@@ -33,6 +35,7 @@ const authSlice = createSlice({
       state.lastName = "";
       state.userName = "";
       state.role = "";
+      state.isAuthChecked = true; // 👈 ekle
     },
   },
 });

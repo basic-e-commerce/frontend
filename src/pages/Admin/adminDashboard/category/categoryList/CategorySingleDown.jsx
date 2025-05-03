@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSelectedCategory } from "../../../../../redux/slices/categorySlice";
+import { useLocation } from "react-router-dom";
 
-const CategorySingleDown = ({
-  categories,
-  selectedCategory,
-  setSelectedCategory,
-}) => {
+const CategorySingleDown = ({ categories, selectedCategory }) => {
+  const dispatch = useDispatch();
+  const [selectedId, setSelectedId] = useState(null);
+  const location = useLocation();
+
   const handleCategoryChange = (event) => {
-    const selectedId = event.target.value;
+    const newId = event.target.value;
+    setSelectedId(newId);
+  };
 
-    // Seçilen kategori ya da alt kategori nesnesini bul
+  useEffect(() => {
+    setSelectedId(null);
+    dispatch(setSelectedCategory(null));
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!selectedId || !categories.length) return;
+
     const selected = categories
       .flatMap((category) => [category, ...category.subCategories])
       .find((item) => item.id.toString() === selectedId);
 
-    setSelectedCategory(selected);
-  };
+    if (selected) {
+      dispatch(setSelectedCategory(selected));
+    } else {
+      setSelectedId(null);
+    }
+  }, [selectedId, categories]);
 
   return (
     <select

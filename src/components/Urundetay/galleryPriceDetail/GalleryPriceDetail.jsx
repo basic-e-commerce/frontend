@@ -18,7 +18,7 @@ const GalleryPriceDetail = ({ productDetail }) => {
           </div>
 
           <div className="product-thump">
-            <MrGlide images={productDetail.images} />
+            <MrGlide images={productDetail.productImage} />
           </div>
         </div>
 
@@ -29,9 +29,9 @@ const GalleryPriceDetail = ({ productDetail }) => {
 
           <FiyatActions
             id={productDetail.id}
-            birim={productDetail.unitType}
-            fiyat={productDetail.price}
-            indirimliFiyat={productDetail.discountPrice}
+            birim={"Adet"}
+            fiyat={productDetail.salePrice}
+            indirimliFiyat={productDetail.comparePrice}
           />
 
           <div className="whatsappSiparis">

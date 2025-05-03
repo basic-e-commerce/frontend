@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import { handleApiError } from "../../../utils/errorHandler";
 import api from "../../../api/api";
 import { setLogin } from "../../../redux/slices/authSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminLogin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,11 +22,12 @@ function AdminLogin() {
       });
 
       dispatch(setLogin(response.data));
+      navigate("/admins/kategoriler"); // örnek bir yönlendirme
       console.log(response.data);
       console.log(response.data.accessToken);
     } catch (error) {
-      const errorMessage = handleApiError(error);
-      alert(errorMessage);
+      // const errorMessage = handleApiError(error);
+      // alert(errorMessage);
       console.log(error);
     }
   };

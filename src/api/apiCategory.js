@@ -27,15 +27,11 @@ export const deleteCategory = async (id) => {
 };
 
 export const updateCategoryImage = async (id, image) => {
-  const response = await api.put(
-    `${API_URL}/api/v1/category/image?id=${id}`,
-    image,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const response = await api.put(`${API_URL}/image?id=${id}`, image, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
 

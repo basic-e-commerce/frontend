@@ -1,23 +1,21 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CategorySingleDown from "./CategorySingleDown";
-import { getCategories } from "../../../../../redux/slices/categorySlice";
+import {
+  updateCategory,
+  removeCategory,
+} from "../../../../../redux/slices/categorySlice";
 import { handleApiError } from "../../../../../utils/errorHandler";
 import "./CategoryForm.scss";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 
-import {
-  deleteCategory,
-  deleteCoverImgCategory,
-  updateCategoryImage,
-  updateCategoryText,
-} from "../../../../../api/apiCategory";
-
-const CategoryForm = ({
-  categories,
-  selectedCategory,
-  setSelectedCategory,
-}) => {
+const CategoryForm = () => {
   const dispatch = useDispatch();
+  const { categories, selectedCategory } = useSelector(
+    (state) => state.categories
+  );
+
   const [showPopupCategory, setShowPopupCategory] = useState(false);
   const [initialKapakImages, setInitialKapakImages] = useState("");
   const [formData, setFormData] = useState({
@@ -35,9 +33,9 @@ const CategoryForm = ({
         name: selectedCategory.categoryName || "",
         description: selectedCategory.categoryDescription || "",
         active: selectedCategory.active || false,
-        coverImage: selectedCategory.coverImage || "",
+        coverImage: selectedCategory.coverImage.url || "",
       });
-      setInitialKapakImages(selectedCategory.coverImage);
+      setInitialKapakImages(selectedCategory.coverImage?.url || "");
     }
   }, [selectedCategory]);
 
@@ -50,173 +48,154 @@ const CategoryForm = ({
     setFormData({ ...formData, coverImage: file });
   };
 
-  const handleKapakRemoveImage = () => {
-    setFormData({ ...formData, coverImage: "" });
-  };
-
-  const handleSubmitDuzenleCategory = async () => {
+  const handleSubmitDuzenleCategory = async (e) => {
+    e.preventDefault();
     try {
-      updateCategoryText({
-        id: formData.id,
-        name: formData.name,
-        description: formData.description,
-        active: formData.active,
-      });
-
-      if (formData.coverImage !== initialKapakImages) {
-        if (formData.coverImage === null) {
-          deleteCoverImgCategory(formData.id);
-        } else {
-          const kapakData = new FormData();
-          kapakData.append("image", formData.coverImage);
-          updateCategoryImage(formData.id, kapakData);
-        }
-      }
-
-      dispatch(getCategories());
+      await dispatch(updateCategory({ formData, initialKapakImages })).unwrap();
+      dispatch(
+        showAlertWithTimeout({
+          message: "Kategori başarıyla güncellendi",
+          status: "success",
+        })
+      );
     } catch (error) {
-      const errorMessage = handleApiError(error);
-      alert(errorMessage);
-      console.log(error);
+      dispatch(
+        showAlertWithTimeout({
+          message: handleApiError(error),
+          status: "error",
+        })
+      );
     }
   };
 
-  const handleConfirmDeleteCategory = async () => {
+  const handleConfirmDeleteCategory = async (e) => {
+    e.preventDefault();
     try {
-      const response = deleteCategory(formData.id);
-      setFormData({
-        id: "",
-        name: "",
-        description: "",
-        parentCategoryId: "",
-        active: false,
-        coverImage: "",
-      });
-      setSelectedCategory("");
+      await dispatch(removeCategory(formData.id)).unwrap();
       setShowPopupCategory(false);
-      dispatch(getCategories()); // Yeniden ürünleri çek
-      console.log(response);
+      dispatch(
+        showAlertWithTimeout({
+          message: "Kategori başarıyla silindi",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeout({
+          message: handleApiError(error),
+          status: "error",
+        })
+      );
     }
   };
+
+  const renderedImage = useMemo(() => {
+    if (typeof formData.coverImage === "string") return formData.coverImage;
+    if (formData.coverImage instanceof File)
+      return URL.createObjectURL(formData.coverImage);
+    return null;
+  }, [formData.coverImage]);
+
+  console.log("1." + selectedCategory?.active);
+  console.log("2." + formData.active);
 
   return (
-    <div className="category-form">
-      <label>
+    <form onSubmit={handleSubmitDuzenleCategory} className="category-form">
+      <label className="secilenBolum">
         Kategori Seç:
         <CategorySingleDown
           categories={categories}
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-      </label>
-
-      <label>
-        Kategori İsmi:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          disabled={!selectedCategory}
         />
       </label>
 
       {selectedCategory && (
-        <label>
-          Açıklama:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </label>
-      )}
-
-      {selectedCategory && (
-        <div className="uploader-container">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "2rem",
-            }}
-            className="baslikAndButton"
-          >
-            <label>Kapak Fotoğrafı Yükle</label>
-            <input
-              type="file"
-              accept="image/*"
-              className="upload-input"
-              id="kapakFoto"
-              onChange={handleKapakImageChange}
-              style={{ display: "none" }}
-            />
-
-            <div>
-              <label
-                htmlFor="kapakFoto"
-                style={{
-                  cursor: "pointer",
-                  display: "inline-block",
-                  padding: "10px",
-                  backgroundColor: "rgb(31, 75, 28)",
-                  color: "#fff",
-                  borderRadius: "5px",
-                }}
-              >
-                {formData.coverImage ? "Resiim Değiştir" : "Resim Seç"}
+        <div className="categoryEdit">
+          <div className="leftSide">
+            <div className="avatar">
+              <input
+                type="file"
+                accept="image/*"
+                id="kapakFoto"
+                onChange={handleKapakImageChange}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="kapakFoto" className="kapsayiciButton">
+                {renderedImage ? (
+                  <img
+                    className="kapakImgg"
+                    src={renderedImage}
+                    alt="Kategori Kapak"
+                  />
+                ) : (
+                  <div className="Text">
+                    <ImageSearchIcon />
+                    Kategori Resmi Ekle
+                  </div>
+                )}
               </label>
             </div>
           </div>
 
-          {formData.coverImage && (
-            <div className="images-preview-container">
-              <div className="image-container" style={{ position: "relative" }}>
-                <img
-                  src={URL.createObjectURL(formData.coverImage)}
-                  alt="Kapak"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                />
-                <button
-                  className="remove-button"
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    backgroundColor: "red",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "50%",
-                    width: "30px",
-                    height: "30px",
-                    cursor: "pointer",
-                  }}
-                  type="button"
-                  onClick={handleKapakRemoveImage}
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+          <div className="rightSection">
+            <label>
+              Kategori İsmi:
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
 
-      {selectedCategory && (
-        <div className="buttonContainer">
-          <button
-            onClick={() => {
-              setShowPopupCategory(true);
-            }}
-            className="sil"
-          >
-            Sil
-          </button>
-          <button onClick={handleSubmitDuzenleCategory}>Düzenle</button>
+            <label>
+              Açıklama:
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <div className="buttonContainer">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowPopupCategory(true);
+                }}
+                className="delete"
+              >
+                Sil
+              </button>
+
+              <button
+                disabled={
+                  !(
+                    selectedCategory.categoryName !== formData.name ||
+                    selectedCategory.categoryDescription !==
+                      formData.description ||
+                    formData.coverImage instanceof File
+                  )
+                }
+                className={
+                  !(
+                    selectedCategory.categoryName !== formData.name ||
+                    selectedCategory.categoryDescription !==
+                      formData.description ||
+                    formData.coverImage instanceof File
+                  )
+                    ? "disabled"
+                    : ""
+                }
+                type="submit"
+              >
+                Kategori Düzenle
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -227,20 +206,25 @@ const CategoryForm = ({
             <div className="popup-buttons">
               <button
                 className="cancel"
+                type="button"
                 onClick={() => {
                   setShowPopupCategory(false);
                 }}
               >
                 İptal
               </button>
-              <button className="confirm" onClick={handleConfirmDeleteCategory}>
+              <button
+                type="button"
+                className="confirm"
+                onClick={handleConfirmDeleteCategory}
+              >
                 Sil
               </button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </form>
   );
 };
 
