@@ -8,9 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   fetchCartItems,
+  fetchCartItemsLoggedIn,
   removeFromCart,
 } from "../../redux/slices/sepetCartSlice";
 import { Link } from "react-router-dom";
+import api from "../../api/api";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -30,10 +32,35 @@ const Sepet = () => {
   const { cartItems, status, baslangıcState, cartTotal } = useSelector(
     (state) => state.sepet
   );
+  const { isLogin } = useSelector((state) => state.authSlice);
 
   useEffect(() => {
-    dispatch(fetchCartItems(baslangıcState));
-  }, [baslangıcState, dispatch]);
+    if (isLogin) {
+      dispatch(fetchCartItemsLoggedIn());
+    } else {
+      dispatch(fetchCartItems(baslangıcState));
+    }
+  }, [baslangıcState, dispatch, isLogin]);
+
+  const updateQuantity = async (item, change) => {
+    if (isLogin) {
+      try {
+        await api.put("http://localhost:8083/api/v1/card", {
+          cardItems: [
+            {
+              productId: item.id,
+              quantity: change,
+            },
+          ],
+        });
+        dispatch(fetchCartItemsLoggedIn());
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      dispatch(removeFromCart(item.id));
+    }
+  };
 
   return (
     <div className="sepet">
@@ -63,7 +90,7 @@ const Sepet = () => {
                     <th className="product-thumbnail">Resim</th>
                     <th className="product-name">İsim</th>
                     <th className="product-price">Fiyat</th>
-                    <th className="product-quantity">Adet / Metraj</th>
+                    <th className="product-quantity">Adet</th>
                     <th className="product-subtotal">Toplam</th>
                     <th className="controls">Kontroller</th>
                     {/* <th className="controls">Kontroller</th> */}
@@ -73,18 +100,27 @@ const Sepet = () => {
                   {cartItems.map((item) => (
                     <tr className="cart-item" key={item.id}>
                       <td className="cart-image">
-                        <img src={item.coverImage} alt={item.coverImage} />
+                        <img src={item.coverImage} alt={item.title} />
                       </td>
-                      <td className="product-name">{item.name}</td>
-                      <td className="product-price">{item.discountPrice}₺</td>
+                      <td className="product-name">{item.title}</td>
+                      <td className="product-price">{item.comparePrice}₺</td>
                       <td className="product-quantity">{item.quantity}</td>
-                      <td className="product-subtotal">{item.total}₺</td>
+                      <td className="product-subtotal">
+                        {item.comparePrice * item.quantity} ₺
+                      </td>
                       <td className="controls">
                         <button
-                          className="delete"
-                          onClick={() => dispatch(removeFromCart(item.id))}
+                          className=""
+                          onClick={() => updateQuantity(item, -1)}
                         >
-                          Sil
+                          -
+                        </button>
+                        {item.quantity}
+                        <button
+                          className=""
+                          onClick={() => updateQuantity(item, +1)}
+                        >
+                          +
                         </button>
                       </td>
                     </tr>

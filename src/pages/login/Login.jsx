@@ -1,16 +1,21 @@
 import { useState } from "react";
 import "./Login.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { useDispatch } from "react-redux";
-import { setAccessToken } from "../../redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin } from "../../redux/slices/authSlice";
 import { handleApiError } from "../../utils/errorHandler";
 import api from "../../api/api";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
   const [isAccount, setIsAccount] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { isLogin, role, isAuthChecked } = useSelector(
+    (state) => state.authSlice
+  );
 
   const handleButtonClick = () => {
     setIsAccount(!isAccount);
@@ -24,13 +29,20 @@ function Login() {
         password,
       });
 
-      dispatch(setAccessToken(response.data.accessToken));
+      dispatch(setLogin(response.data));
+      navigate("/");
+      console.log(response.data);
       console.log(response.data.accessToken);
     } catch (error) {
       const errorMessage = handleApiError(error);
       alert(errorMessage);
+      console.log(error);
     }
   };
+
+  if (isLogin && role?.includes("CUSTOMER") && isAuthChecked) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="login">
@@ -53,6 +65,7 @@ function Login() {
                     type="email"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -64,6 +77,7 @@ function Login() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="controller">

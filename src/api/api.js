@@ -1,6 +1,7 @@
 import axios from "axios";
 import { setAccessToken, setLogout } from "../redux/slices/authSlice";
 import { BASE_URL } from "../config/baseApi";
+import { logOutBackend } from "./apiAuth";
 
 let getAccessToken = () => null; // varsayılan
 export const setAccessTokenGetter = (getterFn) => {
@@ -61,6 +62,7 @@ api.interceptors.response.use(
           return api(originalRequest); // Orijinal isteği yeni token ile tekrar gönder
         } catch (refreshError) {
           refreshSubscribers = []; // ❗️ temizlemeden önce reject edebilirsin
+          await logOutBackend();
           dispatch?.(setLogout());
           return Promise.reject(refreshError);
         }

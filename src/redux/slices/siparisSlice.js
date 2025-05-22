@@ -4,27 +4,32 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   address: {
     title: "",
-    name: "",
     addressLine1: "",
-    phone: "",
+    phoneNo: "",
     postalCode: "",
     city: "",
+    countryId: 1,
   },
+
   billingAddress: {
     title: "",
-    name: "",
     addressLine1: "",
-    phone: "",
+    phoneNo: "",
     postalCode: "",
     city: "",
+    countryId: 1,
   },
+
   billingSame: true,
   invoiceType: "bireysel",
+  farkliAdres: false,
+
   corporateInfo: {
     taxOffice: "",
     taxNumber: "",
     companyName: "",
   },
+
   paymentInfo: {
     cardNumber: "",
     expiry: "",
@@ -54,6 +59,12 @@ const siparisSlice = createSlice({
     updatePaymentInfo: (state, action) => {
       state.paymentInfo = action.payload;
     },
+    updateFarkliAdres: (state, action) => {
+      state.farkliAdres = action.payload;
+    },
+    resetAdress: (state) => {
+      state.address = initialState.address;
+    },
     resetCheckout: () => initialState,
   },
 });
@@ -66,6 +77,8 @@ export const {
   updateCorporateInfo,
   updatePaymentInfo,
   resetCheckout,
+  resetAdress,
+  updateFarkliAdres,
 } = siparisSlice.actions;
 
 export default siparisSlice.reducer;

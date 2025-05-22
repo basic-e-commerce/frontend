@@ -10,15 +10,15 @@ import ProjelerGlide from "../../components/Urundetay/urunDetayGlide/ProjelerGli
 import Baslik from "../../components/baslik/Baslik";
 
 const UrunDetay = () => {
-  const { linkName } = useParams();
+  const { productLinkName } = useParams();
   const dispatch = useDispatch();
   const { products, productDetail, productsStatus, productDetailStatus } =
     useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(getProductDetail(linkName));
+    dispatch(getProductDetail(productLinkName));
     dispatch(getProducts());
-  }, [dispatch, linkName]);
+  }, [dispatch, productLinkName]);
 
   console.log(productDetail);
 

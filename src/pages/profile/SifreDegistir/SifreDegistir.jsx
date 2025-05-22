@@ -1,6 +1,33 @@
+import { useState } from "react";
 import "./SifreDegistir.scss";
+import api from "../../../api/api";
 
 const SifreDegistir = () => {
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [reNewPassword, setReNewPassword] = useState("");
+
+  const submit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.put(
+        "http://localhost:8083/api/v1/customer/update-password",
+        {
+          oldPassword: oldPassword,
+          password: newPassword,
+          rePassword: reNewPassword,
+        }
+      );
+
+      setNewPassword("");
+      setOldPassword("");
+      setReNewPassword("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="sifreDegistir">
       <div className="title">
@@ -8,15 +35,15 @@ const SifreDegistir = () => {
       </div>
 
       <hr />
-      <form className="bars">
+      <form onSubmit={submit} className="bars">
         <label>
           Eski Şifre:
           <input
             type="password"
             name="oldPassword"
             id="current-password"
-            //   value={formData.productName}
-            //   onChange={handleChange}
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
             required
             autoComplete="off"
           />
@@ -28,8 +55,8 @@ const SifreDegistir = () => {
             type="password"
             name="newPassword"
             id="new-password"
-            //   value={formData.quantity}
-            //   onChange={handleChange}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
             autoComplete="off"
             required
           />
@@ -42,15 +69,14 @@ const SifreDegistir = () => {
             name="confirmNewPassword"
             id="confirm-password"
             autoComplete="off"
-            //   value={formData.quantity}
-            //   onChange={handleChange}
-
+            value={reNewPassword}
+            onChange={(e) => setReNewPassword(e.target.value)}
             required
           />
         </label>
 
         <div className="button">
-          <button>Değiştir</button>
+          <button type="submit">Değiştir</button>
         </div>
       </form>
     </div>

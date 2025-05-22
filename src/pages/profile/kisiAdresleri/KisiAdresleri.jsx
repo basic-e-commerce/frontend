@@ -4,6 +4,12 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  addAdress,
+  deleteAdress,
+  getAdress,
+  updateAdress,
+} from "../../../api/apiAdress";
 
 const KisiAdresleri = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -11,63 +17,38 @@ const KisiAdresleri = () => {
   const [editMode, setEditMode] = useState(false);
   const [tempAddress, setTempAddress] = useState({
     title: "",
-    name: "",
+    countryId: 1,
     city: "",
-    phone: "",
-    postalCode: "",
     addressLine1: "",
+    postalCode: "",
+    phoneNo: "",
   });
+  const [selectedId, setSelectedId] = useState(null);
+  const [addresses, setAddresses] = useState([]);
 
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      title: "Ev",
-      name: "Ömer Türkay",
-      addressLine1:
-        "Güvenevler mh 23 nolu sokak no:35 Sarı konak apt kat 2 daire 4",
-      phone: "+905396928491",
-      postalCode: "17000",
-      city: "İstanbul",
-    },
-    {
-      id: 2,
-      title: "İş",
-      name: "Rozerin Tanrıkulu",
-      addressLine1:
-        "Güvenevler mh 23 nolu sokak no:35 Sarı konak apt kat 2 daire 4",
-      phone: "+905396928491",
-      postalCode: "17000",
-      city: "İstanbul",
-    },
-  ]);
+  const fetchAddresses = async () => {
+    try {
+      const response = await getAdress();
+      setAddresses(response);
+    } catch (error) {
+      console.error("Adresler alınırken hata oluştu:", error);
+    }
+  };
 
-  // const fetchAddresses = async () => {
-  //   try {
-  //     const response = await axios.get("https://api.example.com/addresses"); // API URL'ini değiştir
-  //     setAddresses(response.data);
-  //   } catch (error) {
-  //     console.error("Adresler alınırken hata oluştu:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchAddresses();
-  // }, []);
+  useEffect(() => {
+    fetchAddresses();
+  }, []);
 
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editMode) {
-        await axios.put(
-          `https://api.example.com/addresses/${tempAddress.id}`,
-          tempAddress
-        );
-        console.log("Adres Güncellendi:", tempAddress);
+        await updateAdress(tempAddress, selectedId);
       } else {
-        await axios.post("https://api.example.com/addresses", tempAddress);
+        await addAdress(tempAddress);
         console.log("Yeni Adres Eklendi:", tempAddress);
       }
-      // fetchAddresses();
+      fetchAddresses();
     } catch (error) {
       console.error("Adres ekleme/güncelleme hatası:", error);
     } finally {
@@ -75,39 +56,43 @@ const KisiAdresleri = () => {
         title: "",
         name: "",
         addressLine1: "",
-
         city: "",
         phone: "",
         postalCode: "",
       });
       setModalOpen(false);
       setEditMode(false);
+      setSelectedId(null);
     }
   };
 
   const handleDeleteSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete(`https://api.example.com/addresses/${tempAddress.id}`);
-      console.log("Adres Silindi:", tempAddress);
+      await deleteAdress(selectedId);
+      fetchAddresses();
+      console.log("Adres Silindi:");
     } catch (error) {
       console.log(error);
     } finally {
       setShowPopup(false);
-      setTempAddress({
-        title: "",
-        name: "",
-        addressLine1: "",
-        city: "",
-        phone: "",
-        postalCode: "",
-      });
+      setSelectedId(null);
     }
   };
 
   const handleEditAddress = (id) => {
+    setSelectedId(id);
     const addressToEdit = addresses.find((item) => item.id === id);
-    setTempAddress(addressToEdit);
+    const updatedAddress = {
+      title: addressToEdit.title,
+      countryId: 1,
+      city: addressToEdit.city,
+      addressLine1: addressToEdit.addressLine1,
+      postalCode: addressToEdit.postalCode,
+      phoneNo: addressToEdit.phoneNo,
+    };
+
+    setTempAddress(updatedAddress);
     setEditMode(true);
     setModalOpen(true);
   };
@@ -116,18 +101,17 @@ const KisiAdresleri = () => {
     setEditMode(false);
     setTempAddress({
       title: "",
-      name: "",
+      countryId: 1,
       city: "",
-      phone: "",
-      postalCode: "",
       addressLine1: "",
+      postalCode: "",
+      phoneNo: "",
     });
     setModalOpen(true);
   };
 
   const handleDeleteClick = (id) => {
-    const addressToDelete = addresses.find((item) => item.id === id);
-    setTempAddress(addressToDelete);
+    setSelectedId(id);
     setShowPopup(true);
   };
 
@@ -160,9 +144,15 @@ const KisiAdresleri = () => {
                 </button>
               </div>
             </div>
+            <div className="phone">
+              <p className="name">{adres.phoneNo}</p>
+            </div>
             <div className="section">
               <p className="name">{adres.name}</p>
-              <p className="adres">{adres.addressLine1}</p>
+              <p className="adres">
+                {adres.addressLine1} {adres.postalCode} <br />
+                {`${adres.country} / ${adres.city}`}
+              </p>
             </div>
           </div>
         ))}
@@ -183,23 +173,14 @@ const KisiAdresleri = () => {
                     setTempAddress({ ...tempAddress, title: e.target.value })
                   }
                 />
-                <input
-                  required
-                  type="text"
-                  placeholder="Ad Soyad"
-                  value={tempAddress.name}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, name: e.target.value })
-                  }
-                />
 
                 <input
                   required
                   type="tel"
                   placeholder="Telefon Numarası"
-                  value={tempAddress.phone}
+                  value={tempAddress.phoneNo}
                   onChange={(e) =>
-                    setTempAddress({ ...tempAddress, phone: e.target.value })
+                    setTempAddress({ ...tempAddress, phoneNo: e.target.value })
                   }
                 />
               </div>
@@ -225,7 +206,7 @@ const KisiAdresleri = () => {
                   }
                 >
                   <option value="">Şehir Seçin</option>
-                  <option value="İstanbul">İstanbul</option>
+                  <option value="Istanbul">İstanbul</option>
                   <option value="Ankara">Ankara</option>
                   <option value="İzmir">İzmir</option>
                   <option value="Bursa">Bursa</option>
@@ -247,7 +228,22 @@ const KisiAdresleri = () => {
             </div>
 
             <div className="buttons">
-              <button onClick={() => setModalOpen(false)}>İptal</button>
+              <button
+                onClick={() => {
+                  setModalOpen(false);
+                  setSelectedId(null);
+                  setTempAddress({
+                    title: "",
+                    countryId: 1,
+                    city: "",
+                    addressLine1: "",
+                    postalCode: "",
+                    phoneNo: "",
+                  });
+                }}
+              >
+                İptal
+              </button>
               <button type="submit">{editMode ? "Kaydet" : "Oluştur"}</button>
             </div>
           </form>

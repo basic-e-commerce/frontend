@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Bilgiler.scss";
+import api from "../../../api/api";
+import { BASE_URL } from "../../../config/baseApi";
 
 const KullaniciBilgileri = () => {
+  useEffect(() => {
+    fetchBilgiler();
+  }, []);
+
+  const fetchBilgiler = async () => {
+    const response = await api.get(`${BASE_URL}/api/v1/customer/profile`);
+    const data = response.data;
+    setFormData({
+      ad: data.name,
+      soyad: data.lastName,
+      email: data.username,
+      telefon: data.phoneNumber,
+    });
+  };
+
   const [formData, setFormData] = useState({
     ad: "",
     soyad: "",
@@ -13,6 +30,28 @@ const KullaniciBilgileri = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const submitBilgiler = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log({
+        name: formData.ad,
+        lastName: formData.soyad,
+        phoneNumber: formData.telefon,
+      });
+      const response = await api.put(`${BASE_URL}/api/v1/customer/profile`, {
+        name: formData.ad,
+        lastName: formData.soyad,
+        phoneNumber: formData.telefon,
+      });
+
+      console.log(response.data);
+      fetchBilgiler();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="kullaniciBilgileri">
       <div className="kullaniciInput">
@@ -22,7 +61,7 @@ const KullaniciBilgileri = () => {
 
         <hr />
 
-        <form className="bars">
+        <form onSubmit={submitBilgiler} className="bars">
           <label>
             Adınız:
             <input
@@ -73,13 +112,7 @@ const KullaniciBilgileri = () => {
           </label>
 
           <div className="button">
-            <button
-              onClick={() =>
-                setFormData({ ad: "", soyad: "", email: "", telefon: "" })
-              }
-            >
-              Değiştir
-            </button>
+            <button type="submit">Değiştir</button>
           </div>
         </form>
       </div>

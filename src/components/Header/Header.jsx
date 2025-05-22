@@ -16,6 +16,9 @@ const Header = () => {
 
   const { categories } = useSelector((state) => state.categories);
   const dispatch = useDispatch();
+  const { isLogin, role, isAuthChecked } = useSelector(
+    (state) => state.authSlice
+  );
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -58,15 +61,38 @@ const Header = () => {
             </div>
 
             <div className="auth">
-              <Link className="authItem" to={"/login"}>
-                <PersonIcon className="icon" />
-                <span>Giriş Yap</span>
-              </Link>
+              {isLogin && isAuthChecked ? (
+                role === "ADMIN" ? (
+                  <Link className="authItem" to={"/admins"}>
+                    <PersonIcon className="icon" />
+                    <span>Admin Paneli</span>
+                  </Link>
+                ) : (
+                  <>
+                    <Link className="authItem" to={"/profil/bilgiler"}>
+                      <PersonIcon className="icon" />
+                      <span>Profilim</span>
+                    </Link>
 
-              <Link className="authItem" to={"/sepet"}>
-                <ShoppingCartOutlinedIcon className="icon" />
-                <span>Sepetim</span>
-              </Link>
+                    <Link className="authItem" to={"/sepet"}>
+                      <ShoppingCartOutlinedIcon className="icon" />
+                      <span>Sepetim</span>
+                    </Link>
+                  </>
+                )
+              ) : (
+                <>
+                  <Link className="authItem" to={"/login"}>
+                    <PersonIcon className="icon" />
+                    <span>Giriş Yap</span>
+                  </Link>
+
+                  <Link className="authItem" to={"/sepet"}>
+                    <ShoppingCartOutlinedIcon className="icon" />
+                    <span>Sepetim</span>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

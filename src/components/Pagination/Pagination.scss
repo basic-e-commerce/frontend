@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5.3rem;
+  margin-top: 3.3rem;
 
   li {
     border: 1px solid gray;
@@ -32,7 +32,7 @@
   }
 
   .activePage a {
-    background-color: #235724 !important;
+    background-color: black !important;
     color: white !important;
     font-weight: bold;
   }
@@ -40,7 +40,7 @@
   .prevButton,
   .nextButton {
     a {
-      background-color: #235724 !important;
+      background-color: black !important;
       color: white !important;
       font-weight: bold;
     }

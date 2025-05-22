@@ -16,6 +16,8 @@ const UrunlerSection = () => {
   const { selectedCategory } = useSelector((state) => state.categories);
   const [currentItems, setCurrentItems] = useState([]);
 
+  console.log(selectedCategory);
+
   useEffect(() => {
     if (selectedCategory == null) {
       dispatch(getProducts());
@@ -24,15 +26,14 @@ const UrunlerSection = () => {
     }
   }, [dispatch, selectedCategory]);
 
-  console.log(products);
-  console.log(selectedCategory);
-
   return (
     <div className="urunlerSection">
       <div className="title">
         <div className="titleTop">
           <h3 style={{ fontSize: "1.2rem", padding: "0.5rem" }}>
-            {selectedCategory == null ? "Tüm Ürünler" : selectedCategory.name}
+            {selectedCategory == null
+              ? "Tüm Ürünler"
+              : selectedCategory.categoryName}
           </h3>
           <Sorting />
         </div>

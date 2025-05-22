@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/slices/sepetCartSlice";
 import axios from "axios";
-import { Co2Sharp } from "@mui/icons-material";
+import api from "../../../api/api";
 
 const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   const { isLogin } = useSelector((state) => state.authSlice);
@@ -31,16 +31,25 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   const handleSepeteEkle = async () => {
     if (isLogin) {
       try {
-        const response = await axios.post("url", { id: id, quantity: sayi });
+        await api.put("http://localhost:8083/api/v1/card", {
+          cardItems: [
+            {
+              productId: id,
+              quantity: sayi,
+            },
+          ],
+        });
 
-        if (response.status === 200) {
-          setShowPopup({
-            visb: true,
-            massage: "Sepete Eklendi",
-            status: "success",
-          });
-          setSayi(1);
-        }
+        setShowPopup({
+          visb: true,
+          massage: "Sepete Eklendi",
+          status: "success",
+        });
+
+        setTimeout(() => {
+          setShowPopup({ visb: false, massage: "", status: "" });
+        }, 2000);
+        setSayi(1);
       } catch (error) {
         setShowPopup({
           visb: true,

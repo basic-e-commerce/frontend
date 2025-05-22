@@ -5,79 +5,170 @@ import {
   setBillingSame,
   setInvoiceType,
   updateCorporateInfo,
+  updateFarkliAdres,
+  resetAdress,
 } from "../../../redux/slices/siparisSlice";
 import { Paper } from "@mui/material";
 import "./Adres.scss";
 import SiparisOzeti from "../../../components/siparisOzeti/SiparisOzeti";
-import { useEffect } from "react";
-import { fetchCartItems } from "../../../redux/slices/sepetCartSlice";
+import { useEffect, useState } from "react";
+import {
+  fetchCartItems,
+  fetchCartItemsLoggedIn,
+} from "../../../redux/slices/sepetCartSlice";
+import { getAdress } from "../../../api/apiAdress";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 
 export default function Adres() {
   const dispatch = useDispatch();
-  const { address, billingAddress, billingSame, invoiceType, corporateInfo } =
-    useSelector((state) => state.siparisSlice);
+  const {
+    address,
+    billingAddress,
+    billingSame,
+    invoiceType,
+    corporateInfo,
+    farkliAdres,
+  } = useSelector((state) => state.siparisSlice);
   const { status, baslangıcState, cartTotal } = useSelector(
     (state) => state.sepet
   );
   const { isLogin } = useSelector((state) => state.authSlice);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const payload = {
-      adres: address,
-      faturaAdres: billingSame ? address : billingAddress,
-      faturaTipi:
-        invoiceType === "bireysel"
-          ? "bireysel"
-          : {
-              tip: "kurumsal",
-              ...corporateInfo,
-            },
-    };
-    console.log("Adres bilgisi gönderildi:", payload);
-  };
+  const [addressesOlan, setAddressesOlan] = useState([]);
+  const [selectedAdresId, setSelectedAdresId] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchCartItems(baslangıcState));
-  }, [baslangıcState, dispatch]);
+    if (isLogin) {
+      dispatch(fetchCartItemsLoggedIn());
+      fetchAddresses();
+    } else {
+      dispatch(fetchCartItems(baslangıcState));
+    }
+  }, [baslangıcState, dispatch, isLogin]);
+
+  const fetchAddresses = async () => {
+    try {
+      const response = await getAdress();
+      setAddressesOlan(response);
+    } catch (error) {
+      console.error("Adresler alınırken hata oluştu:", error);
+    }
+  };
 
   const fields = [
     { key: "title", placeholder: "Başlık" },
-    { key: "name", placeholder: "Ad Soyad" },
-    { key: "phone", placeholder: "Telefon" },
+    { key: "phoneNo", placeholder: "Telefon" },
     { key: "addressLine1", placeholder: "Adres" },
     { key: "postalCode", placeholder: "Posta Kodu" },
     { key: "city", placeholder: "Şehir" },
   ];
 
+  const selectedAdres = (adres) => {
+    setSelectedAdresId(adres.id);
+    const addressNew = {
+      title: adres.title,
+      addressLine1: adres.addressLine1,
+      phoneNo: adres.phoneNo,
+      postalCode: adres.postalCode,
+      city: adres.city,
+      countryId: 1,
+    };
+
+    dispatch(updateAddress(addressNew));
+  };
+
+  console.log(address);
+
   return (
     <div className="siparisAdresSection">
       <Paper sx={{ boxShadow: 4, borderRadius: 1 }} className="formAdres">
-        <form className="address-formm" onSubmit={handleSubmit}>
+        <form className="address-formm">
           {!isLogin && (
             <div className="warning">
               Zaten Üye misiniz? <a href="/login">Giriş Yapın</a>
             </div>
           )}
 
-          {/* Adres Bilgileri */}
-          <section>
-            <h2>Adres Bilgileri</h2>
-            {fields.map(({ key, placeholder }) => (
+          <section className="adresBilgileri">
+            <label className="checkbox">
               <input
-                key={key}
-                placeholder={placeholder}
-                value={address[key]}
-                onChange={(e) =>
-                  dispatch(updateAddress({ ...address, [key]: e.target.value }))
-                }
-                required
+                type="checkbox"
+                checked={farkliAdres}
+                onClick={() => dispatch(resetAdress())}
+                onChange={(e) => dispatch(updateFarkliAdres(e.target.checked))}
               />
-            ))}
+              Farklı Bir Adres Girmek İstiyorum
+            </label>
+
+            {farkliAdres && (
+              <div className="adressAsil">
+                <h2>Adres Bilgileri</h2>
+                {fields.map(({ key, placeholder }) => (
+                  <input
+                    key={key}
+                    placeholder={placeholder}
+                    value={address[key]}
+                    onChange={(e) =>
+                      dispatch(
+                        updateAddress({ ...address, [key]: e.target.value })
+                      )
+                    }
+                    required
+                  />
+                ))}
+                <select
+                  onChange={(e) =>
+                    dispatch(
+                      updateAddress({ ...address, countryId: e.target.value })
+                    )
+                  }
+                  value={address.countryId}
+                  name="countryId"
+                  disabled
+                >
+                  <option value={1}>Türkiye</option>
+                </select>
+              </div>
+            )}
           </section>
 
-          {/* Fatura Adresi */}
-          <section>
+          {isLogin && addressesOlan.length > 0 && !farkliAdres && (
+            <div className="adresesContent">
+              {addressesOlan?.map((adres) => (
+                <div
+                  key={adres.id}
+                  onClick={() => {
+                    selectedAdres(adres);
+                  }}
+                  className={
+                    selectedAdresId == adres.id
+                      ? "kayitliAdres paper selectedAdres"
+                      : "kayitliAdres paper"
+                  }
+                >
+                  <div className="top">
+                    <h4 className="adressTitle">{adres.title}</h4>
+                    {selectedAdresId == adres.id ? (
+                      <DoneOutlineIcon className="iconTop" />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="phone">
+                    <p className="name">{adres.phoneNo}</p>
+                  </div>
+                  <div className="section">
+                    <p className="name">{adres.name}</p>
+                    <p className="adres">
+                      {adres.addressLine1} {adres.postalCode} <br />
+                      {`${adres.country} / ${adres.city}`}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <section className="faturaAdresi">
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -106,12 +197,26 @@ export default function Adres() {
                     required
                   />
                 ))}
+                <select
+                  onChange={(e) =>
+                    dispatch(
+                      updateAddress({
+                        ...billingAddress,
+                        countryId: e.target.value,
+                      })
+                    )
+                  }
+                  value={billingAddress.countryId}
+                  name="countryId"
+                  disabled
+                >
+                  <option value={1}>Türkiye</option>
+                </select>
               </div>
             )}
           </section>
 
-          {/* Fatura Tipi */}
-          <section>
+          <section className="faturaTipi">
             <h2>Fatura Tipi</h2>
             <div className="faturaTipi">
               <label>
@@ -121,7 +226,7 @@ export default function Adres() {
                   value="bireysel"
                   checked={invoiceType === "bireysel"}
                   onChange={() => dispatch(setInvoiceType("bireysel"))}
-                />{" "}
+                />
                 Bireysel
               </label>
 

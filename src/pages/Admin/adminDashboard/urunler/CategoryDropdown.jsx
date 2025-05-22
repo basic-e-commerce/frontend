@@ -19,8 +19,6 @@ const CategoryDropdown = ({
     onCategoryChange(updatedCategories);
   };
 
-  console.log(categories);
-
   return (
     <div>
       {categories?.map((category) => (

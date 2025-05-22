@@ -10,7 +10,7 @@ import {
 const initialState = {
   categories: [],
   selectedCategory: null,
-  loading: false,
+  loadingCategoriesStatus: false,
   error: null,
 };
 
@@ -74,15 +74,15 @@ export const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCategories.pending, (state) => {
-        state.loading = true;
+        state.loadingCategoriesStatus = true;
         state.error = null;
       })
       .addCase(getCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
-        state.loading = false;
+        state.loadingCategoriesStatus = false;
       })
       .addCase(getCategories.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingCategoriesStatus = false;
         state.error = action.error.message;
       });
   },

@@ -4,7 +4,10 @@ import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import SiparisOzeti from "../../../components/siparisOzeti/SiparisOzeti";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems } from "../../../redux/slices/sepetCartSlice";
+import {
+  fetchCartItems,
+  fetchCartItemsLoggedIn,
+} from "../../../redux/slices/sepetCartSlice";
 
 const Odeme = () => {
   const dispatch = useDispatch();
@@ -17,9 +20,15 @@ const Odeme = () => {
     (state) => state.sepet
   );
 
+  const { isLogin } = useSelector((state) => state.authSlice);
+
   useEffect(() => {
-    dispatch(fetchCartItems(baslangıcState));
-  }, [baslangıcState, dispatch]);
+    if (isLogin) {
+      dispatch(fetchCartItemsLoggedIn());
+    } else {
+      dispatch(fetchCartItems(baslangıcState));
+    }
+  }, [baslangıcState, dispatch, isLogin]);
 
   return (
     <div className="siparisOdemeSection">
