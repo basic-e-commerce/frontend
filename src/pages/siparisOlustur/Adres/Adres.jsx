@@ -93,7 +93,10 @@ export default function Adres() {
               <input
                 type="checkbox"
                 checked={farkliAdres}
-                onClick={() => dispatch(resetAdress())}
+                onClick={() => {
+                  dispatch(resetAdress());
+                  setSelectedAdresId(null);
+                }}
                 onChange={(e) => dispatch(updateFarkliAdres(e.target.checked))}
               />
               Farklı Bir Adres Girmek İstiyorum
