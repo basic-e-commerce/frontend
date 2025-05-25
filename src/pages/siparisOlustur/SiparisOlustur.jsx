@@ -8,32 +8,16 @@ const SiparisOlustur = () => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Adres Bilgisi", "Ödeme"];
 
-  const handleNext = async () => {
-    if (activeStep !== steps.length - 1) {
+  const handleNext = () => {
+    if (activeStep < steps.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else {
-      // Eğer son adıma gelindiğinde ise "Bitir" butonunu disable et
-      const bitirButton = document.getElementById("bitirButtonuu");
-      bitirButton.className = "buttonDisabled";
-      bitirButton.disabled = true;
-
-      try {
-        console.log("odeme yapıldı");
-      } catch (err) {
-        console.error(err);
-        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-      }
     }
   };
 
   const handleBack = () => {
-    // Geri alındığında "Bitir" butonunun disable'ını kaldır
-    if (activeStep === steps.length - 1) {
-      const bitirButton = document.getElementById("bitirButtonuu");
-      bitirButton.className = "button";
-      bitirButton.disabled = false;
+    if (activeStep > 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   useEffect(() => {
@@ -79,9 +63,15 @@ const SiparisOlustur = () => {
             >
               Geri
             </button>
-            <button id="bitirButtonuu" className="button" onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Ödeme Yap" : "İleri"}
-            </button>
+            {activeStep !== steps.length - 1 && (
+              <button
+                id="bitirButtonuu"
+                className="button"
+                onClick={handleNext}
+              >
+                İleri
+              </button>
+            )}
           </div>
         </div>
       </div>

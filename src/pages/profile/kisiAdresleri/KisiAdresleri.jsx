@@ -3,7 +3,6 @@ import AddIcon from "@mui/icons-material/Add";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {
   addAdress,
   deleteAdress,
@@ -17,7 +16,9 @@ const KisiAdresleri = () => {
   const [editMode, setEditMode] = useState(false);
   const [tempAddress, setTempAddress] = useState({
     title: "",
-    countryName: "Türkiye",
+    firstName: "",
+    lastName: "",
+    countryName: "TURKEY",
     city: "",
     addressLine1: "",
     postalCode: "",
@@ -30,6 +31,7 @@ const KisiAdresleri = () => {
     try {
       const response = await getAdress();
       setAddresses(response);
+      console.log(response);
     } catch (error) {
       console.error("Adresler alınırken hata oluştu:", error);
     }
@@ -54,11 +56,13 @@ const KisiAdresleri = () => {
     } finally {
       setTempAddress({
         title: "",
-        name: "",
-        addressLine1: "",
+        firstName: "",
+        lastName: "",
+        countryName: "TURKEY",
         city: "",
-        phone: "",
+        addressLine1: "",
         postalCode: "",
+        phoneNo: "",
       });
       setModalOpen(false);
       setEditMode(false);
@@ -83,16 +87,17 @@ const KisiAdresleri = () => {
   const handleEditAddress = (id) => {
     setSelectedId(id);
     const addressToEdit = addresses.find((item) => item.id === id);
-    const updatedAddress = {
+    const newAdres = {
       title: addressToEdit.title,
-      countryId: 1,
+      firstName: addressToEdit.firstName,
+      lastName: addressToEdit.lastName,
+      countryName: addressToEdit.countryName,
       city: addressToEdit.city,
       addressLine1: addressToEdit.addressLine1,
       postalCode: addressToEdit.postalCode,
       phoneNo: addressToEdit.phoneNo,
     };
-
-    setTempAddress(updatedAddress);
+    setTempAddress(newAdres);
     setEditMode(true);
     setModalOpen(true);
   };
@@ -101,7 +106,9 @@ const KisiAdresleri = () => {
     setEditMode(false);
     setTempAddress({
       title: "",
-      countryId: 1,
+      firstName: "",
+      lastName: "",
+      countryName: "TURKEY",
       city: "",
       addressLine1: "",
       postalCode: "",
@@ -114,6 +121,8 @@ const KisiAdresleri = () => {
     setSelectedId(id);
     setShowPopup(true);
   };
+
+  console.log(tempAddress);
 
   return (
     <div className="kisiAdresleri">
@@ -151,7 +160,7 @@ const KisiAdresleri = () => {
               <p className="name">{adres.name}</p>
               <p className="adres">
                 {adres.addressLine1} {adres.postalCode} <br />
-                {`${adres.country} / ${adres.city}`}
+                {`${adres.countryName} / ${adres.city}`}
               </p>
             </div>
           </div>
@@ -171,6 +180,27 @@ const KisiAdresleri = () => {
                   value={tempAddress.title}
                   onChange={(e) =>
                     setTempAddress({ ...tempAddress, title: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="İsim"
+                  required
+                  value={tempAddress.firstName}
+                  onChange={(e) =>
+                    setTempAddress({
+                      ...tempAddress,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Soyad"
+                  required
+                  value={tempAddress.lastName}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, lastName: e.target.value })
                   }
                 />
 
@@ -234,7 +264,9 @@ const KisiAdresleri = () => {
                   setSelectedId(null);
                   setTempAddress({
                     title: "",
-                    countryId: 1,
+                    firstName: "",
+                    lastName: "",
+                    countryName: "TURKEY",
                     city: "",
                     addressLine1: "",
                     postalCode: "",
@@ -258,7 +290,17 @@ const KisiAdresleri = () => {
               <button
                 className="cancel"
                 onClick={() => {
-                  setTempAddress({ title: "", name: "", address: "" });
+                  setTempAddress({
+                    title: "",
+                    firstName: "",
+                    lastName: "",
+                    countryName: "TURKEY",
+                    city: "",
+                    addressLine1: "",
+                    postalCode: "",
+                    phoneNo: "",
+                  });
+                  setSelectedId(null);
                   setShowPopup(false);
                 }}
               >

@@ -39,20 +39,20 @@ const SiparisOzeti = ({ cartTotal }) => {
         <div className="ucretDetay">
           <h3 className="title">Toplam Tutar</h3>
           <p>
-            <span>Toplam Fiyat: </span>{" "}
+            <span>Toplam Fiyat: </span>
             <strong>{cartTotal?.totalPrice?.toFixed(2)} ₺</strong>
           </p>
           <p>
             <span>KDV:</span> <strong>{cartTotal?.kdv?.toFixed(2)} ₺</strong>
           </p>
           <p>
-            <span>Kargo:</span>{" "}
+            <span>Kargo:</span>
             <strong>{cartTotal?.shippingCost?.toFixed(2)} ₺</strong>
           </p>
 
           <hr />
           <p>
-            <span>Toplam:</span>{" "}
+            <span>Toplam:</span>
             <strong>{cartTotal?.totalWithShipping?.toFixed(2)} ₺</strong>
           </p>
         </div>

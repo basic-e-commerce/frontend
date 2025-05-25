@@ -29,12 +29,6 @@ const initialState = {
     taxNumber: "",
     companyName: "",
   },
-
-  paymentInfo: {
-    cardNumber: "",
-    expiry: "",
-    cvc: "",
-  },
 };
 
 const siparisSlice = createSlice({
@@ -56,9 +50,6 @@ const siparisSlice = createSlice({
     updateCorporateInfo: (state, action) => {
       state.corporateInfo = action.payload;
     },
-    updatePaymentInfo: (state, action) => {
-      state.paymentInfo = action.payload;
-    },
     updateFarkliAdres: (state, action) => {
       state.farkliAdres = action.payload;
     },
@@ -75,7 +66,6 @@ export const {
   setBillingSame,
   setInvoiceType,
   updateCorporateInfo,
-  updatePaymentInfo,
   resetCheckout,
   resetAdress,
   updateFarkliAdres,
