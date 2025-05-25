@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/slices/sepetCartSlice";
 import axios from "axios";
 import api from "../../../api/api";
+import { BASE_URL } from "../../../config/baseApi";
 
 const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   const { isLogin } = useSelector((state) => state.authSlice);
@@ -31,7 +32,7 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   const handleSepeteEkle = async () => {
     if (isLogin) {
       try {
-        await api.put("http://localhost:8083/api/v1/card", {
+        await api.put(`${BASE_URL}/api/v1/card`, {
           cardItems: [
             {
               productId: id,
