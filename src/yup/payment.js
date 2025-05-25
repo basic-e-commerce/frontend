@@ -1,6 +1,10 @@
 import * as Yup from "yup";
 
 export const paymentSchema = Yup.object().shape({
+  fullName: Yup.string()
+    .required("Ad Soyad gereklidir")
+    .min(3, "En az 3 karakter olmalı")
+    .max(50, "En fazla 50 karakter olabilir"),
   cardNumber: Yup.string()
     .required("Kart numarası zorunludur")
     .matches(/^[0-9]{16}$/, "Geçerli bir kart numarası giriniz"),

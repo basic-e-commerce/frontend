@@ -30,6 +30,7 @@ import { useEffect } from "react";
 import { setLogin, setLogout } from "./redux/slices/authSlice";
 import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
+import SuccessPage from "./components/successPage/Success";
 
 function App() {
   const location = useLocation();
@@ -66,6 +67,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Anasayfa />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="/urunler" element={<Urunler />} />
         <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />

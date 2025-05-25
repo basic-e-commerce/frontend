@@ -7,6 +7,7 @@ import {
   updateCorporateInfo,
   updateFarkliAdres,
   resetAdress,
+  updataSelectedAdresId,
 } from "../../../redux/slices/siparisSlice";
 import { Paper } from "@mui/material";
 import "./Adres.scss";
@@ -23,27 +24,18 @@ export default function Adres() {
   const dispatch = useDispatch();
   const {
     address,
-    billingAddress,
+    invoiceAddress,
     billingSame,
     invoiceType,
-    corporateInfo,
-    farkliAdres,
+    corporateInvoice,
+    diffAddress,
+    selectedAdresId,
   } = useSelector((state) => state.siparisSlice);
   const { status, baslangıcState, cartTotal } = useSelector(
     (state) => state.sepet
   );
   const { isLogin } = useSelector((state) => state.authSlice);
   const [addressesOlan, setAddressesOlan] = useState([]);
-  const [selectedAdresId, setSelectedAdresId] = useState(null);
-
-  useEffect(() => {
-    if (isLogin) {
-      dispatch(fetchCartItemsLoggedIn());
-      fetchAddresses();
-    } else {
-      dispatch(fetchCartItems(baslangıcState));
-    }
-  }, [baslangıcState, dispatch, isLogin]);
 
   const fetchAddresses = async () => {
     try {
@@ -54,29 +46,43 @@ export default function Adres() {
     }
   };
 
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(fetchCartItemsLoggedIn());
+      fetchAddresses();
+    } else {
+      dispatch(fetchCartItems(baslangıcState));
+    }
+  }, [baslangıcState, dispatch, isLogin]);
+
+  const selectedAdres = (adres) => {
+    dispatch(updataSelectedAdresId(adres.id));
+    const addressNew = {
+      title: adres.title,
+      firstName: adres.firstName,
+      lastName: adres.lastName,
+      addressLine1: adres.addressLine1,
+      phoneNo: adres.phoneNo,
+      postalCode: adres.postalCode,
+      city: adres.city,
+      countryName: adres.countryName,
+    };
+
+    dispatch(updateAddress(addressNew));
+  };
+
   const fields = [
     { key: "title", placeholder: "Başlık" },
+    { key: "firstName", placeholder: "Ad" },
+    { key: "lastName", placeholder: "Soyad" },
     { key: "phoneNo", placeholder: "Telefon" },
     { key: "addressLine1", placeholder: "Adres" },
     { key: "postalCode", placeholder: "Posta Kodu" },
     { key: "city", placeholder: "Şehir" },
   ];
 
-  const selectedAdres = (adres) => {
-    setSelectedAdresId(adres.id);
-    const addressNew = {
-      title: adres.title,
-      addressLine1: adres.addressLine1,
-      phoneNo: adres.phoneNo,
-      postalCode: adres.postalCode,
-      city: adres.city,
-      countryId: 1,
-    };
-
-    dispatch(updateAddress(addressNew));
-  };
-
-  console.log(address);
+  console.log(invoiceType);
+  console.log(invoiceAddress);
 
   return (
     <div className="siparisAdresSection">
@@ -92,17 +98,17 @@ export default function Adres() {
             <label className="checkbox">
               <input
                 type="checkbox"
-                checked={farkliAdres}
+                checked={diffAddress}
                 onClick={() => {
                   dispatch(resetAdress());
-                  setSelectedAdresId(null);
+                  dispatch(updataSelectedAdresId(null));
                 }}
                 onChange={(e) => dispatch(updateFarkliAdres(e.target.checked))}
               />
               Farklı Bir Adres Girmek İstiyorum
             </label>
 
-            {farkliAdres && (
+            {diffAddress && (
               <div className="adressAsil">
                 <h2>Adres Bilgileri</h2>
                 {fields.map(({ key, placeholder }) => (
@@ -121,20 +127,20 @@ export default function Adres() {
                 <select
                   onChange={(e) =>
                     dispatch(
-                      updateAddress({ ...address, countryId: e.target.value })
+                      updateAddress({ ...address, countryName: e.target.value })
                     )
                   }
-                  value={address.countryId}
-                  name="countryId"
+                  value={address.countryName}
+                  name="countryName"
                   disabled
                 >
-                  <option value={1}>Türkiye</option>
+                  <option value={"TURKEY"}>Türkiye</option>
                 </select>
               </div>
             )}
           </section>
 
-          {isLogin && addressesOlan.length > 0 && !farkliAdres && (
+          {isLogin && addressesOlan.length > 0 && !diffAddress && (
             <div className="adresesContent">
               {addressesOlan?.map((adres) => (
                 <div
@@ -163,7 +169,7 @@ export default function Adres() {
                     <p className="name">{adres.name}</p>
                     <p className="adres">
                       {adres.addressLine1} {adres.postalCode} <br />
-                      {`${adres.country} / ${adres.city}`}
+                      {`${adres.countryName} / ${adres.city}`}
                     </p>
                   </div>
                 </div>
@@ -188,11 +194,11 @@ export default function Adres() {
                   <input
                     key={key}
                     placeholder={placeholder}
-                    value={billingAddress[key]}
+                    value={invoiceAddress[key]}
                     onChange={(e) =>
                       dispatch(
                         updateBillingAddress({
-                          ...billingAddress,
+                          ...invoiceAddress,
                           [key]: e.target.value,
                         })
                       )
@@ -204,16 +210,16 @@ export default function Adres() {
                   onChange={(e) =>
                     dispatch(
                       updateAddress({
-                        ...billingAddress,
-                        countryId: e.target.value,
+                        ...invoiceAddress,
+                        countryName: e.target.value,
                       })
                     )
                   }
-                  value={billingAddress.countryId}
-                  name="countryId"
+                  value={invoiceAddress.countryName}
+                  name="countryName"
                   disabled
                 >
-                  <option value={1}>Türkiye</option>
+                  <option value={"TURKEY"}>Türkiye</option>
                 </select>
               </div>
             )}
@@ -226,9 +232,9 @@ export default function Adres() {
                 <input
                   type="radio"
                   name="invoiceType"
-                  value="bireysel"
-                  checked={invoiceType === "bireysel"}
-                  onChange={() => dispatch(setInvoiceType("bireysel"))}
+                  value="INDIVIDUAL"
+                  checked={invoiceType === "INDIVIDUAL"}
+                  onChange={() => dispatch(setInvoiceType("INDIVIDUAL"))}
                 />
                 Bireysel
               </label>
@@ -237,23 +243,23 @@ export default function Adres() {
                 <input
                   type="radio"
                   name="invoiceType"
-                  value="kurumsal"
-                  checked={invoiceType === "kurumsal"}
-                  onChange={() => dispatch(setInvoiceType("kurumsal"))}
-                />{" "}
+                  value="CORPORATE"
+                  checked={invoiceType === "CORPORATE"}
+                  onChange={() => dispatch(setInvoiceType("CORPORATE"))}
+                />
                 Kurumsal
               </label>
             </div>
 
-            {invoiceType === "kurumsal" && (
+            {invoiceType === "CORPORATE" && (
               <div className="corporate-info">
                 <input
                   placeholder="Vergi Dairesi"
-                  value={corporateInfo.taxOffice}
+                  value={corporateInvoice.taxOffice}
                   onChange={(e) =>
                     dispatch(
                       updateCorporateInfo({
-                        ...corporateInfo,
+                        ...corporateInvoice,
                         taxOffice: e.target.value,
                       })
                     )
@@ -262,11 +268,11 @@ export default function Adres() {
                 />
                 <input
                   placeholder="Vergi Numarası"
-                  value={corporateInfo.taxNumber}
+                  value={corporateInvoice.taxNumber}
                   onChange={(e) =>
                     dispatch(
                       updateCorporateInfo({
-                        ...corporateInfo,
+                        ...corporateInvoice,
                         taxNumber: e.target.value,
                       })
                     )
@@ -275,12 +281,12 @@ export default function Adres() {
                 />
                 <input
                   placeholder="Ticaret Ünvanı"
-                  value={corporateInfo.companyName}
+                  value={corporateInvoice.name}
                   onChange={(e) =>
                     dispatch(
                       updateCorporateInfo({
-                        ...corporateInfo,
-                        companyName: e.target.value,
+                        ...corporateInvoice,
+                        name: e.target.value,
                       })
                     )
                   }

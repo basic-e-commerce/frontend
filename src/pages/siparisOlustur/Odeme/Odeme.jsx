@@ -10,19 +10,29 @@ import {
 import { useFormik } from "formik";
 import { paymentSchema } from "../../../yup/payment";
 import axios from "axios";
+import { BASE_URL } from "../../../config/baseApi";
+import api from "../../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const Odeme = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { status, baslangıcState, cartTotal } = useSelector(
     (state) => state.sepet
   );
-
-  console.log(cartTotal);
-
+  const {
+    address,
+    invoiceAddress,
+    billingSame,
+    invoiceType,
+    corporateInvoice,
+  } = useSelector((state) => state.siparisSlice);
   const { isLogin } = useSelector((state) => state.authSlice);
   const [installmentOptions, setInstallmentOptions] = useState([]);
   const [binNumber, setBinNumber] = useState("");
+
+  const [htmll, setHtmll] = useState(null);
 
   useEffect(() => {
     if (isLogin) {
@@ -34,6 +44,7 @@ const Odeme = () => {
 
   const formik = useFormik({
     initialValues: {
+      fullName: "",
       cardNumber: "",
       expiryMonth: "",
       expiryYear: "",
@@ -41,8 +52,55 @@ const Odeme = () => {
       installment: "",
     },
     validationSchema: paymentSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const payload = {
+        address: address,
+        invoiceAddress: billingSame ? address : invoiceAddress,
+        invoiceType: invoiceType,
+        diffAddress: !billingSame,
+        ...(invoiceType === "CORPORATE" && {
+          corporateInvoice: {
+            name: corporateInvoice.name,
+            taxNumber: corporateInvoice.taxNumber,
+          },
+        }),
+        paymentCreditCardRequestDto: {
+          paymentMethod: "IYZICO",
+          creditCardRequestDto: {
+            cardNumber: values.cardNumber,
+            cardHolderName: values.fullName,
+            expirationMonth: values.expiryMonth,
+            expirationYear: values.expiryYear,
+            cvv: values.cvv,
+          },
+          installmentNumber: values.installment,
+        },
+        ...(!isLogin && {
+          orderItemCreateDtos: baslangıcState,
+        }),
+      };
+      console.log("Adres bilgisi gönderildi:", payload);
+
+      try {
+        if (isLogin) {
+          const response = await api.post(
+            `${BASE_URL}/api/v1/payment`,
+            payload
+          );
+          console.log(response);
+          setHtmll(response.data);
+        } else {
+          const response = await axios.post(
+            `${BASE_URL}/api/v1/payment`,
+            payload
+          );
+          console.log(response);
+          setHtmll(response.data);
+          navigate("/success", { state: { html: response.data } });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -54,13 +112,18 @@ const Odeme = () => {
 
       if (
         response.data.status === "success" &&
+        Array.isArray(response.data.installmentDetails) &&
         response.data.installmentDetails.length > 0
       ) {
         const prices = response.data.installmentDetails[0].installmentPrices;
         setInstallmentOptions(prices);
+      } else {
+        // Hatalı veya desteklenmeyen kart için listeyi temizle
+        setInstallmentOptions([]);
       }
     } catch (error) {
       console.error("Taksit bilgileri alınamadı:", error);
+      setInstallmentOptions([]); // Hata durumunda da listeyi temizle
     }
   };
 
@@ -77,7 +140,22 @@ const Odeme = () => {
 
               <input
                 type="text"
+                name="fullName"
+                placeholder="Ad Soyad"
+                value={formik.values.fullName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+
+              {formik.touched.fullName && formik.errors.fullName && (
+                <div className="error">{formik.errors.fullName}</div>
+              )}
+
+              <input
+                type="text"
                 name="cardNumber"
+                inputMode="numeric"
+                pattern="\d*"
                 placeholder="Kart Numarası"
                 maxLength={16}
                 value={formik.values.cardNumber}
@@ -85,9 +163,15 @@ const Odeme = () => {
                   const rawValue = e.target.value.replace(/\D/g, "");
                   formik.setFieldValue("cardNumber", rawValue);
 
-                  if (rawValue.length === 6 && rawValue !== binNumber) {
-                    setBinNumber(rawValue);
-                    getInstallmentData(rawValue);
+                  if (rawValue.length >= 6) {
+                    const newBin = rawValue.slice(0, 6);
+                    if (newBin !== binNumber) {
+                      setBinNumber(newBin);
+                      getInstallmentData(newBin);
+                    }
+                  } else {
+                    setInstallmentOptions([]);
+                    setBinNumber("");
                   }
                 }}
                 onBlur={formik.handleBlur}
@@ -153,7 +237,8 @@ const Odeme = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >
-                <option value="">Taksit seçiniz</option>{" "}
+                <option value="">Taksit seçiniz</option>
+                <option value={1}>1</option>
                 {installmentOptions.map((item) => (
                   <option
                     key={item.installmentNumber}

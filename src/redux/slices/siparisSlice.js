@@ -2,32 +2,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  selectedAdresId: null,
   address: {
     title: "",
+    firstName: "",
+    lastName: "",
     addressLine1: "",
     phoneNo: "",
     postalCode: "",
     city: "",
-    countryId: 1,
+    countryName: "TURKEY",
   },
 
-  billingAddress: {
+  invoiceAddress: {
     title: "",
+    firstName: "",
+    lastName: "",
     addressLine1: "",
     phoneNo: "",
     postalCode: "",
     city: "",
-    countryId: 1,
+    countryName: "TURKEY",
   },
 
   billingSame: true,
-  invoiceType: "bireysel",
-  farkliAdres: false,
+  invoiceType: "INDIVIDUAL",
+  diffAddress: false,
 
-  corporateInfo: {
+  corporateInvoice: {
     taxOffice: "",
     taxNumber: "",
-    companyName: "",
+    name: "",
   },
 };
 
@@ -35,11 +40,15 @@ const siparisSlice = createSlice({
   name: "siparisSlice",
   initialState,
   reducers: {
+    updataSelectedAdresId: (state, action) => {
+      state.selectedAdresId = action.payload;
+    },
+
     updateAddress: (state, action) => {
       state.address = action.payload;
     },
     updateBillingAddress: (state, action) => {
-      state.billingAddress = action.payload;
+      state.invoiceAddress = action.payload;
     },
     setBillingSame: (state, action) => {
       state.billingSame = action.payload;
@@ -48,10 +57,10 @@ const siparisSlice = createSlice({
       state.invoiceType = action.payload;
     },
     updateCorporateInfo: (state, action) => {
-      state.corporateInfo = action.payload;
+      state.corporateInvoice = action.payload;
     },
     updateFarkliAdres: (state, action) => {
-      state.farkliAdres = action.payload;
+      state.diffAddress = action.payload;
     },
     resetAdress: (state) => {
       state.address = initialState.address;
@@ -69,6 +78,7 @@ export const {
   resetCheckout,
   resetAdress,
   updateFarkliAdres,
+  updataSelectedAdresId,
 } = siparisSlice.actions;
 
 export default siparisSlice.reducer;
