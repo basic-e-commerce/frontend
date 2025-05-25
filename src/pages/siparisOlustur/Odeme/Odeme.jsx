@@ -18,6 +18,8 @@ const Odeme = () => {
     (state) => state.sepet
   );
 
+  console.log(cartTotal);
+
   const { isLogin } = useSelector((state) => state.authSlice);
   const [installmentOptions, setInstallmentOptions] = useState([]);
   const [binNumber, setBinNumber] = useState("");
@@ -47,7 +49,7 @@ const Odeme = () => {
   const getInstallmentData = async (bin) => {
     try {
       const response = await axios.get(
-        `https://litysofttest1.site/api/v1/payment/bin?bin=${bin}&amount=${cartTotal}`
+        `https://litysofttest1.site/api/v1/payment/bin?bin=${bin}&amount=${cartTotal.totalWithShipping}`
       );
 
       if (
@@ -90,6 +92,7 @@ const Odeme = () => {
                 }}
                 onBlur={formik.handleBlur}
               />
+
               {formik.touched.cardNumber && formik.errors.cardNumber && (
                 <div className="error">{formik.errors.cardNumber}</div>
               )}
@@ -104,6 +107,7 @@ const Odeme = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
+
                 <input
                   type="text"
                   name="expiryYear"
