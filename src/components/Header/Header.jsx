@@ -112,17 +112,6 @@ const Header = () => {
 
             <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
               <ul className="menu-list">
-                {categories?.map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      className="menu-link"
-                      to="/urunler"
-                      onClick={closeMenu}
-                    >
-                      {item.categoryName}
-                    </Link>
-                  </li>
-                ))}
                 <li>
                   <Link className="menu-link" to="/urunler" onClick={closeMenu}>
                     Tüm Ürünler

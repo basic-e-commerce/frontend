@@ -80,13 +80,20 @@
 
               .controls {
                 text-align: end;
+                .buttonss {
+                  display: flex;
+                  gap: 0.5rem;
+                  align-items: center;
+                  justify-content: flex-end;
+                  button {
+                    border-radius: 20px;
+                    background-color: transparent;
+                    text-align: end;
 
-                .delete {
-                  padding: 5px 15px;
-                  border-radius: 5px;
-                  background-color: #d32f2f;
-                  color: white;
-                  font-size: 14px;
+                    .iconControl {
+                      font-size: 2rem;
+                    }
+                  }
                 }
               }
             }

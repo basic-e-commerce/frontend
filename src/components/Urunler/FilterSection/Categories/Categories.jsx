@@ -9,6 +9,10 @@ import {
 const Categories = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const { selectedCategory } = useSelector((state) => state.categories);
+
+  console.log(categories);
+  console.log(selectedCategory);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -21,7 +25,11 @@ const Categories = () => {
           onClick={() => {
             dispatch(setSelectedCategory(category));
           }}
-          className="categoryItem"
+          className={
+            category.categoryLinkName == selectedCategory?.categoryLinkName
+              ? "categoryItem selected"
+              : "categoryItem"
+          }
           key={index}
         >
           <button>{category.categoryName}</button>

@@ -94,7 +94,6 @@ export const fetchCartItemsLoggedIn = createAsyncThunk(
         `${BASE_URL}/api/v1/card-item/by-ids`,
         []
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Login sepet getirme hatası:", error);

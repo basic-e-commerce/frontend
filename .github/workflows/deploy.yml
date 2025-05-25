@@ -5,32 +5,29 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
-      - '.github/workflows/deploy.yml'
+      - "src/**"
+      - ".github/workflows/deploy.yml"
   pull_request:
     branches:
       - main
     paths:
-      - 'src/**'
-      - '.github/workflows/deploy.yml'
+      - "src/**"
+      - ".github/workflows/deploy.yml"
 
 jobs:
   build_and_deploy_backend:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Setup SSH Key for Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 89.213.248.57
+          host: 185.240.104.6
           username: root
           key: ${{ secrets.ECOMMERCESECRET }}
           script: |
-            cd /home/ubuntu/projects/proje3/frontend
+            cd /home/projects/ecommerce/frontend
             git pull
             npm run build
-            rm -r /var/www/react-app/build/*
-            cp -r /home/ubuntu/projects/proje3/frontend/dist/* /var/www/react-app/build/
-
-
+            rm -r /var/www/html/projects/ecommerce/project
+            cp -r /home/projects/ecommerce/frontend/dist/* /var/www/html/projects/ecommerce/project

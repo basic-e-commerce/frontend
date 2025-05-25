@@ -21,6 +21,7 @@ const UrunEkle = () => {
     salePrice: "",
     comparePrice: "",
     buyingPrice: "",
+    taxRate: "",
     productType: "",
     published: "true",
     disableOutOfStock: "true",
@@ -45,6 +46,7 @@ const UrunEkle = () => {
     formDataToSend.append("quantity", formData.quantity);
     formDataToSend.append("salePrice", formData.salePrice);
     formDataToSend.append("buyingPrice", formData.buyingPrice);
+    formDataToSend.append("taxRate", formData.taxRate);
     formDataToSend.append("comparePrice", formData.comparePrice);
     formDataToSend.append("published", formData.published);
     formDataToSend.append("productType", formData.productType);
@@ -90,6 +92,7 @@ const UrunEkle = () => {
           status: "error",
         })
       );
+      console.log(error);
     } finally {
       setIsloading(false);
     }
@@ -109,7 +112,13 @@ const UrunEkle = () => {
 
     let newValue = value;
     if (
-      ["quantity", "salePrice", "comparePrice", "buyingPrice"].includes(name)
+      [
+        "quantity",
+        "salePrice",
+        "comparePrice",
+        "buyingPrice",
+        "taxRate",
+      ].includes(name)
     ) {
       newValue = value === "" ? "" : parseInt(value) || 0; // Boşsa boş bırak, yoksa sayıya çevir
     }
@@ -298,6 +307,17 @@ const UrunEkle = () => {
                 </label>
 
                 <label>
+                  Vergi Oranı:
+                  <input
+                    type="text"
+                    name="taxRate"
+                    value={formData.taxRate}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+
+                <label>
                   Published
                   <select
                     name="published"
@@ -309,7 +329,6 @@ const UrunEkle = () => {
                     <option value={"false"}>Pasif</option>
                   </select>
                 </label>
-
                 <label>
                   DisableOutOfStock
                   <select
@@ -322,7 +341,6 @@ const UrunEkle = () => {
                     <option value={"false"}>False</option>
                   </select>
                 </label>
-
                 <label>
                   Birim
                   <select
@@ -335,7 +353,6 @@ const UrunEkle = () => {
                     <option value={"SIMPLE"}>Simple</option>
                   </select>
                 </label>
-
                 <label>
                   Kısa Açıklama:
                   <textarea
@@ -345,7 +362,6 @@ const UrunEkle = () => {
                     required
                   />
                 </label>
-
                 <label>
                   Açıklama:
                   <textarea
@@ -355,7 +371,6 @@ const UrunEkle = () => {
                     required
                   />
                 </label>
-
                 <div className="buttonContainer">
                   <button type="submit">Ürün Ekle</button>
                 </div>

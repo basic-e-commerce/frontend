@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Loading from "../../../../components/Loading/Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import CategoryDropdown from "./CategoryDropdown";
 import {
@@ -14,6 +14,7 @@ import "./UrunEkle.scss";
 
 const UrunDuzenle = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const { productLinkName } = useParams();
   const [loading, setIsloading] = useState(false);
@@ -52,6 +53,7 @@ const UrunDuzenle = () => {
     salePrice: "",
     comparePrice: "",
     buyingPrice: "",
+    taxRate: "",
     productType: "",
     published: "true",
     disableOutOfStock: "true",
@@ -66,10 +68,7 @@ const UrunDuzenle = () => {
       if (!productLinkName) return;
 
       try {
-        const data = await dispatch(
-          getProductDetailAdmin(productLinkName)
-        ).unwrap();
-        console.log(data);
+        await dispatch(getProductDetailAdmin(productLinkName)).unwrap();
         setIsloading(false);
       } catch (error) {
         setIsloading(false);
@@ -97,6 +96,7 @@ const UrunDuzenle = () => {
         salePrice: adminProductDetail.salePrice?.toString() || "",
         comparePrice: adminProductDetail.comparePrice?.toString() || "",
         buyingPrice: adminProductDetail.buyingPrice?.toString() || "",
+        taxRate: adminProductDetail.taxRate || "",
         productType: adminProductDetail.productType || "",
         published: adminProductDetail.published?.toString() || "true",
         disableOutOfStock:
@@ -117,6 +117,7 @@ const UrunDuzenle = () => {
         salePrice: adminProductDetail.salePrice?.toString() || "",
         comparePrice: adminProductDetail.comparePrice?.toString() || "",
         buyingPrice: adminProductDetail.buyingPrice?.toString() || "",
+        taxRate: adminProductDetail.taxRate || "",
         productType: adminProductDetail.productType || "",
         published: adminProductDetail.published?.toString() || "true",
         disableOutOfStock:
@@ -139,15 +140,15 @@ const UrunDuzenle = () => {
     setIsloading(true);
 
     try {
-      await dispatch(
+      const response = await dispatch(
         updateProduct({
           formData,
           initialKapakImages: initialCoverImage,
           initialImages,
         })
       ).unwrap();
-      await dispatch(getProductDetailAdmin(productLinkName)).unwrap();
-
+      await dispatch(getProductDetailAdmin(response.linkName)).unwrap();
+      navigate(`/admins/urunler/${response.linkName}`);
       setIsloading(false);
       dispatch(
         showAlertWithTimeout({
@@ -180,7 +181,11 @@ const UrunDuzenle = () => {
     const { name, value, type, checked } = e.target;
 
     let newValue = value;
-    if (["quantity", "price", "discountPrice, comparePrice"].includes(name)) {
+    if (
+      ["quantity", "price", "discountPrice, comparePrice", "taxRate"].includes(
+        name
+      )
+    ) {
       newValue = value === "" ? "" : parseInt(value) || 0; // Boşsa boş bırak, yoksa sayıya çevir
     }
 
@@ -367,6 +372,17 @@ const UrunDuzenle = () => {
                     type="text"
                     name="buyingPrice"
                     value={formData.buyingPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Vergi Oranı:
+                  <input
+                    type="text"
+                    name="taxRate"
+                    value={formData.taxRate}
                     onChange={handleChange}
                     required
                   />

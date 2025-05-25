@@ -5,8 +5,15 @@ import api from "./api";
 const API_URL = `${BASE_URL}/api/v1/product`;
 
 // Küçük ürünleri getir
+
 export const fetchProducts = async () => {
-  const response = await axios.get(`${API_URL}`);
+  const response = await axios.post(`${API_URL}/filter/small`, {
+    categoryId: null,
+    minPrice: 0.0,
+    maxPrice: 99999999.0,
+    sortBy: "comparePrice",
+    sortDirection: "asc",
+  });
   return response.data;
 };
 
@@ -23,10 +30,10 @@ export const fetchProductsByCategoryAdmin = async (categoryId) => {
 };
 
 export const fetchProductsByCategory = async (categoryId) => {
-  const response = await axios.post(`${API_URL}/filter`, {
+  const response = await axios.post(`${API_URL}/filter/small`, {
     categoryId: categoryId,
     minPrice: 0.0,
-    maxPrice: 590000000.0,
+    maxPrice: 99999999.0,
     sortBy: "comparePrice",
     sortDirection: "asc",
   });

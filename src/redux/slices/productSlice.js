@@ -38,6 +38,17 @@ export const getProductsCategory = createAsyncThunk(
   }
 );
 
+export const getProductsCategoryUser = createAsyncThunk(
+  "getProductsCategoryUser",
+  async (categoryId) => {
+    try {
+      return await fetchProductsByCategory(categoryId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
   async (linkName) => {
@@ -63,11 +74,12 @@ export const updateProduct = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      await updateProductText(formData.id, {
+      const formm = await updateProductText(formData.id, {
         name: formData.name,
         salePrice: formData.salePrice,
         comparePrice: formData.comparePrice,
         buyingPrice: formData.buyingPrice,
+        taxRate: formData.taxRate,
         quantity: formData.quantity,
         shortDescription: formData.shortDescription,
         description: formData.productDescription,
@@ -107,7 +119,10 @@ export const updateProduct = createAsyncThunk(
           await updateImgsProduct(formData.id, newFile);
         }
       }
+
+      return formm;
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -156,6 +171,17 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getProductsCategory.rejected, (state) => {
+        state.productsStatus = STATUS.FAIL;
+      })
+
+      .addCase(getProductsCategoryUser.pending, (state) => {
+        state.productsStatus = STATUS.LOADING;
+      })
+      .addCase(getProductsCategoryUser.fulfilled, (state, action) => {
+        state.productsStatus = STATUS.SUCCESS;
+        state.products = action.payload;
+      })
+      .addCase(getProductsCategoryUser.rejected, (state) => {
         state.productsStatus = STATUS.FAIL;
       })
 

@@ -4,7 +4,7 @@ import "./UrunlerSection.scss";
 import { useEffect, useState } from "react";
 import {
   getProducts,
-  getProductsCategory,
+  getProductsCategoryUser,
 } from "../../../redux/slices/productSlice";
 import Loading from "../../Loading/Loading";
 import TeamlisCard from "../../Anasayfa/teamListCard/TeamListCard";
@@ -16,13 +16,11 @@ const UrunlerSection = () => {
   const { selectedCategory } = useSelector((state) => state.categories);
   const [currentItems, setCurrentItems] = useState([]);
 
-  console.log(selectedCategory);
-
   useEffect(() => {
     if (selectedCategory == null) {
       dispatch(getProducts());
     } else {
-      dispatch(getProductsCategory(selectedCategory.id));
+      dispatch(getProductsCategoryUser(selectedCategory.id));
     }
   }, [dispatch, selectedCategory]);
 

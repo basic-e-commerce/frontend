@@ -8,7 +8,7 @@ const SiparisOlustur = () => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Adres Bilgisi", "Ödeme"];
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep !== steps.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
@@ -17,7 +17,12 @@ const SiparisOlustur = () => {
       bitirButton.className = "buttonDisabled";
       bitirButton.disabled = true;
 
-      // yonlenndir
+      try {
+        console.log("odeme yapıldı");
+      } catch (err) {
+        console.error(err);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
     }
   };
 

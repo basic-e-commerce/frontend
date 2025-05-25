@@ -33,8 +33,6 @@ const UrunList = () => {
     }
   }, [selectedCategoryId]);
 
-  console.log(selectedCategoryId);
-
   return (
     <div className="urunList">
       <div className="container">

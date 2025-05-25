@@ -17,7 +17,7 @@ const KisiAdresleri = () => {
   const [editMode, setEditMode] = useState(false);
   const [tempAddress, setTempAddress] = useState({
     title: "",
-    countryId: 1,
+    countryName: "Türkiye",
     city: "",
     addressLine1: "",
     postalCode: "",

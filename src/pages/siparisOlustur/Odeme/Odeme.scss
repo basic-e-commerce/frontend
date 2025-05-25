@@ -1,58 +1,89 @@
 .siparisOdemeSection {
-  width: 100%;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
 
-  .formOdeme {
-    width: 65%;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.formOdeme {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardOdeme {
+  width: 100%;
+  max-width: 500px;
+  // background: #f8f8f8;
+  border-radius: 12px;
+  padding: 1rem;
+  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  .card-content {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1.2rem;
 
-    .payment-form {
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    input,
+    select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .input-group {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      width: 100%;
+      gap: 1rem;
 
-      .cardOdeme {
-        width: 100%;
+      input {
+        flex: 1;
+      }
+    }
 
-        .card-content {
-          display: flex;
-          flex-direction: column;
-          gap: 0.7rem;
+    .error-group {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #e53935;
 
-          .title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-          }
+      .error {
+        flex: 1;
+      }
+    }
 
-          .input-group {
-            display: flex;
-            gap: 10px;
-          }
+    .error {
+      font-size: 0.75rem;
+      color: #e53935;
+      margin-top: -1rem;
+    }
 
-          input,
-          select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-          }
+    .infoKomisyon {
+      margin-top: 1rem;
+      text-align: center;
 
-          .infoKomisyon {
-            margin-top: 0.7rem;
-
-            img {
-              width: 40%;
-              height: auto;
-            }
-          }
-        }
+      img {
+        max-width: 200px;
+        height: auto;
       }
     }
   }

@@ -21,14 +21,14 @@ function TeamlisCard({ product }) {
       {product && (
         <li className="glide__slide">
           <div className="card">
-            <Link to={`/urunler/${product.productLinkName}`} className="img">
-              <img src={product?.coverImage?.url} alt={product.productName} />
+            <Link to={`/urunler/${product.linkName}`} className="img">
+              <img src={product?.coverImage?.url} alt={product.name} />
             </Link>
 
             <div className="cardSection">
               <div className="CardTop">
-                <Link to={`/urunler/${product.id}`}>
-                  <h4 className="title">{product.productName}</h4>
+                <Link to={`/urunler/${product.linkName}`}>
+                  <h4 className="title">{product.name}</h4>
                 </Link>
 
                 <p className="price">

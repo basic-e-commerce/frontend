@@ -13,6 +13,8 @@ import {
 } from "../../redux/slices/sepetCartSlice";
 import { Link } from "react-router-dom";
 import api from "../../api/api";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -109,19 +111,21 @@ const Sepet = () => {
                         {item.comparePrice * item.quantity} ₺
                       </td>
                       <td className="controls">
-                        <button
-                          className=""
-                          onClick={() => updateQuantity(item, -1)}
-                        >
-                          -
-                        </button>
-                        {item.quantity}
-                        <button
-                          className=""
-                          onClick={() => updateQuantity(item, +1)}
-                        >
-                          +
-                        </button>
+                        <div className="buttonss">
+                          <button
+                            className=""
+                            onClick={() => updateQuantity(item, -1)}
+                          >
+                            <RemoveIcon className="iconControl" />
+                          </button>
+                          {item.quantity}
+                          <button
+                            className=""
+                            onClick={() => updateQuantity(item, +1)}
+                          >
+                            <AddIcon className="iconControl" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

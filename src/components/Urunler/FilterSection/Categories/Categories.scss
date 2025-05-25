@@ -9,6 +9,7 @@
       width: 100%;
       background-color: transparent;
       transition: 0.25s;
+      border-radius: 10px;
       &:hover {
         background-color: rgb(215, 215, 215);
       }
@@ -32,5 +33,9 @@
         }
       }
     }
+  }
+
+  .selected {
+    background-color: rgb(215, 215, 215);
   }
 }
