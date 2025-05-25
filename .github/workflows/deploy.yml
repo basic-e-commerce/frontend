@@ -29,5 +29,5 @@ jobs:
             cd /home/projects/ecommerce/frontend
             git pull
             npm run build
-            rm -r /var/www/html/projects/ecommerce/project
-            cp -r /home/projects/ecommerce/frontend/dist/* /var/www/html/projects/ecommerce/project
+            rm -r /var/www/html/projects/ecommerce/project/*
+            cp -r /home/projects/ecommerce/frontend/dist/* /var/www/html/projects/ecommerce/project/
