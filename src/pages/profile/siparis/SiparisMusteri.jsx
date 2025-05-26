@@ -2,7 +2,6 @@ import "./SiparisMusteri.scss";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
-import axios from "axios";
 
 const SiparisMusteri = () => {
   const [orders, setOrders] = useState([]);
@@ -12,7 +11,7 @@ const SiparisMusteri = () => {
   useEffect(() => {
     const fetchBilgiler = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/v1/order/user`);
+        const response = await api.get(`${BASE_URL}/api/v1/order/user`);
         setOrders(response.data);
       } catch (error) {
         console.log(error);
