@@ -30,13 +30,13 @@ import { useEffect } from "react";
 import { setLogin, setLogout } from "./redux/slices/authSlice";
 import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
-import SuccessPage from "./components/successPage/Success";
+import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
 
 function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const dispatch = useDispatch();
-  const { accessToken, firstName } = useSelector((state) => state.authSlice);
+  const { accessToken } = useSelector((state) => state.authSlice);
 
   useEffect(() => {
     const silentLogin = async () => {
@@ -65,13 +65,13 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Anasayfa />} />
-        <Route path="/success" element={<SuccessPage />} />
         <Route path="/urunler" element={<Urunler />} />
         <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/siparis" element={<SiparisOlustur />} />
+        <Route path="/success-payment" element={<SiparisAlindi />} />
 
         <Route
           path="/admins"
