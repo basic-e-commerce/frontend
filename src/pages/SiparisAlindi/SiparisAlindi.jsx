@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
+import "./SiparisAlindi.scss";
 
 const SiparisAlindi = () => {
   const [searchParams] = useSearchParams();
@@ -33,7 +34,7 @@ const SiparisAlindi = () => {
   if (!orderDetails) return <p>Sipariş bulunamadı.</p>;
 
   return (
-    <div className="contaier">
+    <div className="container">
       <div className="success-payment-container">
         <h1>🎉 Siparişiniz Onaylandı!</h1>
         <p>Sipariş Kodu: {orderDetails.orderCode}</p>
