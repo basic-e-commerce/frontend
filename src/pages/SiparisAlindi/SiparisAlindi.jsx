@@ -33,19 +33,21 @@ const SiparisAlindi = () => {
   if (!orderDetails) return <p>Sipariş bulunamadı.</p>;
 
   return (
-    <div className="success-payment-container">
-      <h1>🎉 Siparişiniz Onaylandı!</h1>
-      <p>Sipariş Kodu: {orderDetails.orderCode}</p>
-      <h2>Ürünler:</h2>
-      <ul>
-        {orderDetails.orderItemResponseDtos?.map((item) => (
-          <li key={item.id}>
-            {item.productName} - {item.quantity} adet
-          </li>
-        ))}
-      </ul>
-      <p>Toplam Tutar: {orderDetails.totalPrice}₺</p>
-      <p>Teşekkür ederiz!</p>
+    <div className="contaier">
+      <div className="success-payment-container">
+        <h1>🎉 Siparişiniz Onaylandı!</h1>
+        <p>Sipariş Kodu: {orderDetails.orderCode}</p>
+        <h2>Ürünler:</h2>
+        <ul>
+          {orderDetails.orderItemResponseDtos?.map((item) => (
+            <li key={item.id}>
+              {item.productName} - {item.quantity} adet
+            </li>
+          ))}
+        </ul>
+        <p>Toplam Tutar: {orderDetails.totalPrice}₺</p>
+        <p>Teşekkür ederiz!</p>
+      </div>
     </div>
   );
 };
