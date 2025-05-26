@@ -80,21 +80,31 @@ const Odeme = () => {
       console.log("Adres bilgisi gönderildi:", payload);
 
       try {
-        if (isLogin) {
-          const response = await api.post(
-            `${BASE_URL}/api/v1/payment`,
-            payload
-          );
-          console.log(response);
+        const response = isLogin
+          ? await api.post(`${BASE_URL}/api/v1/payment`, payload)
+          : await axios.post(`${BASE_URL}/api/v1/payment`, payload);
+
+        if (
+          response.data &&
+          typeof response.data === "string" &&
+          response.data.includes("<html")
+        ) {
+          const newWindow = window.open("", "_blank");
+
+          if (newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(response.data);
+            newWindow.document.close();
+          } else {
+            alert(
+              "Lütfen tarayıcınızın açılır pencere ayarlarını kontrol edin."
+            );
+          }
         } else {
-          const response = await axios.post(
-            `${BASE_URL}/api/v1/payment`,
-            payload
-          );
-          console.log(response);
+          console.log("Beklenen HTML formatı değil:", response.data);
         }
       } catch (error) {
-        console.log(error);
+        console.error("Ödeme sırasında hata:", error);
       }
     },
   });
