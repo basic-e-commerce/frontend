@@ -31,7 +31,6 @@ const KisiAdresleri = () => {
     try {
       const response = await getAdress();
       setAddresses(response);
-      console.log(response);
     } catch (error) {
       console.error("Adresler alınırken hata oluştu:", error);
     }
@@ -48,7 +47,6 @@ const KisiAdresleri = () => {
         await updateAdress(tempAddress, selectedId);
       } else {
         await addAdress(tempAddress);
-        console.log("Yeni Adres Eklendi:", tempAddress);
       }
       fetchAddresses();
     } catch (error) {
@@ -75,7 +73,6 @@ const KisiAdresleri = () => {
     try {
       await deleteAdress(selectedId);
       fetchAddresses();
-      console.log("Adres Silindi:");
     } catch (error) {
       console.log(error);
     } finally {
@@ -121,8 +118,6 @@ const KisiAdresleri = () => {
     setSelectedId(id);
     setShowPopup(true);
   };
-
-  console.log(tempAddress);
 
   return (
     <div className="kisiAdresleri">

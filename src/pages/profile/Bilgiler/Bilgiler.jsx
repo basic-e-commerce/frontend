@@ -2,11 +2,24 @@ import { useEffect, useState } from "react";
 import "./Bilgiler.scss";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
+import { useDispatch } from "react-redux";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const KullaniciBilgileri = () => {
-  useEffect(() => {
-    fetchBilgiler();
-  }, []);
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    ad: "",
+    soyad: "",
+    email: "",
+    telefon: "",
+  });
+
+  const [initialData, setInitialData] = useState({
+    ad: "",
+    soyad: "",
+    email: "",
+    telefon: "",
+  });
 
   const fetchBilgiler = async () => {
     const response = await api.get(`${BASE_URL}/api/v1/customer/profile`);
@@ -17,14 +30,18 @@ const KullaniciBilgileri = () => {
       email: data.username,
       telefon: data.phoneNumber,
     });
+
+    setInitialData({
+      ad: data.name,
+      soyad: data.lastName,
+      email: data.username,
+      telefon: data.phoneNumber,
+    });
   };
 
-  const [formData, setFormData] = useState({
-    ad: "",
-    soyad: "",
-    email: "",
-    telefon: "",
-  });
+  useEffect(() => {
+    fetchBilgiler();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,21 +51,26 @@ const KullaniciBilgileri = () => {
     e.preventDefault();
 
     try {
-      console.log({
-        name: formData.ad,
-        lastName: formData.soyad,
-        phoneNumber: formData.telefon,
-      });
-      const response = await api.put(`${BASE_URL}/api/v1/customer/profile`, {
+      await api.put(`${BASE_URL}/api/v1/customer/profile`, {
         name: formData.ad,
         lastName: formData.soyad,
         phoneNumber: formData.telefon,
       });
 
-      console.log(response.data);
       fetchBilgiler();
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Adres Güncellendi",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.message,
+          status: "error",
+        })
+      );
     }
   };
 
@@ -112,7 +134,17 @@ const KullaniciBilgileri = () => {
           </label>
 
           <div className="button">
-            <button type="submit">Değiştir</button>
+            <button
+              className={
+                JSON.stringify(initialData) == JSON.stringify(formData)
+                  ? "disabledButton"
+                  : "normalButton"
+              }
+              disabled={JSON.stringify(initialData) == JSON.stringify(formData)}
+              type="submit"
+            >
+              Değiştir
+            </button>
           </div>
         </form>
       </div>

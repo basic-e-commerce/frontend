@@ -52,7 +52,7 @@
 
   .button {
     text-align: end;
-    button {
+    .normalButton {
       margin-top: 1rem;
       background: black;
       color: white;
@@ -65,6 +65,18 @@
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    .disabledButton {
+      margin-top: 1rem;
+      background: lightgray;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      transition: 0.2s ease;
+      padding: 15px 30px;
+      cursor: default;
     }
   }
 }

@@ -31,10 +31,10 @@ export default function Adres() {
     diffAddress,
     selectedAdresId,
   } = useSelector((state) => state.siparisSlice);
-  const { status, baslangıcState, cartTotal } = useSelector(
+  const { status, baslangıcState, cartItems } = useSelector(
     (state) => state.sepet
   );
-  const { isLogin } = useSelector((state) => state.authSlice);
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [addressesOlan, setAddressesOlan] = useState([]);
 
   const fetchAddresses = async () => {
@@ -47,12 +47,11 @@ export default function Adres() {
   };
 
   useEffect(() => {
-    if (isLogin) {
-      dispatch(fetchCartItemsLoggedIn());
-      fetchAddresses();
-    } else {
-      dispatch(fetchCartItems(baslangıcState));
-    }
+    if (!isAuthChecked) return;
+
+    isLogin
+      ? (dispatch(fetchCartItemsLoggedIn()), fetchAddresses())
+      : dispatch(fetchCartItems(baslangıcState));
   }, [baslangıcState, dispatch, isLogin]);
 
   const selectedAdres = (adres) => {
@@ -80,9 +79,6 @@ export default function Adres() {
     { key: "postalCode", placeholder: "Posta Kodu" },
     { key: "city", placeholder: "Şehir" },
   ];
-
-  console.log(invoiceType);
-  console.log(invoiceAddress);
 
   return (
     <div className="siparisAdresSection">
@@ -298,7 +294,7 @@ export default function Adres() {
         </form>
       </Paper>
 
-      <SiparisOzeti cartTotal={cartTotal} />
+      <SiparisOzeti cartItems={cartItems} />
     </div>
   );
 }

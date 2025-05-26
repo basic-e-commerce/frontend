@@ -18,7 +18,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-const SiparisOzeti = ({ cartTotal }) => {
+const SiparisOzeti = ({ cartItems }) => {
   return (
     <div className="fiyatSiparisOZeti">
       <Paper className="paper" sx={{ boxShadow: 4 }}>
@@ -32,28 +32,26 @@ const SiparisOzeti = ({ cartTotal }) => {
           </p>
           <BorderLinearProgress
             variant="determinate"
-            value={cartTotal?.progressValue}
+            value={Math.min(cartItems?.shippingCostRate || 0, 100)}
           />
         </div>
 
         <div className="ucretDetay">
           <h3 className="title">Toplam Tutar</h3>
           <p>
-            <span>Toplam Fiyat: </span>
-            <strong>{cartTotal?.totalPrice?.toFixed(2)} ₺</strong>
+            <span>Net Fiyat: </span>
+            <strong>{cartItems?.totalWithOutTax} ₺</strong>
           </p>
           <p>
-            <span>KDV:</span> <strong>{cartTotal?.kdv?.toFixed(2)} ₺</strong>
+            <span>KDV:</span> <strong>{cartItems?.totalTax} ₺</strong>
           </p>
           <p>
-            <span>Kargo:</span>
-            <strong>{cartTotal?.shippingCost?.toFixed(2)} ₺</strong>
+            <span>Kargo:</span> <strong>{cartItems?.shippingCost} ₺</strong>
           </p>
 
           <hr />
           <p>
-            <span>Toplam:</span>
-            <strong>{cartTotal?.totalWithShipping?.toFixed(2)} ₺</strong>
+            <span>Toplam:</span> <strong>{cartItems?.totalPrice} ₺</strong>
           </p>
         </div>
       </Paper>

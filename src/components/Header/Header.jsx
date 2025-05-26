@@ -14,7 +14,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const { categories } = useSelector((state) => state.categories);
+  const { visb, message, status } = useSelector(
+    (state) => state.alertKullanici
+  );
   const dispatch = useDispatch();
   const { isLogin, role, isAuthChecked } = useSelector(
     (state) => state.authSlice
@@ -131,6 +133,19 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {visb && (
+        <div
+          style={
+            status === "success"
+              ? { backgroundColor: "#4caf50" }
+              : { backgroundColor: "darkred" }
+          }
+          className="popupKullanici"
+        >
+          <p>{message}</p>
+        </div>
+      )}
     </header>
   );
 };

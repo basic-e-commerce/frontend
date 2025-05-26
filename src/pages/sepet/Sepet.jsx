@@ -9,7 +9,8 @@ import { useEffect } from "react";
 import {
   fetchCartItems,
   fetchCartItemsLoggedIn,
-  removeFromCart,
+  loadCartFromStorage,
+  updateQuantityLocal,
 } from "../../redux/slices/sepetCartSlice";
 import { Link } from "react-router-dom";
 import api from "../../api/api";
@@ -31,18 +32,20 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 const Sepet = () => {
   const dispatch = useDispatch();
-  const { cartItems, status, baslangıcState, cartTotal } = useSelector(
+  const { cartItems, status, baslangıcState } = useSelector(
     (state) => state.sepet
   );
-  const { isLogin } = useSelector((state) => state.authSlice);
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
 
   useEffect(() => {
-    if (isLogin) {
-      dispatch(fetchCartItemsLoggedIn());
-    } else {
-      dispatch(fetchCartItems(baslangıcState));
-    }
-  }, [baslangıcState, dispatch, isLogin]);
+    if (!isAuthChecked) return;
+
+    isLogin
+      ? dispatch(fetchCartItemsLoggedIn())
+      : dispatch(fetchCartItems(baslangıcState));
+  }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
+
+  console.log(baslangıcState);
 
   const updateQuantity = async (item, change) => {
     if (isLogin) {
@@ -60,7 +63,8 @@ const Sepet = () => {
         console.log(error);
       }
     } else {
-      dispatch(removeFromCart(item.id));
+      dispatch(updateQuantityLocal({ productId: item.id, quantity: change }));
+      dispatch(fetchCartItems(loadCartFromStorage()));
     }
   };
 
@@ -80,8 +84,10 @@ const Sepet = () => {
               <h2>Sepetiniz</h2>
               <p className="sayi">
                 Sepetinizde toplam{" "}
-                <span style={{ color: "red" }}>{cartItems.length}</span> adet
-                ürün bulunmakta.
+                <span style={{ color: "red" }}>
+                  {cartItems?.details?.length}
+                </span>{" "}
+                adet ürün bulunmakta.
               </p>
             </div>
 
@@ -99,7 +105,7 @@ const Sepet = () => {
                   </tr>
                 </thead>
                 <tbody className="cart-wrapper">
-                  {cartItems.map((item) => (
+                  {cartItems?.details?.map((item) => (
                     <tr className="cart-item" key={item.id}>
                       <td className="cart-image">
                         <img src={item.coverImage} alt={item.title} />
@@ -147,29 +153,28 @@ const Sepet = () => {
                 </p>
                 <BorderLinearProgress
                   variant="determinate"
-                  value={cartTotal?.progressValue}
+                  value={Math.min(cartItems?.shippingCostRate || 0, 100)}
                 />
               </div>
 
               <div className="ucretDetay">
                 <h2 className="title">Toplam Tutar</h2>
                 <p>
-                  <span>Toplam Fiyat: </span>{" "}
-                  <strong>{cartTotal?.totalPrice?.toFixed(2)} ₺</strong>
+                  <span>Net Fiyat: </span>
+                  <strong>{cartItems?.totalWithOutTax} ₺</strong>
                 </p>
                 <p>
-                  <span>KDV:</span>{" "}
-                  <strong>{cartTotal?.kdv?.toFixed(2)} ₺</strong>
+                  <span>KDV:</span> <strong>{cartItems?.totalTax} ₺</strong>
                 </p>
                 <p>
                   <span>Kargo:</span>{" "}
-                  <strong>{cartTotal?.shippingCost?.toFixed(2)} ₺</strong>
+                  <strong>{cartItems?.shippingCost} ₺</strong>
                 </p>
 
                 <hr />
                 <p>
                   <span>Toplam:</span>{" "}
-                  <strong>{cartTotal?.totalWithShipping?.toFixed(2)} ₺</strong>
+                  <strong>{cartItems?.totalPrice} ₺</strong>
                 </p>
               </div>
 

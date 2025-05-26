@@ -19,9 +19,6 @@ const UrunList = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
-  console.log(categories);
-  console.log(currentItems);
-
   useEffect(() => {
     dispatch(resetTheProducts());
     dispatch(getCategories());

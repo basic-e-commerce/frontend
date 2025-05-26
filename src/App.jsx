@@ -38,8 +38,6 @@ function App() {
   const dispatch = useDispatch();
   const { accessToken, firstName } = useSelector((state) => state.authSlice);
 
-  console.log(firstName);
-
   useEffect(() => {
     const silentLogin = async () => {
       try {

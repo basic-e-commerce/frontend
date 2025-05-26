@@ -20,8 +20,6 @@ const UrunDetay = () => {
     dispatch(getProducts());
   }, [dispatch, productLinkName]);
 
-  console.log(productDetail);
-
   return (
     <>
       {productDetailStatus == "SUCCESS" && productsStatus == "SUCCESS" ? (

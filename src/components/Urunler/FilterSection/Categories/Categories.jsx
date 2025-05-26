@@ -11,9 +11,6 @@ const Categories = () => {
   const { categories } = useSelector((state) => state.categories);
   const { selectedCategory } = useSelector((state) => state.categories);
 
-  console.log(categories);
-  console.log(selectedCategory);
-
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);

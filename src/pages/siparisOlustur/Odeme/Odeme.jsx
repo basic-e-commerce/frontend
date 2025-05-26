@@ -18,7 +18,7 @@ const Odeme = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { status, baslangıcState, cartTotal } = useSelector(
+  const { status, baslangıcState, cartItems } = useSelector(
     (state) => state.sepet
   );
   const {
@@ -28,18 +28,16 @@ const Odeme = () => {
     invoiceType,
     corporateInvoice,
   } = useSelector((state) => state.siparisSlice);
-  const { isLogin } = useSelector((state) => state.authSlice);
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [installmentOptions, setInstallmentOptions] = useState([]);
   const [binNumber, setBinNumber] = useState("");
 
-  const [htmll, setHtmll] = useState(null);
-
   useEffect(() => {
-    if (isLogin) {
-      dispatch(fetchCartItemsLoggedIn());
-    } else {
-      dispatch(fetchCartItems(baslangıcState));
-    }
+    if (!isAuthChecked) return;
+
+    isLogin
+      ? dispatch(fetchCartItemsLoggedIn())
+      : dispatch(fetchCartItems(baslangıcState));
   }, [baslangıcState, dispatch, isLogin]);
 
   const formik = useFormik({
@@ -87,15 +85,12 @@ const Odeme = () => {
             `${BASE_URL}/api/v1/payment`,
             payload
           );
-          console.log(response);
-          setHtmll(response.data);
+          navigate("/success", { state: { html: response.data } });
         } else {
           const response = await axios.post(
             `${BASE_URL}/api/v1/payment`,
             payload
           );
-          console.log(response);
-          setHtmll(response.data);
           navigate("/success", { state: { html: response.data } });
         }
       } catch (error) {
@@ -238,7 +233,6 @@ const Odeme = () => {
                 onBlur={formik.handleBlur}
               >
                 <option value="">Taksit seçiniz</option>
-                <option value={1}>1</option>
                 {installmentOptions.map((item) => (
                   <option
                     key={item.installmentNumber}
@@ -267,7 +261,7 @@ const Odeme = () => {
         </form>
       </Paper>
 
-      <SiparisOzeti cartTotal={cartTotal} />
+      <SiparisOzeti cartItems={cartItems} />
     </div>
   );
 };

@@ -5,18 +5,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../redux/slices/sepetCartSlice";
-import axios from "axios";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
-  const { isLogin } = useSelector((state) => state.authSlice);
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [sayi, setSayi] = useState(1);
-  const [showPopup, setShowPopup] = useState({
-    visb: false,
-    massage: "",
-    status: "",
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const azalt = () => {
@@ -30,57 +26,33 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   };
 
   const handleSepeteEkle = async () => {
-    if (isLogin) {
-      try {
+    if (!isAuthChecked || isLoading) return;
+    setIsLoading(true);
+
+    try {
+      if (isLogin) {
         await api.put(`${BASE_URL}/api/v1/card`, {
-          cardItems: [
-            {
-              productId: id,
-              quantity: sayi,
-            },
-          ],
+          cardItems: [{ productId: id, quantity: sayi }],
         });
-
-        setShowPopup({
-          visb: true,
-          massage: "Sepete Eklendi",
-          status: "success",
-        });
-
-        setTimeout(() => {
-          setShowPopup({ visb: false, massage: "", status: "" });
-        }, 2000);
-        setSayi(1);
-      } catch (error) {
-        setShowPopup({
-          visb: true,
-          massage: "İşlem Başarısız",
-          status: "fail",
-        });
-        setTimeout(() => {
-          setShowPopup({ visb: false, massage: "", status: "" });
-        }, 2000);
-        console.log(error);
+      } else {
+        dispatch(addToCart({ productId: id, quantity: sayi }));
       }
-    } else {
       dispatch(
-        addToCart({
-          id,
-          quantity: sayi,
+        showAlertWithTimeoutKullanici({
+          message: "Sepete Eklendi",
+          status: "success",
         })
       );
-
-      setShowPopup({
-        visb: true,
-        massage: "Sepete Eklendi !",
-        status: "success",
-      });
       setSayi(1);
-
-      setTimeout(() => {
-        setShowPopup({ visb: false, massage: "", status: "" });
-      }, 2000);
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.message,
+          status: "error",
+        })
+      );
     }
+    setIsLoading(false);
   };
 
   return (
@@ -120,19 +92,6 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
           </button>
         </div>
       </div>
-
-      {showPopup.visb && (
-        <div
-          style={
-            showPopup.status === "success"
-              ? { backgroundColor: "#4caf50" }
-              : { backgroundColor: "darkred" }
-          }
-          className="popupSepetEkleme"
-        >
-          <p>{showPopup.massage}</p>
-        </div>
-      )}
     </div>
   );
 };
