@@ -38,7 +38,7 @@ const Odeme = () => {
     isLogin
       ? dispatch(fetchCartItemsLoggedIn())
       : dispatch(fetchCartItems(baslangıcState));
-  }, [baslangıcState, dispatch, isLogin]);
+  }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
   const formik = useFormik({
     initialValues: {

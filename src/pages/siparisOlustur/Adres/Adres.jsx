@@ -52,7 +52,7 @@ export default function Adres() {
     isLogin
       ? (dispatch(fetchCartItemsLoggedIn()), fetchAddresses())
       : dispatch(fetchCartItems(baslangıcState));
-  }, [baslangıcState, dispatch, isLogin]);
+  }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
   const selectedAdres = (adres) => {
     dispatch(updataSelectedAdresId(adres.id));
