@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import "./SiparisAlindi.scss";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const SiparisAlindi = () => {
   const [searchParams] = useSearchParams();
@@ -34,20 +35,27 @@ const SiparisAlindi = () => {
   if (!orderDetails) return <p>Sipariş bulunamadı.</p>;
 
   return (
-    <div className="container">
-      <div className="success-payment-container">
-        <h1>🎉 Siparişiniz Onaylandı!</h1>
-        <p>Sipariş Kodu: {orderDetails.orderCode}</p>
-        <h2>Ürünler:</h2>
-        <ul>
-          {orderDetails.orderItemResponseDtos?.map((item) => (
-            <li key={item.id}>
-              {item.productName} - {item.quantity} adet
-            </li>
-          ))}
-        </ul>
-        <p>Toplam Tutar: {orderDetails.totalPrice}₺</p>
-        <p>Teşekkür ederiz!</p>
+    <div className="success-payment">
+      <div className="container">
+        <div className="success-payment-content">
+          <div className="topGroup">
+            <CheckCircleOutlineIcon className="iconnn" />
+            <h2>Siparişiniz Onaylandı</h2>
+          </div>
+
+          <div className="order-table">
+            <div className="row">
+              <span className="label">Sipariş Kodu:</span>
+              <span className="value">{orderDetails.orderCode}</span>
+            </div>
+            <div className="row">
+              <span className="label">Toplam Tutar:</span>
+              <span className="value">{orderDetails.totalPrice}</span>
+            </div>
+          </div>
+
+          <p className="thanks-text">Teşekkür ederiz!</p>
+        </div>
       </div>
     </div>
   );
