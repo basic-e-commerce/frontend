@@ -102,7 +102,7 @@ const Odeme = () => {
   const getInstallmentData = async (bin) => {
     try {
       const response = await axios.get(
-        `https://litysofttest1.site/api/v1/payment/bin?bin=${bin}&amount=${cartTotal.totalWithShipping}`
+        `${BASE_URL}/api/v1/payment/bin?bin=${bin}&amount=${cartItems.totalPrice}`
       );
 
       if (
