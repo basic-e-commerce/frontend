@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 
 const Odeme = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { status, baslangıcState, cartItems } = useSelector(
     (state) => state.sepet
