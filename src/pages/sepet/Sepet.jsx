@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import api from "../../api/api";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { BASE_URL } from "../../config/baseApi";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -45,12 +46,10 @@ const Sepet = () => {
       : dispatch(fetchCartItems(baslangıcState));
   }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
-  console.log(baslangıcState);
-
   const updateQuantity = async (item, change) => {
     if (isLogin) {
       try {
-        await api.put("http://localhost:8083/api/v1/card", {
+        await api.put(`${BASE_URL}/api/v1/card`, {
           cardItems: [
             {
               productId: item.id,

@@ -2,24 +2,31 @@ import { useState, useEffect } from "react";
 import OrderTable from "./OrderTable";
 import OrderDetailModal from "./OrderDetailModal";
 import "./Siparisler.scss";
+import axios from "axios";
+import { BASE_URL } from "../../../../config/baseApi";
 
 const Siparisler = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-    fetch("{{domain}}/order/filter?page=0&size=10", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sortBy: "createdAt",
-        sortDirection: "asc",
-        paymentStatus: "APPROVED",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setOrders(data))
-      .catch((err) => console.error(err));
+    const fetchAdminOrder = async () => {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
+          {
+            sortBy: "createdAt",
+            sortDirection: "asc",
+            paymentStatus: "APPROVED",
+          }
+        );
+        setOrders(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAdminOrder();
   }, []);
 
   return (
