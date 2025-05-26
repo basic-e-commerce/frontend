@@ -47,7 +47,7 @@ function App() {
           { withCredentials: true }
         );
         const data = response.data;
-        dispatch(setLogin(data)); // ✅ burada tüm kullanıcı bilgileri var
+        dispatch(setLogin(data));
       } catch (err) {
         console.log("Session expired or user not logged in", err);
         dispatch(setLogout());

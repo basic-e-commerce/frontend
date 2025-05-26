@@ -12,7 +12,6 @@ import { paymentSchema } from "../../../yup/payment";
 import axios from "axios";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
-import { useNavigate } from "react-router-dom";
 
 const Odeme = () => {
   const dispatch = useDispatch();

@@ -50,7 +50,7 @@ const SiparisAlindi = () => {
             </div>
             <div className="row">
               <span className="label">Toplam Tutar:</span>
-              <span className="value">{orderDetails.totalPrice}</span>
+              <span className="value">{orderDetails.totalPrice} ₺</span>
             </div>
           </div>
 
