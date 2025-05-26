@@ -124,11 +124,6 @@ const Header = () => {
                     Anasayfa
                   </Link>
                 </li>
-                <li className="menu-list-item">
-                  <Link className="menu-link" to="/" onClick={closeMenu}>
-                    Fatih Aga
-                  </Link>
-                </li>
               </ul>
             </nav>
 

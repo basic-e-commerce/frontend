@@ -89,17 +89,9 @@ const Odeme = () => {
           typeof response.data === "string" &&
           response.data.includes("<html")
         ) {
-          const newWindow = window.open("", "_blank");
-
-          if (newWindow) {
-            newWindow.document.open();
-            newWindow.document.write(response.data);
-            newWindow.document.close();
-          } else {
-            alert(
-              "Lütfen tarayıcınızın açılır pencere ayarlarını kontrol edin."
-            );
-          }
+          document.open();
+          document.write(response.data);
+          document.close();
         } else {
           console.log("Beklenen HTML formatı değil:", response.data);
         }
