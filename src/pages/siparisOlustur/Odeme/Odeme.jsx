@@ -85,13 +85,13 @@ const Odeme = () => {
             `${BASE_URL}/api/v1/payment`,
             payload
           );
-          navigate("/success", { state: { html: response.data } });
+          console.log(response);
         } else {
           const response = await axios.post(
             `${BASE_URL}/api/v1/payment`,
             payload
           );
-          navigate("/success", { state: { html: response.data } });
+          console.log(response);
         }
       } catch (error) {
         console.log(error);
