@@ -35,7 +35,7 @@ const authSlice = createSlice({
       state.lastName = "";
       state.userName = "";
       state.role = "";
-      state.isAuthChecked = true; // 👈 ekle
+      state.isAuthChecked = true;
     },
   },
 });

@@ -5,8 +5,12 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LockIcon from "@mui/icons-material/Lock";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { Link, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutBackend } from "../../api/apiAuth";
+import { setLogout } from "../../redux/slices/authSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
   return (
     <div className="container">
       <div className="account">
@@ -42,10 +46,19 @@ const Profile = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/profil/siparislerim">
+                <button
+                  onClick={async () => {
+                    try {
+                      await logOutBackend();
+                      dispatch(setLogout());
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
                   <PowerSettingsNewRoundedIcon className="icon" />
                   <span>Çıkış Yap</span>
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
