@@ -148,7 +148,7 @@ const Sepet = () => {
             >
               <div className="bar">
                 <p>
-                  <strong>2000 ₺</strong> üzeri alışverişe ücretsiz kargo!
+                  <strong>1000 ₺</strong> üzeri alışverişe ücretsiz kargo!
                 </p>
                 <BorderLinearProgress
                   variant="determinate"
