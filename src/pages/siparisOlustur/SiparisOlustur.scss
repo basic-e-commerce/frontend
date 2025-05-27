@@ -13,6 +13,11 @@
       color: $primary-color;
     }
 
+    .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,
+    .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+      color: rgb(24, 20, 36);
+    }
+
     .ucusBilgileri {
       .airDropsStepper {
         width: 100%;
