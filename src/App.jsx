@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Anasayfa from "./pages/Anasayfa/Anasayfa";
 import Header from "./components/Header/Header";

@@ -11,7 +11,7 @@
     height: 50px;
     display: flex;
     align-items: center;
-    background: linear-gradient(to right, rgb(37, 36, 9), #2f6c30);
+    background: linear-gradient(to right, rgb(37, 36, 9), $primary-color);
 
     .container {
       .headerTopWrapper {

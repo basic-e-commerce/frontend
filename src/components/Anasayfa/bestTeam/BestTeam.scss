@@ -1,70 +1,70 @@
 .bestTeam {
-    width: 100%;
+  width: 100%;
 
-    .content {
-      width: 100%;
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .left {
+      width: calc(30% - 1rem);
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      gap: 1rem;
+      align-items: center;
+      background-color: $primary-color;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+
+      img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .anaTitle {
+        .title,
+        .desc {
+          color: #ddd;
+        }
+      }
+    }
+
+    .TeamlistCards {
+      position: relative;
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .content {
+      margin-bottom: 1rem;
+      flex-direction: column;
 
       .left {
-        width: calc(30% - 1rem);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #1f7a3e;
-        border-top-left-radius: 1rem;
-        border-bottom-left-radius: 1rem;
+        align-items: self-start;
+        width: 100%;
 
-        img {
-          width: 80px;
-          height: 80px;
-        }
-        
         .anaTitle {
-          .title,
-          .desc {
-            color: #ddd;
+          .title {
+            text-align: start;
           }
         }
       }
 
       .TeamlistCards {
-        position: relative;
-        width: 70%;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .content {
-        margin-bottom: 1rem;
-        flex-direction: column;
-
-        .left {
-          align-items: self-start;
-          width: 100%;
-
-          .anaTitle {
-            .title {
-              text-align: start;
-            }
-          }
-        }
-
-        .TeamlistCards {
-          width: 100%;
-        }
-      }
-    }
-
-    @media (max-width: 500px) {
-      .content {
-        gap: 2.5rem;
-
-        hr {
-          display: none;
-        }
+        width: 100%;
       }
     }
   }
+
+  @media (max-width: 500px) {
+    .content {
+      gap: 2.5rem;
+
+      hr {
+        display: none;
+      }
+    }
+  }
+}

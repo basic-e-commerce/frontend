@@ -10,7 +10,7 @@
 
     .css-3hpdci-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
     .css-3hpdci-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-      color: #2f6c30;
+      color: $primary-color;
     }
 
     .ucusBilgileri {
@@ -36,7 +36,7 @@
         font-size: 0.875rem;
         line-height: 1.75;
         padding: 6px 16px;
-        background-color: #2f6c30;
+        background-color: $primary-color;
         color: whitesmoke;
       }
       .buttonDisabled {
@@ -47,7 +47,7 @@
         font-size: 0.875rem;
         line-height: 1.75;
         padding: 6px 16px;
-        background-color: #2f6c30;
+        background-color: $primary-color;
         color: whitesmoke;
         opacity: 0.2;
         cursor: default;
