@@ -4,10 +4,10 @@
 
   .star {
     font-size: 20px;
-    &.filled {
+    .filled {
       color: #facc15; // Sarı renk
     }
-    &.empty {
+    .empty {
       color: #d1d5db; // Gri renk
     }
   }

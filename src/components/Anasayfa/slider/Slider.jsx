@@ -20,10 +20,7 @@ const Slider = () => {
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
           <li className="glide__slide">
-            <img
-              src={"/images/pexels-abhishek-mahajan-2249012-3928854.jpg"}
-              alt="Slide 1"
-            />
+            <img src={"/images/slider/1.jpg"} alt="Slide 1" />
             <div className="container">
               <div className="bannerText">
                 <div className="title">

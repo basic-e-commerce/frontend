@@ -10,10 +10,11 @@ const Footer = () => {
         <div className="footerItem">
           <div className="logo">
             <a href="/">
-              <img
+              {/* <img
                 src="/images/logo/peynirharmanılogowebson.png"
                 alt="Akıllı Logo"
-              />
+              /> */}
+              <h1>LOGO</h1>
             </a>
           </div>
           <div className="metin">
