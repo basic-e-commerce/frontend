@@ -65,7 +65,7 @@ const Header = () => {
             <div className="auth">
               {isLogin && isAuthChecked ? (
                 role === "ADMIN" ? (
-                  <Link className="authItem" to={"/admins"}>
+                  <Link className="authItem" to={"/admins/dashboard"}>
                     <PersonIcon className="icon" />
                     <span>Admin Paneli</span>
                   </Link>
