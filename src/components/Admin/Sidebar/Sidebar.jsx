@@ -4,12 +4,17 @@ import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import LoopIcon from "@mui/icons-material/Loop";
 import CandlestickChartIcon from "@mui/icons-material/CandlestickChart";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Link } from "react-router-dom";
+import api from "../../../api/api";
+import { BASE_URL } from "../../../config/baseApi";
+import { useDispatch } from "react-redux";
+import { setLogout } from "../../../redux/slices/authSlice";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   return (
     <div className="panelSidebar">
       <div className="top">
@@ -17,12 +22,6 @@ const Sidebar = () => {
       </div>
       <div className="bottom">
         <ul>
-          <li style={{ marginBottom: "10px" }}>
-            <Link to="/admins">
-              <ArrowBackIcon className="icon" />
-              <span>Çıkış Yap</span>
-            </Link>
-          </li>
           <li>
             <Link to="/admins/dashboard">
               <InfoOutlinedIcon className="icon" />
@@ -67,6 +66,22 @@ const Sidebar = () => {
               <TrendingUpIcon className="icon" />
               <span>Ayarlar</span>
             </Link>
+          </li>
+
+          <li style={{ marginBottom: "10px" }}>
+            <button
+              onClick={async () => {
+                try {
+                  await api.post(`${BASE_URL}/api/v1/auth/refresh/logout`);
+                  dispatch(setLogout());
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+            >
+              <LogoutIcon className="icon" />
+              <span>Çıkış Yap</span>
+            </button>
           </li>
         </ul>
       </div>

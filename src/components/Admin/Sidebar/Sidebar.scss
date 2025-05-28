@@ -1,6 +1,5 @@
 .panelSidebar {
   flex: 2;
-  // background-color: rgb(17, 42, 15);
   background-color: #262d34;
   .top {
     border-bottom: 0.1rem solid #dee0ea;
@@ -23,7 +22,8 @@
 
     ul {
       li {
-        a {
+        a,
+        button {
           display: flex;
           align-items: center;
           padding: 10px;
@@ -50,6 +50,10 @@
               color: rgb(14, 17, 48);
             }
           }
+        }
+        button {
+          background-color: transparent;
+          width: 100%;
         }
       }
     }
