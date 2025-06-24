@@ -31,6 +31,7 @@ import { setLogin, setLogout } from "./redux/slices/authSlice";
 import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
 import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
+import Categories from "./pages/Categories/Categories";
 
 function App() {
   const location = useLocation();
@@ -65,7 +66,8 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Anasayfa />} />
-        <Route path="/urunler" element={<Urunler />} />
+        <Route path="/kategoriler" element={<Categories />} />
+        <Route path="/kategoriler/:categoryLinkName" element={<Urunler />} />
         <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />

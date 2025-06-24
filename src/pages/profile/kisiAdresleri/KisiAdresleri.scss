@@ -104,7 +104,7 @@
     }
   }
 
-  .modal {
+  .modall {
     position: fixed;
     top: 0;
     left: 0;
@@ -186,7 +186,7 @@
     }
   }
 
-  .popup {
+  .popupAdresler {
     position: fixed;
     top: 0;
     left: 0;
@@ -199,7 +199,7 @@
     z-index: 999999;
   }
 
-  .popup-inner {
+  .popupAdresler-inner {
     min-width: 400px;
     height: calc(150px + 1rem);
     background: white;
@@ -212,13 +212,13 @@
     gap: 1rem;
   }
 
-  .popup-buttons {
+  .popupAdresler-buttons {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
   }
 
-  .popup-buttons .cancel {
+  .popupAdresler-buttons .cancel {
     background: gray;
     color: white;
     padding: 10px 20px;
@@ -227,7 +227,7 @@
     border-radius: 5px;
   }
 
-  .popup-buttons .confirm {
+  .popupAdresler-buttons .confirm {
     background: red;
     padding: 10px 20px;
     border: none;

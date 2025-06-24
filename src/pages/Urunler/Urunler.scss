@@ -1,25 +1,28 @@
-.urunler {
+.projeler {
   margin-top: 140px;
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
 
-  .container {
-    padding-top: 3rem;
+  .contentProjeler {
     display: flex;
-    flex: 10;
     gap: 3rem;
+    flex: 10;
+    padding-top: 3rem;
 
-    .title {
+    .contentProjelerRight {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-
-      .titleTop {
-        display: flex;
-        justify-content: space-between;
-        gap: 2rem;
-      }
+      gap: 2rem;
+      flex: 8;
     }
+  }
+
+  @media (max-width: 1024px) {
+    .contentProjeler {
+      gap: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 110px;
+    margin-bottom: -2rem;
   }
 }

@@ -8,6 +8,7 @@ import {
   fetchProducts,
   fetchProductsByCategory,
   fetchProductsByCategoryAdmin,
+  fetchProductsByCategoryLinkName,
   updateCoverImgProduct,
   updateImgsProduct,
   updateProductText,
@@ -43,6 +44,17 @@ export const getProductsCategoryUser = createAsyncThunk(
   async (categoryId) => {
     try {
       return await fetchProductsByCategory(categoryId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const getProductsCategoryLinkNameUser = createAsyncThunk(
+  "getProductsCategoryLinkNameUser",
+  async (linkName) => {
+    try {
+      return await fetchProductsByCategoryLinkName(linkName);
     } catch (error) {
       console.log(error);
     }
@@ -182,6 +194,17 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getProductsCategoryUser.rejected, (state) => {
+        state.productsStatus = STATUS.FAIL;
+      })
+
+      .addCase(getProductsCategoryLinkNameUser.pending, (state) => {
+        state.productsStatus = STATUS.LOADING;
+      })
+      .addCase(getProductsCategoryLinkNameUser.fulfilled, (state, action) => {
+        state.productsStatus = STATUS.SUCCESS;
+        state.products = action.payload;
+      })
+      .addCase(getProductsCategoryLinkNameUser.rejected, (state) => {
         state.productsStatus = STATUS.FAIL;
       })
 

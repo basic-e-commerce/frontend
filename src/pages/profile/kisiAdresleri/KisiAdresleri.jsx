@@ -163,7 +163,7 @@ const KisiAdresleri = () => {
       </div>
 
       {modalOpen && (
-        <div className="modal">
+        <div className="modall">
           <form onSubmit={handleAddressSubmit} className="modal-content">
             <h3>{editMode ? "Adresi Duzenle" : "Yeni Adres Ekle"}</h3>
             <div className="modelContentSection">
@@ -278,10 +278,10 @@ const KisiAdresleri = () => {
       )}
 
       {showPopup && (
-        <div className="popup">
-          <form onSubmit={handleDeleteSubmit} className="popup-inner">
+        <div className="popupAdresler">
+          <form onSubmit={handleDeleteSubmit} className="popupAdresler-inner">
             <p>Silmek istediğinize emin misiniz?</p>
-            <div className="popup-buttons">
+            <div className="popupAdresler-buttons">
               <button
                 className="cancel"
                 onClick={() => {

@@ -9,6 +9,13 @@ export const fetchCategories = async () => {
   return response.data;
 };
 
+export const fetchCategoryByLinkName = async (linkName) => {
+  const response = await axios.get(
+    `${API_URL}/by-link-name?linkName=${linkName}`
+  );
+  return response.data;
+};
+
 export const createCategory = async (item) => {
   const response = await api.post(`${API_URL}`, item, {
     headers: { "Content-Type": "multipart/form-data" },

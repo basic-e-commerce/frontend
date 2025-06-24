@@ -115,7 +115,11 @@ const Header = () => {
             <nav className={`navigation ${isMenuOpen ? "open" : ""}`}>
               <ul className="menu-list">
                 <li>
-                  <Link className="menu-link" to="/urunler" onClick={closeMenu}>
+                  <Link
+                    className="menu-link"
+                    to="/kategoriler"
+                    onClick={closeMenu}
+                  >
                     Tüm Ürünler
                   </Link>
                 </li>

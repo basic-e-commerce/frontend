@@ -3,6 +3,7 @@ import {
   deleteCategory,
   deleteCoverImgCategory,
   fetchCategories,
+  fetchCategoryByLinkName,
   updateCategoryImage,
   updateCategoryText,
 } from "../../api/apiCategory";
@@ -21,6 +22,17 @@ export const getCategories = createAsyncThunk("category", async () => {
     console.log(error);
   }
 });
+
+export const getCategoryByCategoryLinkName = createAsyncThunk(
+  "getCategoryByCategoryLinkName",
+  async (linkName) => {
+    try {
+      return await fetchCategoryByLinkName(linkName);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const updateCategory = createAsyncThunk(
   "category/update",
