@@ -7,6 +7,7 @@ const initialState = {
     title: "",
     firstName: "",
     lastName: "",
+    username: "",
     addressLine1: "",
     phoneNo: "",
     postalCode: "",
@@ -32,7 +33,7 @@ const initialState = {
   corporateInvoice: {
     taxOffice: "",
     taxNumber: "",
-    name: "",
+    companyName: "",
   },
 };
 

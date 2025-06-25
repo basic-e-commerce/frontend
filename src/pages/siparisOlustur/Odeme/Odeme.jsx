@@ -56,7 +56,8 @@ const Odeme = () => {
         diffAddress: !billingSame,
         ...(invoiceType === "CORPORATE" && {
           corporateInvoice: {
-            name: corporateInvoice.name,
+            taxOffice: corporateInvoice.taxOffice,
+            companyName: corporateInvoice.companyName,
             taxNumber: corporateInvoice.taxNumber,
           },
         }),

@@ -28,23 +28,22 @@
       th {
         &.col-2 {
           width: 33.33%;
-        } // 2 birimlik kolon
+        }
         &.col-1 {
           width: 16.66%;
-        } // 1 birimlik kolon
+        }
       }
     }
   }
 
-  // Body için aynı oranlar
   tbody {
     tr {
       td:nth-child(1) {
         width: 33.33%;
-      } // Öğrenci Ad Soyad
+      }
       td:nth-child(n + 2) {
         width: 16.66%;
-      } // Diğer sütunlar
+      }
     }
   }
 
@@ -82,39 +81,89 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 100%;
-  position: relative;
-  h2 {
-    margin-top: 0;
-  }
-  .close-btn {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    background: transparent;
-    font-size: 1.5rem;
-    border: none;
-    cursor: pointer;
-  }
-  ul {
-    list-style: none;
-    padding-left: 0;
-    li {
-      margin: 1rem 0;
-      img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        margin-right: 1rem;
+  .modal {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+
+    h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      background: transparent;
+      font-size: 1.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .info-wrapper {
+      display: flex;
+      gap: 2rem;
+
+      .info-table,
+      .billing-table {
+        flex: 1;
+        font-size: 0.85rem;
+        border: 1px solid #eee;
+      }
+
+      .info-table td:first-child,
+      .billing-table td:first-child {
+        width: 120px;
+        font-weight: bold;
+      }
+
+      .info-table td,
+      .billing-table td {
+        padding: 0.5rem;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+
+      td,
+      th {
+        padding: 0.75rem;
+        text-align: left;
         vertical-align: middle;
       }
+    }
+
+    .product-table {
+      margin-top: 1rem;
+    }
+
+    .product-table th {
+      font-weight: bold;
+      background-color: #f8f8f8;
+    }
+
+    .product-table img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .product-table tr:not(:last-child) {
+      border-bottom: 1px solid #eee;
     }
   }
 }

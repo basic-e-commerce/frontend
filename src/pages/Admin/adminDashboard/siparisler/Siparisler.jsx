@@ -14,25 +14,26 @@ const Siparisler = () => {
   const dispatch = useDispatch();
   const [IsSubmit, setIsSubmit] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchAdminOrder = async () => {
-  //     try {
-  //       const response = await axios.post(
-  //         `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
-  //         {
-  //           sortBy: "createdAt",
-  //           sortDirection: "asc",
-  //           paymentStatus: "APPROVED",
-  //         }
-  //       );
-  //       setOrders(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchAdminOrder = async () => {
+      try {
+        const response = await axios.post(
+          `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
+          {
+            sortBy: "createdAt",
+            sortDirection: "asc",
+            paymentStatus: "APPROVED",
+          }
+        );
+        setOrders(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   fetchAdminOrder();
-  // }, []);
+    fetchAdminOrder();
+  }, []);
 
   // useEffect(() => {
   //   const fetchOrders = async () => {
@@ -64,59 +65,6 @@ const Siparisler = () => {
 
   const tabs = ["PENDING", "APPROVED", "REJECTED", "FINISHED", ""];
   const [selectedTab, setSelectedTab] = useState("PENDING");
-  const dummyOrders = [
-    {
-      id: "1",
-      orderCode: "ORD123456",
-      firstName: "Ahmet",
-      lastName: "Yılmaz",
-      totalPrice: 750,
-      installment: 3,
-      orderStatus: "Hazırlanıyor",
-      address: {
-        phoneNo: "05551234567",
-        addressLine1: "Atatürk Caddesi No:5",
-        city: "İstanbul",
-      },
-      orderItemResponseDtos: [
-        {
-          productName: "Kahverengi Koltuk",
-          quantity: 1,
-          coverImage: "https://via.placeholder.com/100",
-        },
-        {
-          productName: "Ahşap Sehpa",
-          quantity: 2,
-          coverImage: "https://via.placeholder.com/100",
-        },
-      ],
-    },
-    {
-      id: "2",
-      orderCode: "ORD987654",
-      firstName: "Elif",
-      lastName: "Demir",
-      totalPrice: 430,
-      installment: 1,
-      orderStatus: "Teslim Edildi",
-      address: {
-        phoneNo: "05337654321",
-        addressLine1: "Cumhuriyet Mah. Gül Sok. No:12",
-        city: "Ankara",
-      },
-      orderItemResponseDtos: [
-        {
-          productName: "Modern Halı",
-          quantity: 1,
-          coverImage: "https://via.placeholder.com/100",
-        },
-      ],
-    },
-  ];
-
-  useEffect(() => {
-    setOrders(dummyOrders);
-  }, []);
 
   return (
     <div className="orders-page">

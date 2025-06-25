@@ -49,9 +49,13 @@ export default function Adres() {
   useEffect(() => {
     if (!isAuthChecked) return;
 
-    isLogin
-      ? (dispatch(fetchCartItemsLoggedIn()), fetchAddresses())
-      : dispatch(fetchCartItems(baslangıcState));
+    if (isLogin) {
+      dispatch(fetchCartItemsLoggedIn());
+      fetchAddresses();
+    } else {
+      dispatch(fetchCartItems(baslangıcState));
+      dispatch(updateFarkliAdres(true));
+    }
   }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
   const selectedAdres = (adres) => {
@@ -70,8 +74,16 @@ export default function Adres() {
     dispatch(updateAddress(addressNew));
   };
 
+  console.log(address);
+  console.log(invoiceAddress);
+  console.log(billingSame);
+  console.log(invoiceType);
+  console.log(corporateInvoice);
+  console.log(diffAddress);
+
   const fields = [
     { key: "title", placeholder: "Başlık" },
+    { key: "username", placeholder: "Mail Adresiniz" },
     { key: "firstName", placeholder: "Ad" },
     { key: "lastName", placeholder: "Soyad" },
     { key: "phoneNo", placeholder: "Telefon" },
@@ -91,18 +103,22 @@ export default function Adres() {
           )}
 
           <section className="adresBilgileri">
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={diffAddress}
-                onClick={() => {
-                  dispatch(resetAdress());
-                  dispatch(updataSelectedAdresId(null));
-                }}
-                onChange={(e) => dispatch(updateFarkliAdres(e.target.checked))}
-              />
-              Farklı Bir Adres Girmek İstiyorum
-            </label>
+            {isLogin && addressesOlan.length > 0 && (
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={diffAddress}
+                  onClick={() => {
+                    dispatch(resetAdress());
+                    dispatch(updataSelectedAdresId(null));
+                  }}
+                  onChange={(e) =>
+                    dispatch(updateFarkliAdres(e.target.checked))
+                  }
+                />
+                Farklı Bir Adres Girmek İstiyorum
+              </label>
+            )}
 
             {diffAddress && (
               <div className="adressAsil">
@@ -277,12 +293,12 @@ export default function Adres() {
                 />
                 <input
                   placeholder="Ticaret Ünvanı"
-                  value={corporateInvoice.name}
+                  value={corporateInvoice.companyName}
                   onChange={(e) =>
                     dispatch(
                       updateCorporateInfo({
                         ...corporateInvoice,
-                        name: e.target.value,
+                        companyName: e.target.value,
                       })
                     )
                   }

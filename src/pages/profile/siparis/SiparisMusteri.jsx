@@ -2,6 +2,7 @@ import "./SiparisMusteri.scss";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
+import ModalMusteri from "./ModalMusteri";
 
 const SiparisMusteri = () => {
   const [orders, setOrders] = useState([]);
@@ -40,65 +41,45 @@ const SiparisMusteri = () => {
       <hr />
 
       <div className="order-page">
-        <table className="order-table">
+        <table className="custom-table">
           <thead>
             <tr>
-              <th>Sipariş Kodu</th>
-              <th>Toplam Fiyat</th>
-              <th>Durum</th>
-              <th>Detay</th>
+              <th className="col-2">Sipariş Kodu</th>
+              <th className="col-1">Tutar</th>
+              <th className="col-1">Durum</th>
+              <th className="col-1"></th>
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
-              <tr key={order.id}>
-                <td>{order.orderCode}</td>
-                <td>{order.totalPrice}₺</td>
-                <td>{order.orderStatus}</td>
-                <td>
-                  <button
-                    className="btn-detail"
-                    onClick={() => handleDetailClick(order)}
-                  >
-                    Detay
-                  </button>
-                </td>
+            {orders.length > 0 ? (
+              orders.map((order) => (
+                <tr key={order.id}>
+                  <td>{order.orderCode}</td>
+                  <td>{order.totalPrice}₺</td>
+                  <td>{order.orderStatus}</td>
+                  <td>
+                    <button
+                      className="btn-detail"
+                      onClick={() => handleDetailClick(order)}
+                    >
+                      Ayrıntı Görüntüle
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">Sipariş bulunamadı.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
 
         {showModal && selectedOrder && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h3>Sipariş Detayları</h3>
-              <p>
-                <strong>Sipariş Kodu:</strong> {selectedOrder.orderCode}
-              </p>
-              <p>
-                <strong>Toplam:</strong> {selectedOrder.totalPrice}₺
-              </p>
-              <p>
-                <strong>Adres:</strong> {selectedOrder.address.addressLine1},{" "}
-                {selectedOrder.address.city}
-              </p>
-
-              <div className="product-list">
-                {selectedOrder.orderItemResponseDtos.map((item, index) => (
-                  <div key={index} className="product-item">
-                    <img src={item.coverImage} alt={item.productName} />
-                    <span>
-                      {item.productName} (x{item.quantity})
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <button className="btn-close" onClick={handleCloseModal}>
-                Kapat
-              </button>
-            </div>
-          </div>
+          <ModalMusteri
+            handleCloseModal={handleCloseModal}
+            selectedOrder={selectedOrder}
+          />
         )}
       </div>
     </div>
