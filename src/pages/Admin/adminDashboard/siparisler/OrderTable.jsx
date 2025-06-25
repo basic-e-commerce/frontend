@@ -1,33 +1,40 @@
 const OrderTable = ({ orders, onViewDetails }) => {
   return (
-    <table className="order-table">
+    <table className="custom-table">
       <thead>
         <tr>
-          <th>Sipariş Kodu</th>
-          <th>Ad Soyad</th>
-          <th>Tutar</th>
-          <th>Taksit</th>
-          <th>Durum</th>
-          <th>Aksiyon</th>
+          <th className="col-2">Sipaiş Kodu</th>
+          <th className="col-1">Ad Soyad</th>
+          <th className="col-1">Tutar</th>
+          <th className="col-1">Taksit</th>
+          <th className="col-1">Durum</th>
+          <th className="col-1"></th>
         </tr>
       </thead>
       <tbody>
-        {orders.map((order) => (
-          <tr key={order.id}>
-            <td>{order.orderCode}</td>
-            <td>
-              {order.firstName} {order.lastName}
-            </td>
-            <td>{order.totalPrice} ₺</td>
-            <td>{order.installment}</td>
-            <td>{order.orderStatus}</td>
-            <td>
-              <button onClick={() => onViewDetails(order)}>
-                Ayrıntı Görüntüle
-              </button>
-            </td>
+        {orders?.length > 0 ? (
+          orders?.map((order) => (
+            <tr key={order.id}>
+              <td>{order.orderCode}</td>
+              <td>
+                {" "}
+                {order.firstName} {order.lastName}
+              </td>
+              <td>{order.totalPrice} ₺</td>
+              <td>{order.installment}</td>
+              <td>{order.orderStatus}</td>
+              <td>
+                <button onClick={() => onViewDetails(order)}>
+                  Ayrıntı Görüntüle
+                </button>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5">Sipariş bulunamadı.</td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   );

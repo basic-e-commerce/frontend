@@ -10,7 +10,6 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
 import TopCategoriesCard from "./Groups/TopCategories/TopCategories";
 import MostSellingProductsCard from "./Groups/MostSellingProductsCard/MostSellingProductsCard";
-import UnpurchasedProducts from "./Groups/SepetAlinmamis/UnpurchasedProducts";
 import VisitorChart from "./Groups/VisitorChart/VisitorChart";
 
 const Dashboard = () => {
@@ -67,7 +66,7 @@ const Dashboard = () => {
             <TopCategoriesCard />
             <MostSellingProductsCard />
           </div>
-          <UnpurchasedProducts />
+
           <VisitorChart />
         </div>
       </div>

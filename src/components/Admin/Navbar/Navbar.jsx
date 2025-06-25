@@ -20,17 +20,6 @@ const Navbar = () => {
           </div>
 
           <div className="navbarRight">
-            <div className="navbarRightIcons">
-              <button style={{ borderRadius: "20px" }}>
-                <Badge badgeContent={4} color="primary">
-                  <NotificationsNoneIcon
-                    className="iconn"
-                    style={{ color: "rgb(24, 20, 36)" }}
-                  />
-                </Badge>
-              </button>
-            </div>
-
             <div className="avatarTamplate">
               <Avatar alt="Ömer Türkay  " src="/images/userImg/1.jpg" />
               <span>Ömer Türkay</span>

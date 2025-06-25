@@ -11,7 +11,7 @@ const initialState = {
     phoneNo: "",
     postalCode: "",
     city: "",
-    countryName: "TURKEY",
+    countryName: "TURKIYE",
   },
 
   invoiceAddress: {
@@ -22,7 +22,7 @@ const initialState = {
     phoneNo: "",
     postalCode: "",
     city: "",
-    countryName: "TURKEY",
+    countryName: "TURKIYE",
   },
 
   billingSame: true,

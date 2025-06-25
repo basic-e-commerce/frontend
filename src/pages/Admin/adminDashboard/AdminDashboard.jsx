@@ -10,7 +10,7 @@ function Panel() {
       <Sidebar />
       <div className="panelRight">
         <Navbar />
-        <section>
+        <section className="container">
           <Outlet />
         </section>
         <Alert />

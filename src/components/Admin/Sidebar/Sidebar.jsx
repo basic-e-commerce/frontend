@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <div className="panelSidebar">
       <div className="top">
-        <h3 className="logo">Peynir Harmanı</h3>
+        <h3 className="logo">Mağaza İsmi</h3>
       </div>
       <div className="bottom">
         <ul>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/slices/categorySlice";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 import Baslik from "../../components/baslik/Baslik";
+import Loading from "../../components/Loading/Loading";
 
 const Categories = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,12 +19,6 @@ const Categories = () => {
       setIsLoading(true);
       try {
         await dispatch(getCategories()).unwrap();
-        dispatch(
-          showAlertWithTimeoutKullanici({
-            message: "KAtegoriler Geldi",
-            status: "success",
-          })
-        );
       } catch (error) {
         dispatch(
           showAlertWithTimeoutKullanici({
@@ -39,15 +34,19 @@ const Categories = () => {
     fetchCategories();
   }, [dispatch]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="categoriesPage">
       <div className="container">
         <Baslik
-          title={"Proje Kategorileri"}
+          title={"Ürün Kategorileri"}
           desc={"Lütfen bir kategori seçin!"}
         />
         <div className="categoryCardsContent">
-          {categories.map((item, index) => (
+          {categories?.map((item, index) => (
             <CategoryCard
               key={index}
               linkName={item.categoryLinkName}

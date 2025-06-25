@@ -14,7 +14,7 @@ const Profile = () => {
   return (
     <div className="container">
       <div className="account">
-        <div className="sidebar">
+        <div className="sidebarr">
           <div className="top">
             <div className="logo">Kullanıcı Paneli</div>
           </div>

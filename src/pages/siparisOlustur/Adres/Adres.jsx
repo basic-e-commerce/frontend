@@ -130,7 +130,7 @@ export default function Adres() {
                   name="countryName"
                   disabled
                 >
-                  <option value={"TURKEY"}>Türkiye</option>
+                  <option value={"TURKIYE"}>Türkiye</option>
                 </select>
               </div>
             )}
@@ -215,7 +215,7 @@ export default function Adres() {
                   name="countryName"
                   disabled
                 >
-                  <option value={"TURKEY"}>Türkiye</option>
+                  <option value={"TURKIYE"}>Türkiye</option>
                 </select>
               </div>
             )}
