@@ -52,21 +52,10 @@
     font-weight: bold;
   }
 
-  .editTd {
-    text-align: end;
-    .buttonsContent {
-      display: flex;
-      .download-btn {
-        width: 100%;
-        display: flex;
-        background-color: transparent;
-        cursor: pointer;
-        justify-content: end;
-
-        .icon {
-          font-size: 1.3rem;
-        }
-      }
+  button {
+    background-color: transparent;
+    .icon {
+      font-size: 1.3rem;
     }
   }
 }
@@ -89,6 +78,8 @@
     max-width: 900px;
     width: 100%;
     position: relative;
+    height: 500px;
+    overflow-y: auto;
 
     h2,
     h3 {
@@ -153,6 +144,11 @@
     .product-table th {
       font-weight: bold;
       background-color: #f8f8f8;
+      font-size: 0.85rem;
+    }
+
+    .product-table tr {
+      font-size: 0.85rem;
     }
 
     .product-table img {

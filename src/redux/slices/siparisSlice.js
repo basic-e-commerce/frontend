@@ -66,7 +66,7 @@ const siparisSlice = createSlice({
     resetAdress: (state) => {
       state.address = initialState.address;
     },
-    resetCheckout: () => initialState,
+    resetCheckout: () => ({ ...initialState }),
   },
 });
 

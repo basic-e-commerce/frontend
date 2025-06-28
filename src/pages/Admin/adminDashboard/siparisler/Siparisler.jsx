@@ -6,6 +6,8 @@ import axios from "axios";
 import { BASE_URL } from "../../../../config/baseApi";
 import Tabs from "./Tabs";
 import { useDispatch } from "react-redux";
+import api from "../../../../api/api";
+import Loading from "../../../../components/Loading/Loading";
 
 const Siparisler = () => {
   const [isLoading, setIsloading] = useState(false);
@@ -14,57 +16,37 @@ const Siparisler = () => {
   const dispatch = useDispatch();
   const [IsSubmit, setIsSubmit] = useState(false);
 
+  const tabs = ["PENDING", "APPROVED", "SHIPPED", "DELIVERED", "CANCELLED"];
+  const [selectedTab, setSelectedTab] = useState("PENDING");
+
   useEffect(() => {
     const fetchAdminOrder = async () => {
+      setIsloading(true);
       try {
         const response = await axios.post(
           `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
           {
             sortBy: "createdAt",
             sortDirection: "asc",
-            paymentStatus: "APPROVED",
+            paymentStatus: selectedTab,
           }
         );
         setOrders(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsloading(false);
       }
     };
 
     fetchAdminOrder();
-  }, []);
+  }, [selectedTab, IsSubmit]);
 
-  // useEffect(() => {
-  //   const fetchOrders = async () => {
-  //     setIsloading(true);
-  //     try {
-  //       const response = await api.post(
-  //         `${BASE_URL}/api/v1/customer-package/register-list`,
-  //         {
-  //           status: selectedTab,
-  //           sortBy: "createAt",
-  //           sortDirection: "DESC",
-  //         }
-  //       );
-  //       setOrders(response.data);
-  //     } catch (error) {
-  //       dispatch(
-  //         showAlertWithTimeoutKullanici({
-  //           message: error.response.message,
-  //           status: "error",
-  //         })
-  //       );
-  //     } finally {
-  //       setIsloading(false);
-  //     }
-  //   };
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  //   fetchOrders();
-  // }, [selectedTab, IsSubmit]);
-
-  const tabs = ["PENDING", "APPROVED", "REJECTED", "FINISHED", ""];
-  const [selectedTab, setSelectedTab] = useState("PENDING");
+  console.log(selectedOrder);
 
   return (
     <div className="orders-page">

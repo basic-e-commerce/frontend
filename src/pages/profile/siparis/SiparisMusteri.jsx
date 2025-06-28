@@ -32,6 +32,25 @@ const SiparisMusteri = () => {
     setSelectedOrder(null);
   };
 
+  const translateOrderStatus = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "İşleniyor";
+      case "APPROVED":
+        return "Onaylandı";
+      case "SHIPPED":
+        return "Kargoya Verildi";
+      case "DELIVERED":
+        return "Teslim Edildi";
+      case "CANCELLED":
+        return "İptal Edildi";
+      default:
+        return "Bilinmiyor";
+    }
+  };
+
+  console.log(selectedOrder);
+
   return (
     <div className="siparisBilgileri">
       <div className="title">
@@ -56,7 +75,7 @@ const SiparisMusteri = () => {
                 <tr key={order.id}>
                   <td>{order.orderCode}</td>
                   <td>{order.totalPrice}₺</td>
-                  <td>{order.orderStatus}</td>
+                  <td>{translateOrderStatus(order.orderStatus)}</td>
                   <td>
                     <button
                       className="btn-detail"

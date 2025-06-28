@@ -1,4 +1,23 @@
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 const OrderTable = ({ orders, onViewDetails }) => {
+  const translateOrderStatus = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "İşleniyor";
+      case "APPROVED":
+        return "Onaylandı";
+      case "SHIPPED":
+        return "Kargoya Verildi";
+      case "DELIVERED":
+        return "Teslim Edildi";
+      case "CANCELLED":
+        return "İptal Edildi";
+      default:
+        return "Bilinmiyor";
+    }
+  };
+
   return (
     <table className="custom-table">
       <thead>
@@ -22,17 +41,17 @@ const OrderTable = ({ orders, onViewDetails }) => {
               </td>
               <td>{order.totalPrice} ₺</td>
               <td>{order.installment}</td>
-              <td>{order.orderStatus}</td>
+              <td>{translateOrderStatus(order.orderStatus)}</td>
               <td>
                 <button onClick={() => onViewDetails(order)}>
-                  Ayrıntı Görüntüle
+                  <VisibilityIcon className="icon" />
                 </button>
               </td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan="5">Sipariş bulunamadı.</td>
+            <td colSpan="6">Sipariş bulunamadı.</td>
           </tr>
         )}
       </tbody>

@@ -40,6 +40,9 @@ export default function Adres() {
   const fetchAddresses = async () => {
     try {
       const response = await getAdress();
+      if (response.length === 0) {
+        dispatch(updateFarkliAdres(true));
+      }
       setAddressesOlan(response);
     } catch (error) {
       console.error("Adresler alınırken hata oluştu:", error);
@@ -74,13 +77,6 @@ export default function Adres() {
     dispatch(updateAddress(addressNew));
   };
 
-  console.log(address);
-  console.log(invoiceAddress);
-  console.log(billingSame);
-  console.log(invoiceType);
-  console.log(corporateInvoice);
-  console.log(diffAddress);
-
   const fields = [
     { key: "title", placeholder: "Başlık" },
     { key: "username", placeholder: "Mail Adresiniz" },
@@ -103,7 +99,7 @@ export default function Adres() {
           )}
 
           <section className="adresBilgileri">
-            {isLogin && addressesOlan.length > 0 && (
+            {isLogin && addressesOlan.length != 0 && (
               <label className="checkbox">
                 <input
                   type="checkbox"

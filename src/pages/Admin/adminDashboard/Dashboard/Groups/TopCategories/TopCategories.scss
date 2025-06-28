@@ -24,7 +24,7 @@
 
     .total {
       position: absolute;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #1f1f1f;
     }
@@ -59,8 +59,14 @@
     position: absolute;
     right: 16px;
     bottom: 16px;
-    font-size: 0.9rem;
-    color: #999;
+
     cursor: pointer;
+    text-align: center;
+
+    button {
+      font-size: 0.85rem;
+      color: gray;
+      background-color: transparent;
+    }
   }
 }
