@@ -79,13 +79,14 @@
             transition: border-color 0.2s ease;
           }
 
-          input[type="text"]:focus {
+          input:focus {
             border-color: #0056b3;
           }
 
           .buttonContainer {
             width: 30%;
             align-self: flex-end;
+            margin-top: 1rem;
             button {
               background-color: #104b73;
               color: #fff;

@@ -1,0 +1,82 @@
+.workingHoursSection {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .workingHoursHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #e9ecef;
+    }
+
+    h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    svg {
+      color: #666;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  .workingHoursContent {
+    padding: 20px;
+    background-color: #fff;
+
+    .dayRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .dayLabel {
+        font-weight: 500;
+        color: #333;
+        min-width: 100px;
+      }
+
+      .timeInputs {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        input[type="time"] {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+          background-color: #fff;
+          color: #333;
+
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+          }
+        }
+
+        span {
+          color: #666;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
