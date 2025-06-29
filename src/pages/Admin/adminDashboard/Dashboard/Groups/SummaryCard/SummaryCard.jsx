@@ -44,7 +44,7 @@ const SummaryCard = ({ satisData }) => {
               dataKey="sales"
               stroke="#000000"
               strokeWidth={3}
-              dot={{ stroke: "#000000", fill: "#000000" }} // Noktaların dış ve iç rengini siyah yaptık
+              dot={false}
             />
           </LineChart>
         </ResponsiveContainer>

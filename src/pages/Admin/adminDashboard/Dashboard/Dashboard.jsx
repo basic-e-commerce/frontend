@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [registerCustomerData, setRegisterCustomerData] = useState("");
   const [populerProducts, setPopulerProducts] = useState([]);
   const [sepets, setSepets] = useState([]);
-
+  const [visitor, setVisitor] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -90,12 +90,28 @@ const Dashboard = () => {
     }
   };
 
+  const getVisitor = async () => {
+    try {
+      const response = await api.post(
+        `${BASE_URL}/api/v1/visitors/between-visitor`,
+        {
+          startDate: setOfDay(startDate),
+          endDate: setOfDay(endDate),
+        }
+      );
+      setVisitor(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const functions = [
       getSatis,
       registerCustomer,
       getPopulerProduct,
       getSepetInfo,
+      getVisitor,
     ];
     const fetchSequentially = async () => {
       try {
@@ -147,7 +163,7 @@ const Dashboard = () => {
             />
             <InfoCard
               img={<GroupsIcon fontSize="large" />}
-              value={"1230"}
+              value={visitor?.quantity || "Veri Yok"}
               tag={"Ziyaretçi"}
             />
           </div>
@@ -159,7 +175,7 @@ const Dashboard = () => {
             <MostSellingProductsCard populerProducts={populerProducts} />
           </div>
 
-          <VisitorChart />
+          <VisitorChart visitor={visitor} />
         </div>
       </div>
     </div>

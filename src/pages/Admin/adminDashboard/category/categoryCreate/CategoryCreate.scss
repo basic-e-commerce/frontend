@@ -212,10 +212,9 @@
           box-sizing: border-box;
           outline: none;
           transition: border-color 0.2s ease;
-        }
-
-        textarea:focus {
-          border-color: #0056b3;
+          &:focus {
+            border-color: #0056b3;
+          }
         }
       }
     }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const COLORS = ["#1F1F1F", "#8C8C8C", "#E0E0E0"]; // Sırasıyla Ürün 1-2-3
 
 const TopCategoriesCard = ({ sepets }) => {
+  console.log(sepets);
   const pieData = sepets?.slice(0, 3).map((item, index) => ({
     name: item.productName,
     value: item.quantity,
@@ -14,8 +15,6 @@ const TopCategoriesCard = ({ sepets }) => {
 
   const total = pieData?.reduce((acc, item) => acc + item.value, 0) || 0;
   const [popUp, setPopUp] = useState(false);
-
-  console.log(sepets);
 
   return (
     <div className="top-categories-card">
@@ -55,7 +54,7 @@ const TopCategoriesCard = ({ sepets }) => {
       </div>
 
       <div className="arrow">
-        <button>Tümünü Gör</button>
+        <button onClick={() => setPopUp(true)}>Tümünü Gör</button>
       </div>
 
       {popUp && (
@@ -69,17 +68,20 @@ const TopCategoriesCard = ({ sepets }) => {
             >
               ×
             </button>
+
             <div className="product-list">
-              {/* {sepets?.map((item, index) => (
+              {sepets?.map((item, index) => (
                 <Link to={""} key={index} className="product-item">
                   <img src={item.coverImage?.url} alt={item.productName} />
                   <div className="details">
                     <p className="name">{item.productName}</p>
                     <p className="id">Ürün ID: {item.productId}</p>
                   </div>
-                  <span className="sales">{item.quantity} satış</span>
+                  <span className="sales">
+                    {item.quantity} kişinin sepetinde{" "}
+                  </span>
                 </Link>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
