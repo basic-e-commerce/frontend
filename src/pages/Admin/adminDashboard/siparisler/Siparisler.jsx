@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import OrderTable from "./OrderTable";
 import OrderDetailModal from "./OrderDetailModal";
 import "./Siparisler.scss";
-import axios from "axios";
 import { BASE_URL } from "../../../../config/baseApi";
 import Tabs from "./Tabs";
 import { useDispatch } from "react-redux";
@@ -23,7 +22,7 @@ const Siparisler = () => {
     const fetchAdminOrder = async () => {
       setIsloading(true);
       try {
-        const response = await axios.post(
+        const response = await api.post(
           `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
           {
             sortBy: "createdAt",
