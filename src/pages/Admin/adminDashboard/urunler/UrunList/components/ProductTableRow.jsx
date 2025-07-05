@@ -41,12 +41,18 @@ const ProductTableRow = ({ item }) => {
         <span className="reviews">{item.reviews}50 Yorum</span>
       </td>
       <td className="actions">
-        <a target="_blank" href={`/urunler/${item.linkName}`} className="view">
-          <VisibilityIcon className="icon" />
-        </a>
-        <Link to={`/admins/urunler/${item.linkName}`} className="edit">
-          <EditIcon className="icon" />
-        </Link>
+        <div className="buttonSectionContainer">
+          <a
+            target="_blank"
+            href={`/urunler/${item.linkName}`}
+            className="view"
+          >
+            <VisibilityIcon className="icon" />
+          </a>
+          <Link to={`/admins/urunler/${item.linkName}`} className="edit">
+            <EditIcon className="icon" />
+          </Link>
+        </div>
       </td>
     </tr>
   );

@@ -27,7 +27,7 @@ const Ayarlar = () => {
 
   return (
     <div className="ayarlar">
-      <div className="container">
+      <div className="">
         <div className="ayarlarContent">
           <form onSubmit={handleSubmit}>
             <div className="settingsForm">

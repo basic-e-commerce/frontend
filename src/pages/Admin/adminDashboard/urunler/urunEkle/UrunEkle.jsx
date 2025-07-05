@@ -1,6 +1,6 @@
 import "./UrunEkle.scss";
 import { useEffect } from "react";
-import Loading from "../../../../../components/Loading/Loading";
+import LoadingBar from "../../../../../components/LoadingBar/LoadingBar";
 import { useSelector, useDispatch } from "react-redux";
 import { getCategories } from "../../../../../redux/slices/categorySlice";
 import { Formik, Form } from "formik";
@@ -12,9 +12,9 @@ import ProductFormFields from "./components/ProductFormFields";
 const UrunEkle = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const { isLoading } = useSelector((state) => state.loading);
   const {
     inputRef,
-    isLoading,
     images,
     coverImage,
     categoryIds,
@@ -32,51 +32,54 @@ const UrunEkle = () => {
   }, [dispatch]);
 
   return (
-    <div className="container">
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="createProject">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-            validateOnChange={true}
-            validateOnBlur={true}
-          >
-            {() => (
-              <Form className="formCreate">
-                <div className="leftCreate">
-                  <ImageUpload
-                    isCover
-                    coverImage={coverImage}
-                    handleKapakImageChange={handleKapakImageChange}
+    <div className="">
+      <LoadingBar isLoading={isLoading} />
+      <div className="createProject">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+          validateOnChange={true}
+          validateOnBlur={true}
+        >
+          {({ isSubmitting }) => (
+            <Form className="formCreate">
+              <div className="leftCreate">
+                <ImageUpload
+                  isCover
+                  coverImage={coverImage}
+                  handleKapakImageChange={handleKapakImageChange}
+                />
+              </div>
+              <div className="rightCreate">
+                <ImageUpload
+                  images={images}
+                  inputRef={inputRef}
+                  handleImageUpload={handleImageUpload}
+                  handleRemoveImage={handleRemoveImage}
+                />
+                <div className="bottomText">
+                  <CategorySelector
+                    categories={categories}
+                    selectedCategories={categoryIds}
+                    onCategoryChange={handleCategoryChange}
                   />
-                </div>
-                <div className="rightCreate">
-                  <ImageUpload
-                    images={images}
-                    inputRef={inputRef}
-                    handleImageUpload={handleImageUpload}
-                    handleRemoveImage={handleRemoveImage}
-                  />
-                  <div className="bottomText">
-                    <CategorySelector
-                      categories={categories}
-                      selectedCategories={categoryIds}
-                      onCategoryChange={handleCategoryChange}
-                    />
-                    <ProductFormFields />
-                    <div className="buttonContainer">
-                      <button type="submit">Ürün Ekle</button>
-                    </div>
+                  <ProductFormFields />
+                  <div className="buttonContainer">
+                    <button
+                      disabled={isSubmitting}
+                      className={isSubmitting ? "disabledButton" : ""}
+                      type="submit"
+                    >
+                      {isSubmitting ? "Ekleniyor..." : "Ürün Ekle"}
+                    </button>
                   </div>
                 </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      )}
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };

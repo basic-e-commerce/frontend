@@ -1,12 +1,12 @@
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import PropTypes from "prop-types";
 
-const ImageUploader = ({ imgKapak, onImageChange }) => {
+const ImageUploader = ({ formik, onImageChange }) => {
   return (
     <div className="avatar">
       <input
         type="file"
-        accept="image/*"
+        accept=".jpg, .jpeg, .png"
         className="upload-input"
         id="kapakFoto"
         onChange={onImageChange}
@@ -14,10 +14,14 @@ const ImageUploader = ({ imgKapak, onImageChange }) => {
       />
 
       <label htmlFor="kapakFoto" className="kapsayiciButton">
-        {imgKapak ? (
+        {formik.values.coverImage ? (
           <img
             className="kapakImgg"
-            src={URL.createObjectURL(imgKapak)}
+            src={
+              typeof formik.values.coverImage === "string"
+                ? formik.values.coverImage
+                : URL.createObjectURL(formik.values.coverImage)
+            }
             alt="kapakResmi"
           />
         ) : (
@@ -27,12 +31,16 @@ const ImageUploader = ({ imgKapak, onImageChange }) => {
           </div>
         )}
       </label>
+
+      {formik.touched.coverImage && formik.errors.coverImage && (
+        <div className="error-message">{formik.errors.coverImage}</div>
+      )}
     </div>
   );
 };
 
 ImageUploader.propTypes = {
-  imgKapak: PropTypes.object,
+  formik: PropTypes.object.isRequired,
   onImageChange: PropTypes.func.isRequired,
 };
 

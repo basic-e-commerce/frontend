@@ -2,6 +2,10 @@ import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
 import { createProduct } from "../../../../../../api/apiProduct";
 import { showAlertWithTimeout } from "../../../../../../redux/slices/alertSlice";
+import {
+  setLoading,
+  clearLoading,
+} from "../../../../../../redux/slices/loadingSlice";
 import { productSchema } from "../../../../../../yup/product";
 
 // Tehlikeli karakterleri engelleyen regex
@@ -10,7 +14,6 @@ const dangerousCharRegex = /^[^<>;'"]*$/;
 export const useUrunEkleForm = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const [isLoading, setIsloading] = useState(false);
   const [images, setImages] = useState([]);
   const [coverImage, setCoverImage] = useState(null);
   const [categoryIds, setCategoryIds] = useState([]);
@@ -65,9 +68,10 @@ export const useUrunEkleForm = () => {
     setCategoryIds(updatedCategories);
   };
 
-  const onSubmit = async (values, { resetForm }) => {
-    setIsloading(true);
+  const onSubmit = async (values, { resetForm, setSubmitting }) => {
+    dispatch(setLoading({ isLoading: true, message: "Ürün ekleniyor..." }));
     window.scrollTo(0, 0);
+
     const formDataToSend = new FormData();
     formDataToSend.append("name", values.name);
     formDataToSend.append("description", values.productDescription);
@@ -86,6 +90,7 @@ export const useUrunEkleForm = () => {
     if (coverImage) {
       formDataToSend.append("coverImage", coverImage);
     }
+
     try {
       await createProduct(formDataToSend);
       dispatch(
@@ -107,13 +112,13 @@ export const useUrunEkleForm = () => {
       );
       console.log(error);
     } finally {
-      setIsloading(false);
+      dispatch(clearLoading());
+      setSubmitting(false);
     }
   };
 
   return {
     inputRef,
-    isLoading,
     images,
     coverImage,
     categoryIds,

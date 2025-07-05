@@ -4,36 +4,24 @@ import { useCategoryCreate } from "./hooks";
 import { ImageUploader, CategoryForm } from "./components";
 
 const CategoryCreate = () => {
-  const {
-    imgKapak,
-    isLoading,
-    formData,
-    categories,
-    handleSubmit,
-    handleChange,
-    handleKapakImageChange,
-  } = useCategoryCreate();
+  const { formik, categories, handleImageChange } = useCategoryCreate();
 
-  if (isLoading) {
+  if (formik.isSubmitting) {
     return <Loading />;
   }
 
   return (
-    <div className="container">
+    <div className="">
       <div className="categoryCreate">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <div className="categoryCreate">
             <div className="leftSide">
               <ImageUploader
-                imgKapak={imgKapak}
-                onImageChange={handleKapakImageChange}
+                formik={formik}
+                onImageChange={handleImageChange}
               />
             </div>
-            <CategoryForm
-              formData={formData}
-              categories={categories}
-              onChange={handleChange}
-            />
+            <CategoryForm formik={formik} categories={categories} />
           </div>
         </form>
       </div>

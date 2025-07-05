@@ -1,16 +1,31 @@
 .panel {
   width: 100%;
   background-color: white;
-  min-height: 100vh;
   display: flex;
+  height: 100vh;
+  overflow: hidden;
 
   .panelRight {
     flex: 10;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     position: relative;
     height: 100vh;
-    overflow-y: auto;
+    overflow: hidden;
+
+    .container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem;
+
+      // Scroll bar'ı gizle
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+
+      /* Webkit tabanlı tarayıcılar için (Chrome, Safari, Edge) */
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 }

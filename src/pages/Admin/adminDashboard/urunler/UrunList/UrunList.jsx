@@ -1,10 +1,12 @@
 import "./UrunList.scss";
 import { useUrunList } from "./hooks/useUrunList";
-import CategorySelector from "./components/CategorySelector";
-import ProductTable from "./components/ProductTable";
-import NoProductsMessage from "./components/NoProductsMessage";
+import {
+  CategorySelector,
+  ProductTable,
+  NoProductsMessage,
+  ProductListSkeleton,
+} from "./components";
 import Pagination from "../../../../../components/Pagination/Pagination";
-import Loading from "../../../../../components/Loading/Loading";
 import { STATUS } from "../../../../../utils/status";
 
 const UrunList = () => {
@@ -18,9 +20,14 @@ const UrunList = () => {
     productsStatus,
   } = useUrunList();
 
+  // Loading durumunda skeleton göster
+  if (productsStatus === STATUS.LOADING && selectedCategoryId) {
+    return <ProductListSkeleton />;
+  }
+
   return (
     <div className="urunList">
-      <div className="container">
+      <div className="">
         <div className="urunListContent">
           <CategorySelector
             categories={categories}
@@ -30,9 +37,7 @@ const UrunList = () => {
 
           {selectedCategoryId ? (
             <>
-              {productsStatus === STATUS.LOADING ? (
-                <Loading />
-              ) : currentItems?.length > 0 ? (
+              {currentItems?.length > 0 ? (
                 <ProductTable currentItems={currentItems} />
               ) : (
                 <NoProductsMessage />

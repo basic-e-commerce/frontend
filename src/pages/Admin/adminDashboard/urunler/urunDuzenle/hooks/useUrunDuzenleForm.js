@@ -8,13 +8,16 @@ import {
 } from "../../../../../../redux/slices/productSlice";
 import { showAlertWithTimeout } from "../../../../../../redux/slices/alertSlice";
 import { getCategories } from "../../../../../../redux/slices/categorySlice";
+import {
+  setLoading,
+  clearLoading,
+} from "../../../../../../redux/slices/loadingSlice";
 
 export const useUrunDuzenleForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const { productLinkName } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
   const [initialImages, setInitialImages] = useState([]);
   const [initialCoverImage, setInitialCoverImage] = useState(null);
   const [images, setImages] = useState([]);
@@ -46,17 +49,19 @@ export const useUrunDuzenleForm = () => {
   // Ürün detaylarını getir
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      dispatch(
+        setLoading({ isLoading: true, message: "Ürün bilgileri yükleniyor..." })
+      );
       if (!productLinkName) return;
 
       try {
         await dispatch(getProductDetailAdmin(productLinkName)).unwrap();
-        setIsLoading(false);
+        dispatch(clearLoading());
       } catch (error) {
-        setIsLoading(false);
+        dispatch(clearLoading());
         dispatch(
           showAlertWithTimeout({
-            message: error,
+            message: error.response?.data || "Bir hata oluştu",
             status: "error",
           })
         );
@@ -93,7 +98,7 @@ export const useUrunDuzenleForm = () => {
   };
 
   const onSubmit = async (values, { setSubmitting }) => {
-    setIsLoading(true);
+    dispatch(setLoading({ isLoading: true, message: "Ürün düzenleniyor..." }));
     window.scrollTo(0, 0);
 
     try {
@@ -129,7 +134,7 @@ export const useUrunDuzenleForm = () => {
       );
       console.error("Ürün düzenleme hatası:", err);
     } finally {
-      setIsLoading(false);
+      dispatch(clearLoading());
       setSubmitting(false);
     }
   };
@@ -161,8 +166,7 @@ export const useUrunDuzenleForm = () => {
 
   return {
     inputRef,
-    isLoading:
-      isLoading || productDetailStatus === "LOADING" || loadingCategoriesStatus,
+    isLoading: productDetailStatus === "LOADING" || loadingCategoriesStatus,
     images,
     coverImage,
     categories,

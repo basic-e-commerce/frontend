@@ -1,8 +1,8 @@
 .navbar {
-  height: 5rem;
+  height: 90px;
   display: flex;
   align-items: center;
-  border-bottom: 0.1rem solid rgb(156, 156, 156);
+  border-bottom: 1px solid rgb(156, 156, 156);
 
   .navbarWrapper {
     .css-zza0ns-MuiBadge-badge {
@@ -13,7 +13,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 0rem 1rem;
 
     .iconn {
       cursor: pointer;

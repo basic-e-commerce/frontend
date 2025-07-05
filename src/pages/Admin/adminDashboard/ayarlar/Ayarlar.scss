@@ -65,22 +65,38 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-          }
+            input,
+            select {
+              width: 70%;
+              padding: 10px;
+              font-size: 14px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box;
+              outline: none;
+              transition: border-color 0.2s ease;
 
-          input,
-          select {
-            width: 70%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s ease;
-          }
+              &:focus {
+                border-color: #0056b3;
+              }
+            }
 
-          input:focus {
-            border-color: #0056b3;
+            textarea {
+              width: 70%;
+              height: 100px; /* Yükseklik sabit */
+              padding: 10px;
+              font-size: 14px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              resize: none; /* Yeniden boyutlandırmayı devre dışı bırak */
+              box-sizing: border-box;
+              outline: none;
+              transition: border-color 0.2s ease;
+
+              &:focus {
+                border-color: #0056b3;
+              }
+            }
           }
 
           .buttonContainer {
@@ -111,23 +127,6 @@
               &:hover {
                 background-color: gray;
               }
-            }
-          }
-
-          textarea {
-            width: 70%;
-            height: 100px; /* Yükseklik sabit */
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: none; /* Yeniden boyutlandırmayı devre dışı bırak */
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s ease;
-
-            &:focus {
-              border-color: #0056b3;
             }
           }
         }

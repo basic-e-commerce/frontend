@@ -1,0 +1,166 @@
+.product-skeleton {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-out;
+
+  .skeleton-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .left-skeleton {
+    flex: 1;
+    max-width: 400px;
+
+    .cover-image-skeleton {
+      .skeleton-image {
+        width: 100%;
+        height: 300px;
+        background: #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .right-skeleton {
+    flex: 2;
+
+    .product-images-skeleton {
+      margin-bottom: 30px;
+
+      .skeleton-title {
+        width: 150px;
+        height: 20px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        margin-bottom: 15px;
+      }
+
+      .images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+
+        .skeleton-image-item {
+          width: 100px;
+          height: 100px;
+          background: #e0e0e0;
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .form-fields-skeleton {
+      .skeleton-field {
+        margin-bottom: 20px;
+
+        .skeleton-label {
+          width: 120px;
+          height: 16px;
+          background: #e0e0e0;
+          border-radius: 4px;
+          margin-bottom: 8px;
+        }
+
+        .skeleton-input {
+          width: 100%;
+          height: 40px;
+          background: #e0e0e0;
+          border-radius: 6px;
+        }
+
+        .skeleton-textarea {
+          width: 100%;
+          height: 80px;
+          background: #e0e0e0;
+          border-radius: 6px;
+        }
+      }
+
+      .price-fields,
+      .stock-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .checkbox-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+
+        .skeleton-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .skeleton-checkbox-input {
+            width: 18px;
+            height: 18px;
+            background: #e0e0e0;
+            border-radius: 3px;
+          }
+
+          .skeleton-checkbox-label {
+            width: 150px;
+            height: 16px;
+            background: #e0e0e0;
+            border-radius: 4px;
+          }
+        }
+      }
+
+      .skeleton-button {
+        width: 200px;
+        height: 45px;
+        background: #e0e0e0;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+    }
+  }
+
+  // Pulse animasyonu - daha yumuşak
+  .pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  // Fade-in animasyonu - daha yumuşak
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

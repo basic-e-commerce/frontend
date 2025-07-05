@@ -49,7 +49,7 @@ const Siparisler = () => {
 
   return (
     <div className="orders-page">
-      <div className="container">
+      <div className="">
         <Tabs
           tabs={tabs}
           selectedTab={selectedTab}

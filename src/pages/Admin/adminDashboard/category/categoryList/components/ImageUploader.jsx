@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 
 const ImageUploader = ({ renderedImage, handleKapakImageChange, formik }) => {
@@ -6,7 +6,7 @@ const ImageUploader = ({ renderedImage, handleKapakImageChange, formik }) => {
     <div className="avatar">
       <input
         type="file"
-        accept="image/*"
+        accept=".jpg, .jpeg, .png"
         id="kapakFoto"
         onChange={handleKapakImageChange}
         style={{ display: "none" }}
@@ -26,6 +26,11 @@ const ImageUploader = ({ renderedImage, handleKapakImageChange, formik }) => {
       )}
     </div>
   );
+};
+
+ImageUploader.propTypes = {
+  formik: PropTypes.object.isRequired,
+  onImageChange: PropTypes.func.isRequired,
 };
 
 export default ImageUploader;

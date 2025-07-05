@@ -7,6 +7,7 @@ import siparisSliceReducer from "./slices/siparisSlice";
 import { setAccessTokenGetter, setDispatcher } from "../api/api";
 import alertReducer from "./slices/alertSlice";
 import alertKullaniciReducer from "./slices/alertKullaniciSlice";
+import loadingReducer from "./slices/loadingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     siparisSlice: siparisSliceReducer,
     alert: alertReducer,
     alertKullanici: alertKullaniciReducer,
+    loading: loadingReducer,
   },
 });
 

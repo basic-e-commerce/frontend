@@ -3,6 +3,7 @@ import "./Dashboard.scss";
 import DateRangePicker from "./Groups/DateRangePicker/DateRangePicker";
 import SummaryCard from "./Groups/SummaryCard/SummaryCard";
 import InfoCard from "../../../../components/Admin/widgets/infoCard";
+import DashboardSkeleton from "./Groups/DashboardSkeleton";
 
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
@@ -22,6 +23,7 @@ const Dashboard = () => {
   const [visitor, setVisitor] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const setOfDay = (date) => {
     const d = new Date(date);
@@ -115,11 +117,14 @@ const Dashboard = () => {
     ];
     const fetchSequentially = async () => {
       try {
+        setIsLoading(true);
         for (let i = 0; i < functions.length; i++) {
           await functions[i]();
         }
       } catch (error) {
         console.error("Analizler çekilemedi:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -129,6 +134,11 @@ const Dashboard = () => {
   }, [startDate, endDate]);
 
   console.log(satisData);
+
+  // Loading durumunda skeleton göster
+  if (isLoading && startDate && endDate) {
+    return <DashboardSkeleton />;
+  }
 
   return (
     <div className="dashboard">
