@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSelectedCategory } from "../../../../../redux/slices/categorySlice";
+
 import { useLocation } from "react-router-dom";
+import { setSelectedCategory } from "../../../../../../redux/slices/categorySlice";
 
 const CategorySingleDown = ({ categories, selectedCategory }) => {
   const dispatch = useDispatch();

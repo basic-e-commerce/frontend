@@ -1,108 +1,27 @@
-import { useState, useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CategorySingleDown from "./CategorySingleDown";
-import {
-  updateCategory,
-  removeCategory,
-  getCategories,
-} from "../../../../../redux/slices/categorySlice";
-import { handleApiError } from "../../../../../utils/errorHandler";
+import { useCategoryForm } from "./hooks/useCategoryForm";
+import CategorySingleDown from "./components/CategorySingleDown";
+import ImageUploader from "./components/ImageUploader";
+import FormFields from "./components/FormFields";
+import DeleteConfirmationModal from "./components/DeleteConfirmationModal";
 import "./CategoryForm.scss";
-import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 
 const CategoryForm = () => {
-  const dispatch = useDispatch();
-
-  const { categories, selectedCategory } = useSelector(
-    (state) => state.categories
-  );
-
-  const [showPopupCategory, setShowPopupCategory] = useState(false);
-  const [initialKapakImages, setInitialKapakImages] = useState("");
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    description: "",
-    coverImage: "",
-  });
-
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (selectedCategory) {
-      setFormData({
-        id: selectedCategory?.id,
-        name: selectedCategory?.categoryName || "",
-        description: selectedCategory?.categoryDescription || "",
-        coverImage: selectedCategory?.coverImage?.url || "",
-      });
-      setInitialKapakImages(selectedCategory?.coverImage?.url || "");
-    }
-  }, [selectedCategory]);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleKapakImageChange = (event) => {
-    const file = event.target.files[0];
-    setFormData({ ...formData, coverImage: file });
-    event.target.value = "";
-  };
-
-  const handleSubmitDuzenleCategory = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(updateCategory({ formData, initialKapakImages })).unwrap();
-      dispatch(
-        showAlertWithTimeout({
-          message: "Kategori başarıyla güncellendi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: handleApiError(error),
-          status: "error",
-        })
-      );
-    }
-  };
-
-  const handleConfirmDeleteCategory = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(removeCategory(formData.id)).unwrap();
-      setShowPopupCategory(false);
-      dispatch(
-        showAlertWithTimeout({
-          message: "Kategori başarıyla silindi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: handleApiError(error),
-          status: "error",
-        })
-      );
-    }
-  };
-
-  const renderedImage = useMemo(() => {
-    if (typeof formData.coverImage === "string") return formData.coverImage;
-    if (formData.coverImage instanceof File)
-      return URL.createObjectURL(formData.coverImage);
-    return null;
-  }, [formData.coverImage]);
+  const {
+    showPopupCategory,
+    categories,
+    selectedCategory,
+    renderedImage,
+    isFormChanged,
+    isLoading,
+    formik,
+    handleKapakImageChange,
+    handleConfirmDeleteCategory,
+    handleOpenDeletePopup,
+    handleCloseDeletePopup,
+  } = useCategoryForm();
 
   return (
-    <form onSubmit={handleSubmitDuzenleCategory} className="category-form">
+    <form onSubmit={formik.handleSubmit} className="category-form">
       <label className="secilenBolum">
         Kategori Seç:
         <CategorySingleDown
@@ -114,118 +33,42 @@ const CategoryForm = () => {
       {selectedCategory && (
         <div className="categoryEdit">
           <div className="leftSide">
-            <div className="avatar">
-              <input
-                type="file"
-                accept="image/*"
-                id="kapakFoto"
-                onChange={handleKapakImageChange}
-                style={{ display: "none" }}
-              />
-              <label htmlFor="kapakFoto" className="kapsayiciButton">
-                {renderedImage ? (
-                  <img
-                    className="kapakImgg"
-                    src={renderedImage}
-                    alt="Kategori Kapak"
-                  />
-                ) : (
-                  <div className="Text">
-                    <ImageSearchIcon />
-                    Kategori Resmi Ekle
-                  </div>
-                )}
-              </label>
-            </div>
+            <ImageUploader
+              renderedImage={renderedImage}
+              handleKapakImageChange={handleKapakImageChange}
+              formik={formik}
+            />
           </div>
 
           <div className="rightSection">
-            <label>
-              Kategori İsmi:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
-
-            <label>
-              Açıklama:
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
-            </label>
+            <FormFields formik={formik} />
 
             <div className="buttonContainer">
               <button
                 type="button"
-                onClick={() => {
-                  setShowPopupCategory(true);
-                }}
+                onClick={handleOpenDeletePopup}
                 className="delete"
               >
                 Sil
               </button>
 
               <button
-                disabled={
-                  !(
-                    selectedCategory.categoryName !== formData.name ||
-                    selectedCategory.categoryDescription !==
-                      formData.description ||
-                    formData.coverImage instanceof File
-                  )
-                }
-                className={
-                  !(
-                    selectedCategory.categoryName !== formData.name ||
-                    selectedCategory.categoryDescription !==
-                      formData.description ||
-                    formData.coverImage instanceof File
-                  )
-                    ? "disabled"
-                    : ""
-                }
+                disabled={!isFormChanged || isLoading}
+                className={!isFormChanged || isLoading ? "disabled" : ""}
                 type="submit"
               >
-                Kategori Düzenle
+                {isLoading ? "Düzenleniyor..." : "Kategori Düzenle"}
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {showPopupCategory && (
-        <div className="popup">
-          <div className="popup-inner">
-            <p>Silmek istediğinize emin misiniz?</p>
-            <div className="popup-buttons">
-              <button
-                className="cancel"
-                type="button"
-                onClick={() => {
-                  setShowPopupCategory(false);
-                }}
-              >
-                İptal
-              </button>
-              <button
-                type="button"
-                className="confirm"
-                onClick={handleConfirmDeleteCategory}
-              >
-                Sil
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeleteConfirmationModal
+        showPopupCategory={showPopupCategory}
+        handleCloseDeletePopup={handleCloseDeletePopup}
+        handleConfirmDeleteCategory={handleConfirmDeleteCategory}
+      />
     </form>
   );
 };

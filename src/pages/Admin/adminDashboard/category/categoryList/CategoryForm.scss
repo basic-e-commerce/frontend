@@ -95,7 +95,7 @@
 
         .disabled {
           background-color: lightgray;
-          cursor: default;
+          cursor: not-allowed;
         }
       }
 
@@ -131,6 +131,11 @@
       border-color: #0056b3;
     }
 
+    input[type="text"].error,
+    textarea.error {
+      border-color: #dc3545;
+    }
+
     textarea {
       width: calc(70% - 2rem);
       height: 100px; /* Yükseklik sabit */
@@ -147,6 +152,14 @@
     textarea:focus {
       border-color: rgb(31, 75, 28);
     }
+  }
+  .error-message {
+    text-align: end;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: normal;
+    margin-top: -1.2rem;
   }
 }
 
