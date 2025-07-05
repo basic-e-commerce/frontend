@@ -4,6 +4,7 @@ import CategorySingleDown from "./CategorySingleDown";
 import {
   updateCategory,
   removeCategory,
+  getCategories,
 } from "../../../../../redux/slices/categorySlice";
 import { handleApiError } from "../../../../../utils/errorHandler";
 import "./CategoryForm.scss";
@@ -12,6 +13,7 @@ import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 
 const CategoryForm = () => {
   const dispatch = useDispatch();
+
   const { categories, selectedCategory } = useSelector(
     (state) => state.categories
   );
@@ -24,6 +26,10 @@ const CategoryForm = () => {
     description: "",
     coverImage: "",
   });
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   useEffect(() => {
     if (selectedCategory) {

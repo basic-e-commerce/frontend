@@ -11,10 +11,9 @@ import ScrollToTop from "./components/scrollTop/ScrollToTop";
 import Sepet from "./pages/sepet/Sepet";
 import Login from "./pages/login/Login";
 import AdminDashboard from "./pages/Admin/adminDashboard/AdminDashboard";
-import UrunEkle from "./pages/Admin/adminDashboard/urunler/UrunEkle";
-import UrunList from "./pages/Admin/adminDashboard/urunler/UrunList";
-import UrunDuzenle from "./pages/Admin/adminDashboard/urunler/UrunDuzenle";
-import CategoryList from "./pages/Admin/adminDashboard/category/categoryList/CategoryList";
+import UrunEkle from "./pages/Admin/adminDashboard/urunler/urunEkle/UrunEkle";
+import UrunList from "./pages/Admin/adminDashboard/urunler/urunList/UrunList";
+import UrunDuzenle from "./pages/Admin/adminDashboard/urunler/urunDuzenle/UrunDuzenle";
 import CategoryCreate from "./pages/Admin/adminDashboard/category/categoryCreate/CategoryCreate";
 import Profile from "./pages/profile/Profile";
 import Bilgiler from "./pages/profile/Bilgiler/Bilgiler";
@@ -32,6 +31,7 @@ import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
 import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
 import Categories from "./pages/Categories/Categories";
+import CategoryForm from "./pages/Admin/adminDashboard/category/categoryList/CategoryForm";
 
 function App() {
   const location = useLocation();
@@ -87,7 +87,7 @@ function App() {
           <Route path="urunler" element={<UrunList />} />
           <Route path="urunekle" element={<UrunEkle />} />
           <Route path="urunler/:productLinkName" element={<UrunDuzenle />} />
-          <Route path="kategoriler" element={<CategoryList />} />
+          <Route path="kategoriler" element={<CategoryForm />} />
           <Route path="kategoriekle" element={<CategoryCreate />} />
           <Route path="siparisler" element={<Siparisler />} />
           <Route path="ayarlar" element={<Ayarlar />} />

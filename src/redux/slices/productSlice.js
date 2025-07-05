@@ -93,6 +93,7 @@ export const updateProduct = createAsyncThunk(
         buyingPrice: formData.buyingPrice,
         taxRate: formData.taxRate,
         quantity: formData.quantity,
+        stockNotification: formData.stockNotification,
         shortDescription: formData.shortDescription,
         description: formData.productDescription,
         categoryIds: formData.categoryIds,

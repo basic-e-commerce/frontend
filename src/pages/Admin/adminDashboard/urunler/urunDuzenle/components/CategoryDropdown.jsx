@@ -1,26 +1,12 @@
+import PropTypes from "prop-types";
+
 const CategoryDropdown = ({
   categories,
   selectedCategories,
   onCategoryChange,
 }) => {
-  const handleCategoryChange = (event) => {
-    const { value, checked } = event.target;
-    const categoryId = parseInt(value);
-    let updatedCategories = selectedCategories;
-
-    if (checked) {
-      if (!updatedCategories?.includes(categoryId)) {
-        updatedCategories?.push(categoryId);
-      }
-    } else {
-      updatedCategories = updatedCategories?.filter((id) => id !== categoryId);
-    }
-
-    onCategoryChange(updatedCategories);
-  };
-
   return (
-    <div>
+    <div style={{ width: "60%" }}>
       {categories?.map((category) => (
         <div key={category.id}>
           {/* Ana Kategori - Eğer alt kategorisi varsa sadece gösterilir, seçilemez */}
@@ -29,7 +15,7 @@ const CategoryDropdown = ({
               type="checkbox"
               value={category.id}
               checked={selectedCategories?.includes(category.id)}
-              onChange={handleCategoryChange}
+              onChange={onCategoryChange}
               disabled={category.subCategories.length > 0}
             />
             {category?.categoryName?.toUpperCase()}
@@ -44,7 +30,7 @@ const CategoryDropdown = ({
                     type="checkbox"
                     value={sub.id}
                     checked={selectedCategories?.includes(sub.id)}
-                    onChange={handleCategoryChange}
+                    onChange={onCategoryChange}
                   />
                   {sub.categoryName}
                 </label>
@@ -55,6 +41,12 @@ const CategoryDropdown = ({
       ))}
     </div>
   );
+};
+
+CategoryDropdown.propTypes = {
+  categories: PropTypes.array.isRequired,
+  selectedCategories: PropTypes.array.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
 };
 
 export default CategoryDropdown;
