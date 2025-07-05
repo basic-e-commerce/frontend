@@ -24,7 +24,7 @@ const UrunDuzenle = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="createProject">
+        <div className="updateProject">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

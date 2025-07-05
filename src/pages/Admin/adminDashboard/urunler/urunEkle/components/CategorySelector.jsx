@@ -22,7 +22,7 @@ const CategorySelector = ({
 
   return (
     <div className="categorySeciton">
-      Ürün Kategorisi:
+      <span>Ürün Kategorisi:</span>
       <CategoryDropdown
         categories={categories}
         selectedCategories={selectedCategories}

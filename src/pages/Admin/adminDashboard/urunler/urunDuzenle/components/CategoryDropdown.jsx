@@ -1,45 +1,52 @@
 import PropTypes from "prop-types";
+import { Chip, Box } from "@mui/material";
 
 const CategoryDropdown = ({
   categories,
   selectedCategories,
   onCategoryChange,
 }) => {
-  return (
-    <div style={{ width: "60%" }}>
-      {categories?.map((category) => (
-        <div key={category.id}>
-          {/* Ana Kategori - Eğer alt kategorisi varsa sadece gösterilir, seçilemez */}
-          <label>
-            <input
-              type="checkbox"
-              value={category.id}
-              checked={selectedCategories?.includes(category.id)}
-              onChange={onCategoryChange}
-              disabled={category.subCategories.length > 0}
-            />
-            {category?.categoryName?.toUpperCase()}
-          </label>
+  const handleChipClick = (id) => {
+    // Chip tıklanınca toggle et
+    if (selectedCategories.includes(id)) {
+      onCategoryChange({ target: { value: id, checked: false } });
+    } else {
+      onCategoryChange({ target: { value: id, checked: true } });
+    }
+  };
 
-          {/* Alt Kategoriler (Eğer varsa) */}
+  return (
+    <Box className="contentCategoryyy" display="flex">
+      {categories?.map((category) => (
+        <Box className="categoryChipsContainer" key={category.id}>
+          {/* Ana Kategori */}
+          <Chip
+            label={category?.categoryName}
+            color={
+              selectedCategories.includes(category.id) ? "primary" : "default"
+            }
+            onClick={() => handleChipClick(category.id)}
+            disabled={category.subCategories.length > 0}
+          />
+
+          {/* Alt Kategoriler */}
           {category.subCategories.length > 0 && (
-            <div style={{ marginLeft: "20px" }}>
+            <Box ml={3} display="flex" flexWrap="wrap" gap={1}>
               {category.subCategories?.map((sub) => (
-                <label key={sub.id}>
-                  <input
-                    type="checkbox"
-                    value={sub.id}
-                    checked={selectedCategories?.includes(sub.id)}
-                    onChange={onCategoryChange}
-                  />
-                  {sub.categoryName}
-                </label>
+                <Chip
+                  key={sub.id}
+                  label={sub.categoryName}
+                  color={
+                    selectedCategories.includes(sub.id) ? "primary" : "default"
+                  }
+                  onClick={() => handleChipClick(sub.id)}
+                />
               ))}
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 };
 
