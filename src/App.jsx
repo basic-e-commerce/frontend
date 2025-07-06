@@ -12,7 +12,7 @@ import Sepet from "./pages/sepet/Sepet";
 import Login from "./pages/login/Login";
 import AdminDashboard from "./pages/Admin/adminDashboard/AdminDashboard";
 import UrunEkle from "./pages/Admin/adminDashboard/urunler/urunEkle/UrunEkle";
-import UrunList from "./pages/Admin/adminDashboard/urunler/urunList/UrunList";
+
 import UrunDuzenle from "./pages/Admin/adminDashboard/urunler/urunDuzenle/UrunDuzenle";
 import CategoryCreate from "./pages/Admin/adminDashboard/category/categoryCreate/CategoryCreate";
 import Profile from "./pages/profile/Profile";
@@ -32,6 +32,7 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
 import Categories from "./pages/Categories/Categories";
 import CategoryForm from "./pages/Admin/adminDashboard/category/categoryList/CategoryForm";
+import UrunList from "./pages/Admin/adminDashboard/urunler/urunList/UrunList";
 
 function App() {
   const location = useLocation();

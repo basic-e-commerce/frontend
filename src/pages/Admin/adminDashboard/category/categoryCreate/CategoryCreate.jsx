@@ -1,10 +1,18 @@
 import "./CategoryCreate.scss";
 import { useCategoryCreate } from "./hooks";
-import { ImageUploader, CategoryForm } from "./components";
+import {
+  ImageUploader,
+  CategoryForm,
+  CategoryCreateSkeleton,
+} from "./components";
 
 const CategoryCreate = () => {
   const { formik, categories, handleImageChange, isLoading } =
     useCategoryCreate();
+
+  if (isLoading) {
+    return <CategoryCreateSkeleton />;
+  }
 
   return (
     <div className="">
