@@ -22,13 +22,13 @@ jobs:
       - name: Setup SSH Key for Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 185.240.104.6
+          host: 141.11.109.132
           username: root
           key: ${{ secrets.ECOMMERCESECRET }}
           script: |
-            cd /home/projects/ecommerce/frontend
+            cd /home/ecommerce/proje1/frontend
             git pull
             npm run build
-            mkdir -p /var/www/html/projects/ecommerce/project
-            rm -rf /var/www/html/projects/ecommerce/project/*
-            cp -r /home/projects/ecommerce/frontend/dist/* /var/www/html/projects/ecommerce/project/
+            mkdir -p /var/www/proje1
+            rm -rf /var/www/proje1/*
+            cp -r /home/ecommerce/proje1/frontend/dist/* /var/www/proje1/

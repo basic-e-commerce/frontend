@@ -1,15 +1,12 @@
-const SubmitButton = ({ initialData, formData, onSubmit }) => {
+const SubmitButton = ({ initialData, formData }) => {
+  const hasChanges = JSON.stringify(formData) !== JSON.stringify(initialData);
+
   return (
     <div className="buttonContainer">
       <button
-        disabled={JSON.stringify(formData) === JSON.stringify(initialData)}
-        className={
-          JSON.stringify(formData) === JSON.stringify(initialData)
-            ? "disabledButton"
-            : ""
-        }
+        disabled={!hasChanges}
+        className={!hasChanges ? "disabledButton" : ""}
         type="submit"
-        onClick={onSubmit}
       >
         Ayarları Güncelle
       </button>

@@ -1,14 +1,23 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
 import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
+import {
+  setLoading,
+  clearLoading,
+} from "../../../../../redux/slices/loadingSlice";
 import { handleApiError } from "../../../../../utils/errorHandler";
+import {
+  settingsValidationSchema,
+  sanitizeInput,
+  validateWorkingHours,
+} from "../yup/settingsValidation";
 import api from "../../../../../api/api";
 import { BASE_URL } from "../../../../../config/baseApi";
 
 export const useSettingsForm = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState(null);
+  const { isLoading } = useSelector((state) => state.loading);
   const [initialData, setInitialData] = useState(null);
   const [isWorkingHoursOpen, setIsWorkingHoursOpen] = useState(false);
 
@@ -105,27 +114,35 @@ export const useSettingsForm = () => {
     target[lastKey] = value;
   };
 
+  const getNestedValue = (obj, path) => {
+    return path.split(".").reduce((current, key) => current?.[key], obj);
+  };
+
   const transformToPutFormat = (formData) => {
     return {
-      name: formData.name || "",
-      firstName: formData.address?.firstName || "",
-      lastName: formData.address?.lastName || "",
-      title: formData.address?.title || "",
-      countryName: formData.address?.country?.upperName || "",
-      city: formData.address?.city || "",
-      addressLine1: formData.address?.addressLine1 || "",
-      postalCode: formData.address?.postalCode || "",
-      phoneNo: formData.phoneNo || "",
-      phoneNoLink: formData.phoneNoLink || `tel:${formData.phoneNo || ""}`,
-      email: formData.email || "",
-      emailLink: formData.emailLink || `mailto:${formData.email || ""}`,
+      name: sanitizeInput(formData.name || ""),
+      firstName: sanitizeInput(formData.address?.firstName || ""),
+      lastName: sanitizeInput(formData.address?.lastName || ""),
+      title: sanitizeInput(formData.address?.title || ""),
+      countryName: sanitizeInput(formData.address?.country?.upperName || ""),
+      city: sanitizeInput(formData.address?.city || ""),
+      addressLine1: sanitizeInput(formData.address?.addressLine1 || ""),
+      postalCode: sanitizeInput(formData.address?.postalCode || ""),
+      phoneNo: sanitizeInput(formData.phoneNo || ""),
+      phoneNoLink: sanitizeInput(
+        formData.phoneNoLink || `tel:${formData.phoneNo || ""}`
+      ),
+      email: sanitizeInput(formData.email || ""),
+      emailLink: sanitizeInput(
+        formData.emailLink || `mailto:${formData.email || ""}`
+      ),
       minOrderAmount: Number(formData.minOrderAmount) || 0,
       shippingFee: Number(formData.shippingFee) || 0,
-      emailPassword: formData.emailPassword || "",
-      instagram: formData.instagram || "",
-      instagramLink: formData.instagramLink || "",
-      wpLink: formData.wpLink || "",
-      footerDescription: formData.footerDescription || "",
+      emailPassword: sanitizeInput(formData.emailPassword || ""),
+      instagram: sanitizeInput(formData.instagram || ""),
+      instagramLink: sanitizeInput(formData.instagramLink || ""),
+      wpLink: sanitizeInput(formData.wpLink || ""),
+      footerDescription: sanitizeInput(formData.footerDescription || ""),
       openCloseHours: formData.openCloseHours || [],
     };
   };
@@ -134,6 +151,7 @@ export const useSettingsForm = () => {
   const defaultEndHour = "18:00";
 
   const getWorkingHourValue = (dayKey, field) => {
+    const formData = formik.values;
     if (!formData.openCloseHours)
       return field === "hour" ? defaultHour : defaultEndHour;
     const dayData = formData.openCloseHours.find((item) => item.day === dayKey);
@@ -145,84 +163,146 @@ export const useSettingsForm = () => {
   };
 
   const handleWorkingHoursChange = (dayKey, field, value) => {
-    setFormData((prev) => {
-      const updatedData = { ...prev };
-      const hours = [...(updatedData.openCloseHours || [])];
-      const index = hours.findIndex((item) => item.day === dayKey);
+    const currentHours = [...(formik.values.openCloseHours || [])];
+    const index = currentHours.findIndex((item) => item.day === dayKey);
 
-      if (index >= 0) {
-        hours[index] = { ...hours[index], [field]: value };
-      } else {
-        hours.push({
-          day: dayKey,
-          hour: field === "hour" ? value : defaultHour,
-          endHour: field === "endHour" ? value : defaultEndHour,
-        });
+    if (index >= 0) {
+      currentHours[index] = { ...currentHours[index], [field]: value };
+    } else {
+      currentHours.push({
+        day: dayKey,
+        hour: field === "hour" ? value : defaultHour,
+        endHour: field === "endHour" ? value : defaultEndHour,
+      });
+    }
+
+    formik.setFieldValue("openCloseHours", currentHours);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      address: {
+        title: "",
+        firstName: "",
+        lastName: "",
+        country: { upperName: "" },
+        city: "",
+        addressLine1: "",
+        postalCode: "",
+        phoneNo: "",
+      },
+      phoneNo: "",
+      email: "",
+      minOrderAmount: 0,
+      shippingFee: 0,
+      emailPassword: "",
+      instagram: "",
+      instagramLink: "",
+      wpLink: "",
+      footerDescription: "",
+      openCloseHours: [],
+    },
+    validationSchema: settingsValidationSchema,
+    validate: (values) => {
+      const errors = {};
+
+      // Çalışma saatleri validasyonu
+      if (!validateWorkingHours(values.openCloseHours)) {
+        errors.openCloseHours = "Çalışma saatleri geçersiz";
       }
 
-      updatedData.openCloseHours = hours;
-      return updatedData;
-    });
-  };
+      return errors;
+    },
+    onSubmit: async (values) => {
+      dispatch(
+        setLoading({ isLoading: true, message: "Ayarlar güncelleniyor..." })
+      );
+      const putData = transformToPutFormat(values);
+
+      try {
+        console.log(putData);
+        await api.put(`${BASE_URL}/api/v1/merchant?id=${values.id}`, putData);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setInitialData(values);
+
+        dispatch(
+          showAlertWithTimeout({
+            message: "Mağaza ayarları başarıyla güncellendi",
+            status: "success",
+          })
+        );
+      } catch (error) {
+        dispatch(
+          showAlertWithTimeout({
+            message: handleApiError(error),
+            status: "error",
+          })
+        );
+      } finally {
+        dispatch(clearLoading());
+      }
+    },
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const sanitizedValue = sanitizeInput(value);
 
     if (name.includes(".")) {
-      setFormData((prev) => {
-        const newData = { ...prev };
-        setNestedValue(newData, name, value);
-        return newData;
-      });
+      const newValues = { ...formik.values };
+      setNestedValue(newValues, name, sanitizedValue);
+      formik.setValues(newValues);
     } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const putData = transformToPutFormat(formData);
-
-    try {
-      console.log(putData);
-      await api.put(`${BASE_URL}/api/v1/merchant?id=${formData.id}`, putData);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setInitialData(formData);
-
-      dispatch(
-        showAlertWithTimeout({
-          message: "Mağaza ayarları başarıyla güncellendi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: handleApiError(error),
-          status: "error",
-        })
-      );
-    } finally {
-      setIsLoading(false);
+      formik.setFieldValue(name, sanitizedValue);
     }
   };
 
   const fetchSettings = async () => {
+    dispatch(setLoading({ isLoading: true, message: "Ayarlar yükleniyor..." }));
+
     try {
       const response = await api.get(`${BASE_URL}/api/v1/merchant`);
-      setFormData(response.data[0]);
-      setInitialData(response.data[0]);
+      const data = response.data[0];
+
+      // Veriyi sanitize et
+      const sanitizedData = {
+        ...data,
+        name: sanitizeInput(data.name),
+        address: {
+          ...data.address,
+          title: sanitizeInput(data.address?.title),
+          firstName: sanitizeInput(data.address?.firstName),
+          lastName: sanitizeInput(data.address?.lastName),
+          country: {
+            ...data.address?.country,
+            upperName: sanitizeInput(data.address?.country?.upperName),
+          },
+          city: sanitizeInput(data.address?.city),
+          addressLine1: sanitizeInput(data.address?.addressLine1),
+          postalCode: sanitizeInput(data.address?.postalCode),
+          phoneNo: sanitizeInput(data.address?.phoneNo),
+        },
+        phoneNo: sanitizeInput(data.phoneNo),
+        email: sanitizeInput(data.email),
+        emailPassword: sanitizeInput(data.emailPassword),
+        instagram: sanitizeInput(data.instagram),
+        instagramLink: sanitizeInput(data.instagramLink),
+        wpLink: sanitizeInput(data.wpLink),
+        footerDescription: sanitizeInput(data.footerDescription),
+      };
+
+      formik.setValues(sanitizedData);
+      setInitialData(sanitizedData);
     } catch (error) {
       dispatch(
         showAlertWithTimeout({
-          message: error.response.data,
+          message: error.response?.data || "Ayarlar yüklenirken hata oluştu",
           status: "error",
         })
       );
+    } finally {
+      dispatch(clearLoading());
     }
   };
 
@@ -232,15 +312,18 @@ export const useSettingsForm = () => {
 
   return {
     isLoading,
-    formData,
+    formData: formik.values,
     isWorkingHoursOpen,
     setIsWorkingHoursOpen,
     initialData,
     days,
     fields,
     handleChange,
-    handleSubmit,
+    handleSubmit: formik.handleSubmit,
     handleWorkingHoursChange,
     getWorkingHourValue,
+    errors: formik.errors,
+    touched: formik.touched,
+    getNestedValue,
   };
 };

@@ -1,5 +1,5 @@
 import "./Ayarlar.scss";
-import Loading from "../../../../components/Loading/Loading";
+import SettingsSkeleton from "./components/SettingsSkeleton";
 import { useSettingsForm } from "./hooks/useSettingsForm";
 import StoreInfo from "./components/StoreInfo";
 import FormFields from "./components/FormFields";
@@ -19,10 +19,13 @@ const Ayarlar = () => {
     initialData,
     handleWorkingHoursChange,
     getWorkingHourValue,
+    errors,
+    touched,
+    getNestedValue,
   } = useSettingsForm();
 
-  if (!formData || isLoading) {
-    return <Loading />;
+  if (isLoading || !formData) {
+    return <SettingsSkeleton />;
   }
 
   return (
@@ -48,13 +51,12 @@ const Ayarlar = () => {
                   fields={fields}
                   formData={formData}
                   handleChange={handleChange}
+                  errors={errors}
+                  touched={touched}
+                  getNestedValue={getNestedValue}
                 />
 
-                <SubmitButton
-                  initialData={initialData}
-                  formData={formData}
-                  onSubmit={handleSubmit}
-                />
+                <SubmitButton initialData={initialData} formData={formData} />
               </div>
             </div>
           </form>

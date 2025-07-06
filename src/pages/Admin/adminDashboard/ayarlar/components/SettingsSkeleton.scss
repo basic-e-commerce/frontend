@@ -1,0 +1,171 @@
+.ayarlar {
+  .ayarlarContent {
+    .settingsForm {
+      .leftSide {
+        .storeInfoSkeleton {
+          .skeletonTitle {
+            height: 24px;
+            width: 200px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 16px;
+          }
+
+          .skeletonText {
+            height: 16px;
+            width: 100%;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 12px;
+
+            &:last-child {
+              width: 80%;
+            }
+          }
+        }
+      }
+
+      .rightSection {
+        .workingHoursSkeleton {
+          margin-bottom: 32px;
+
+          .skeletonTitle {
+            height: 24px;
+            width: 150px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 16px;
+          }
+
+          .skeletonDays {
+            .skeletonDay {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 12px;
+              padding: 12px;
+              border: 1px solid #e0e0e0;
+              border-radius: 8px;
+
+              .skeletonDayName {
+                height: 16px;
+                width: 100px;
+                background: linear-gradient(
+                  90deg,
+                  #f0f0f0 25%,
+                  #e0e0e0 50%,
+                  #f0f0f0 75%
+                );
+                background-size: 200% 100%;
+                animation: loading 1.5s infinite;
+                border-radius: 4px;
+              }
+
+              .skeletonTimeInputs {
+                display: flex;
+                gap: 12px;
+
+                .skeletonTimeInput {
+                  height: 40px;
+                  width: 80px;
+                  background: linear-gradient(
+                    90deg,
+                    #f0f0f0 25%,
+                    #e0e0e0 50%,
+                    #f0f0f0 75%
+                  );
+                  background-size: 200% 100%;
+                  animation: loading 1.5s infinite;
+                  border-radius: 6px;
+                }
+              }
+            }
+          }
+        }
+
+        .formFieldsSkeleton {
+          margin-bottom: 32px;
+
+          .skeletonField {
+            margin-bottom: 20px;
+
+            .skeletonLabel {
+              height: 16px;
+              width: 120px;
+              background: linear-gradient(
+                90deg,
+                #f0f0f0 25%,
+                #e0e0e0 50%,
+                #f0f0f0 75%
+              );
+              background-size: 200% 100%;
+              animation: loading 1.5s infinite;
+              border-radius: 4px;
+              margin-bottom: 8px;
+            }
+
+            .skeletonInput {
+              height: 44px;
+              width: 100%;
+              background: linear-gradient(
+                90deg,
+                #f0f0f0 25%,
+                #e0e0e0 50%,
+                #f0f0f0 75%
+              );
+              background-size: 200% 100%;
+              animation: loading 1.5s infinite;
+              border-radius: 6px;
+            }
+          }
+        }
+
+        .submitButtonSkeleton {
+          .skeletonButton {
+            height: 48px;
+            width: 200px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
