@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const CategoryForm = ({ formik, categories }) => {
+const CategoryForm = ({ formik, isLoading, categories }) => {
   return (
     <div className="rightSection">
       <div className="form-group">
@@ -73,8 +73,14 @@ const CategoryForm = ({ formik, categories }) => {
       </div>
 
       <div className="buttonContainer">
-        <button type="submit" disabled={formik.isSubmitting || !formik.isValid}>
-          {formik.isSubmitting ? "Ekleniyor..." : "Kategori Ekle"}
+        <button
+          type="submit"
+          className={
+            isLoading || !formik.isValid || !formik.dirty ? "disabled" : ""
+          }
+          disabled={isLoading || !formik.isValid || !formik.dirty}
+        >
+          {isLoading ? "Ekleniyor..." : "Kategori Ekle"}
         </button>
       </div>
     </div>

@@ -12,6 +12,10 @@ import {
   categoryValidationSchema,
   initialValues,
 } from "../yup/categoryValidation";
+import {
+  clearLoading,
+  setLoading,
+} from "../../../../../../redux/slices/loadingSlice";
 
 export const useCategoryForm = () => {
   const dispatch = useDispatch();
@@ -21,24 +25,28 @@ export const useCategoryForm = () => {
 
   const [showPopupCategory, setShowPopupCategory] = useState(false);
   const [initialKapakImages, setInitialKapakImages] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useSelector((state) => state.loading);
 
   // Formik form yapısı
   const formik = useFormik({
     initialValues,
     validationSchema: categoryValidationSchema,
     onSubmit: async (values) => {
-      setIsLoading(true);
+      dispatch(
+        setLoading({ isLoading: true, message: "Kategori güncelleniyor..." })
+      );
       try {
         await dispatch(
           updateCategory({ formData: values, initialKapakImages })
         ).unwrap();
-        dispatch(
-          showAlertWithTimeout({
-            message: "Kategori başarıyla güncellendi",
-            status: "success",
-          })
-        );
+        setTimeout(() => {
+          dispatch(
+            showAlertWithTimeout({
+              message: "Kategori başarıyla güncellendi",
+              status: "success",
+            })
+          );
+        }, 400);
       } catch (error) {
         dispatch(
           showAlertWithTimeout({
@@ -47,7 +55,7 @@ export const useCategoryForm = () => {
           })
         );
       } finally {
-        setIsLoading(false);
+        dispatch(clearLoading());
       }
     },
   });
@@ -70,7 +78,6 @@ export const useCategoryForm = () => {
     }
   }, [selectedCategory]);
 
-  // Resim değişikliği handler'ı
   const handleKapakImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -79,18 +86,25 @@ export const useCategoryForm = () => {
     event.target.value = "";
   };
 
-  // Kategori silme handler'ı
   const handleConfirmDeleteCategory = async (e) => {
     e.preventDefault();
+    dispatch(
+      setLoading({
+        isLoading: true,
+        loadingMessage: "Kategori siliniyor...",
+      })
+    );
     try {
       await dispatch(removeCategory(formik.values.id)).unwrap();
       setShowPopupCategory(false);
-      dispatch(
-        showAlertWithTimeout({
-          message: "Kategori başarıyla silindi",
-          status: "success",
-        })
-      );
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeout({
+            message: "Kategori başarıyla silindi",
+            status: "success",
+          })
+        );
+      }, 400);
     } catch (error) {
       dispatch(
         showAlertWithTimeout({
@@ -98,20 +112,19 @@ export const useCategoryForm = () => {
           status: "error",
         })
       );
+    } finally {
+      dispatch(clearLoading());
     }
   };
 
-  // Popup açma handler'ı
   const handleOpenDeletePopup = () => {
     setShowPopupCategory(true);
   };
 
-  // Popup kapatma handler'ı
   const handleCloseDeletePopup = () => {
     setShowPopupCategory(false);
   };
 
-  // Resim render etme
   const renderedImage = useMemo(() => {
     if (typeof formik.values.coverImage === "string")
       return formik.values.coverImage;
@@ -120,7 +133,6 @@ export const useCategoryForm = () => {
     return null;
   }, [formik.values.coverImage]);
 
-  // Form değişiklik kontrolü
   const isFormChanged = useMemo(() => {
     if (!selectedCategory) return false;
 
@@ -138,7 +150,7 @@ export const useCategoryForm = () => {
     selectedCategory,
     renderedImage,
     isFormChanged,
-    isLoading,
+    isLoading: isLoading,
 
     // Formik
     formik,

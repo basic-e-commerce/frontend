@@ -9,7 +9,7 @@ import {
   setLoading,
   clearLoading,
 } from "../../../../../../redux/slices/loadingSlice";
-import { STATUS } from "../../../../../../utils/status";
+import { showAlertWithTimeout } from "../../../../../../redux/slices/alertSlice";
 
 export const useUrunList = () => {
   const dispatch = useDispatch();
@@ -22,42 +22,38 @@ export const useUrunList = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
-  // Debug: Log products when they change
-  useEffect(() => {
-    console.log("Products updated:", products);
-  }, [products]);
-
   // Initialize component
   useEffect(() => {
     dispatch(resetTheProducts());
     dispatch(getCategories());
   }, [dispatch]);
 
-  // Fetch products when category changes
   useEffect(() => {
-    console.log("Selected Category ID:", selectedCategoryId);
-    if (selectedCategoryId) {
-      console.log(
-        "Dispatching getProductsCategory with ID:",
-        selectedCategoryId
-      );
+    const ffetchProductsCategoryId = async () => {
       dispatch(
         setLoading({ isLoading: true, message: "Ürünler yükleniyor..." })
       );
-      dispatch(getProductsCategory(selectedCategoryId));
+      try {
+        await dispatch(getProductsCategory(selectedCategoryId)).unwrap();
+      } catch (error) {
+        dispatch(
+          showAlertWithTimeout({
+            message: error.response?.data || "Bir hata oluştu",
+            status: "error",
+          })
+        );
+      } finally {
+        dispatch(clearLoading());
+      }
+    };
+
+    if (selectedCategoryId) {
+      ffetchProductsCategoryId();
     }
   }, [selectedCategoryId, dispatch]);
 
-  // Clear loading when products status changes
-  useEffect(() => {
-    if (productsStatus === STATUS.SUCCESS || productsStatus === STATUS.ERROR) {
-      dispatch(clearLoading());
-    }
-  }, [productsStatus, dispatch]);
-
   // Handle category selection
   const handleCategoryChange = (categoryId) => {
-    // Eğer boş string gelirse null olarak ayarla
     setSelectedCategoryId(categoryId === "" ? null : categoryId);
   };
 

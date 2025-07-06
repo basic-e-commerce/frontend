@@ -3,7 +3,7 @@ import "./DashboardSkeleton.scss";
 const DashboardSkeleton = () => {
   return (
     <div className="dashboard-skeleton">
-      <div className="container">
+      <div className="">
         <div className="dashboard-content">
           {/* Tarih seçici skeleton */}
           <div className="date-picker-skeleton">

@@ -1,22 +1,8 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useOrderStatus } from "../hooks";
 
 const OrderTable = ({ orders, onViewDetails }) => {
-  const translateOrderStatus = (status) => {
-    switch (status) {
-      case "PENDING":
-        return "İşleniyor";
-      case "APPROVED":
-        return "Onaylandı";
-      case "SHIPPED":
-        return "Kargoya Verildi";
-      case "DELIVERED":
-        return "Teslim Edildi";
-      case "CANCELLED":
-        return "İptal Edildi";
-      default:
-        return "Bilinmiyor";
-    }
-  };
+  const { translateOrderStatus } = useOrderStatus();
 
   return (
     <table className="custom-table">

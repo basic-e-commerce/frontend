@@ -45,9 +45,10 @@ const CategoryForm = () => {
 
             <div className="buttonContainer">
               <button
+                disabled={isLoading}
+                className={isLoading ? "disabled" : "delete"}
                 type="button"
                 onClick={handleOpenDeletePopup}
-                className="delete"
               >
                 Sil
               </button>

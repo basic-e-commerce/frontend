@@ -9,10 +9,15 @@ import {
   categoryValidationSchema,
   initialValues,
 } from "../yup/categoryValidation";
+import {
+  clearLoading,
+  setLoading,
+} from "../../../../../../redux/slices/loadingSlice";
 
 export const useCategoryCreate = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const { isLoading } = useSelector((state) => state.loading);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -21,8 +26,16 @@ export const useCategoryCreate = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: categoryValidationSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      setSubmitting(true);
+    validateOnMount: true,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values, { resetForm }) => {
+      dispatch(
+        setLoading({
+          isLoading: true,
+          message: "Kategori oluşturuluyor...",
+        })
+      );
 
       const formDataToSend = new FormData();
       formDataToSend.append("name", values.name);
@@ -36,12 +49,14 @@ export const useCategoryCreate = () => {
       try {
         await createCategory(formDataToSend);
         resetForm();
-        dispatch(
-          showAlertWithTimeout({
-            message: "Kategori başarıyla oluşturuldu",
-            status: "success",
-          })
-        );
+        setTimeout(() => {
+          dispatch(
+            showAlertWithTimeout({
+              message: "Kategori başarıyla oluşturuldu",
+              status: "success",
+            })
+          );
+        }, 400);
       } catch (error) {
         dispatch(
           showAlertWithTimeout({
@@ -50,7 +65,7 @@ export const useCategoryCreate = () => {
           })
         );
       } finally {
-        setSubmitting(false);
+        dispatch(clearLoading());
       }
     },
   });
@@ -61,6 +76,7 @@ export const useCategoryCreate = () => {
   };
 
   return {
+    isLoading,
     formik,
     categories,
     handleImageChange,

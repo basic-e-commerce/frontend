@@ -20,8 +20,7 @@ const UrunList = () => {
     productsStatus,
   } = useUrunList();
 
-  // Loading durumunda skeleton göster
-  if (productsStatus === STATUS.LOADING && selectedCategoryId) {
+  if (productsStatus === STATUS.LOADING) {
     return <ProductListSkeleton />;
   }
 
@@ -37,19 +36,19 @@ const UrunList = () => {
 
           {selectedCategoryId ? (
             <>
-              {currentItems?.length > 0 ? (
-                <ProductTable currentItems={currentItems} />
-              ) : (
+              {productsStatus === STATUS.SUCCESS && products?.length > 0 ? (
+                <>
+                  <ProductTable currentItems={currentItems} />
+                  <Pagination
+                    itemsPerPage={5}
+                    items={products}
+                    setCurrentItems={setCurrentItems}
+                  />
+                </>
+              ) : productsStatus === STATUS.SUCCESS &&
+                products?.length === 0 ? (
                 <NoProductsMessage />
-              )}
-
-              {productsStatus === STATUS.SUCCESS && (
-                <Pagination
-                  itemsPerPage={5}
-                  items={products}
-                  setCurrentItems={setCurrentItems}
-                />
-              )}
+              ) : null}
             </>
           ) : (
             <div className="selectCategoryMessage">

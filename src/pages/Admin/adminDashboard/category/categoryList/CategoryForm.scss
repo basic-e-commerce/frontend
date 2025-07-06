@@ -199,12 +199,17 @@
       }
 
       .confirm {
-        background: red;
+        background: darkred;
         padding: 10px 20px;
         border: none;
         cursor: pointer;
         border-radius: 5px;
         color: white;
+      }
+
+      .disabled {
+        background-color: lightgray;
+        cursor: not-allowed;
       }
     }
   }

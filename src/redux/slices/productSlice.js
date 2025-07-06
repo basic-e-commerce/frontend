@@ -160,6 +160,7 @@ const productSlice = createSlice({
     },
     resetTheProducts(state) {
       state.products = [];
+      state.productsStatus = STATUS.IDLE;
     },
   },
 

@@ -142,7 +142,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div className="container">
+      <div className="">
         <div className="dashboardContent">
           <DateRangePicker
             startDate={startDate}

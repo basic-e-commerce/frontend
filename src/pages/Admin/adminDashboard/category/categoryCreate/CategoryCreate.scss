@@ -227,10 +227,10 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             width: 100%;
-
-            &:hover {
-              background-color: #004494;
-            }
+          }
+          .disabled {
+            background-color: lightgray;
+            cursor: not-allowed;
           }
         }
 

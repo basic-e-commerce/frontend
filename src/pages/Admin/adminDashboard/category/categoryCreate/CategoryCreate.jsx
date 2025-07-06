@@ -1,14 +1,10 @@
 import "./CategoryCreate.scss";
-import Loading from "../../../../../components/Loading/Loading";
 import { useCategoryCreate } from "./hooks";
 import { ImageUploader, CategoryForm } from "./components";
 
 const CategoryCreate = () => {
-  const { formik, categories, handleImageChange } = useCategoryCreate();
-
-  if (formik.isSubmitting) {
-    return <Loading />;
-  }
+  const { formik, categories, handleImageChange, isLoading } =
+    useCategoryCreate();
 
   return (
     <div className="">
@@ -21,7 +17,11 @@ const CategoryCreate = () => {
                 onImageChange={handleImageChange}
               />
             </div>
-            <CategoryForm formik={formik} categories={categories} />
+            <CategoryForm
+              isLoading={isLoading}
+              formik={formik}
+              categories={categories}
+            />
           </div>
         </form>
       </div>
