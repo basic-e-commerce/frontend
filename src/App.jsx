@@ -32,7 +32,7 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
 import Categories from "./pages/Categories/Categories";
 import CategoryForm from "./pages/Admin/adminDashboard/category/categoryList/CategoryForm";
-import UrunList from "./pages/Admin/adminDashboard/urunler/urunList/UrunList";
+import UrunList from "./pages/Admin/adminDashboard/urunler/UrunList/UrunList";
 
 function App() {
   const location = useLocation();
