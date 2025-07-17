@@ -8,6 +8,7 @@ import FiyatActions from "../fiyatActions/FiyatActions";
 
 const GalleryPriceDetail = ({ productDetail }) => {
   const { productDetailCover } = useSelector((state) => state.products);
+  console.log(productDetail);
 
   return (
     <div className="container">
@@ -23,15 +24,19 @@ const GalleryPriceDetail = ({ productDetail }) => {
         </div>
 
         <div className="rightActionSide">
-          <NameAndMarka marka={"Sütaş"} name={productDetail.name} />
+          <NameAndMarka
+            marka={"Sütaş"}
+            name={productDetail.name}
+            desc={productDetail.description}
+          />
 
-          <RatingAndCode rating={"4"} comments={"3"} code={"302024"} />
-
+          {/*    <RatingAndCode rating={"4"} comments={"3"} code={"302024"} /> */}
           <FiyatActions
             id={productDetail.id}
             birim={"Adet"}
             fiyat={productDetail.salePrice}
             indirimliFiyat={productDetail.comparePrice}
+            quantity={productDetail.quantity}
           />
 
           <div className="whatsappSiparis">

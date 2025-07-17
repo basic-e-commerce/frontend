@@ -1,4 +1,4 @@
-.login {
+.customerLogin {
   padding-top: calc(140px + 2rem);
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@
 
     .loginSectionLeft {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
-      height: 30rem;
+
       padding: 1.5rem;
       flex: 3;
       display: flex;
@@ -94,6 +94,7 @@
             transition: background-color 0.2s ease;
             width: 100%;
           }
+
           .disabled {
             background-color: lightgray;
             cursor: not-allowed;
@@ -112,7 +113,7 @@
     .loginSectionRight {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
       background-color: $primary-color;
-      height: 30rem;
+
       padding: 1.5rem;
       flex: 2;
       display: flex;
@@ -130,7 +131,6 @@
         align-items: center;
         margin-bottom: 1rem;
       }
-
       .button-uyeol {
         border: 1px solid white;
         background-color: transparent;

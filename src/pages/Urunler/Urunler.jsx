@@ -12,15 +12,16 @@ import {
   getCategories,
   getCategoryByCategoryLinkName,
 } from "../../redux/slices/categorySlice";
-import Loading from "../../components/Loading/Loading";
+import { setLoading } from "../../redux/slices/loadingSlice";
+import UrunlerSkeleton from "./UrunlerSkeleton";
 
 const Urunler = () => {
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useSelector((state) => state.loading);
   const [currentItems, setCurrentItems] = useState([]);
   const { categoryLinkName } = useParams();
-  const { products, productsStatus } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   const { categories } = useSelector((state) => state.categories);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -31,7 +32,7 @@ const Urunler = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      dispatch(setLoading({ isLoading: true }));
       try {
         const [products, categories, category] = await Promise.all([
           dispatch(getProductsCategoryLinkNameUser(categoryLinkName)).unwrap(),
@@ -43,18 +44,16 @@ const Urunler = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        setIsLoading(false);
+        dispatch(setLoading({ isLoading: false }));
       }
     };
 
     fetchData();
   }, [dispatch, categoryLinkName]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  console.log(selectedCategory);
+  /*if (isLoading) {
+    return <UrunlerSkeleton />;
+  }*/
 
   return (
     <div className="projeler">
@@ -81,7 +80,7 @@ const Urunler = () => {
             />
 
             <Pagination
-              itemsPerPage={9}
+              itemsPerPage={12}
               items={products}
               setCurrentItems={setCurrentItems}
             />

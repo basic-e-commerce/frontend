@@ -33,6 +33,7 @@ import SiparisAlindi from "./pages/SiparisAlindi/SiparisAlindi";
 import Categories from "./pages/Categories/Categories";
 import CategoryForm from "./pages/Admin/adminDashboard/category/categoryList/CategoryForm";
 import UrunList from "./pages/Admin/adminDashboard/urunler/UrunList/UrunList";
+import CustomerLogin from "./pages/customerLogin/CustomerLogin";
 
 function App() {
   const location = useLocation();
@@ -63,8 +64,9 @@ function App() {
 
   return (
     <>
-      {!isAdminRoute && <Header />}
+      <Header />
       <ScrollToTop />
+
       <Routes>
         <Route path="/" element={<Anasayfa />} />
         <Route path="/kategoriler" element={<Categories />} />
@@ -72,6 +74,7 @@ function App() {
         <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/customerlogin" element={<CustomerLogin />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/siparis" element={<SiparisOlustur />} />
         <Route path="/success-payment" element={<SiparisAlindi />} />
@@ -110,6 +113,7 @@ function App() {
           <Route path="siparislerim" element={<SiparisMusteri />} />
         </Route>
       </Routes>
+
       {!isAdminRoute && <FooterTop />}
       {!isAdminRoute && <Footer />}
     </>

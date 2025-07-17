@@ -9,6 +9,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/slices/categorySlice";
+import LoadingBarUser from "../LoadingBarUser";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Header = () => {
   const { isLogin, role, isAuthChecked } = useSelector(
     (state) => state.authSlice
   );
+  const { isLoading } = useSelector((state) => state.loading);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -150,6 +152,8 @@ const Header = () => {
           <p>{message}</p>
         </div>
       )}
+
+      <LoadingBarUser isLoading={isLoading} />
     </header>
   );
 };

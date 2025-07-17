@@ -10,33 +10,30 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #a1a1a1; /* Scroll çubuğu rengi */
+    background-color: #a1a1a1;
   }
 }
-/* Genel Container Ayarları */
+
 .container {
-  width: 100%; /* Varsayılan olarak %100 genişlik */
-  max-width: 1140px; /* Maksimum genişlik (masaüstü için) */
-  margin: 0 auto; /* Ortala */
-  padding: 16px; /* Kenarlardan boşluk */
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .container {
-    max-width: 90%; /* Tablet için genişlik */
-    padding: 16px; /* Kenar boşluklarını koru */
+    max-width: 100%;
+    padding: 16px;
   }
 }
 
-/* Mobil (Telefon) */
 @media (max-width: 767px) {
   .container {
-    max-width: 100%; /* Mobilde tam genişlik */
-    padding: 16px; /* Kenar boşluklarını koru */
+    max-width: 100%;
+    padding: 16px;
   }
 }
-
-/* Tablet */
 
 ul,
 ol {

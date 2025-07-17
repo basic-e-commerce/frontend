@@ -11,17 +11,17 @@ const Ayarlar = () => {
     isLoading,
     formData,
     isWorkingHoursOpen,
-    setIsWorkingHoursOpen,
+    initialData,
     days,
     fields,
-    handleChange,
-    handleSubmit,
-    initialData,
-    handleWorkingHoursChange,
-    getWorkingHourValue,
     errors,
     touched,
+    handleWorkingHoursChange,
+    getWorkingHourValue,
     getNestedValue,
+    setIsWorkingHoursOpen,
+    handleChange,
+    handleSubmit,
   } = useSettingsForm();
 
   if (isLoading || !formData) {

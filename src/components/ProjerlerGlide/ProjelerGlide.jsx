@@ -33,7 +33,7 @@ const ProjelerGlide = ({ products, perView }) => {
     <div className="glideDiger">
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <TeamListCard key={index} product={product} />
           ))}
         </ul>

@@ -8,12 +8,14 @@ import { addToCart } from "../../../redux/slices/sepetCartSlice";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
 
-const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
+const FiyatActions = ({ id, fiyat, indirimliFiyat, birim, quantity }) => {
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [sayi, setSayi] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loading);
 
   const azalt = () => {
     if (sayi > 1) {
@@ -22,12 +24,14 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
   };
 
   const arttir = () => {
-    setSayi(sayi + 1);
+    if (sayi < quantity) {
+      setSayi(sayi + 1);
+    }
   };
 
   const handleSepeteEkle = async () => {
     if (!isAuthChecked || isLoading) return;
-    setIsLoading(true);
+    dispatch(setLoading({ isLoading: true, message: "Ürün ekleniyor..." }));
 
     try {
       if (isLogin) {
@@ -37,29 +41,39 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
       } else {
         dispatch(addToCart({ productId: id, quantity: sayi }));
       }
-      dispatch(
-        showAlertWithTimeoutKullanici({
-          message: "Sepete Eklendi",
-          status: "success",
-        })
-      );
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: "Sepete Eklendi",
+            status: "success",
+          })
+        );
+      }, 400);
       setSayi(1);
     } catch (error) {
-      dispatch(
-        showAlertWithTimeoutKullanici({
-          message: error.message,
-          status: "error",
-        })
-      );
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data,
+            status: "error",
+          })
+        );
+      }, 400);
+    } finally {
+      setTimeout(() => {
+        dispatch(clearLoading());
+      }, 400);
     }
-    setIsLoading(false);
   };
+
+  const yuzdeIndirim = Math.round(((fiyat - indirimliFiyat) / fiyat) * 100);
 
   return (
     <div className="fiyatAction">
       <div className="price">
         <span className="fiyat">{fiyat} TL</span>
         <span className="indirimliFiyat">{indirimliFiyat} TL</span>
+        <span className="etiket">%{yuzdeIndirim} indirim</span>
       </div>
 
       <div className="buttons">
@@ -82,15 +96,20 @@ const FiyatActions = ({ id, fiyat, indirimliFiyat, birim }) => {
           />
         </div>
         <div className="sepeteEkle">
-          <button onClick={handleSepeteEkle} className="btnSepet">
-            Sepete Ekle
+          <button
+            onClick={handleSepeteEkle}
+            className={`btnSepet ${isLoading ? "disabledButton" : ""}`}
+            disabled={isLoading}
+          >
+            {isLoading ? "Ekleniyor" : "Sepete Ekle"}
           </button>
         </div>
-        <div className="favButton">
+
+        {/*<div className="favButton">
           <button>
             <FavoriteBorderIcon className="icon" />
           </button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

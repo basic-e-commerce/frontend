@@ -1,22 +1,21 @@
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./Categories.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/slices/categorySlice";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 import Baslik from "../../components/baslik/Baslik";
-import Loading from "../../components/Loading/Loading";
+import CategoriesSkeleton from "./CategoriesSkeleton";
+import { setLoading } from "../../redux/slices/loadingSlice";
 
 const Categories = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useSelector((state) => state.loading);
   const { categories } = useSelector((state) => state.categories);
   const dispatch = useDispatch();
 
-  console.log(categories);
-
   useEffect(() => {
     const fetchCategories = async () => {
-      setIsLoading(true);
+      dispatch(setLoading({ isLoading: true }));
       try {
         await dispatch(getCategories()).unwrap();
       } catch (error) {
@@ -27,7 +26,7 @@ const Categories = () => {
           })
         );
       } finally {
-        setIsLoading(false);
+        dispatch(setLoading({ isLoading: false }));
       }
     };
 
@@ -35,7 +34,7 @@ const Categories = () => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <Loading />;
+    return <CategoriesSkeleton />;
   }
 
   return (

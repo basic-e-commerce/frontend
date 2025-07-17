@@ -1,13 +1,14 @@
 .fiyatAction {
-  border-top: 1px solid #dee0ee;
-  border-bottom: 1px solid #dee0ee;
-  padding: 1.5rem 0px;
+  //border-top: 1px solid #dee0ee;
+  //border-bottom: 1px solid #dee0ee;
+  //padding: 1.5rem 0px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   .price {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .fiyat {
       font-size: 1rem;
@@ -19,23 +20,20 @@
       font-size: 2rem;
       color: #448d44;
       font-weight: 600;
-      position: relative;
       display: inline-block;
       width: auto;
-
-      &::after {
-        content: "%4 indirim";
-        background-color: #448d44;
-        color: white;
-        font-size: 0.9rem;
-        font-weight: bold;
-        padding: 4px 8px;
-        border-radius: 5px;
-        position: absolute;
-        left: 100;
-        width: auto;
-        top: -15px;
-      }
+    }
+    .etiket {
+      background-color: #448d44;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 5px;
+      position: absolute;
+      left: 100px;
+      top: 3px;
+      white-space: nowrap;
     }
   }
 
@@ -65,36 +63,48 @@
       }
       .sayi,
       .birim {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
     }
 
     .btnSepet {
       padding: 13px 15px 13px 15px;
       border-radius: 50px;
-      background-color: #f7ce68;
-      color: black;
-      font-size: 1rem;
+      background-color: black;
+      color: white;
+      font-size: 0.9rem;
       &:hover {
         opacity: 0.8;
       }
     }
 
-    .favButton {
-      button {
-        background-color: transparent;
-        padding: 10px 15px;
-        border-radius: 50%;
-        background-color: #e8e8e8;
+    .disabledButton {
+      padding: 13px 15px 13px 15px;
+      border-radius: 50px;
+      background-color: lightgrey !important;
+      color: black;
+      font-size: 0.9rem;
+      cursor: not-allowed;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
 
+    .wpCont {
+      .wp {
+        padding: 13px 15px 13px 15px;
+        border-radius: 50px;
+        background-color: darkgreen;
+        color: white;
+        font-size: 1rem;
         &:hover {
-          opacity: 0.7;
+          opacity: 0.8;
         }
       }
     }
   }
 
-  .popupSepetEkleme {
+  /*.popupSepetEkleme {
     position: fixed;
     top: 140px;
     width: 100%;
@@ -108,9 +118,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+  }*/
 
-  @keyframes fadeInOut {
+  /* @keyframes fadeInOut {
     0% {
       opacity: 0;
       transform: translateY(-10px);
@@ -127,15 +137,13 @@
       opacity: 0;
       transform: translateY(-10px);
     }
-  }
+  }*/
 
   @media (max-width: 500px) {
     .price {
       align-items: center;
-      .indirimliFiyat {
-        &::after {
-          display: none;
-        }
+      .etiket {
+        display: none;
       }
     }
     .buttons {

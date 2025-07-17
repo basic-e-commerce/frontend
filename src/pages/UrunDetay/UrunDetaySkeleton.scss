@@ -1,0 +1,117 @@
+.skeleton {
+  padding-top: calc(140px + 3rem);
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.2s infinite;
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -400px 0;
+    }
+    100% {
+      background-position: 400px 0;
+    }
+  }
+
+  .gallery-price-detail-skeleton {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+    .image-skeleton {
+      width: 400px;
+      height: 400px;
+      border-radius: 16px;
+    }
+    .info-skeleton {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .title-skeleton {
+        width: 60%;
+        height: 32px;
+        border-radius: 8px;
+      }
+      .price-skeleton {
+        width: 40%;
+        height: 24px;
+        border-radius: 8px;
+      }
+      .button-skeleton {
+        width: 120px;
+        height: 40px;
+        border-radius: 20px;
+      }
+    }
+  }
+
+  .projectDetay {
+    margin: 32px 0;
+    .heading-skeleton {
+      width: 200px;
+      height: 28px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .desc-skeleton {
+      .line {
+        width: 100%;
+        height: 16px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        &.short {
+          width: 60%;
+        }
+      }
+    }
+  }
+
+  .digerUrunler {
+    margin: 48px 0 0 0;
+    .baslik-skeleton {
+      margin-bottom: 24px;
+      .title {
+        width: 180px;
+        height: 24px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+      .desc {
+        width: 260px;
+        height: 16px;
+        border-radius: 6px;
+      }
+    }
+    .slider-skeleton {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 16px;
+      .slider-card-skeleton {
+        width: 100%;
+        height: 240px;
+        border-radius: 16px;
+      }
+    }
+  }
+
+  .sik-sorulan-skeleton {
+    margin: 48px 0 0 0;
+    .heading {
+      width: 220px;
+      height: 24px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .faq-item {
+        width: 100%;
+        height: 32px;
+        border-radius: 8px;
+      }
+    }
+  }
+}

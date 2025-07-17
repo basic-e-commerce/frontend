@@ -129,6 +129,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+      top: 110px;
+    }
   }
 
   // Responsive Styles
