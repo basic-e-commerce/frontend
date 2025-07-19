@@ -73,8 +73,8 @@ function App() {
         <Route path="/kategoriler/:categoryLinkName" element={<Urunler />} />
         <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
         <Route path="/sepet" element={<Sepet />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/customerlogin" element={<CustomerLogin />} />
+        <Route path="/customerlogin" element={<Login />} />
+        <Route path="/customerregister" element={<CustomerLogin />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/siparis" element={<SiparisOlustur />} />
         <Route path="/success-payment" element={<SiparisAlindi />} />

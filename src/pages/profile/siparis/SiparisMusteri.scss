@@ -15,14 +15,22 @@
   }
 
   .order-page {
-    .title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      font-weight: bold;
+    overflow-x: auto;
+    width: 100%;
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+
+      table {
+        min-width: 500px;
+      }
     }
 
     .custom-table {
       width: 100%;
+      min-width: 500px;
       border-collapse: collapse;
       table-layout: fixed;
       font-size: 0.85rem;
@@ -191,5 +199,27 @@
         }
       }
     }
+  }
+}
+
+.order-page,
+.modal-overlay .modal {
+  /* Scrollbar inceltme - Webkit tabanlı tarayıcılar */
+  // Scrollbar stilleri (WebKit için)
+  &::-webkit-scrollbar {
+    height: 6px; // 👈 Scroll kalınlığı
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; // Track arka planı
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888; // Scroll rengi
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555; // Hover’da koyulaşır
   }
 }

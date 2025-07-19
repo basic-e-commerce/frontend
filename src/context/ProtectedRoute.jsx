@@ -1,7 +1,11 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children, redirectTo = "/login", allowedRoles }) => {
+const ProtectedRoute = ({
+  children,
+  redirectTo = "/customerlogin",
+  allowedRoles,
+}) => {
   const { isLogin, isAuthChecked, role } = useSelector(
     (state) => state.authSlice
   );

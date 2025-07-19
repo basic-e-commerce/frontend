@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
 import ModalMusteri from "./ModalMusteri";
+import ordersMockData from "./ordersMockData";
 
 const SiparisMusteri = () => {
   const [orders, setOrders] = useState([]);
@@ -70,8 +71,8 @@ const SiparisMusteri = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
+            {ordersMockData.length > 0 ? (
+              ordersMockData.map((order) => (
                 <tr key={order.id}>
                   <td>{order.orderCode}</td>
                   <td>{order.totalPrice}₺</td>
@@ -81,7 +82,7 @@ const SiparisMusteri = () => {
                       className="btn-detail"
                       onClick={() => handleDetailClick(order)}
                     >
-                      Ayrıntı Görüntüle
+                      Ayrıntılar
                     </button>
                   </td>
                 </tr>

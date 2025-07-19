@@ -62,4 +62,24 @@
       }
     }
   }
+
+  @media (max-width: 900px) {
+    .bars {
+      input,
+      select {
+        width: 60%;
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      input:focus {
+        border-color: #0056b3;
+      }
+    }
+  }
 }

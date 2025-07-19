@@ -31,7 +31,7 @@ function Login() {
             </div>
 
             <div className="button">
-              <Link to={"/customerlogin"} className="button-uyeol">
+              <Link to={"/customerregister"} className="button-uyeol">
                 Üye Ol
               </Link>
             </div>

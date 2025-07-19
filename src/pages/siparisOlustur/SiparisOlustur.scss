@@ -33,6 +33,10 @@
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 900px) {
+        width: 100%;
+      }
+
       .button {
         text-transform: uppercase;
         border-radius: 4px;

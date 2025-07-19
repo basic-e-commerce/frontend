@@ -34,13 +34,22 @@
         justify-content: space-between;
       }
     }
+  }
+}
 
-    .button {
-      font-size: 0.8rem;
-      width: 60%;
-      padding: 10px;
-      background-color: #0b1320;
-      color: white;
+@media (max-width: 900px) {
+  .fiyatSiparisOZeti {
+    width: 100% !important;
+    height: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    .paper {
+      padding: 2.5rem 2rem;
+      gap: 1rem;
+
+      .bar {
+        margin-bottom: 1rem;
+      }
     }
   }
 }

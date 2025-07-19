@@ -33,7 +33,7 @@ export const useCustomerLoginForm = () => {
             })
           );
         }, 400);
-        navigate("/login");
+        navigate("/customerlogin");
       } catch (error) {
         const errorMessage = handleApiError(error);
         setErrors({ general: errorMessage });

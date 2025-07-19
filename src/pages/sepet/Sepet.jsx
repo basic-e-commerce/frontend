@@ -1,8 +1,4 @@
 import "./Sepet.scss";
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress";
-import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -12,38 +8,48 @@ import {
   loadCartFromStorage,
   updateQuantityLocal,
 } from "../../redux/slices/sepetCartSlice";
-import { Link } from "react-router-dom";
-import api from "../../api/api";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import { BASE_URL } from "../../config/baseApi";
-
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.mode === "light" ? 300 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "black" : "black",
-  },
-}));
+import api from "../../api/api";
+import UrunListesi from "./components/UrunListesi";
+import FiyatOzet from "./components/FiyatOzet";
+import SepetSkeleton from "./components/SepetSkeleton";
+import { clearLoading, setLoading } from "../../redux/slices/loadingSlice";
+import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
 const Sepet = () => {
   const dispatch = useDispatch();
-  const { cartItems, status, baslangıcState } = useSelector(
+  const { cartItems, baslangıcState, status } = useSelector(
     (state) => state.sepet
   );
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
+  const { isLoading } = useSelector((state) => state.loading);
 
   useEffect(() => {
     if (!isAuthChecked) return;
 
-    isLogin
-      ? dispatch(fetchCartItemsLoggedIn())
-      : dispatch(fetchCartItems(baslangıcState));
+    const fetchData = async () => {
+      dispatch(setLoading({ isLoading: true, message: "Sepet yukleniyor..." }));
+      try {
+        if (isLogin) {
+          await dispatch(fetchCartItemsLoggedIn()).unwrap();
+        } else {
+          await dispatch(fetchCartItems(baslangıcState)).unwrap();
+        }
+      } catch (error) {
+        setTimeout(() => {
+          dispatch(
+            showAlertWithTimeoutKullanici({
+              message: error.response.data,
+              status: "error",
+            })
+          );
+        }, 400);
+      } finally {
+        dispatch(clearLoading());
+      }
+    };
+
+    fetchData();
   }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
   const updateQuantity = async (item, change) => {
@@ -67,12 +73,18 @@ const Sepet = () => {
     }
   };
 
+  if (status === "loading" || !isAuthChecked || isLoading) {
+    return <SepetSkeleton />;
+  }
+
   return (
     <div className="sepet">
       <div className="container">
         <div className="wrapper">
           <Paper
-            className="form"
+            className={
+              cartItems?.details?.length > 0 ? "form" : "form fullWidth"
+            }
             sx={{
               boxShadow: 4,
               padding: "3rem 3.5rem",
@@ -84,104 +96,32 @@ const Sepet = () => {
               <p className="sayi">
                 Sepetinizde toplam{" "}
                 <span style={{ color: "red" }}>
-                  {cartItems?.details?.length}
+                  {cartItems?.details?.length || 0}
                 </span>{" "}
                 adet ürün bulunmakta.
               </p>
             </div>
 
-            <div className="urunTable">
-              <table className="shopTable">
-                <thead>
-                  <tr>
-                    <th className="product-thumbnail">Resim</th>
-                    <th className="product-name">İsim</th>
-                    <th className="product-price">Fiyat</th>
-                    <th className="product-quantity">Adet</th>
-                    <th className="product-subtotal">Toplam</th>
-                    <th className="controls">Kontroller</th>
-                    {/* <th className="controls">Kontroller</th> */}
-                  </tr>
-                </thead>
-                <tbody className="cart-wrapper">
-                  {cartItems?.details?.map((item) => (
-                    <tr className="cart-item" key={item.id}>
-                      <td className="cart-image">
-                        <img src={item.coverImage} alt={item.title} />
-                      </td>
-                      <td className="product-name">{item.title}</td>
-                      <td className="product-price">{item.comparePrice}₺</td>
-                      <td className="product-quantity">{item.quantity}</td>
-                      <td className="product-subtotal">
-                        {item.comparePrice * item.quantity} ₺
-                      </td>
-                      <td className="controls">
-                        <div className="buttonss">
-                          <button
-                            className=""
-                            onClick={() => updateQuantity(item, -1)}
-                          >
-                            <RemoveIcon className="iconControl" />
-                          </button>
-                          {item.quantity}
-                          <button
-                            className=""
-                            onClick={() => updateQuantity(item, +1)}
-                          >
-                            <AddIcon className="iconControl" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Paper>
-
-          <div className="fiyat">
-            <Paper
-              className="paper"
-              sx={{
-                boxShadow: 4,
-              }}
+            <div
+              className={
+                !cartItems?.details?.length > 0 ? "cuppon none" : "cuppon"
+              }
             >
-              <div className="bar">
-                <p>
-                  <strong>1000 ₺</strong> üzeri alışverişe ücretsiz kargo!
-                </p>
-                <BorderLinearProgress
-                  variant="determinate"
-                  value={Math.min(cartItems?.shippingCostRate || 0, 100)}
-                />
+              <div className="subscride-form">
+                <input type="text" placeholder="Kupon kodunu girin" />
+                <button type="submit">Uygula</button>
               </div>
+            </div>
 
-              <div className="ucretDetay">
-                <h2 className="title">Toplam Tutar</h2>
-                <p>
-                  <span>Net Fiyat: </span>
-                  <strong>{cartItems?.totalWithOutTax} ₺</strong>
-                </p>
-                <p>
-                  <span>KDV:</span> <strong>{cartItems?.totalTax} ₺</strong>
-                </p>
-                <p>
-                  <span>Kargo:</span>{" "}
-                  <strong>{cartItems?.shippingCost} ₺</strong>
-                </p>
-
-                <hr />
-                <p>
-                  <span>Toplam:</span>{" "}
-                  <strong>{cartItems?.totalPrice} ₺</strong>
-                </p>
-              </div>
-
-              <Link to={"/siparis"}>
-                <button className="button">Alışverişi Tamamla</button>
-              </Link>
-            </Paper>
-          </div>
+            <UrunListesi
+              cartItems={cartItems}
+              updateQuantity={updateQuantity}
+            />
+          </Paper>
+          <FiyatOzet
+            cartItems={cartItems}
+            isCartEmpty={!(cartItems?.details?.length > 0)}
+          />
         </div>
       </div>
     </div>

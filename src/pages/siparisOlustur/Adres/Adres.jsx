@@ -94,7 +94,7 @@ export default function Adres() {
         <form className="address-formm">
           {!isLogin && (
             <div className="warning">
-              Zaten Üye misiniz? <a href="/login">Giriş Yapın</a>
+              Zaten Üye misiniz? <a href="/customerlogin">Giriş Yapın</a>
             </div>
           )}
 

@@ -36,7 +36,7 @@ function CustomerLogin() {
             </div>
 
             <div className="button">
-              <Link to={"/login"} className="button-uyeol">
+              <Link to={"/customerlogin"} className="button-uyeol">
                 Giriş Yap
               </Link>
             </div>

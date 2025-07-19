@@ -21,7 +21,7 @@
       .urunTable {
         // height: 420px;
         // overflow-y: auto;
-        padding-right: 10px;
+
         table {
           border-collapse: collapse;
           width: 100%;
@@ -99,10 +99,40 @@
             }
           }
         }
+
+        .table-wrapper {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          width: 100%;
+
+          // Tablon geniş kalsın diye
+          table {
+            min-width: 500px;
+          }
+
+          // Scrollbar stilleri (WebKit için)
+          &::-webkit-scrollbar {
+            height: 6px; // 👈 Scroll kalınlığı
+          }
+
+          &::-webkit-scrollbar-track {
+            background: transparent; // Track arka planı
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #888; // Scroll rengi
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background-color: #555; // Hover’da koyulaşır
+          }
+        }
       }
 
       .cuppon {
         width: 50%;
+        margin-top: -1.5rem;
         .subscride-form {
           display: flex;
           position: relative;
@@ -131,6 +161,10 @@
           }
         }
       }
+    }
+
+    .fullWidth {
+      width: 100%;
     }
 
     .fiyat {
@@ -180,6 +214,41 @@
           background-color: $primary-color;
           color: white;
           border-radius: 14px;
+        }
+      }
+    }
+
+    .none {
+      display: none;
+    }
+  }
+  .none {
+    display: none;
+  }
+
+  @media (max-width: 890px) {
+    .wrapper {
+      flex-direction: column;
+
+      .form,
+      .fiyat {
+        width: 100%;
+      }
+
+      .form {
+        padding: 1.5rem;
+
+        .cuppon {
+          width: 100%;
+        }
+      }
+
+      // 🆕 Resmi küçültmek için bu kısmı ekle
+      .cart-image {
+        img {
+          max-width: 50px;
+          height: auto;
+          object-fit: contain;
         }
       }
     }

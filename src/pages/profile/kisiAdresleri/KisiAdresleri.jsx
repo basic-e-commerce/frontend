@@ -40,6 +40,17 @@ const KisiAdresleri = () => {
     fetchAddresses();
   }, []);
 
+  useEffect(() => {
+    if (modalOpen || showPopup) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modalOpen, showPopup]);
+
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
     try {

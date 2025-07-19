@@ -1,0 +1,116 @@
+// Siparişler için örnek/mock data
+const ordersMockData = [
+  {
+    id: 1,
+    orderCode: "ORD-2024001",
+    firstName: "Ahmet",
+    lastName: "Yılmaz",
+    address: {
+      phoneNo: "0555 123 45 67",
+      addressLine1: "Atatürk Cad. No:10",
+      postalCode: "34000",
+      city: "İstanbul",
+      country: "Türkiye",
+    },
+    invoiceResponseDto: {
+      invoiceType: "BIREYSEL",
+      firstName: "Ahmet",
+      lastName: "Yılmaz",
+      phoneNo: "0555 123 45 67",
+      addressLine1: "Atatürk Cad. No:10",
+      postalCode: "34000",
+      city: "İstanbul",
+      countryName: "Türkiye",
+      corporateInvoice: null,
+    },
+    orderItemResponseDtos: [
+      {
+        coverImage: "/public/images/urunler/en-1.jpg",
+        productName: "Peynir",
+        quantity: 2,
+      },
+      {
+        coverImage: "/public/images/urunler/en-2.jpg",
+        productName: "Bal",
+        quantity: 1,
+      },
+    ],
+    totalPrice: 350.75,
+    orderStatus: "PENDING",
+    createdAt: "2024-06-01T10:15:00Z",
+  },
+  {
+    id: 2,
+    orderCode: "ORD-2024002",
+    firstName: "Mehmet",
+    lastName: "Kaya",
+    address: {
+      phoneNo: "0533 987 65 43",
+      addressLine1: "Cumhuriyet Mah. No:5",
+      postalCode: "06000",
+      city: "Ankara",
+      country: "Türkiye",
+    },
+    invoiceResponseDto: {
+      invoiceType: "CORPORATE",
+      firstName: "Mehmet",
+      lastName: "Kaya",
+      phoneNo: "0533 987 65 43",
+      addressLine1: "Cumhuriyet Mah. No:5",
+      postalCode: "06000",
+      city: "Ankara",
+      countryName: "Türkiye",
+      corporateInvoice: {
+        companyName: "Kaya Gıda A.Ş.",
+        taxNumber: "1234567890",
+        taxOffice: "Çankaya",
+      },
+    },
+    orderItemResponseDtos: [
+      {
+        coverImage: "/public/images/urunler/en-3.jpeg",
+        productName: "Tereyağ",
+        quantity: 1,
+      },
+    ],
+    totalPrice: 120.0,
+    orderStatus: "DELIVERED",
+    createdAt: "2024-05-28T14:30:00Z",
+  },
+  {
+    id: 3,
+    orderCode: "ORD-2024003",
+    firstName: "Ayşe",
+    lastName: "Demir",
+    address: {
+      phoneNo: "0544 222 33 44",
+      addressLine1: "Barış Sok. No:3",
+      postalCode: "35000",
+      city: "İzmir",
+      country: "Türkiye",
+    },
+    invoiceResponseDto: {
+      invoiceType: "BIREYSEL",
+      firstName: "Ayşe",
+      lastName: "Demir",
+      phoneNo: "0544 222 33 44",
+      addressLine1: "Barış Sok. No:3",
+      postalCode: "35000",
+      city: "İzmir",
+      countryName: "Türkiye",
+      corporateInvoice: null,
+    },
+    orderItemResponseDtos: [
+      {
+        coverImage: "/public/images/urunler/en-4.jpeg",
+        productName: "Zeytin",
+        quantity: 3,
+      },
+    ],
+    totalPrice: 220.5,
+    orderStatus: "CANCELLED",
+    createdAt: "2024-05-20T09:00:00Z",
+  },
+];
+
+export default ordersMockData;

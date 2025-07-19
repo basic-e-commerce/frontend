@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import "./Bilgiler.scss";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
+import BilgilerSkeleton from "./BilgilerSkeleton";
 
 const KullaniciBilgileri = () => {
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loading);
+
   const [formData, setFormData] = useState({
     ad: "",
     soyad: "",
@@ -22,21 +26,35 @@ const KullaniciBilgileri = () => {
   });
 
   const fetchBilgiler = async () => {
-    const response = await api.get(`${BASE_URL}/api/v1/customer/profile`);
-    const data = response.data;
-    setFormData({
-      ad: data.name,
-      soyad: data.lastName,
-      email: data.username,
-      telefon: data.phoneNumber,
-    });
+    dispatch(setLoading({ isLoading: true, message: "yukleniyor..." }));
+    try {
+      const response = await api.get(`${BASE_URL}/api/v1/customer/profile`);
+      const data = response.data;
+      setFormData({
+        ad: data.name,
+        soyad: data.lastName,
+        email: data.username,
+        telefon: data.phoneNumber,
+      });
 
-    setInitialData({
-      ad: data.name,
-      soyad: data.lastName,
-      email: data.username,
-      telefon: data.phoneNumber,
-    });
+      setInitialData({
+        ad: data.name,
+        soyad: data.lastName,
+        email: data.username,
+        telefon: data.phoneNumber,
+      });
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data,
+            status: "error",
+          })
+        );
+      }, 400);
+    } finally {
+      dispatch(clearLoading());
+    }
   };
 
   useEffect(() => {
@@ -73,6 +91,10 @@ const KullaniciBilgileri = () => {
       );
     }
   };
+
+  if (isLoading) {
+    return <BilgilerSkeleton />;
+  }
 
   return (
     <div className="kullaniciBilgileri">

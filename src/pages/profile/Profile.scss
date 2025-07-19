@@ -84,6 +84,13 @@
   }
 
   .section {
+    width: 100%;
     flex: 8;
+  }
+
+  @media (max-width: 900px) {
+    .sidebarr {
+      display: none;
+    }
   }
 }

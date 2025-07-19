@@ -4,11 +4,6 @@
   gap: 2rem;
   max-width: 1200px;
   margin: auto;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
 }
 
 .formOdeme {
@@ -26,10 +21,8 @@
 .cardOdeme {
   width: 100%;
   max-width: 500px;
-  // background: #f8f8f8;
   border-radius: 12px;
   padding: 1rem;
-  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
   .card-content {
     display: flex;
@@ -99,5 +92,31 @@
         font-size: 0.875rem;
       }
     }
+  }
+}
+
+/* Medya sorguları en altta toplandı */
+@media (min-width: 900px) {
+  .siparisOdemeSection {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 900px) {
+  .siparisOdemeSection {
+    flex-direction: column-reverse !important; // Sipariş Özeti yukarı gelsin
+    gap: 1rem;
+    max-width: 100vw;
+
+    .formOdeme {
+      padding: 1rem 0.5rem !important;
+      border-radius: 0;
+    }
+  }
+
+  .cardOdeme {
+    max-width: 100vw;
+    padding: 0.5rem !important;
   }
 }
