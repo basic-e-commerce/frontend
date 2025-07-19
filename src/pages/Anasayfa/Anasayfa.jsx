@@ -1,28 +1,34 @@
 import "./Anasayfa.scss";
-import BestTeam from "../../components/Anasayfa/bestTeam/BestTeam";
-import SikSorulan from "../../components/Anasayfa/sikSorulan/SikSorulan";
 import FullImg from "../../components/Anasayfa/fullImg/FullImg";
-import Slider from "../../components/Anasayfa/slider/Slider";
-import DoubleProduct from "../../components/Anasayfa/doubleProduct/DoubleProduct";
-import FirsatUrunleri from "../../components/Anasayfa/FirsatUrunleri/FirsatUrunleri";
-import WhoUsing from "../../components/Anasayfa/whoUsing/WhoUsing";
 import { useEffect } from "react";
 import { getProducts } from "../../redux/slices/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 import { setLoading } from "../../redux/slices/loadingSlice";
-import SliderSkeleton from "../../components/Anasayfa/slider/SliderSkeleton";
-import DoubleProductSkeleton from "../../components/Anasayfa/doubleProduct/DoubleProductSkeleton";
-import BestTeamSkeleton from "../../components/Anasayfa/bestTeam/BestTeamSkeleton";
-import FullImgSkeleton from "../../components/Anasayfa/fullImg/FullImgSkeleton";
-import FirsatUrunleriSkeleton from "../../components/Anasayfa/FirsatUrunleri/FirsatUrunleriSkeleton";
-import WhoUsingSkeleton from "../../components/Anasayfa/whoUsing/WhoUsingSkeleton";
-import SikSorulanSkeleton from "../../components/Anasayfa/sikSorulan/SikSorulanSkeleton";
+import WhoFounder from "../../components/whoFounder/WhoFounder";
+import WhyOur from "../../components/whyOur/WhyOur";
+import SliderLeft from "../../components/sliderLeft/SliderLeft";
+import FadeInSection from "../../components/FadeInSection/FadeInSection";
+import AnaProduct from "../../components/anaProduct/AnaProduct";
+import SikcaSorulan from "../../components/sikcaSorulan/SikcaSorulan";
+import PopulerProduct from "../../components/populerProduct/PopulerProduct";
+import Slider from "../../components/Slider/Slider";
 
 const Anasayfa = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const isLoading = useSelector((state) => state.loading.isLoading);
+
+  const sections2 = [
+    <PopulerProduct
+      key="populer-product"
+      title={"Projelerimiz"}
+      desc={"Tümü için projelerimiz sayfasına göz atın"}
+      products={products}
+    />,
+    <WhoFounder key="who-founder" />,
+    <WhyOur key="why-our" loading={isLoading} />,
+  ];
 
   useEffect(() => {
     const getProductsAnasayfa = async () => {
@@ -46,27 +52,39 @@ const Anasayfa = () => {
 
   return (
     <div className="anasayfa">
-      {isLoading ? (
-        <>
-          <SliderSkeleton />
-          <DoubleProductSkeleton />
-          <BestTeamSkeleton />
-          <FullImgSkeleton />
-          <FirsatUrunleriSkeleton />
-          <WhoUsingSkeleton />
-          <SikSorulanSkeleton />
-        </>
-      ) : (
-        <>
-          <Slider />
-          <DoubleProduct />
-          <BestTeam products={products} />
-          <FullImg />
-          <FirsatUrunleri products={products} />
-          <WhoUsing />
-          <SikSorulan />
-        </>
-      )}
+      <div className="topSideAnasayfa">
+        <div className="container">
+          <div className="topSideAnasayfaContent">
+            <Slider loading={isLoading} />
+            <SliderLeft />
+          </div>
+        </div>
+      </div>
+
+      <FadeInSection>
+        <AnaProduct />
+      </FadeInSection>
+
+      <FullImg />
+
+      {sections2.map((Section, index) => (
+        <FadeInSection key={index}>{Section}</FadeInSection>
+      ))}
+
+      <div className="slider">
+        <div className="slider-track">
+          {Array.from({ length: 37 }, (_, index) => (
+            <div key={index} className="slide">
+              <img
+                src={`/images/karePost/1 (${index + 1}).jpeg`}
+                alt={"detay peyzaj"}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <SikcaSorulan />
     </div>
   );
 };

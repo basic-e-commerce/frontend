@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "./UrunDetay.scss";
-import SikSorulan from "../../components/Anasayfa/sikSorulan/SikSorulan";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail, getProducts } from "../../redux/slices/productSlice";
@@ -10,6 +9,7 @@ import Baslik from "../../components/baslik/Baslik";
 import UrunDetaySkeleton from "./UrunDetaySkeleton";
 import { clearLoading, setLoading } from "../../redux/slices/loadingSlice";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
+import SikcaSorulan from "../../components/sikcaSorulan/SikcaSorulan";
 
 const UrunDetay = () => {
   const { productLinkName } = useParams();
@@ -63,7 +63,7 @@ const UrunDetay = () => {
             </div>
           </div>
 
-          <SikSorulan />
+          <SikcaSorulan />
         </div>
       ) : (
         <UrunDetaySkeleton />

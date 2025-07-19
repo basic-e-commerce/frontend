@@ -87,7 +87,7 @@ const Header = () => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    const threshold = 30;
+    const threshold = 70;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (!isMenuOpen) {

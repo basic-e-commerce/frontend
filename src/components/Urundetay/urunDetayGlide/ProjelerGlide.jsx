@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import "./ProjelerGlide.scss";
 import Glide from "@glidejs/glide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import TeamlisCard from "../../Anasayfa/teamListCard/TeamListCard";
 import ListCard from "../../urunler/listCard/ListCard";
 
 const ProjelerGlide = ({ products, perView }) => {
