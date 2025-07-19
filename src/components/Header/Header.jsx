@@ -50,8 +50,7 @@ const Header = () => {
     }
     nav.push(
       { to: "/", label: "Anasayfa" },
-      { to: "/kategoriler", label: "Tüm Ürünler" },
-      { to: "/sepet", label: "Sepet" }
+      { to: "/kategoriler", label: "Tüm Ürünler" }
     );
     return nav;
   }, [isLogin, role]);
@@ -123,12 +122,6 @@ const Header = () => {
       <div className="headerTop">
         <div className="container">
           <div className="headerTopWrapper">
-            <div className="headerTopRight">
-              <Link to="/sepet" className="header-cart-link">
-                <ShoppingCartIcon className="icon" />
-                <span>Sepet</span>
-              </Link>
-            </div>
             <div className="headerTopLeft">
               {!isLogin ? (
                 <>
@@ -150,6 +143,13 @@ const Header = () => {
                   <span>Admin Paneli</span>
                 </Link>
               )}
+            </div>
+
+            <div className="headerTopRight">
+              <Link to="/sepet" className="header-cart-link">
+                <ShoppingCartIcon className="icon" />
+                <span>Sepet</span>
+              </Link>
             </div>
           </div>
         </div>

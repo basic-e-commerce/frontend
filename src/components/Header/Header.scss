@@ -58,13 +58,12 @@
           gap: 1.5rem;
           .icon {
             color: whitesmoke;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             transition: color 0.2s;
           }
-          a:hover .icon,
+          a:hover,
           .header-auth-link:hover .icon,
-          .header-profile-link:hover .icon,
-          .header-cart-link:hover .icon {
+          .header-profile-link:hover .icon {
             color: #ffd700;
           }
           .header-cart-link {
@@ -80,7 +79,7 @@
         }
         .icon {
           color: whitesmoke;
-          font-size: 1.25rem;
+          font-size: 1.2rem;
           transition: color 0.2s;
         }
       }
@@ -412,4 +411,96 @@
 // SideMenu açıkken body scroll'unu engelle
 body.sideMenu-open {
   overflow: hidden;
+}
+
+// --- MEDIA QUERIES EN ALTA ALINDI ---
+
+@media (max-width: 900px) {
+  .header {
+    height: 110px;
+
+    .headerBottom {
+      height: 60px;
+
+      .headerWrapper {
+        .logo {
+          height: 38px;
+        }
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .navigation {
+        display: none;
+        position: absolute;
+        top: 110px;
+        right: 0;
+        width: 100%;
+        background-color: whitesmoke;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0;
+
+        .menu-list {
+          flex-direction: column;
+          gap: 1rem;
+
+          .menu-link {
+            font-size: 0.9rem !important;
+          }
+        }
+      }
+
+      .navigation.open {
+        display: flex;
+      }
+    }
+  }
+
+  .header .headerTop .container .headerTopWrapper .headerTopLeft {
+    gap: 1rem;
+  }
+  .header
+    .headerTop
+    .container
+    .headerTopWrapper
+    .headerTopLeft
+    .header-auth-link,
+  .header
+    .headerTop
+    .container
+    .headerTopWrapper
+    .headerTopLeft
+    .header-profile-link,
+  .header
+    .headerTop
+    .container
+    .headerTopWrapper
+    .headerTopLeft
+    .header-cart-link {
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+  }
+  .header .headerTop .container .headerTopWrapper .headerTopRight {
+    gap: 1rem;
+  }
+  .header .popupKullanici,
+  .header .popupKullaniciii {
+    top: 110px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header .headerBottom .navigation,
+  .header .headerBottom .desktopMenu {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sideMenu {
+    width: 70%;
+  }
 }
