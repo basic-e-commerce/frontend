@@ -1,8 +1,10 @@
 import Baslik from "../baslik/Baslik";
-import ProjelerGlide from "../Urundetay/urunDetayGlide/ProjelerGlide";
+import ProjelerGlide from "./ProjerlerGlide/ProjelerGlide";
 import "./PopulerProduct.scss";
 
 const PopulerProduct = ({ title, desc, products }) => {
+  console.log(products);
+
   return (
     <div className="bestTeam">
       <div className="container">

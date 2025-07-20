@@ -1,17 +1,25 @@
+import "./ModalMusteri.scss";
+import { useEffect } from "react";
+
 const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
   const invoice = selectedOrder.invoiceResponseDto;
 
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <button className="close-btn" onClick={handleCloseModal}>
+    <div className="modal-musteri-overlay">
+      <div className="modal-musteri">
+        <button className="modal-musteri-close" onClick={handleCloseModal}>
           ×
         </button>
-
-        {/* Kullanıcı ve Fatura Bilgileri */}
-        <div className="info-wrapper" style={{ display: "flex", gap: "2rem" }}>
-          {/* Kullanıcı Bilgileri Tablosu */}
-          <table className="info-table">
+        <div className="modal-musteri-info-wrapper">
+          <table className="modal-musteri-table">
             <tbody>
               <tr>
                 <td>
@@ -45,16 +53,14 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
               </tr>
             </tbody>
           </table>
-
-          {/* Fatura Adresi Tablosu */}
-          <table className="billing-table">
+          <table className="modal-musteri-table">
             <tbody>
               <tr>
                 <td>
                   <strong>Fatura Tipi:</strong>
                 </td>
                 <td>
-                  {invoice?.invoiceType == "CORPORATE"
+                  {invoice?.invoiceType === "CORPORATE"
                     ? "Kurumsal"
                     : "Bireysel"}
                 </td>
@@ -107,28 +113,32 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
             </tbody>
           </table>
         </div>
-
-        {/* Ürünler Tablosu */}
-        <table className="product-table">
-          <thead>
-            <tr>
-              <th>Görsel</th>
-              <th>Ürün Adı</th>
-              <th>Adet</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedOrder.orderItemResponseDtos.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <img src={item.coverImage} alt={item.productName} />
-                </td>
-                <td>{item.productName}</td>
-                <td>{item.quantity}</td>
+        <div className="modal-musteri-product-wrapper">
+          <table className="modal-musteri-product-table">
+            <thead>
+              <tr>
+                <th>Görsel</th>
+                <th>Ürün Adı</th>
+                <th>Adet</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {selectedOrder.orderItemResponseDtos.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <img
+                      src={item.coverImage}
+                      alt={item.productName}
+                      className="modal-musteri-product-img"
+                    />
+                  </td>
+                  <td>{item.productName}</td>
+                  <td>{item.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -89,6 +89,9 @@
   }
 
   @media (max-width: 900px) {
+    margin-top: calc(110px + 2rem);
+    margin-bottom: -3rem;
+
     .sidebarr {
       display: none;
     }

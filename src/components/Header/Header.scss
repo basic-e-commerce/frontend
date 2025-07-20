@@ -238,7 +238,6 @@
   }
 }
 
-// YAN MENÜ
 .sideMenu {
   position: fixed;
   top: 0;
@@ -412,8 +411,6 @@
 body.sideMenu-open {
   overflow: hidden;
 }
-
-// --- MEDIA QUERIES EN ALTA ALINDI ---
 
 @media (max-width: 900px) {
   .header {

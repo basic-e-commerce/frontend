@@ -1,0 +1,112 @@
+.modal-musteri-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-musteri {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 90vw;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+.modal-musteri-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-musteri-info-wrapper {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.modal-musteri-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 220px;
+  font-size: 0.85rem;
+}
+.modal-musteri-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+.modal-musteri-table strong {
+  font-weight: 600;
+}
+
+.modal-musteri-product-wrapper {
+  margin-top: 1.5rem;
+}
+
+.modal-musteri-product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.modal-musteri-product-table th,
+.modal-musteri-product-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+.modal-musteri-product-table th {
+  background: #f7f7f7;
+  font-weight: 700;
+}
+.modal-musteri-product-img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+@media (max-width: 900px) {
+  .modal-musteri {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .modal-musteri-info-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .modal-musteri-table,
+  .modal-musteri-product-table {
+    font-size: 0.85rem;
+  }
+  .modal-musteri-product-img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-musteri-table,
+  .modal-musteri-product-table {
+    font-size: 0.85rem;
+  }
+  .modal-musteri-product-img {
+    width: 32px;
+    height: 32px;
+  }
+}

@@ -36,7 +36,7 @@ const Header = () => {
         label: "Profil",
         submenu: [
           { to: "/profil/bilgiler", label: "Kişisel Bilgiler" },
-          { to: "/profil/sifre", label: "Şifre Ayarları" },
+          { to: "/profil/sifredegistir", label: "Şifre Ayarları" },
           { to: "/profil/adreslerim", label: "Adreslerim" },
           { to: "/profil/siparislerim", label: "Siparişlerim" },
         ],
@@ -161,7 +161,6 @@ const Header = () => {
             <Link className="logo" to="/">
               <img src="/images/logo/logo.png" alt="Logo" />
             </Link>
-            {/* Masaüstü Menü */}
             <div className="desktopMenu">
               <nav>
                 <ul>
