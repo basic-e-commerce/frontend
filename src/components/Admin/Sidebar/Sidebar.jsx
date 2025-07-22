@@ -55,6 +55,20 @@ const Sidebar = () => {
           </li>
 
           <li>
+            <Link to="/admins/kuponekle">
+              <CelebrationIcon className="icon" />
+              <span>Kupon Ekle</span>
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/admins/kuponlistele">
+              <CelebrationIcon className="icon" />
+              <span>Kupon Ayarları</span>
+            </Link>
+          </li>
+
+          <li>
             <Link to="/admins/siparisler">
               <DonutLargeIcon className="icon" />
               <span>Siparişleri Listele</span>

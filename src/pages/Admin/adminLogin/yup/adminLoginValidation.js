@@ -14,7 +14,7 @@ export const adminLoginValidationSchema = Yup.object().shape({
     ),
   password: Yup.string()
     .required("Şifre zorunludur.")
-    .min(6, "Şifre en az 6 karakter olmalıdır.")
+    // .min(6, "Şifre en az 6 karakter olmalıdır.")
     .test(
       "no-dangerous-chars",
       "Geçersiz karakterler içeriyor.",

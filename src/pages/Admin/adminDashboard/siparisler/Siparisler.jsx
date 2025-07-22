@@ -13,9 +13,9 @@ const Siparisler = () => {
   const {
     orders,
     selectedOrder,
-    setSelectedOrder,
     tabs,
     selectedTab,
+    setSelectedOrder,
     setSelectedTab,
   } = useOrders();
 

@@ -34,10 +34,13 @@ import Categories from "./pages/Categories/Categories";
 import CategoryForm from "./pages/Admin/adminDashboard/category/categoryList/CategoryForm";
 import UrunList from "./pages/Admin/adminDashboard/urunler/UrunList/UrunList";
 import CustomerLogin from "./pages/customerLogin/CustomerLogin";
+import CuponCreate from "./pages/Admin/adminDashboard/Cupon/cuponCreate/CuponCreate";
+import CuponList from "./pages/Admin/adminDashboard/Cupon/cuponList/CuponList";
 
 function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAdminPanel = location.pathname.startsWith("/admins");
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.authSlice);
 
@@ -64,7 +67,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      {!isAdminPanel && <Header />}
       <ScrollToTop />
 
       <Routes>
@@ -75,14 +78,14 @@ function App() {
         <Route path="/sepet" element={<Sepet />} />
         <Route path="/customerlogin" element={<Login />} />
         <Route path="/customerregister" element={<CustomerLogin />} />
-        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/siparis" element={<SiparisOlustur />} />
         <Route path="/success-payment" element={<SiparisAlindi />} />
 
         <Route
           path="/admins"
           element={
-            <ProtectedRoute redirectTo="/adminlogin" allowedRoles={["ADMIN"]}>
+            <ProtectedRoute redirectTo="/admin-login" allowedRoles={["ADMIN"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }
@@ -93,6 +96,9 @@ function App() {
           <Route path="urunler/:productLinkName" element={<UrunDuzenle />} />
           <Route path="kategoriler" element={<CategoryForm />} />
           <Route path="kategoriekle" element={<CategoryCreate />} />
+          <Route path="kuponekle" element={<CuponCreate />} />
+          <Route path="kuponlistele" element={<CuponList />} />
+
           <Route path="siparisler" element={<Siparisler />} />
           <Route path="ayarlar" element={<Ayarlar />} />
         </Route>
