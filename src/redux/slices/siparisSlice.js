@@ -4,26 +4,35 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   selectedAdresId: null,
   address: {
-    title: "",
     firstName: "",
     lastName: "",
     username: "",
-    addressLine1: "",
-    phoneNo: "",
-    postalCode: "",
-    city: "",
     countryName: "TURKIYE",
+    countryIso: "TR",
+    city: "",
+    cityCode: "",
+    district: "",
+    districtId: "",
+    addressLine1: "",
+    postalCode: "",
+    phoneNo: "",
+    geliverId: "",
   },
 
   invoiceAddress: {
-    title: "",
     firstName: "",
     lastName: "",
-    addressLine1: "",
-    phoneNo: "",
-    postalCode: "",
-    city: "",
+    username: "",
     countryName: "TURKIYE",
+    countryIso: "TR",
+    city: "",
+    cityCode: "",
+    district: "",
+    districtId: "",
+    addressLine1: "",
+    postalCode: "",
+    phoneNo: "",
+    geliverId: "",
   },
 
   billingSame: true,
@@ -35,6 +44,8 @@ const initialState = {
     taxNumber: "",
     companyName: "",
   },
+
+  code: "",
 };
 
 const siparisSlice = createSlice({

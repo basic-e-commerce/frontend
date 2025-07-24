@@ -1,0 +1,71 @@
+.cargoInfoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    min-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    input,
+    select {
+      width: 60%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &.error {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      }
+      &:focus {
+        border-color: #0056b3;
+      }
+    }
+
+    textarea {
+      width: 60%;
+      height: 100px; /* Yükseklik sabit */
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none; /* Yeniden boyutlandırmayı devre dışı bırak */
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: #0056b3;
+      }
+
+      &.error {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+      }
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .error-message {
+      color: #dc3545;
+      font-size: 12px;
+      margin-left: 40%;
+      font-weight: normal;
+    }
+  }
+}

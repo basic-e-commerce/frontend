@@ -1,0 +1,92 @@
+.modal-overlayyy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999999;
+
+  .modal {
+    background: white;
+    padding: 3rem 3rem 0rem 3rem;
+    border-radius: 12px;
+    width: 1000px;
+    position: relative;
+    height: 700px;
+    overflow-y: auto;
+
+    .close-btn {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      background: transparent;
+      font-size: 1.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .corgoStepper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2rem;
+      height: 100%;
+
+      .css-3hpdci-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
+      .css-3hpdci-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+        color: black;
+      }
+
+      .css-124afma.Mui-active,
+      .css-124afma.Mui-completed {
+        color: black;
+      }
+
+      .ucusBilgileri {
+        .airDropsStepper {
+          width: 100%;
+        }
+
+        .airDropSection {
+          width: 100%;
+        }
+      }
+
+      .airDropController {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 3rem;
+
+        .button {
+          text-transform: uppercase;
+          border-radius: 4px;
+          min-width: 64px;
+          font-weight: 500;
+          font-size: 0.875rem;
+          line-height: 1.75;
+          padding: 6px 16px;
+          background-color: $primary-color;
+          color: whitesmoke;
+        }
+        .buttonDisabled {
+          text-transform: uppercase;
+          border-radius: 4px;
+          min-width: 64px;
+          font-weight: 500;
+          font-size: 0.875rem;
+          line-height: 1.75;
+          padding: 6px 16px;
+          background-color: $primary-color;
+          color: whitesmoke;
+          opacity: 0.2;
+          cursor: default;
+        }
+      }
+    }
+  }
+}

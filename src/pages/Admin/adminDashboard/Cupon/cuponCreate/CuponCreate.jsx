@@ -53,7 +53,7 @@ const CategoryCreate = () => {
               </div>
             </div>
 
-            <CuponForm formik={formik} />
+            <CuponForm formik={formik} isLoading={isLoading} />
           </div>
         </form>
       </div>

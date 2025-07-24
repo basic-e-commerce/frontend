@@ -7,6 +7,7 @@ import {
   OrdersSkeleton,
 } from "./components";
 import "./Siparisler.scss";
+import OrderDetailModalCargo from "./components/OrderDetailModalCargo";
 
 const Siparisler = () => {
   const { isLoading } = useSelector((state) => state.loading);
@@ -16,6 +17,8 @@ const Siparisler = () => {
     tabs,
     selectedTab,
     setSelectedOrder,
+    selectedOrderByCargo,
+    setSelectedOrderByCargo,
     setSelectedTab,
   } = useOrders();
 
@@ -31,11 +34,22 @@ const Siparisler = () => {
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         />
-        <OrderTable orders={orders} onViewDetails={setSelectedOrder} />
+        <OrderTable
+          orders={orders}
+          onViewCargo={setSelectedOrderByCargo}
+          onViewDetails={setSelectedOrder}
+        />
         {selectedOrder && (
           <OrderDetailModal
             order={selectedOrder}
             onClose={() => setSelectedOrder(null)}
+          />
+        )}
+
+        {selectedOrderByCargo && (
+          <OrderDetailModalCargo
+            order={selectedOrderByCargo}
+            onClose={() => setSelectedOrderByCargo(null)}
           />
         )}
       </div>

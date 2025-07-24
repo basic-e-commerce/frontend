@@ -1,10 +1,134 @@
+import { useEffect, useState } from "react";
 import "./CuponList.scss";
+import { Switch } from "@mui/material";
+import api from "../../../../../api/api";
+import { BASE_URL } from "../../../../../config/baseApi";
+import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearLoading,
+  setLoading,
+} from "../../../../../redux/slices/loadingSlice";
+import CuponListSkeleton from "./CuponListSkeleton";
 
 const CuponList = () => {
+  const [cupons, setCupons] = useState([]);
+  const [isSubmiting, setIsSubmiting] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loading);
+
+  useEffect(() => {
+    dispatch(
+      setLoading({ isLoading: true, message: "Kupon durumu güncelleniyor..." })
+    );
+    const fetchCupons = async () => {
+      dispatch(
+        setLoading({ isLoading: true, message: "Kuponlar yükleniyor..." })
+      );
+      try {
+        const response = await api.get(`${BASE_URL}/api/v1/coupon`);
+        setCupons(response.data);
+      } catch (error) {
+        setTimeout(() => {
+          dispatch(
+            showAlertWithTimeout({
+              message: error.response.data,
+              status: "error",
+            })
+          );
+        }, 400);
+      } finally {
+        dispatch(clearLoading());
+      }
+    };
+    fetchCupons();
+  }, [isSubmiting]);
+
+  const handleToggle = async (id, code, currentActive) => {
+    dispatch(
+      setLoading({ isLoading: true, message: "Kupon durumu güncelleniyor..." })
+    );
+    try {
+      const newActive = !currentActive;
+      await api.put(
+        `${BASE_URL}/api/v1/coupon?code=${code}&active=${newActive}`
+      );
+
+      setIsSubmiting((prev) => !prev);
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeout({
+            message: "Kupon durumu güncellendi",
+            status: "success",
+          })
+        );
+      }, 400);
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeout({
+            message: error.response.data,
+            status: "error",
+          })
+        );
+      }, 400);
+    } finally {
+      dispatch(clearLoading());
+    }
+  };
+
+  if (isLoading) {
+    return <CuponListSkeleton />;
+  }
+
   return (
-    <div>
-      <div>Cupon</div>
-    </div>
+    <table className="cupon-table">
+      <thead>
+        <tr>
+          <th className="col-2">Kupon Kodu</th>
+          <th className="col-2">Açıklama</th>
+          <th className="col-2">Tip</th>
+          <th className="col-1">Değer</th>
+          <th className="col-1">Kullanım</th>
+          <th className="col-1">Toplam Limit</th>
+          <th className="col-1">Min. Tutar</th>
+          <th className="col-2">Başlangıç</th>
+          <th className="col-2">Bitiş</th>
+          <th className="col-1">Durum</th>
+          <th className="col-1">Aktif/Pasif</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cupons?.length > 0 ? (
+          cupons?.map((cupon) => (
+            <tr key={cupon.id}>
+              <td>{cupon.code}</td>
+              <td> {cupon.description}</td>
+              <td>{cupon.discountType}</td>
+              <td>{cupon.discountValue}</td>
+              <td>{cupon.timesUsed}</td>
+              <td>{cupon.totalUsageLimit}</td>
+              <td>{cupon.minOrderAmountLimit}</td>
+              <td>{cupon.couponStartDate}</td>
+              <td>{cupon.couponEndDate}</td>
+              <td>{cupon.active ? "Aktif" : "Pasif"}</td>
+              <td>
+                <Switch
+                  checked={cupon.active}
+                  onChange={() =>
+                    handleToggle(cupon.id, cupon.code, cupon.active)
+                  }
+                />
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="11">Kupon bulunamadı.</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
 };
 

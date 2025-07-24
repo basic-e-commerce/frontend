@@ -8,6 +8,18 @@ export const getAdress = async () => {
   return response.data;
 };
 
+export const getCity = async () => {
+  const response = await api.get(`${API_URL}/city`);
+  return response.data;
+};
+
+export const getDistrict = async (cityCode) => {
+  const response = await api.get(
+    `${API_URL}/district/city-code?cityCode=${cityCode}`
+  );
+  return response.data;
+};
+
 export const addAdress = async (item) => {
   const response = await api.post(`${API_URL}/customer/address`, item);
   return response.data;

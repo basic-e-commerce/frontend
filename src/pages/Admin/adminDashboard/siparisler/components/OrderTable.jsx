@@ -1,7 +1,8 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useOrderStatus } from "../hooks";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
-const OrderTable = ({ orders, onViewDetails }) => {
+const OrderTable = ({ orders, onViewDetails, onViewCargo }) => {
   const { translateOrderStatus } = useOrderStatus();
 
   return (
@@ -28,9 +29,12 @@ const OrderTable = ({ orders, onViewDetails }) => {
               <td>{order.totalPrice} ₺</td>
               <td>{order.installment}</td>
               <td>{translateOrderStatus(order.orderStatus)}</td>
-              <td>
+              <td className="actions">
                 <button onClick={() => onViewDetails(order)}>
                   <VisibilityIcon className="icon" />
+                </button>
+                <button onClick={() => onViewCargo(order)}>
+                  <ShoppingBasketIcon className="icon" />
                 </button>
               </td>
             </tr>

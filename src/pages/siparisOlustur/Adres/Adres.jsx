@@ -17,7 +17,7 @@ import {
   fetchCartItems,
   fetchCartItemsLoggedIn,
 } from "../../../redux/slices/sepetCartSlice";
-import { getAdress } from "../../../api/apiAdress";
+import { getAdress, getCity, getDistrict } from "../../../api/apiAdress";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 
 export default function Adres() {
@@ -37,6 +37,10 @@ export default function Adres() {
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [addressesOlan, setAddressesOlan] = useState([]);
 
+  const [citys, setCitys] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [districtsInvoice, setDistrictsInvoice] = useState([]); // Fatura adresi için ayrı ilçe listesi
+
   const fetchAddresses = async () => {
     try {
       const response = await getAdress();
@@ -46,6 +50,32 @@ export default function Adres() {
       setAddressesOlan(response);
     } catch (error) {
       console.error("Adresler alınırken hata oluştu:", error);
+    }
+  };
+  const fetchCity = async () => {
+    try {
+      const response = await getCity();
+      setCitys(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchDiscrict = async (cityCode) => {
+    try {
+      const response = await getDistrict(cityCode);
+      setDistricts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchDiscrictInvoice = async (cityCode) => {
+    try {
+      const response = await getDistrict(cityCode);
+      setDistrictsInvoice(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -59,7 +89,20 @@ export default function Adres() {
       dispatch(fetchCartItems(baslangıcState));
       dispatch(updateFarkliAdres(true));
     }
+    fetchCity();
   }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
+
+  useEffect(() => {
+    if (address.cityCode) {
+      fetchDiscrict(address.cityCode);
+    }
+  }, [address.cityCode]);
+
+  useEffect(() => {
+    if (invoiceAddress.cityCode) {
+      fetchDiscrictInvoice(invoiceAddress.cityCode);
+    }
+  }, [invoiceAddress.cityCode]);
 
   const selectedAdres = (adres) => {
     dispatch(updataSelectedAdresId(adres.id));
@@ -67,14 +110,16 @@ export default function Adres() {
       title: adres.title,
       firstName: adres.firstName,
       lastName: adres.lastName,
+      username: adres.username,
       addressLine1: adres.addressLine1,
       phoneNo: adres.phoneNo,
       postalCode: adres.postalCode,
-      city: adres.city,
+      cityCode: adres.cityCode,
+      districtId: adres.districtId,
       countryName: adres.countryName,
     };
 
-    dispatch(updateAddress(addressNew));
+    dispatch(updateAddress(adres));
   };
 
   const fields = [
@@ -85,8 +130,10 @@ export default function Adres() {
     { key: "phoneNo", placeholder: "Telefon" },
     { key: "addressLine1", placeholder: "Adres" },
     { key: "postalCode", placeholder: "Posta Kodu" },
-    { key: "city", placeholder: "Şehir" },
+    // city ve districtId artık burada değil, select ile aşağıda eklenecek
   ];
+
+  console.log(invoiceAddress);
 
   return (
     <div className="siparisAdresSection">
@@ -132,6 +179,64 @@ export default function Adres() {
                     required
                   />
                 ))}
+
+                <select
+                  value={address.cityCode}
+                  onChange={(e) => {
+                    const selectedCity = citys.find(
+                      (city) => city.cityCode === e.target.value
+                    );
+                    dispatch(
+                      updateAddress({
+                        ...address,
+                        cityCode: e.target.value,
+                        city: selectedCity ? selectedCity.name : "",
+                        districtId: "",
+                      })
+                    );
+                  }}
+                  required
+                >
+                  <option value="">Şehir Seçiniz</option>
+                  {citys.map((city) => (
+                    <option
+                      name={city.name}
+                      key={city.cityCode}
+                      value={city.cityCode}
+                    >
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={address.districtId}
+                  onChange={(e) => {
+                    const selectedDistrict = districts.find(
+                      (district) => district.districtID == e.target.value
+                    );
+                    dispatch(
+                      updateAddress({
+                        ...address,
+                        districtId: e.target.value,
+                        district: selectedDistrict ? selectedDistrict.name : "",
+                      })
+                    );
+                  }}
+                  required
+                  disabled={address.cityCode ? false : true}
+                >
+                  <option value="">İlçe Seçiniz</option>
+                  {districts.map((district) => (
+                    <option
+                      key={district.districtID}
+                      value={district.districtID}
+                    >
+                      {district.name}
+                    </option>
+                  ))}
+                </select>
+
                 <select
                   onChange={(e) =>
                     dispatch(
@@ -217,7 +322,7 @@ export default function Adres() {
                 <select
                   onChange={(e) =>
                     dispatch(
-                      updateAddress({
+                      updateBillingAddress({
                         ...invoiceAddress,
                         countryName: e.target.value,
                       })
@@ -228,6 +333,58 @@ export default function Adres() {
                   disabled
                 >
                   <option value={"TURKIYE"}>Türkiye</option>
+                </select>
+                <select
+                  value={invoiceAddress.cityCode}
+                  onChange={(e) => {
+                    const selectedCity = citys.find(
+                      (city) => city.cityCode === e.target.value
+                    );
+                    dispatch(
+                      updateBillingAddress({
+                        ...invoiceAddress,
+                        cityCode: e.target.value,
+                        city: selectedCity ? selectedCity.name : "",
+                        districtId: "",
+                      })
+                    );
+                  }}
+                  required
+                >
+                  <option value="">Şehir Seçiniz</option>
+                  {citys.map((city) => (
+                    <option key={city.cityCode} value={city.cityCode}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+                {/* İlçe seçimi */}
+                <select
+                  value={invoiceAddress.districtId}
+                  onChange={(e) => {
+                    const selectedDistrict = districtsInvoice.find(
+                      (district) => district.districtID == e.target.value
+                    );
+                    dispatch(
+                      updateBillingAddress({
+                        ...invoiceAddress,
+                        districtId: e.target.value,
+                        district: selectedDistrict ? selectedDistrict.name : "",
+                      })
+                    );
+                  }}
+                  required
+                  disabled={invoiceAddress.cityCode ? false : true}
+                >
+                  <option value="">İlçe Seçiniz</option>
+                  {districtsInvoice.map((district) => (
+                    <option
+                      key={district.districtID}
+                      value={district.districtID}
+                    >
+                      {district.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}

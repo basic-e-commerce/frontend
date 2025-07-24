@@ -10,6 +10,7 @@ import {
 export const useOrders = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrderByCargo, setSelectedOrderByCargo] = useState(null);
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch();
 
@@ -45,6 +46,8 @@ export const useOrders = () => {
     orders,
     selectedOrder,
     setSelectedOrder,
+    selectedOrderByCargo,
+    setSelectedOrderByCargo,
     IsSubmit,
     setIsSubmit,
     tabs,

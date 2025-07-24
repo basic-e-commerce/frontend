@@ -7,25 +7,33 @@ import {
   addAdress,
   deleteAdress,
   getAdress,
+  getCity,
+  getDistrict,
   updateAdress,
 } from "../../../api/apiAdress";
 
 const KisiAdresleri = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [citys, setCitys] = useState([]);
+  const [districts, setDistricts] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [tempAddress, setTempAddress] = useState({
     title: "",
     firstName: "",
     lastName: "",
+    username: "",
     countryName: "TURKIYE",
-    city: "",
+    districtId: "",
+    cityCode: "",
     addressLine1: "",
     postalCode: "",
     phoneNo: "",
   });
   const [selectedId, setSelectedId] = useState(null);
   const [addresses, setAddresses] = useState([]);
+
+  console.log(selectedId);
 
   const fetchAddresses = async () => {
     try {
@@ -36,9 +44,34 @@ const KisiAdresleri = () => {
     }
   };
 
+  const fetchCity = async () => {
+    try {
+      const response = await getCity();
+      setCitys(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchDiscrict = async (cityCode) => {
+    try {
+      const response = await getDistrict(cityCode);
+      setDistricts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchAddresses();
+    fetchCity();
   }, []);
+
+  useEffect(() => {
+    if (tempAddress.cityCode) {
+      fetchDiscrict(tempAddress.cityCode);
+    }
+  }, [tempAddress.cityCode]);
 
   useEffect(() => {
     if (modalOpen || showPopup) {
@@ -67,8 +100,10 @@ const KisiAdresleri = () => {
         title: "",
         firstName: "",
         lastName: "",
+        username: "",
         countryName: "TURKIYE",
-        city: "",
+        districtId: "",
+        cityCode: "",
         addressLine1: "",
         postalCode: "",
         phoneNo: "",
@@ -95,15 +130,18 @@ const KisiAdresleri = () => {
   const handleEditAddress = (id) => {
     setSelectedId(id);
     const addressToEdit = addresses.find((item) => item.id === id);
+
     const newAdres = {
       title: addressToEdit.title,
       firstName: addressToEdit.firstName,
       lastName: addressToEdit.lastName,
       countryName: addressToEdit.countryName,
-      city: addressToEdit.city,
+      cityCode: addressToEdit.cityCode,
+      districtId: addressToEdit.districtId,
       addressLine1: addressToEdit.addressLine1,
       postalCode: addressToEdit.postalCode,
       phoneNo: addressToEdit.phoneNo,
+      username: addressToEdit.username,
     };
     setTempAddress(newAdres);
     setEditMode(true);
@@ -116,8 +154,10 @@ const KisiAdresleri = () => {
       title: "",
       firstName: "",
       lastName: "",
+      username: "",
       countryName: "TURKIYE",
-      city: "",
+      districtId: "",
+      cityCode: "",
       addressLine1: "",
       postalCode: "",
       phoneNo: "",
@@ -219,6 +259,16 @@ const KisiAdresleri = () => {
                     setTempAddress({ ...tempAddress, phoneNo: e.target.value })
                   }
                 />
+
+                <input
+                  required
+                  type="email"
+                  placeholder="Mail"
+                  value={tempAddress.username}
+                  onChange={(e) =>
+                    setTempAddress({ ...tempAddress, username: e.target.value })
+                  }
+                />
               </div>
 
               <div className="right">
@@ -234,18 +284,41 @@ const KisiAdresleri = () => {
                     })
                   }
                 ></textarea>
+
                 <select
                   required
-                  value={tempAddress.city}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, city: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setTempAddress({
+                      ...tempAddress,
+                      cityCode: e.target.value,
+                    });
+                  }}
+                  value={tempAddress.cityCode}
                 >
                   <option value="">Şehir Seçin</option>
-                  <option value="Istanbul">İstanbul</option>
-                  <option value="Ankara">Ankara</option>
-                  <option value="İzmir">İzmir</option>
-                  <option value="Bursa">Bursa</option>
+                  {citys?.map((item, index) => (
+                    <option key={index} value={item.cityCode}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  required
+                  onChange={(e) => {
+                    setTempAddress({
+                      ...tempAddress,
+                      districtId: e.target.value,
+                    });
+                  }}
+                  value={tempAddress.districtId}
+                >
+                  <option value="">İlçe Seçin</option>
+                  {districts?.map((item, index) => (
+                    <option key={index} value={item.districtID}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
 
                 <input
@@ -272,8 +345,10 @@ const KisiAdresleri = () => {
                     title: "",
                     firstName: "",
                     lastName: "",
+                    username: "",
                     countryName: "TURKIYE",
-                    city: "",
+                    districtId: "",
+                    cityCode: "",
                     addressLine1: "",
                     postalCode: "",
                     phoneNo: "",
@@ -300,8 +375,10 @@ const KisiAdresleri = () => {
                     title: "",
                     firstName: "",
                     lastName: "",
+                    username: "",
                     countryName: "TURKIYE",
-                    city: "",
+                    districtId: "",
+                    cityCode: "",
                     addressLine1: "",
                     postalCode: "",
                     phoneNo: "",

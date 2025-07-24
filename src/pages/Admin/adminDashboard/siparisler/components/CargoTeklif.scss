@@ -1,0 +1,79 @@
+.cargo-teklif-container {
+  padding-bottom: 2rem;
+}
+
+.cargo-teklif-container h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.cargo-section {
+  margin-bottom: 1.5rem;
+}
+
+.cargo-section-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  padding-left: 0.2rem;
+}
+.cargo-section-title.en-ucuz {
+  color: #1eae60;
+}
+.cargo-section-title.en-hizli {
+  color: #1e6fae;
+}
+.cargo-section-title.diger {
+  color: #888;
+}
+
+.cargo-card {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.2s;
+}
+.cargo-card:hover {
+  box-shadow: 0 2px 8px rgba(30, 174, 96, 0.08);
+}
+.cargo-logo {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+.cargo-info {
+  flex: 1;
+}
+.cargo-name {
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+.cargo-eta {
+  font-size: 0.93rem;
+  color: #666;
+}
+.cargo-price {
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-right: 1rem;
+  color: #1eae60;
+}
+.cargo-select {
+  background: #1eae60;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.cargo-select:hover {
+  background: #188d4c;
+}
