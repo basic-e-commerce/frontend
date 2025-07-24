@@ -71,8 +71,8 @@ const SiparisMusteri = () => {
             </tr>
           </thead>
           <tbody>
-            {ordersMockData.length > 0 ? (
-              ordersMockData.map((order) => (
+            {orders.length > 0 ? (
+              orders.map((order) => (
                 <tr key={order.id}>
                   <td>{order.orderCode}</td>
                   <td>{order.totalPrice}₺</td>
