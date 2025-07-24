@@ -29,8 +29,7 @@ export const cuponValidationnSchema = Yup.object().shape({
     .min(1, "En az 1 olmalı")
     .max(100000, "Çok yüksek değer"),
   discountType: Yup.string()
-    .oneOf(["PERCENTAGE"], "Sadece PERCENTAGE olabilir")
-    .required("İndirim tipi zorunludur"),
+  .required("İndirim tipi zorunludur"),
   tatalUsageLimit: Yup.number()
     .required("Toplam kullanım limiti zorunludur")
     .typeError("Sayı olmalı")
@@ -46,7 +45,8 @@ export const cuponValidationnSchema = Yup.object().shape({
     .required("Bitiş tarihi zorunludur")
     .typeError("Geçerli bir tarih girin")
     .min(Yup.ref("startDate"), "Bitiş tarihi başlangıçtan sonra olmalı"),
-  isPublic: Yup.boolean().required("Zorunlu alan"),
+  isProductAssigned: Yup.boolean().required("Zorunlu alan"),
+  isCustomerAssigned: Yup.boolean().required("Zorunlu alan"),
   isActive: Yup.boolean().required("Zorunlu alan"),
 });
 
@@ -61,6 +61,7 @@ export const initialValues = {
   endDate: "2025-08-31T23:59:59Z",
   productIds: [],
   customerIds: [],
-  isPublic: true,
+  isProductAssigned: false,
+  isCustomerAssigned: false,
   isActive: true,
 };

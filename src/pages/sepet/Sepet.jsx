@@ -1,7 +1,7 @@
 import "./Sepet.scss";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchCartItems,
   fetchCartItemsLoggedIn,
@@ -23,6 +23,7 @@ const Sepet = () => {
   );
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const { isLoading } = useSelector((state) => state.loading);
+  const [cuponText, setCuponText] = useState("");
 
   useEffect(() => {
     if (!isAuthChecked) return;
@@ -73,6 +74,32 @@ const Sepet = () => {
     }
   };
 
+  const handleSubmitKupon = async () => {
+    dispatch(setLoading({ isLoading: true, message: "Sepet yukleniyor..." }));
+    try {
+      await api.put(`${BASE_URL}/api/v1/card/add-coupon?code=${cuponText}`);
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: "Kupon Başarıyla Uygulandı!",
+            status: "success",
+          })
+        );
+      }, 400);
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data,
+            status: "error",
+          })
+        );
+      }, 400);
+    } finally {
+      dispatch(clearLoading());
+    }
+  };
+
   if (status === "loading" || !isAuthChecked || isLoading) {
     return <SepetSkeleton />;
   }
@@ -107,10 +134,15 @@ const Sepet = () => {
                 !cartItems?.details?.length > 0 ? "cuppon none" : "cuppon"
               }
             >
-              <div className="subscride-form">
-                <input type="text" placeholder="Kupon kodunu girin" />
+              <form className="subscride-form" onSubmit={handleSubmitKupon}>
+                <input
+                  value={cuponText}
+                  onChange={(e) => setCuponText(e.target.value)}
+                  type="text"
+                  placeholder="Kupon kodunu girin"
+                />
                 <button type="submit">Uygula</button>
-              </div>
+              </form>
             </div>
 
             <UrunListesi

@@ -51,7 +51,7 @@ const CuponList = () => {
     try {
       const newActive = !currentActive;
       await api.put(
-        `${BASE_URL}/api/v1/coupon?code=${code}&active=${newActive}`
+        `${BASE_URL}/api/v1/coupon/active?code=${code}&active=${newActive}`
       );
 
       setIsSubmiting((prev) => !prev);

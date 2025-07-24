@@ -46,7 +46,31 @@ const CuponForm = ({ formik, isLoading }) => {
 
       <div className="form-group">
         <label>
-          DiscountValue
+          İndirim Türü
+          <select
+            name="discountType"
+            value={formik.values.discountType}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required
+            className={
+              formik.touched.discountType && formik.errors.discountType
+                ? "error"
+                : ""
+            }
+          >
+            <option value="PERCENTAGE">Yüzdelik İndirim</option>
+            <option value="FIXEDAMOUNT">Net İndirim</option>
+          </select>
+        </label>
+        {formik.touched.discountType && formik.errors.discountType && (
+          <div className="error-message">{formik.errors.discountType}</div>
+        )}
+      </div>
+
+      <div className="form-group">
+        <label>
+          İndirim Miktarı
           <input
             type="number"
             name="discountValue"
@@ -65,30 +89,7 @@ const CuponForm = ({ formik, isLoading }) => {
 
       <div className="form-group">
         <label>
-          discountType
-          <select
-            name="discountType"
-            value={formik.values.discountType}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            className={
-              formik.touched.discountType && formik.errors.discountType
-                ? "error"
-                : ""
-            }
-          >
-            <option value="PERCENTAGE">PERCENTAGE</option>
-          </select>
-        </label>
-        {formik.touched.discountType && formik.errors.discountType && (
-          <div className="error-message">{formik.errors.discountType}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>
-          tatalUsageLimit
+          Toplam Kullanılabilir Limit
           <input
             type="number"
             name="tatalUsageLimit"
@@ -111,7 +112,7 @@ const CuponForm = ({ formik, isLoading }) => {
 
       <div className="form-group">
         <label>
-          minOrderAmountLimit
+          Minimum Sipariş Tutarı
           <input
             type="number"
             name="minOrderAmountLimit"
@@ -180,29 +181,35 @@ const CuponForm = ({ formik, isLoading }) => {
 
       <div className="form-group">
         <label>
-          isPublic
+          Hangi Ürünler
           <select
-            name="isPublic"
-            value={formik.values.isPublic}
+            name="isProductAssigned"
+            value={formik.values.isProductAssigned}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required
             className={
-              formik.touched.isPublic && formik.errors.isPublic ? "error" : ""
+              formik.touched.isProductAssigned &&
+              formik.errors.isProductAssigned
+                ? "error"
+                : ""
             }
           >
-            <option value={true}>Public</option>
-            <option value={false}>Hidden</option>
+            <option value={true}>Belirli Ürünlere Açık</option>
+            <option value={false}>Tüm Ürünlerde</option>
           </select>
         </label>
-        {formik.touched.isPublic && formik.errors.isPublic && (
-          <div className="error-message">{formik.errors.isPublic}</div>
-        )}
+        {formik.touched.isProductAssigned &&
+          formik.errors.isProductAssigned && (
+            <div className="error-message">
+              {formik.errors.isProductAssigned}
+            </div>
+          )}
       </div>
 
       <div className="form-group">
         <label>
-          isActive
+          Aktiflik
           <select
             name="isActive"
             value={formik.values.isActive}

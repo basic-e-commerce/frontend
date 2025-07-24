@@ -11,8 +11,8 @@ export const loginValidationSchema = Yup.object({
   password: Yup.string()
     .min(6, "Şifre en az 6 karakter olmalıdır.")
     .matches(
-      /^[a-zA-Z0-9!@#$%^&*()_+=-]+$/,
-      "Şifre sadece harf, rakam ve !@#$%^&*()_+=- karakterlerini içerebilir; boşluk ve tehlikeli karakterler içeremez."
+      /^[a-zA-Z0-9!@#$%^&*()_+=\-\.]+$/,
+      "Şifre sadece harf, rakam ve !@#$%^&*()_+=-., karakterlerini içerebilir; boşluk ve tehlikeli karakterler içeremez."
     )
     .required("Şifre zorunludur."),
 });
