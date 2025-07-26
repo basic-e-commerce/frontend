@@ -77,7 +77,6 @@ const Odeme = () => {
           orderItemCreateDtos: baslangıcState,
         }),
       };
-      console.log("Adres bilgisi gönderildi:", payload);
 
       try {
         const response = isLogin
@@ -256,7 +255,15 @@ const Odeme = () => {
               </div>
 
               <div className="submitButtonOde">
-                <button type="submit">Öde</button>
+                <button
+                  className={
+                    formik.isSubmitting ? "submitingButon" : "normalButton"
+                  }
+                  type="submit"
+                  disabled={formik.isSubmitting}
+                >
+                  {formik.isSubmitting ? "Ödeniyor..." : "Öde"}
+                </button>
               </div>
             </div>
           </div>

@@ -5,12 +5,16 @@ export const useTabLabels = () => {
         return "Onaylanmış";
       case "PENDING":
         return "İşlenenler";
-      case "SHIPPED":
+      case "PRE_TRANSIT":
+        return "Kargo Kaydı Açılmış";
+      case "TRANSIT":
         return "Kargoda Olanlar";
       case "DELIVERED":
         return "Teslim Olanlar";
-      case "CANCELLED":
-        return "İptal Olanlar";
+      case "FAILURE":
+        return "Kargoda Kaybolanlar";
+      case "RETURNED":
+        return "İade Edilenler";
       default:
         return tab;
     }

@@ -14,7 +14,15 @@ export const useOrders = () => {
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch();
 
-  const tabs = ["PENDING", "APPROVED", "SHIPPED", "DELIVERED", "CANCELLED"];
+  const tabs = [
+    "PENDING",
+    "APPROVED",
+    "PRE_TRANSIT",
+    "TRANSIT",
+    "DELIVERED",
+    "FAILURE",
+    "RETURNED",
+  ];
   const [selectedTab, setSelectedTab] = useState("PENDING");
 
   const fetchAdminOrder = async () => {
@@ -24,11 +32,18 @@ export const useOrders = () => {
     try {
       const response = await api.post(
         `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
-        {
-          sortBy: "createdAt",
-          sortDirection: "asc",
-          paymentStatus: selectedTab,
-        }
+        selectedTab === "PENDING" || selectedTab === "APPROVED"
+          ? {
+              sortBy: "createdAt",
+              sortDirection: "asc",
+              paymentStatus: selectedTab,
+            }
+          : {
+              sortBy: "createdAt",
+              sortDirection: "asc",
+              paymentStatus: "APPROVED",
+              statusCode: selectedTab,
+            }
       );
       setOrders(response.data);
     } catch (error) {

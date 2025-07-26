@@ -1,16 +1,20 @@
 export const useOrderStatus = () => {
   const translateOrderStatus = (status) => {
     switch (status) {
-      case "PENDING":
-        return "İşleniyor";
       case "APPROVED":
-        return "Onaylandı";
-      case "SHIPPED":
-        return "Kargoya Verildi";
+        return "Onaylanmış";
+      case "PENDING":
+        return "İşlenenler";
+      case "PRE_TRANSIT":
+        return "Kargo Kaydı Açılmış";
+      case "TRANSIT":
+        return "Kargoda Olanlar";
       case "DELIVERED":
-        return "Teslim Edildi";
-      case "CANCELLED":
-        return "İptal Edildi";
+        return "Teslim Olanlar";
+      case "FAILURE":
+        return "Kargoda Kaybolanlar";
+      case "RETURNED":
+        return "İade Edilenler";
       default:
         return "Bilinmiyor";
     }
