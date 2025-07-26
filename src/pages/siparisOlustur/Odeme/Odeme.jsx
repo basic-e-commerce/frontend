@@ -50,6 +50,7 @@ const Odeme = () => {
     validationSchema: paymentSchema,
     onSubmit: async (values) => {
       const payload = {
+        code: cartItems?.couponDiscount || null,
         address: address,
         invoiceAddress: billingSame ? address : invoiceAddress,
         invoiceType: invoiceType,

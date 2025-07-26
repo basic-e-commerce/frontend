@@ -48,6 +48,10 @@ const SiparisOzeti = ({ cartItems }) => {
           <p>
             <span>Kargo:</span> <strong>{cartItems?.shippingCost} ₺</strong>
           </p>
+          <p>
+            <span>Kupon:</span>{" "}
+            <strong> - {cartItems?.couponDiscount || 0} ₺</strong>
+          </p>
 
           <hr />
           <p>
