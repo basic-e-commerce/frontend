@@ -65,8 +65,10 @@ CargoCard.propTypes = {
   }).isRequired,
 };
 
-const CargoTeklif = () => {
+const CargoTeklif = ({ responseTeklifData }) => {
   const { cheapest, fastest, others } = groupCargos(dummyCargos);
+
+  console.log(responseTeklifData);
 
   return (
     <div className="cargo-teklif-container">

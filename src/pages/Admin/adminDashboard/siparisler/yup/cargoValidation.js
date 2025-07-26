@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const cargoValidationSchema = Yup.object().shape({
-  lenght: Yup.number()
+  length: Yup.number()
     .required("Uzunluk zorunludur")
     .typeError("Sayı olmalı")
     .min(1, "En az 1 olmalı"),
@@ -26,7 +26,7 @@ export const cargoValidationSchema = Yup.object().shape({
 });
 
 export const initialValues = {
-  lenght: 0,
+  length: 0,
   height: 0,
   width: 0,
   distanceUnit: "cm",

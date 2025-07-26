@@ -100,7 +100,7 @@ const Sepet = () => {
     }
   };
 
-  if (status === "loading" || !isAuthChecked) {
+  if (status === "loading" || !isAuthChecked || isLoading) {
     return <SepetSkeleton />;
   }
 

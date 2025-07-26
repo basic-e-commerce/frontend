@@ -1,27 +1,31 @@
 import PropTypes from "prop-types";
 import "./CargoInfoSection.scss";
+import CargoInfoSkeleton from "./CargoInfoSkeleton";
 
-const CargoInfoSection = ({ formik }) => {
+const CargoInfoSection = ({ formik, stepLoading }) => {
+  if (stepLoading) {
+    return <CargoInfoSkeleton />;
+  }
   return (
     <form className="cargoInfoSection" onSubmit={formik.handleSubmit}>
       <div className="form-group">
         <label>
-          Uzunluk (lenght):
+          Uzunluk (length):
           <input
             type="number"
-            name="lenght"
-            value={formik.values.lenght}
+            name="length"
+            value={formik.values.length}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required
             autoComplete="off"
             className={
-              formik.touched.lenght && formik.errors.lenght ? "error" : ""
+              formik.touched.length && formik.errors.length ? "error" : ""
             }
           />
         </label>
-        {formik.touched.lenght && formik.errors.lenght && (
-          <div className="error-message">{formik.errors.lenght}</div>
+        {formik.touched.length && formik.errors.length && (
+          <div className="error-message">{formik.errors.length}</div>
         )}
       </div>
 
@@ -135,6 +139,18 @@ const CargoInfoSection = ({ formik }) => {
           <div className="error-message">{formik.errors.massUnit}</div>
         )}
       </div>
+
+      <div className="buttonContainer">
+        <button
+          disabled={formik.isSubmitting || !formik.isValid}
+          className={
+            formik.isSubmitting || !formik.isValid ? "disabledButton" : ""
+          }
+          type="submit"
+        >
+          {formik.isSubmitting ? "Bekleyin..." : "Teklif Al"}
+        </button>
+      </div>
     </form>
   );
 };
@@ -145,7 +161,7 @@ CargoInfoSection.propTypes = {
     handleChange: PropTypes.func.isRequired,
     handleBlur: PropTypes.func.isRequired,
     values: PropTypes.shape({
-      lenght: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      length: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         .isRequired,
       height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         .isRequired,
@@ -158,7 +174,10 @@ CargoInfoSection.propTypes = {
     }).isRequired,
     touched: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
+    isValid: PropTypes.bool.isRequired,
   }).isRequired,
+  stepLoading: PropTypes.bool.isRequired,
 };
 
 export default CargoInfoSection;

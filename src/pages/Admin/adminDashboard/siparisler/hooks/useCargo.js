@@ -3,10 +3,6 @@ import { cargoValidationSchema, initialValues } from "../yup/cargoValidation";
 
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
-import {
-  clearLoading,
-  setLoading,
-} from "../../../../../redux/slices/loadingSlice";
 import api from "../../../../../api/api";
 import { BASE_URL } from "../../../../../config/baseApi";
 import { useState } from "react";
@@ -15,7 +11,8 @@ export const useCargo = (order) => {
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Kargo Bilgisi", "Teklif"];
-  const { isLoading } = useSelector((state) => state.loading);
+  const [stepLoading, setstepLoading] = useState(false);
+  const [responseTeklifData, setresponseTeklifData] = useState({});
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -36,27 +33,16 @@ export const useCargo = (order) => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
-      dispatch(
-        setLoading({
-          isLoading: true,
-          message: "Teklifler alınıyor...",
-        })
-      );
+      setstepLoading(true);
 
       try {
-        await api.post(
+        const response = await api.post(
           `${BASE_URL}/api/v1/order/cargo-offer?orderCode=${order.orderCode}`,
-          values
+          [values]
         );
-        resetForm();
-        setTimeout(() => {
-          dispatch(
-            showAlertWithTimeout({
-              message: "Kupon başarıyla oluşturuldu",
-              status: "success",
-            })
-          );
-        }, 400);
+
+        setresponseTeklifData(response.data);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
       } catch (error) {
         dispatch(
           showAlertWithTimeout({
@@ -65,16 +51,17 @@ export const useCargo = (order) => {
           })
         );
       } finally {
-        dispatch(clearLoading());
+        setstepLoading(false);
       }
     },
   });
 
   return {
-    isLoading,
+    responseTeklifData,
     formik,
     activeStep,
     steps,
+    stepLoading,
     handleNext,
     handleBack,
   };

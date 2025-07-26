@@ -5,11 +5,13 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 const OrderTable = ({ orders, onViewDetails, onViewCargo }) => {
   const { translateOrderStatus } = useOrderStatus();
 
+  console.log(orders);
+
   return (
     <table className="custom-table">
       <thead>
         <tr>
-          <th className="col-2">Sipaiş Kodu</th>
+          <th className="col-0">Sipaiş Kodu</th>
           <th className="col-1">Ad Soyad</th>
           <th className="col-1">Tutar</th>
           <th className="col-1">Taksit</th>
@@ -28,7 +30,10 @@ const OrderTable = ({ orders, onViewDetails, onViewCargo }) => {
               </td>
               <td>{order.totalPrice} ₺</td>
               <td>{order.installment}</td>
-              <td>{translateOrderStatus(order.orderStatus)}</td>
+              <td>
+                {order?.orderStatusResponse?.orderPackages[0]?.cargoStatus ||
+                  translateOrderStatus(order?.orderStatusResponse?.status)}
+              </td>
               <td className="actions">
                 <button onClick={() => onViewDetails(order)}>
                   <VisibilityIcon className="icon" />

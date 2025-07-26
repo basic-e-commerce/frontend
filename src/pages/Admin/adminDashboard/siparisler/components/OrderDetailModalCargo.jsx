@@ -7,7 +7,8 @@ import "./OrderDetailModalCargo.scss";
 import { useCargo } from "../hooks";
 
 const OrderDetailModalCargo = ({ order, onClose }) => {
-  const { formik, activeStep, steps, handleNext, handleBack } = useCargo(order);
+  const { formik, activeStep, steps, responseTeklifData, stepLoading } =
+    useCargo(order);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -16,9 +17,14 @@ const OrderDetailModalCargo = ({ order, onClose }) => {
   const StepContent = useMemo(() => {
     switch (activeStep) {
       case 0:
-        return <CargoInfoSection formik={formik} />;
+        return <CargoInfoSection stepLoading={stepLoading} formik={formik} />;
       case 1:
-        return <CargoTeklif />;
+        return (
+          <CargoTeklif
+            stepLoading={stepLoading}
+            responseTeklifData={responseTeklifData}
+          />
+        );
       default:
         return null;
     }
@@ -46,25 +52,6 @@ const OrderDetailModalCargo = ({ order, onClose }) => {
 
           <div className="ucusBilgileri">
             <div className="airDropSection">{StepContent}</div>
-          </div>
-
-          <div className="airDropController">
-            <button
-              className={activeStep === 0 ? "buttonDisabled" : "button"}
-              disabled={activeStep === 0}
-              onClick={handleBack}
-            >
-              Geri
-            </button>
-            {activeStep !== steps.length - 1 && (
-              <button
-                id="bitirButtonuu"
-                className="button"
-                onClick={handleNext}
-              >
-                İleri
-              </button>
-            )}
           </div>
         </div>
       </div>
