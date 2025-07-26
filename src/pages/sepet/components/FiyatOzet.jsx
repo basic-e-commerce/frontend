@@ -53,7 +53,8 @@ const FiyatOzet = ({ cartItems, isCartEmpty }) => {
             <strong>{cartItems?.shippingCost || 0} ₺</strong>
           </p>
           <p>
-            <span>Kuppon:</span> <strong> 0 ₺</strong>
+            <span>Kuppon:</span>{" "}
+            <strong> - {cartItems?.couponDiscount || 0} ₺</strong>
           </p>
           <hr />
           <p>
