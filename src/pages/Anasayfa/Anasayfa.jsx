@@ -13,6 +13,7 @@ import AnaProduct from "../../components/anaProduct/AnaProduct";
 import SikcaSorulan from "../../components/sikcaSorulan/SikcaSorulan";
 import PopulerProduct from "../../components/populerProduct/PopulerProduct";
 import Slider from "../../components/Slider/Slider";
+import AnasayfaSkeleton from "./AnasayfaSkeleton";
 
 const Anasayfa = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,10 @@ const Anasayfa = () => {
 
     getProductsAnasayfa();
   }, [dispatch]);
+
+  if (isLoading) {
+    return <AnasayfaSkeleton />;
+  }
 
   return (
     <div className="anasayfa">

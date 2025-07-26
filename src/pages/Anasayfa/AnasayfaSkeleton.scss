@@ -1,0 +1,86 @@
+.anasayfa-skeleton {
+  margin-top: 140px;
+  .topSideAnasayfa-skeleton {
+    background: #f3f3f3;
+    padding: 32px 0;
+    border-radius: 20px;
+    .topSideAnasayfaContent-skeleton {
+      display: flex;
+      gap: 24px;
+      .slider-skeleton,
+      .sliderLeft-skeleton {
+        background: #e0e0e0;
+        border-radius: 12px;
+        min-height: 220px;
+        flex: 1;
+        animation: skeleton-loading 1.2s infinite linear alternate;
+      }
+      .sliderLeft-skeleton {
+        min-width: 180px;
+        max-width: 220px;
+      }
+    }
+  }
+  .fadeInSection-skeleton {
+    margin: 32px 0;
+    .anaProduct-skeleton,
+    .populerProduct-skeleton,
+    .whoFounder-skeleton,
+    .whyOur-skeleton {
+      background: #e0e0e0;
+      border-radius: 12px;
+      min-height: 180px;
+      animation: skeleton-loading 1.2s infinite linear alternate;
+    }
+    .anaProduct-skeleton {
+      min-height: 220px;
+    }
+    .populerProduct-skeleton {
+      min-height: 180px;
+    }
+    .whoFounder-skeleton {
+      min-height: 120px;
+    }
+    .whyOur-skeleton {
+      min-height: 120px;
+    }
+  }
+  .fullImg-skeleton {
+    background: #e0e0e0;
+    border-radius: 12px;
+    min-height: 180px;
+    margin: 32px 0;
+    animation: skeleton-loading 1.2s infinite linear alternate;
+  }
+  .slider-karePost-skeleton {
+    margin: 32px 0;
+    .slider-track-skeleton {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      .slide-skeleton {
+        width: 80px;
+        height: 80px;
+        background: #e0e0e0;
+        border-radius: 8px;
+        animation: skeleton-loading 1.2s infinite linear alternate;
+      }
+    }
+  }
+  .sikcaSorulan-skeleton {
+    background: #e0e0e0;
+    border-radius: 12px;
+    min-height: 120px;
+    margin: 32px 0;
+    animation: skeleton-loading 1.2s infinite linear alternate;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #e0e0e0;
+  }
+  100% {
+    background-color: #f5f5f5;
+  }
+}
