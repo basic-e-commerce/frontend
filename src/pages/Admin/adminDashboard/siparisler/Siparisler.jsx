@@ -20,6 +20,7 @@ const Siparisler = () => {
     selectedOrderByCargo,
     setSelectedOrderByCargo,
     setSelectedTab,
+    setIsSubmit,
   } = useOrders();
 
   if (isLoading) {
@@ -48,6 +49,7 @@ const Siparisler = () => {
 
         {selectedOrderByCargo && (
           <OrderDetailModalCargo
+            setIsSubmit={setIsSubmit}
             order={selectedOrderByCargo}
             onClose={() => setSelectedOrderByCargo(null)}
           />

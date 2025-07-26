@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import { cargoValidationSchema, initialValues } from "../yup/cargoValidation";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 import api from "../../../../../api/api";
 import { BASE_URL } from "../../../../../config/baseApi";
 import { useState } from "react";
 
-export const useCargo = (order) => {
+export const useCargo = (order, onClose, setIsSubmit) => {
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Kargo Bilgisi", "Teklif"];
@@ -26,13 +26,43 @@ export const useCargo = (order) => {
     }
   };
 
+  const submitSiparisCargo = async (offerId, orderCode, nicelikler) => {
+    setstepLoading(true);
+    try {
+      await api.post(
+        `${BASE_URL}/api/v1/order/offer-approve?offerId=${offerId}&orderCode=${orderCode}`,
+        nicelikler
+      );
+
+      onClose();
+      setIsSubmit((prev) => !prev);
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeout({
+            message: "Kargo Oluşturuldu",
+            status: "success",
+          })
+        );
+      }, 400);
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message,
+          status: "error",
+        })
+      );
+    } finally {
+      setstepLoading(false);
+    }
+  };
+
   const formik = useFormik({
     initialValues,
     validationSchema: cargoValidationSchema,
     validateOnMount: true,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       setstepLoading(true);
 
       try {
@@ -64,5 +94,6 @@ export const useCargo = (order) => {
     stepLoading,
     handleNext,
     handleBack,
+    submitSiparisCargo,
   };
 };

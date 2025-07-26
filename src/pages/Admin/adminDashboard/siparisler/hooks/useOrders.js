@@ -6,6 +6,7 @@ import {
   setLoading,
   clearLoading,
 } from "../../../../../redux/slices/loadingSlice";
+import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 
 export const useOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -47,7 +48,12 @@ export const useOrders = () => {
       );
       setOrders(response.data);
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message,
+          status: "error",
+        })
+      );
     } finally {
       dispatch(clearLoading());
     }

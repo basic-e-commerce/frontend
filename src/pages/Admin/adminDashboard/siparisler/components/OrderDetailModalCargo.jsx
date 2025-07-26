@@ -6,9 +6,15 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import "./OrderDetailModalCargo.scss";
 import { useCargo } from "../hooks";
 
-const OrderDetailModalCargo = ({ order, onClose }) => {
-  const { formik, activeStep, steps, responseTeklifData, stepLoading } =
-    useCargo(order);
+const OrderDetailModalCargo = ({ order, onClose, setIsSubmit }) => {
+  const {
+    formik,
+    activeStep,
+    steps,
+    responseTeklifData,
+    stepLoading,
+    submitSiparisCargo,
+  } = useCargo(order, onClose, setIsSubmit);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -21,8 +27,10 @@ const OrderDetailModalCargo = ({ order, onClose }) => {
       case 1:
         return (
           <CargoTeklif
+            submitSiparisCargo={submitSiparisCargo}
             stepLoading={stepLoading}
             responseTeklifData={responseTeklifData}
+            orderCode={order.orderCode}
           />
         );
       default:

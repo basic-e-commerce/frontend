@@ -110,7 +110,6 @@ export const useUrunEkleForm = () => {
           status: "error",
         })
       );
-      console.log(error);
     } finally {
       dispatch(clearLoading());
       setSubmitting(false);
