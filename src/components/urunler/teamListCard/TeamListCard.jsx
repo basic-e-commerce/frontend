@@ -5,7 +5,7 @@ function TeamlisCard({ product }) {
   console.log(product);
 
   return (
-    <li className="glide__slide">
+    <div className="glide__slide">
       <Link to={`/urunler/${product.linkName}`} className="card">
         <div className="sliderImg">
           <img src={product.coverImage?.url || ""} alt="" />
@@ -23,7 +23,7 @@ function TeamlisCard({ product }) {
           </div>
         </div>
       </Link>
-    </li>
+    </div>
   );
 }
 

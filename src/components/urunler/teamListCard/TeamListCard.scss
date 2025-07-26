@@ -19,12 +19,11 @@
   }
 
   .cardSection {
-    align-self: flex-end;
     padding: 0rem 0.5rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 0.7rem;
+    gap: 1rem;
 
     .CardTop {
       display: flex;
@@ -32,7 +31,7 @@
       gap: 0.2rem;
 
       h4 {
-        font-size: 1rem;
+        font-size: 1.1rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
@@ -56,7 +55,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis; /* Fazla metin için üç nokta */
-        font-size: 0.85rem;
+        font-size: 0.9rem;
 
         @media (max-width: 1024px) {
           font-size: 14px;
@@ -65,7 +64,6 @@
     }
 
     .cardRight {
-      align-self: flex-end;
       display: flex;
       flex-direction: column;
       position: relative;

@@ -3,6 +3,7 @@ import "./ProjelerGlide.scss";
 import Glide from "@glidejs/glide";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListCard from "../../urunler/listCard/ListCard";
+import TeamlisCard from "../../urunler/teamListCard/TeamListCard";
 
 const ProjelerGlide = ({ products, perView }) => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const ProjelerGlide = ({ products, perView }) => {
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">
           {products?.map((product, index) => (
-            <ListCard key={index} product={product} />
+            <TeamlisCard key={index} product={product} />
           ))}
         </ul>
       </div>

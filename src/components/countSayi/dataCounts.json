@@ -1,8 +1,8 @@
 {
   "dataCounts": [
-    { "count": "30+", "nicelik": "Tamamlanan Proje" },
-    { "count": "20+", "nicelik": "Bitki ve Ağaç Türü" },
-    { "count": "50+", "nicelik": "Memnun Müşteri" },
-    { "count": "15+", "nicelik": "Yıllık Deneyim" }
+    { "count": "100+", "nicelik": "Doğal Ürün Çeşidi" },
+    { "count": "500+", "nicelik": "Mutlu Müşteri" },
+    { "count": "30+", "nicelik": "Yıllık Geleneksel Tarif" },
+    { "count": "10+", "nicelik": "Yıllık Tecrübe" }
   ]
 }

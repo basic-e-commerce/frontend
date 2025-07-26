@@ -1,5 +1,5 @@
 import "./List.scss";
-import ListCard from "../listCard/ListCard";
+import TeamListCard from "../teamListCard/TeamListCard";
 import FadeInSection from "../../FadeInSection/FadeInSection";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
@@ -31,7 +31,7 @@ const List = ({ toggleSidebar, currentItems, products, categoryName }) => {
         {products?.length > 0 ? (
           currentItems?.map((product, index) => (
             <FadeInSection key={index}>
-              <ListCard product={product} />
+              <TeamListCard product={product} />
             </FadeInSection>
           ))
         ) : (

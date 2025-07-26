@@ -22,7 +22,7 @@ const Anasayfa = () => {
   const sections2 = [
     <PopulerProduct
       key="populer-product"
-      title={"Projelerimiz"}
+      title={"Ürünlerimiz"}
       desc={"Tümü için projelerimiz sayfasına göz atın"}
       products={products}
     />,

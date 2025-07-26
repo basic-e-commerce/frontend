@@ -19,6 +19,8 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 const FiyatOzet = ({ cartItems, isCartEmpty }) => {
+  console.log(cartItems);
+
   return (
     <div className={isCartEmpty ? "fiyat none" : "fiyat"}>
       <Paper
@@ -67,6 +69,10 @@ const FiyatOzet = ({ cartItems, isCartEmpty }) => {
             Alışverişi Tamamla
           </button>
         </Link>
+
+        <div className="uygulanmisKupon">
+          {cartItems?.couponCustomerResponseDto?.code}
+        </div>
       </Paper>
     </div>
   );

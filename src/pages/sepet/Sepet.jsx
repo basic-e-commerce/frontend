@@ -100,7 +100,7 @@ const Sepet = () => {
     }
   };
 
-  if (status === "loading" || !isAuthChecked || isLoading) {
+  if (status === "loading" || !isAuthChecked) {
     return <SepetSkeleton />;
   }
 
@@ -129,21 +129,23 @@ const Sepet = () => {
               </p>
             </div>
 
-            <div
-              className={
-                !cartItems?.details?.length > 0 ? "cuppon none" : "cuppon"
-              }
-            >
-              <form className="subscride-form" onSubmit={handleSubmitKupon}>
-                <input
-                  value={cuponText}
-                  onChange={(e) => setCuponText(e.target.value)}
-                  type="text"
-                  placeholder="Kupon kodunu girin"
-                />
-                <button type="submit">Uygula</button>
-              </form>
-            </div>
+            {isLogin && (
+              <div
+                className={
+                  !cartItems?.details?.length > 0 ? "cuppon none" : "cuppon"
+                }
+              >
+                <form className="subscride-form" onSubmit={handleSubmitKupon}>
+                  <input
+                    value={cuponText}
+                    onChange={(e) => setCuponText(e.target.value)}
+                    type="text"
+                    placeholder="Kupon kodunu girin"
+                  />
+                  <button type="submit">Uygula</button>
+                </form>
+              </div>
+            )}
 
             <UrunListesi
               cartItems={cartItems}

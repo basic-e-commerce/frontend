@@ -78,14 +78,7 @@
 
       &:hover {
         cursor: pointer;
-        background-color: rgb(44, 105, 44);
-        .icon {
-          color: white;
-        }
-        h3,
-        p {
-          color: white;
-        }
+        opacity: 0.7;
       }
     }
   }

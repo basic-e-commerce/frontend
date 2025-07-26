@@ -15,6 +15,11 @@ const ListCard = ({ product }) => {
 
           <div className="text">
             <p>{product.shortDescription}</p>
+
+            <div className="cardRight">
+              <span className="salePrice">{product.salePrice}₺</span>
+              <span className="comparePrice">{product.comparePrice}₺</span>
+            </div>
           </div>
         </div>
       </div>

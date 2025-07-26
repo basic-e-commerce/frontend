@@ -1,14 +1,14 @@
 {
   "kategori": [
     {
-      "img": "/images/postImg/proje2.jpeg",
-      "title": "Projelerimiz",
+      "img": "/images/postImg/urunler.jpeg",
+      "title": "Ürünlerimiz",
       "to": "/kategoriler"
     },
     {
-      "img": "/images/postImg/iletisim.jpeg",
-      "title": "İletişim",
-      "to": "/iletisim"
+      "img": "/images/postImg/kurumsal.jpg",
+      "title": "Kurumsal",
+      "to": "/kurumsal"
     }
   ]
 }
