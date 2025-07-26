@@ -99,8 +99,8 @@
         border-radius: 10px;
         width: 100%;
         font-size: 0.875rem;
-        cursor: not-allowed;
-        pointer-events: none;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
       }
     }
   }

@@ -12,6 +12,8 @@ import { paymentSchema } from "../../../yup/payment";
 import axios from "axios";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
+import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
+import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 
 const Odeme = () => {
   const dispatch = useDispatch();
@@ -49,6 +51,8 @@ const Odeme = () => {
     },
     validationSchema: paymentSchema,
     onSubmit: async (values) => {
+      dispatch(setLoading({ isLoading: true, message: "Ödeme alınıyor..." }));
+
       const payload = {
         code: cartItems?.couponCustomerResponseDto?.code || null,
         address: address,
@@ -95,7 +99,14 @@ const Odeme = () => {
           console.log("Beklenen HTML formatı değil:", response.data);
         }
       } catch (error) {
-        console.error("Ödeme sırasında hata:", error);
+        dispatch(
+          showAlertWithTimeout({
+            message: error.message,
+            status: "error",
+          })
+        );
+      } finally {
+        dispatch(clearLoading());
       }
     },
   });
