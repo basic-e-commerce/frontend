@@ -1,22 +1,19 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useOrderStatus } from "../hooks";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
-const OrderTable = ({ orders, onViewDetails, onViewCargo }) => {
-  const { translateOrderStatus } = useOrderStatus();
-
-  console.log(orders);
+const OrderTable = ({ orders, onViewDetails, onViewCargo, selectedTab }) => {
+  console.log(selectedTab);
 
   return (
     <table className="custom-table">
       <thead>
         <tr>
           <th className="col-0">Sipaiş Kodu</th>
-          <th className="col-1">Ad Soyad</th>
-          <th className="col-1">Tutar</th>
-          <th className="col-1">Taksit</th>
-          <th className="col-1">Durum</th>
-          <th className="col-1"></th>
+          <th className="col-0">Ad Soyad</th>
+          <th className="col-0">Tutar</th>
+          <th className="col-0">Taksit</th>
+          <th className="col-2">Durum</th>
+          <th className="col-0"></th>
         </tr>
       </thead>
       <tbody>
@@ -32,15 +29,20 @@ const OrderTable = ({ orders, onViewDetails, onViewCargo }) => {
               <td>{order.installment}</td>
               <td>
                 {order?.orderStatusResponse?.orderPackages[0]?.cargoStatus ||
-                  translateOrderStatus(order?.orderStatusResponse?.status)}
+                  order?.orderStatusResponse?.status}
               </td>
               <td className="actions">
                 <button onClick={() => onViewDetails(order)}>
                   <VisibilityIcon className="icon" />
                 </button>
-                <button onClick={() => onViewCargo(order)}>
-                  <ShoppingBasketIcon className="icon" />
-                </button>
+
+                {selectedTab === "APPROVED" ? (
+                  <button onClick={() => onViewCargo(order)}>
+                    <ShoppingBasketIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
               </td>
             </tr>
           ))

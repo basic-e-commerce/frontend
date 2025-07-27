@@ -1,5 +1,8 @@
 const OrderDetailModal = ({ order, onClose }) => {
   const invoice = order.invoiceResponseDto;
+  const kargoData = order?.orderStatusResponse?.orderPackages[0];
+
+  console.log(kargoData);
 
   return (
     <div className="modal-overlay">
@@ -8,9 +11,7 @@ const OrderDetailModal = ({ order, onClose }) => {
           ×
         </button>
 
-        {/* Kullanıcı ve Fatura Bilgileri */}
         <div className="info-wrapper" style={{ display: "flex", gap: "2rem" }}>
-          {/* Kullanıcı Bilgileri Tablosu */}
           <table className="info-table">
             <tbody>
               <tr>
@@ -45,7 +46,6 @@ const OrderDetailModal = ({ order, onClose }) => {
             </tbody>
           </table>
 
-          {/* Fatura Adresi Tablosu */}
           <table className="billing-table">
             <tbody>
               <tr>
@@ -107,7 +107,47 @@ const OrderDetailModal = ({ order, onClose }) => {
           </table>
         </div>
 
-        {/* Ürünler Tablosu */}
+        {kargoData && (
+          <div
+            className="info-wrapper"
+            style={{ display: "flex", gap: "2rem" }}
+          >
+            <table className="billing-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Kargo Firması:</strong>
+                  </td>
+                  <td>{kargoData.cargoCompanyName}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Kargo ID:</strong>
+                  </td>
+                  <td>{kargoData.cargoId}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table className="billing-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Kargo Durumu:</strong>
+                  </td>
+                  <td>{kargoData.cargoStatus}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Kargo Nerde:</strong>
+                  </td>
+                  <td>{kargoData.location}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
+
         <table className="product-table">
           <thead>
             <tr>

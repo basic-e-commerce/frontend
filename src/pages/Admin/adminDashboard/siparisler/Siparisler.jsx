@@ -37,6 +37,7 @@ const Siparisler = () => {
         />
         <OrderTable
           orders={orders}
+          selectedTab={selectedTab}
           onViewCargo={setSelectedOrderByCargo}
           onViewDetails={setSelectedOrder}
         />

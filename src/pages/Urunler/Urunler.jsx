@@ -51,9 +51,9 @@ const Urunler = () => {
     fetchData();
   }, [dispatch, categoryLinkName]);
 
-  /*if (isLoading) {
+  if (isLoading) {
     return <UrunlerSkeleton />;
-  }*/
+  }
 
   return (
     <div className="projeler">
