@@ -34,10 +34,16 @@ export const useCategoryCreate = () => {
         })
       );
 
+      const start = new Date(values.startDate);
+      start.setHours(0, 0, 0);
+
+      const end = new Date(values.endDate);
+      end.setHours(23, 59, 59);
+
       const payload = {
         ...values,
-        startDate: new Date(values.startDate).toISOString(),
-        endDate: new Date(values.endDate).toISOString(),
+        startDate: start.toISOString(),
+        endDate: end.toISOString(),
       };
 
       try {

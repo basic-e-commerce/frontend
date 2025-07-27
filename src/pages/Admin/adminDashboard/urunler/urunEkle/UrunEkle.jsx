@@ -41,8 +41,9 @@ const UrunEkle = () => {
           onSubmit={onSubmit}
           validateOnChange={true}
           validateOnBlur={true}
+          validateOnMount={true}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, isValid }) => (
             <Form className="formCreate">
               <div className="leftCreate">
                 <ImageUpload
@@ -67,8 +68,10 @@ const UrunEkle = () => {
                   <ProductFormFields />
                   <div className="buttonContainer">
                     <button
-                      disabled={isSubmitting}
-                      className={isSubmitting ? "disabledButton" : ""}
+                      disabled={isSubmitting || !isValid}
+                      className={
+                        isSubmitting || !isValid ? "disabledButton" : ""
+                      }
                       type="submit"
                     >
                       {isSubmitting ? "Ekleniyor..." : "Ürün Ekle"}

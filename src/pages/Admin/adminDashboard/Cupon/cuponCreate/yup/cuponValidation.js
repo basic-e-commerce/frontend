@@ -28,8 +28,7 @@ export const cuponValidationnSchema = Yup.object().shape({
     .typeError("Sayı olmalı")
     .min(1, "En az 1 olmalı")
     .max(100000, "Çok yüksek değer"),
-  discountType: Yup.string()
-  .required("İndirim tipi zorunludur"),
+  discountType: Yup.string().required("İndirim tipi zorunludur"),
   tatalUsageLimit: Yup.number()
     .required("Toplam kullanım limiti zorunludur")
     .typeError("Sayı olmalı")
@@ -57,8 +56,8 @@ export const initialValues = {
   discountType: "PERCENTAGE",
   tatalUsageLimit: "",
   minOrderAmountLimit: "",
-  startDate: "2025-07-20T12:52:00Z",
-  endDate: "2025-08-31T23:59:59Z",
+  startDate: "",
+  endDate: "",
   productIds: [],
   customerIds: [],
   isProductAssigned: false,

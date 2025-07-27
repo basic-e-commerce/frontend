@@ -17,6 +17,17 @@ const CuponList = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loading);
 
+  const typeOfTip = (type) => {
+    switch (type) {
+      case "PERCENTAGE":
+        return "Yüzdelik";
+      case "FIXEDAMOUNT":
+        return "Net İndirim";
+      default:
+        return "Bilinmeyen Tip";
+    }
+  };
+
   useEffect(() => {
     dispatch(
       setLoading({ isLoading: true, message: "Kupon durumu güncelleniyor..." })
@@ -104,13 +115,31 @@ const CuponList = () => {
             <tr key={cupon.id}>
               <td>{cupon.code}</td>
               <td> {cupon.description}</td>
-              <td>{cupon.discountType}</td>
+              <td>{typeOfTip(cupon.discountType)}</td>
               <td>{cupon.discountValue}</td>
               <td>{cupon.timesUsed}</td>
               <td>{cupon.totalUsageLimit}</td>
               <td>{cupon.minOrderAmountLimit}</td>
-              <td>{cupon.couponStartDate}</td>
-              <td>{cupon.couponEndDate}</td>
+              <td>
+                {new Date(cupon.couponStartDate).toLocaleDateString()}
+                <br />
+                <small>
+                  {new Date(cupon.couponStartDate).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </small>
+              </td>
+              <td>
+                {new Date(cupon.couponEndDate).toLocaleDateString()}
+                <br />
+                <small>
+                  {new Date(cupon.couponEndDate).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </small>
+              </td>
               <td>{cupon.active ? "Aktif" : "Pasif"}</td>
               <td>
                 <Switch

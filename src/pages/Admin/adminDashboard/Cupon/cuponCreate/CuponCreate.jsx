@@ -20,7 +20,7 @@ const CategoryCreate = () => {
   // Ürünleri filtrele
   const filteredProducts = products?.filter((product) => {
     if (!searchTerm) return true;
-    // Ürün ismi varsa ona göre filtrele, yoksa tümünü göster
+
     return product.name?.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
@@ -29,31 +29,32 @@ const CategoryCreate = () => {
       <div className="cuponCreate">
         <form onSubmit={formik.handleSubmit}>
           <div className="cuponCreate">
-            <div className="leftSide">
-              <label
-                className="searchBar"
-                style={{ marginBottom: "2rem" }}
-                htmlFor=""
-              >
-                <div></div>
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Ürün ara..."
-                />
-              </label>
-
-              <div className="avatar">
-                <ProductTable
-                  currentItems={filteredProducts}
-                  productIds={formik.values.productIds}
-                  onToggleProduct={handleToggleProduct}
-                />
-              </div>
-            </div>
-
             <CuponForm formik={formik} isLoading={isLoading} />
+            {formik.values.isProductAssigned === "true" && (
+              <div className="leftSide">
+                <label
+                  className="searchBar"
+                  style={{ marginBottom: "2rem" }}
+                  htmlFor=""
+                >
+                  <div></div>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Ürün ara..."
+                  />
+                </label>
+
+                <div className="avatar">
+                  <ProductTable
+                    currentItems={filteredProducts}
+                    productIds={formik.values.productIds}
+                    onToggleProduct={handleToggleProduct}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </form>
       </div>
