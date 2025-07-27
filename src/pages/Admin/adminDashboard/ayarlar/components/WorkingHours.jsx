@@ -2,13 +2,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "./WorkingHours.scss";
 
-const WorkingHours = ({
-  isOpen,
-  onToggle,
-  days,
-  handleWorkingHoursChange,
-  getWorkingHourValue,
-}) => {
+const WorkingHours = ({ isOpen, onToggle, formik }) => {
+  const openCloseHours = formik.values?.openCloseHours;
+
+  const handleHourChange = (index, field, value) => {
+    const updatedHours = [...openCloseHours];
+    updatedHours[index][field] = value;
+    formik.setFieldValue("openCloseHours", updatedHours);
+  };
+
   return (
     <div className="workingHoursSection">
       <div className="workingHoursHeader" onClick={onToggle}>
@@ -18,23 +20,23 @@ const WorkingHours = ({
 
       {isOpen && (
         <div className="workingHoursContent">
-          {days.map((day) => (
-            <div key={day.key} className="dayRow">
-              <div className="dayLabel">{day.label}</div>
+          {openCloseHours?.map((day, index) => (
+            <div key={day.day} className="dayRow">
+              <div className="dayLabel">{day.day}</div>
               <div className="timeInputs">
                 <input
                   type="time"
-                  value={getWorkingHourValue(day.key, "hour")}
+                  value={day.hour}
                   onChange={(e) =>
-                    handleWorkingHoursChange(day.key, "hour", e.target.value)
+                    handleHourChange(index, "hour", e.target.value)
                   }
                 />
                 <span>-</span>
                 <input
                   type="time"
-                  value={getWorkingHourValue(day.key, "endHour")}
+                  value={day.endHour}
                   onChange={(e) =>
-                    handleWorkingHoursChange(day.key, "endHour", e.target.value)
+                    handleHourChange(index, "endHour", e.target.value)
                   }
                 />
               </div>

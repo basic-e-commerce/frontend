@@ -213,7 +213,7 @@ export default function Adres() {
                   value={address.districtId}
                   onChange={(e) => {
                     const selectedDistrict = districts.find(
-                      (district) => district.districtID == e.target.value
+                      (district) => district.districtId == e.target.value
                     );
                     dispatch(
                       updateAddress({
@@ -229,8 +229,8 @@ export default function Adres() {
                   <option value="">İlçe Seçiniz</option>
                   {districts.map((district) => (
                     <option
-                      key={district.districtID}
-                      value={district.districtID}
+                      key={district.districtId}
+                      value={district.districtId}
                     >
                       {district.name}
                     </option>
@@ -363,7 +363,7 @@ export default function Adres() {
                   value={invoiceAddress.districtId}
                   onChange={(e) => {
                     const selectedDistrict = districtsInvoice.find(
-                      (district) => district.districtID == e.target.value
+                      (district) => district.districtId == e.target.value
                     );
                     dispatch(
                       updateBillingAddress({
@@ -379,8 +379,8 @@ export default function Adres() {
                   <option value="">İlçe Seçiniz</option>
                   {districtsInvoice.map((district) => (
                     <option
-                      key={district.districtID}
-                      value={district.districtID}
+                      key={district.districtId}
+                      value={district.districtId}
                     >
                       {district.name}
                     </option>

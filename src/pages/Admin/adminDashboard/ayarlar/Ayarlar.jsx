@@ -1,38 +1,18 @@
 import "./Ayarlar.scss";
-import SettingsSkeleton from "./components/SettingsSkeleton";
-import { useSettingsForm } from "./hooks/useSettingsForm";
+import AyarForm from "./components/AyarForm";
 import StoreInfo from "./components/StoreInfo";
-import FormFields from "./components/FormFields";
 import WorkingHours from "./components/WorkingHours";
-import SubmitButton from "./components/SubmitButton";
+import { useAyarlar } from "./hooks";
 
 const Ayarlar = () => {
-  const {
-    isLoading,
-    formData,
-    isWorkingHoursOpen,
-    initialData,
-    days,
-    fields,
-    errors,
-    touched,
-    handleWorkingHoursChange,
-    getWorkingHourValue,
-    getNestedValue,
-    setIsWorkingHoursOpen,
-    handleChange,
-    handleSubmit,
-  } = useSettingsForm();
-
-  if (isLoading || !formData) {
-    return <SettingsSkeleton />;
-  }
+  const { isLoading, formik, cities, districts, onToggle, isOpen } =
+    useAyarlar();
 
   return (
     <div className="ayarlar">
       <div className="">
         <div className="ayarlarContent">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
             <div className="settingsForm">
               <div className="leftSide">
                 <StoreInfo />
@@ -40,23 +20,16 @@ const Ayarlar = () => {
 
               <div className="rightSection">
                 <WorkingHours
-                  isOpen={isWorkingHoursOpen}
-                  onToggle={() => setIsWorkingHoursOpen(!isWorkingHoursOpen)}
-                  days={days}
-                  handleWorkingHoursChange={handleWorkingHoursChange}
-                  getWorkingHourValue={getWorkingHourValue}
+                  isOpen={isOpen}
+                  onToggle={onToggle}
+                  formik={formik}
                 />
-
-                <FormFields
-                  fields={fields}
-                  formData={formData}
-                  handleChange={handleChange}
-                  errors={errors}
-                  touched={touched}
-                  getNestedValue={getNestedValue}
+                <AyarForm
+                  cities={cities}
+                  districts={districts}
+                  isLoading={isLoading}
+                  formik={formik}
                 />
-
-                <SubmitButton initialData={initialData} formData={formData} />
               </div>
             </div>
           </form>

@@ -45,7 +45,7 @@ const Header = () => {
     if (isLogin && role === "ADMIN") {
       nav.push({
         label: "Yönetim Paneli",
-        submenu: [{ to: "/admin/panel", label: "Admin Paneli" }],
+        submenu: [{ to: "/admins/dashboard", label: "Admin Paneli" }],
       });
     }
     nav.push(

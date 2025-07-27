@@ -1,0 +1,1 @@
+export { useAyarlar } from "./useAyarlar";

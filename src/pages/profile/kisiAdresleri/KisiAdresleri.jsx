@@ -315,7 +315,7 @@ const KisiAdresleri = () => {
                 >
                   <option value="">İlçe Seçin</option>
                   {districts?.map((item, index) => (
-                    <option key={index} value={item.districtID}>
+                    <option key={index} value={item.districtId}>
                       {item.name}
                     </option>
                   ))}
