@@ -25,17 +25,23 @@ const Dashboard = () => {
   const [endDate, setEndDate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const setOfDay = (date) => {
+  const setOfDayEnd = (date) => {
     const d = new Date(date);
     d.setUTCHours(23, 59, 59, 0); // Günün sonu UTC zaman diliminde
+    return d.toISOString();
+  };
+
+  const setOfDayStart = (date) => {
+    const d = new Date(date);
+    d.setUTCHours(0, 0, 0, 0); // Günün sonu UTC zaman diliminde
     return d.toISOString();
   };
 
   const getSatis = async () => {
     try {
       const response = await api.post(`${BASE_URL}/api/v1/sell/day-sell`, {
-        startDate: setOfDay(startDate),
-        endDate: setOfDay(endDate),
+        startDate: setOfDayStart(startDate),
+        endDate: setOfDayEnd(endDate),
         periodType: "DAY",
       });
       setSatisData(response.data);
@@ -49,8 +55,8 @@ const Dashboard = () => {
       const response = await api.post(
         `${BASE_URL}/api/v1/sell/customer-register`,
         {
-          startDate: setOfDay(startDate),
-          endDate: setOfDay(endDate),
+          startDate: setOfDayStart(startDate),
+          endDate: setOfDayEnd(endDate),
         }
       );
       setRegisterCustomerData(response.data);
@@ -62,8 +68,8 @@ const Dashboard = () => {
   const getPopulerProduct = async () => {
     try {
       const response = await api.post(`${BASE_URL}/api/v1/sell/sell-product`, {
-        startDate: setOfDay(startDate),
-        endDate: setOfDay(endDate),
+        startDate: setOfDayStart(startDate),
+        endDate: setOfDayEnd(endDate),
       });
       setPopulerProducts(response.data);
     } catch (error) {
@@ -97,8 +103,8 @@ const Dashboard = () => {
       const response = await api.post(
         `${BASE_URL}/api/v1/visitors/between-visitor`,
         {
-          startDate: setOfDay(startDate),
-          endDate: setOfDay(endDate),
+          startDate: setOfDayStart(startDate),
+          endDate: setOfDayEnd(endDate),
         }
       );
       setVisitor(response.data);
@@ -133,9 +139,17 @@ const Dashboard = () => {
     }
   }, [startDate, endDate]);
 
-  console.log(satisData);
+  useEffect(() => {
+    if (startDate === null && endDate === null) {
+      const today = new Date();
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(today.getDate() - 7);
 
-  // Loading durumunda skeleton göster
+      setStartDate(sevenDaysAgo);
+      setEndDate(today);
+    }
+  }, []);
+
   if (isLoading && startDate && endDate) {
     return <DashboardSkeleton />;
   }
