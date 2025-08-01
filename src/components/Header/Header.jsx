@@ -138,7 +138,7 @@ const Header = () => {
                   <span>Profilim</span>
                 </Link>
               ) : (
-                <Link to="/admin/panel" className="header-profile-link">
+                <Link to="/admins/dashboard" className="header-profile-link">
                   <PersonIcon className="icon" />
                   <span>Admin Paneli</span>
                 </Link>
