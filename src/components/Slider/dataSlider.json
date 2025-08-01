@@ -2,18 +2,18 @@
   "dataSlider": [
     {
       "img": "/images/slider/S1.jpeg",
-      "title": "Doğayla Uyumlu",
-      "subTitle": "Yaşam Alanları!"
+      "title": "Doğal Lezzetler",
+      "subTitle": "Köyden Sofranıza!"
     },
     {
       "img": "/images/slider/S2.jpeg",
-      "title": "Peyzajda",
-      "subTitle": "Estetik ve Fonksiyon!"
+      "title": "Yöreselin En Hâlisi",
+      "subTitle": "Dalından Gelen Sağlık!"
     },
     {
       "img": "/images/slider/S3.jpeg",
-      "title": "Her Metrekareye",
-      "subTitle": "Profesyonel Dokunuş!"
+      "title": "Peynirde Gelenek",
+      "subTitle": "Yılların Mayasıyla!"
     }
   ]
 }
