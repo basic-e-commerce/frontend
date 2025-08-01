@@ -1,0 +1,23 @@
+{
+  "magazaIsmi": "YöreSepeti",
+  "adres": "Cevatpaşa Mah. Barlar Sok. No:12/A, 17100 Merkez/Çanakkale",
+  "adres_linki": "https://maps.app.goo.gl/xyz123abc456",
+  "instagram": "@yoresepeti.canakkale",
+  "instagram_linki": "https://www.instagram.com/yoresepeti.canakkale/",
+  "telefon": "+90 532 123 45 67",
+  "telefon_linki": "tel:+905321234567",
+  "whatsapp_linki": "https://wa.me/905321234567",
+  "mail": "iletisim@yoresepeti.com",
+  "mail_linki": "mailto:iletisim@yoresepeti.com",
+  "footerDesc": "YöreSepeti, Çanakkale'nin bereketli topraklarından sofralarınıza doğal, katkısız ve geleneksel ürünler sunar. Yerel üreticileri desteklerken sizlere en taze ve güvenilir lezzetleri ulaştırıyoruz.",
+  "kategoriler": [
+    "Doğal ve Katkısız Ürünler",
+    "Ev Yapımı Reçel & Soslar",
+    "Yöresel Zeytin & Zeytinyağları",
+    "Organik Unlu Mamuller",
+    "Kuruyemiş & Bakliyat"
+  ],
+  "logo": "/images/logo/logo5.png",
+  "haftaIcı": "09.00 - 20.00",
+  "haftaSonu": "10.00 - 18.00"
+}

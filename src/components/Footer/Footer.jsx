@@ -2,6 +2,7 @@ import "./Footer.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
+import data from "../../data.json";
 
 const Footer = () => {
   return (
@@ -10,38 +11,23 @@ const Footer = () => {
         <div className="footerItem">
           <div className="logo">
             <a href="/">
-              {/* <img
-                src="/images/logo/peynirharmanılogowebson.png"
-                alt="Akıllı Logo"
-              /> */}
-              <h1>LOGO</h1>
+              <img src="/images/logo/logo.png" alt="Akıllı Logo" />
             </a>
           </div>
           <div className="metin">
-            <p>
-              Kayayapı İnşaat, Çanakkale&apos;de güven ve kaliteyi temel alarak
-              modern yaşam alanları inşa ediyor.
-            </p>
-            <p>
-              Sağlam temeller, güçlü yapılar ve mutlu yaşam alanları için
-              buradayız.
-            </p>
+            <p>{data.footerDesc}</p>
           </div>
         </div>
 
         <div className="footerItem">
-          <h3>Hizmetlerimiz</h3>
+          <h3>Ürün Gamımız</h3>
           <hr />
           <ul className="footerHizmet">
-            <li>
-              <span>Proje Tasarımı ve Planlama</span>
-            </li>
-            <li>
-              <span>Anahtar Teslim İnşaat</span>
-            </li>
-            <li>
-              <span>Restorasyon ve Renovasyon</span>
-            </li>
+            {data.kategoriler.map((item, index) => (
+              <li key={index}>
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -52,9 +38,10 @@ const Footer = () => {
             <li className="sag">
               <div className="yeap">
                 <PhoneIcon />
-                <a href="tel:+905386363206">
+
+                <a href={data.telefon_linki}>
                   <span style={{ marginRight: "-0.5rem" }} className="ici">
-                    5386363206
+                    {data.telefon}
                   </span>
                 </a>
               </div>
@@ -64,10 +51,10 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.instagram.com/kayayapiinsaat_17"
+                href={data.instagram_linki}
               >
                 <InstagramIcon />
-                <span>kayayapiinsaat_17</span>
+                <span>{data.instagram}</span>
               </a>
             </li>
 
@@ -75,13 +62,10 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://maps.app.goo.gl/CPBNeTykSFdNv9vK9"
+                href={data.adres_linki}
               >
                 <MapIcon />
-                <span>
-                  İsmetpaşa, 2. Karanfil Sk. No:19/1, 17000 Çanakkale
-                  Merkez/Çanakkale
-                </span>
+                <span>{data.adres}</span>
               </a>
             </li>
           </ul>
@@ -92,7 +76,7 @@ const Footer = () => {
 
       <div className="container">
         <p style={{ fontSize: "0.85rem" }}>
-          Copyright 2025 © Peynir Harmanı. Bütün Hakları Saklıdır.
+          Copyright 2025 © {data.magazaIsmi}. Bütün Hakları Saklıdır.
         </p>
       </div>
     </footer>

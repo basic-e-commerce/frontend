@@ -3,14 +3,14 @@
   "desc": "Her üründe kaliteyi ve güveni önceliklendirerek, iş ortaklarımızın üretim süreçlerine değer katmayı hedefliyoruz.",
   "founderData": [
     {
-      "img": "/images/acardion/1.jpeg",
-      "name": "Hasan H. Yıldırım",
-      "job": "Peyzaj Mimarı"
+      "img": "/images/acardion/1.jpg",
+      "name": "Peynir",
+      "job": "Peynirin en doğal hali"
     },
     {
       "img": "/images/acardion/2.jpg",
-      "name": "Hüseyin Elbilek",
-      "job": "Peyzaj Mimarı"
+      "name": "Zeytin",
+      "job": "Tarlamızdan Sofranıza"
     }
   ]
 }

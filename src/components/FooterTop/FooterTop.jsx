@@ -1,6 +1,7 @@
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 import "./FooterTop.scss";
+import data from "../../data.json";
 
 const FooterTop = () => {
   return (
@@ -10,13 +11,13 @@ const FooterTop = () => {
           <PhoneIcon fontSize="large" className="iconDikkat" />
 
           <div className="infoDikkat">
-            <h3>Bizlere Ulaşın: +90 538 636 3206</h3>
+            <h3>Bizlere Ulaşın: {data.telefon}</h3>
             <p>
               Yukarıdaki telefon numarası ile gönül rahatlığıyla iletişim
-              kurabilirsiniz. Telefonumuz sizlere 7/24 açık
+              kurabilirsiniz.
             </p>
             <div>
-              <a href="tel:+905386363206">
+              <a href={data.telefon_linki}>
                 <button>Hemen Ara</button>
               </a>
             </div>
@@ -28,15 +29,9 @@ const FooterTop = () => {
 
           <div className="infoDikkat">
             <h3>Adres İçin</h3>
-            <p>
-            İsmetpaşa, 2. Karanfil Sk. No:19/1, 17000 Çanakkale
-            Merkez/Çanakkale
-            </p>
+            <p>{data.adres}</p>
             <div>
-              <a
-                target="_blank"
-                href="https://maps.app.goo.gl/CPBNeTykSFdNv9vK9"
-              >
+              <a target="_blank" href={data.adres_linki}>
                 <button>Yol Tarifi Al</button>
               </a>
             </div>

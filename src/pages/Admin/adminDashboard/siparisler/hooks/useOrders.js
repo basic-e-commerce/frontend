@@ -36,12 +36,12 @@ export const useOrders = () => {
         selectedTab === "PENDING" || selectedTab === "APPROVED"
           ? {
               sortBy: "createdAt",
-              sortDirection: "asc",
+              sortDirection: "desc",
               paymentStatus: selectedTab,
             }
           : {
               sortBy: "createdAt",
-              sortDirection: "asc",
+              sortDirection: "desc",
               paymentStatus: "APPROVED",
               statusCode: selectedTab,
             }

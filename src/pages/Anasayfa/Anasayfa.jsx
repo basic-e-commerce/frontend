@@ -78,10 +78,26 @@ const Anasayfa = () => {
 
       <div className="slider">
         <div className="slider-track">
-          {Array.from({ length: 37 }, (_, index) => (
+          {Array.from({ length: 8 }, (_, index) => (
             <div key={index} className="slide">
               <img
-                src={`/images/karePost/1 (${index + 1}).jpeg`}
+                src={`/images/karePost/${index + 1}.jpeg`}
+                alt={"detay peyzaj"}
+              />
+            </div>
+          ))}
+          {Array.from({ length: 8 }, (_, index) => (
+            <div key={index} className="slide">
+              <img
+                src={`/images/karePost/${index + 1}.jpeg`}
+                alt={"detay peyzaj"}
+              />
+            </div>
+          ))}
+          {Array.from({ length: 8 }, (_, index) => (
+            <div key={index} className="slide">
+              <img
+                src={`/images/karePost/${index + 1}.jpeg`}
                 alt={"detay peyzaj"}
               />
             </div>
