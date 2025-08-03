@@ -1,0 +1,173 @@
+@import "../../../styles/_variables.scss";
+
+.siparisOdemeSectionSkleton {
+  display: flex;
+  gap: 2rem;
+  margin: 0 auto;
+  margin-top: calc(140px + 2rem);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+    margin-top: calc(110px + 2rem);
+  }
+}
+
+.formOdeme {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardOdeme {
+  border-radius: 20px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: shimmer 2s infinite;
+  }
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+// Skeleton Animation
+.skeleton-animation {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+// Skeleton Elements
+.skeleton-title {
+  height: 32px;
+  width: 200px;
+  margin-bottom: 2rem;
+}
+
+.skeleton-input {
+  height: 48px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-input-small {
+  height: 48px;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .skeleton-input-small {
+    flex: 1;
+  }
+}
+
+.skeleton-select {
+  height: 48px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-payment-cards {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.skeleton-button {
+  height: 56px;
+  width: 100%;
+  border-radius: 28px;
+}
+
+// Order Summary Skeleton
+.skeleton-order-summary {
+  flex: 0 0 350px;
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+
+  @media (max-width: 768px) {
+    flex: none;
+    width: 100%;
+  }
+}
+
+.skeleton-summary-title {
+  height: 24px;
+  width: 150px;
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-summary-items {
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-summary-item {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.skeleton-summary-total {
+  height: 32px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .siparisOdemeSection {
+    flex-direction: column;
+  }
+
+  .skeleton-order-summary {
+    order: -1;
+  }
+
+  .cardOdeme {
+    padding: 1.5rem;
+  }
+}

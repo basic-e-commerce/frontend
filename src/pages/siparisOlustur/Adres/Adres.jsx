@@ -133,8 +133,6 @@ export default function Adres() {
     // city ve districtId artık burada değil, select ile aşağıda eklenecek
   ];
 
-  console.log(invoiceAddress);
-
   return (
     <div className="siparisAdresSection">
       <Paper sx={{ boxShadow: 4, borderRadius: 1 }} className="formAdres">

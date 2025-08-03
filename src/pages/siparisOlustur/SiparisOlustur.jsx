@@ -3,10 +3,18 @@ import "./SiparisOlustur.scss";
 import Adres from "./Adres/Adres";
 import Odeme from "./Odeme/Odeme";
 import { Step, StepLabel, Stepper } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import OdemeSkeleton from "./Odeme/OdemeSkeleton";
+import { fetchCartItemsLoggedIn } from "../../redux/slices/sepetCartSlice";
+import { useNavigate } from "react-router-dom";
 
 const SiparisOlustur = () => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Adres Bilgisi", "Ödeme"];
+  const { isAuthChecked, isLogin } = useSelector((state) => state.authSlice);
+  const { baslangıcState } = useSelector((state) => state.sepet);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -34,6 +42,21 @@ const SiparisOlustur = () => {
         return null;
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    if (isAuthChecked) {
+      if (isLogin) {
+        const response = dispatch(fetchCartItemsLoggedIn());
+        console.log(response);
+      } else {
+        if (!(baslangıcState.length > 0)) navigate("/kategoriler");
+      }
+    }
+  }, [isAuthChecked]);
+
+  if (!isAuthChecked) {
+    return <OdemeSkeleton />;
+  }
 
   return (
     <div className="SiparisOlustur">

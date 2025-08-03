@@ -135,7 +135,7 @@ const Odeme = () => {
   };
 
   return (
-    <div className="siparisOdemeSection">
+    <div className="siparisOdemeSection container">
       <Paper
         sx={{ boxShadow: 4, padding: "3.5rem 3rem", borderRadius: 1 }}
         className="formOdeme"

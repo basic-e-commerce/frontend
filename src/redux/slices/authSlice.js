@@ -7,7 +7,7 @@ const initialState = {
   lastName: "",
   userName: "",
   role: "",
-  isAuthChecked: false, // 👈 yeni eklendi
+  isAuthChecked: false,
 };
 
 const authSlice = createSlice({
