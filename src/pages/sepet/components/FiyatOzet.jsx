@@ -70,10 +70,6 @@ const FiyatOzet = ({ cartItems, isCartEmpty }) => {
             Alışverişi Tamamla
           </button>
         </Link>
-
-        <div className="uygulanmisKupon">
-          {cartItems?.couponCustomerResponseDto?.code}
-        </div>
       </Paper>
     </div>
   );

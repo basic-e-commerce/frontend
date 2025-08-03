@@ -97,6 +97,12 @@ const Odeme = () => {
           document.close();
         } else {
           console.log("Beklenen HTML formatı değil:", response.data);
+          dispatch(
+            showAlertWithTimeout({
+              message: "Beklenen HTML formatı değil",
+              status: "error",
+            })
+          );
         }
       } catch (error) {
         dispatch(

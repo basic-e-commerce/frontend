@@ -24,12 +24,12 @@ const Sepet = () => {
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const { isLoading } = useSelector((state) => state.loading);
   const [cuponText, setCuponText] = useState("");
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   useEffect(() => {
     if (!isAuthChecked) return;
 
     const fetchData = async () => {
-      dispatch(setLoading({ isLoading: true, message: "Sepet yukleniyor..." }));
       try {
         if (isLogin) {
           await dispatch(fetchCartItemsLoggedIn()).unwrap();
@@ -45,13 +45,11 @@ const Sepet = () => {
             })
           );
         }, 400);
-      } finally {
-        dispatch(clearLoading());
       }
     };
 
     fetchData();
-  }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
+  }, [baslangıcState, dispatch, isLogin, isAuthChecked, isSubmiting]);
 
   const updateQuantity = async (item, change) => {
     if (isLogin) {
@@ -64,7 +62,7 @@ const Sepet = () => {
             },
           ],
         });
-        dispatch(fetchCartItemsLoggedIn());
+        await dispatch(fetchCartItemsLoggedIn()).unwrap();
       } catch (error) {
         console.log(error);
       }
@@ -78,6 +76,7 @@ const Sepet = () => {
     dispatch(setLoading({ isLoading: true, message: "Sepet yukleniyor..." }));
     try {
       await api.put(`${BASE_URL}/api/v1/card/add-coupon?code=${cuponText}`);
+      setIsSubmiting((prev) => !prev);
       setTimeout(() => {
         dispatch(
           showAlertWithTimeoutKullanici({
@@ -90,13 +89,46 @@ const Sepet = () => {
       setTimeout(() => {
         dispatch(
           showAlertWithTimeoutKullanici({
+            message: error.response?.data?.error || "Böyle bir kupon yok",
+            status: "error",
+          })
+        );
+      }, 700);
+    } finally {
+      setCuponText("");
+      setTimeout(() => {
+        dispatch(clearLoading());
+      }, 300);
+    }
+  };
+
+  const handleRemoveCoupon = async () => {
+    dispatch(setLoading({ isLoading: true, message: "Sepet yukleniyor..." }));
+    try {
+      await api.put(`${BASE_URL}/api/v1/card/remove-coupon`);
+      setIsSubmiting((prev) => !prev);
+
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: "Kupon Başarıyla Kaldırıldı!",
+            status: "success",
+          })
+        );
+      }, 400);
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(
+          showAlertWithTimeoutKullanici({
             message: error.response.data,
             status: "error",
           })
         );
-      }, 400);
+      }, 700);
     } finally {
-      dispatch(clearLoading());
+      setTimeout(() => {
+        dispatch(clearLoading());
+      }, 300);
     }
   };
 
@@ -129,7 +161,7 @@ const Sepet = () => {
               </p>
             </div>
 
-            {isLogin && (
+            {isLogin && !cartItems?.couponCustomerResponseDto?.code && (
               <div
                 className={
                   !cartItems?.details?.length > 0 ? "cuppon none" : "cuppon"
@@ -144,6 +176,17 @@ const Sepet = () => {
                   />
                   <button type="submit">Uygula</button>
                 </form>
+              </div>
+            )}
+
+            {cartItems?.couponCustomerResponseDto?.code && (
+              <div className="uygulanmisKuponChip">
+                <span className="kuponKod">
+                  {cartItems?.couponCustomerResponseDto?.code}
+                </span>
+                <button className="kapatButonu" onClick={handleRemoveCoupon}>
+                  ×
+                </button>
               </div>
             )}
 

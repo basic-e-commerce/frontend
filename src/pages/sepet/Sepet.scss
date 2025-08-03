@@ -221,6 +221,39 @@
     .none {
       display: none;
     }
+
+    .uygulanmisKuponChip {
+      display: inline-flex;
+      align-items: center;
+      background-color: #e0e0e0;
+      color: black;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 14px;
+      margin-top: -2rem;
+      position: relative;
+      width: fit-content;
+
+      .kuponKod {
+        margin-right: 8px;
+        font-weight: 500;
+      }
+
+      .kapatButonu {
+        background: none;
+        border: none;
+        color: #006064;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        padding: 0;
+      }
+
+      &:hover {
+        opacity: 0.8;
+        cursor: po;
+      }
+    }
   }
   .none {
     display: none;

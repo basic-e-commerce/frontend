@@ -13,8 +13,52 @@ const SiparisOlustur = () => {
   const steps = ["Adres Bilgisi", "Ödeme"];
   const { isAuthChecked, isLogin } = useSelector((state) => state.authSlice);
   const { baslangıcState, cartItems } = useSelector((state) => state.sepet);
+  const {
+    address,
+    invoiceAddress,
+    billingSame,
+    invoiceType,
+    corporateInvoice,
+  } = useSelector((state) => state.siparisSlice);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isStepValid = () => {
+    const isAddressFilled =
+      address.firstName &&
+      address.lastName &&
+      address.username &&
+      address.city &&
+      address.cityCode &&
+      address.district &&
+      address.districtId &&
+      address.addressLine1 &&
+      address.postalCode &&
+      address.phoneNo;
+
+    const isInvoiceAddressFilled = billingSame
+      ? true
+      : invoiceAddress.firstName &&
+        invoiceAddress.lastName &&
+        invoiceAddress.username &&
+        invoiceAddress.city &&
+        invoiceAddress.cityCode &&
+        invoiceAddress.district &&
+        invoiceAddress.districtId &&
+        invoiceAddress.addressLine1 &&
+        invoiceAddress.postalCode &&
+        invoiceAddress.phoneNo;
+
+    const isCorporateValid =
+      invoiceType === "CORPORATE"
+        ? corporateInvoice.taxOffice &&
+          corporateInvoice.taxNumber &&
+          corporateInvoice.companyName
+        : true;
+
+    return isAddressFilled && isInvoiceAddressFilled && isCorporateValid;
+  };
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -75,6 +119,8 @@ const SiparisOlustur = () => {
     return <OdemeSkeleton />;
   }
 
+  console.log(invoiceAddress);
+
   return (
     <div className="SiparisOlustur">
       <div className="container">
@@ -106,8 +152,9 @@ const SiparisOlustur = () => {
             {activeStep !== steps.length - 1 && (
               <button
                 id="bitirButtonuu"
-                className="button"
+                className={isStepValid() ? "button" : "buttonDisabled"}
                 onClick={handleNext}
+                disabled={!isStepValid()}
               >
                 İleri
               </button>

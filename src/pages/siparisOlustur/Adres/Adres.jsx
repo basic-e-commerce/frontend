@@ -8,6 +8,7 @@ import {
   updateFarkliAdres,
   resetAdress,
   updataSelectedAdresId,
+  resetCheckout,
 } from "../../../redux/slices/siparisSlice";
 import { Paper } from "@mui/material";
 import "./Adres.scss";
@@ -19,6 +20,9 @@ import {
 } from "../../../redux/slices/sepetCartSlice";
 import { getAdress, getCity, getDistrict } from "../../../api/apiAdress";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
+import OdemeSkeleton from "../Odeme/OdemeSkeleton";
+import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
 
 export default function Adres() {
   const dispatch = useDispatch();
@@ -34,6 +38,7 @@ export default function Adres() {
   const { status, baslangıcState, cartItems } = useSelector(
     (state) => state.sepet
   );
+  const { isLoading } = useSelector((state) => state.loading);
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
   const [addressesOlan, setAddressesOlan] = useState([]);
 
@@ -49,7 +54,12 @@ export default function Adres() {
       }
       setAddressesOlan(response);
     } catch (error) {
-      console.error("Adresler alınırken hata oluştu:", error);
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message,
+          status: "error",
+        })
+      );
     }
   };
 
@@ -83,14 +93,34 @@ export default function Adres() {
   useEffect(() => {
     if (!isAuthChecked) return;
 
-    if (isLogin) {
-      dispatch(fetchCartItemsLoggedIn());
-      fetchAddresses();
-    } else {
-      dispatch(fetchCartItems(baslangıcState));
-      dispatch(updateFarkliAdres(true));
-    }
-    fetchCity();
+    const fetchData = async () => {
+      dispatch(setLoading({ isLoading: true, message: "Yükleniyor" }));
+      dispatch(resetCheckout());
+
+      try {
+        if (isLogin) {
+          await dispatch(fetchCartItemsLoggedIn()).unwrap();
+          await fetchAddresses();
+        } else {
+          await dispatch(fetchCartItems(baslangıcState)).unwrap();
+          dispatch(updateFarkliAdres(true));
+        }
+        await fetchCity();
+      } catch (error) {
+        dispatch(
+          showAlertWithTimeout({
+            message: error.message,
+            status: "error",
+          })
+        );
+      } finally {
+        setTimeout(() => {
+          dispatch(clearLoading());
+        }, 350);
+      }
+    };
+
+    fetchData();
   }, [baslangıcState, dispatch, isLogin, isAuthChecked]);
 
   useEffect(() => {
@@ -119,6 +149,12 @@ export default function Adres() {
     { key: "addressLine1", placeholder: "Adres" },
     { key: "postalCode", placeholder: "Posta Kodu" },
   ];
+
+  if (isLoading || !status == "LOADING") {
+    return <OdemeSkeleton />;
+  }
+
+  console.log(address, invoiceAddress);
 
   return (
     <div className="siparisAdresSection">
