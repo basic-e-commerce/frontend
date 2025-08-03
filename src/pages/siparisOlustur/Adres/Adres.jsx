@@ -52,6 +52,7 @@ export default function Adres() {
       console.error("Adresler alınırken hata oluştu:", error);
     }
   };
+
   const fetchCity = async () => {
     try {
       const response = await getCity();
@@ -106,19 +107,6 @@ export default function Adres() {
 
   const selectedAdres = (adres) => {
     dispatch(updataSelectedAdresId(adres.id));
-    const addressNew = {
-      title: adres.title,
-      firstName: adres.firstName,
-      lastName: adres.lastName,
-      username: adres.username,
-      addressLine1: adres.addressLine1,
-      phoneNo: adres.phoneNo,
-      postalCode: adres.postalCode,
-      cityCode: adres.cityCode,
-      districtId: adres.districtId,
-      countryName: adres.countryName,
-    };
-
     dispatch(updateAddress(adres));
   };
 
@@ -130,7 +118,6 @@ export default function Adres() {
     { key: "phoneNo", placeholder: "Telefon" },
     { key: "addressLine1", placeholder: "Adres" },
     { key: "postalCode", placeholder: "Posta Kodu" },
-    // city ve districtId artık burada değil, select ile aşağıda eklenecek
   ];
 
   return (
