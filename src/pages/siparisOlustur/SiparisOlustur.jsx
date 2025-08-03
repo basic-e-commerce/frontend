@@ -45,12 +45,27 @@ const SiparisOlustur = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthChecked) {
-        if (isLogin) {
+      if (!isAuthChecked) return;
+
+      if (isLogin) {
+        try {
           const response = await dispatch(fetchCartItemsLoggedIn()).unwrap();
-          console.log(response); // burada array geliyor mu kontrol et
-        } else {
-          if (!(baslangıcState.length > 0)) navigate("/kategoriler");
+          const hasCartItems =
+            Array.isArray(response?.details) && response.details.length > 0;
+
+          if (!hasCartItems) {
+            navigate("/kategoriler");
+          }
+        } catch (error) {
+          console.error("Sepet verisi alınırken hata:", error);
+          navigate("/kategoriler"); // Hata varsa da güvenli şekilde yönlendir.
+        }
+      } else {
+        const hasLocalCart =
+          Array.isArray(baslangıcState) && baslangıcState.length > 0;
+
+        if (!hasLocalCart) {
+          navigate("/kategoriler");
         }
       }
     };
