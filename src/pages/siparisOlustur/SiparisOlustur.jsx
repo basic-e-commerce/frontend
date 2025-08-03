@@ -12,7 +12,7 @@ const SiparisOlustur = () => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Adres Bilgisi", "Ödeme"];
   const { isAuthChecked, isLogin } = useSelector((state) => state.authSlice);
-  const { baslangıcState } = useSelector((state) => state.sepet);
+  const { baslangıcState, cartItems } = useSelector((state) => state.sepet);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,15 +44,19 @@ const SiparisOlustur = () => {
   }, [activeStep]);
 
   useEffect(() => {
-    if (isAuthChecked) {
-      if (isLogin) {
-        const response = dispatch(fetchCartItemsLoggedIn());
-        console.log(response);
-      } else {
-        if (!(baslangıcState.length > 0)) navigate("/kategoriler");
+    const fetchData = async () => {
+      if (isAuthChecked) {
+        if (isLogin) {
+          const response = await dispatch(fetchCartItemsLoggedIn()).unwrap();
+          console.log(response); // burada array geliyor mu kontrol et
+        } else {
+          if (!(baslangıcState.length > 0)) navigate("/kategoriler");
+        }
       }
-    }
-  }, [isAuthChecked]);
+    };
+
+    fetchData();
+  }, [isAuthChecked, isLogin, baslangıcState]);
 
   if (!isAuthChecked) {
     return <OdemeSkeleton />;
