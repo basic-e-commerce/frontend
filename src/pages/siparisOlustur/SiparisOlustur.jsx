@@ -44,7 +44,7 @@ const SiparisOlustur = () => {
   }, [activeStep]);
 
   useEffect(() => {
-    if (!isAuthChecked) return <OdemeSkeleton />;
+    if (!isAuthChecked) return;
 
     const fetchData = async () => {
       if (isLogin) {
