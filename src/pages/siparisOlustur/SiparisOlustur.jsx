@@ -44,28 +44,26 @@ const SiparisOlustur = () => {
   }, [activeStep]);
 
   useEffect(() => {
+    if (!isAuthChecked) return;
+
     const fetchData = async () => {
-      if (isAuthChecked) {
-        if (isLogin) {
-          try {
-            const response = await dispatch(fetchCartItemsLoggedIn()).unwrap();
-            const hasCartItems =
-              Array.isArray(response?.details) && response.details.length > 0;
-
-            if (!hasCartItems) {
-              navigate("/kategoriler");
-            }
-          } catch (error) {
-            console.error("Sepet verisi alınırken hata:", error);
-            navigate("/kategoriler"); // Hata varsa da güvenli şekilde yönlendir.
-          }
-        } else {
-          const hasLocalCart =
-            Array.isArray(baslangıcState) && baslangıcState.length > 0;
-
-          if (!hasLocalCart) {
+      if (isLogin) {
+        try {
+          const response = await dispatch(fetchCartItemsLoggedIn()).unwrap();
+          const hasCartItems =
+            Array.isArray(response?.details) && response.details.length > 0;
+          if (!hasCartItems) {
             navigate("/kategoriler");
           }
+        } catch (error) {
+          console.error("Sepet verisi alınırken hata:", error);
+          navigate("/kategoriler");
+        }
+      } else {
+        const hasLocalCart =
+          Array.isArray(baslangıcState) && baslangıcState.length > 0;
+        if (!hasLocalCart) {
+          navigate("/kategoriler");
         }
       }
     };
