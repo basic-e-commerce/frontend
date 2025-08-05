@@ -13,8 +13,10 @@
 
     img {
       width: 100%;
-      aspect-ratio: 5 / 4;
       border-radius: 10px;
+      object-fit: contain;
+      border: 1px solid lightgray;
+      padding: 10px;
     }
   }
 

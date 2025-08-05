@@ -25,27 +25,58 @@ export const useOrders = () => {
     "RETURNED",
   ];
   const [selectedTab, setSelectedTab] = useState("PENDING");
+  const TAB_FILTERS = {
+    PENDING: {
+      paymentStatus: "PROCESS",
+      orderStatus: "PENDING",
+      orderPackageStatusCode: null,
+      refundOrder: false,
+    },
+    APPROVED: {
+      paymentStatus: "SUCCESS",
+      orderStatus: "APPROVED",
+      orderPackageStatusCode: null,
+      refundOrder: false,
+    },
+    PRE_TRANSIT: {
+      paymentStatus: "SUCCESS",
+      orderStatus: "APPROVED",
+      orderPackageStatusCode: "PRE_TRANSIT",
+      refundOrder: false,
+    },
+    TRANSIT: {
+      paymentStatus: "SUCCESS",
+      orderStatus: "APPROVED",
+      orderPackageStatusCode: "TRANSIT",
+      refundOrder: false,
+    },
+    DELIVERED: {
+      paymentStatus: "SUCCESS",
+      orderStatus: "APPROVED",
+      orderPackageStatusCode: "DELIVERED",
+      refundOrder: false,
+    },
+    RETURNED: {
+      refundOrder: true,
+    },
+  };
 
   const fetchAdminOrder = async () => {
     dispatch(
       setLoading({ isLoading: true, message: "Siparişler yükleniyor..." })
     );
     try {
+      const filterPayload = {
+        ...TAB_FILTERS[selectedTab],
+        sortBy: "createdAt",
+        sortDirection: "desc",
+      };
+
       const response = await api.post(
         `${BASE_URL}/api/v1/order/filter?page=0&size=100`,
-        selectedTab === "PENDING" || selectedTab === "APPROVED"
-          ? {
-              sortBy: "createdAt",
-              sortDirection: "desc",
-              paymentStatus: selectedTab,
-            }
-          : {
-              sortBy: "createdAt",
-              sortDirection: "desc",
-              paymentStatus: "APPROVED",
-              statusCode: selectedTab,
-            }
+        filterPayload
       );
+
       setOrders(response.data);
     } catch (error) {
       dispatch(
