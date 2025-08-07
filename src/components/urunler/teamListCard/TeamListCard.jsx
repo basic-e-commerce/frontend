@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import "./TeamListCard.scss";
 
 function TeamlisCard({ product }) {
-  console.log(product);
-
   return (
     <div className="glide__slide">
       <Link to={`/urunler/${product.linkName}`} className="card">

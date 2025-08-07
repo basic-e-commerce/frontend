@@ -4,8 +4,6 @@ import FadeInSection from "../../FadeInSection/FadeInSection";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 const List = ({ toggleSidebar, currentItems, products, categoryName }) => {
-  console.log(products);
-
   return (
     <div className="projeList">
       <div className="title">

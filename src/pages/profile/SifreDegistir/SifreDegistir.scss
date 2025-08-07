@@ -27,17 +27,18 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-    }
-    input,
-    select {
-      width: 40%;
-      padding: 12px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      outline: none;
-      transition: border-color 0.2s ease;
+
+      input,
+      select {
+        width: 40%;
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
     }
 
     input:focus {
@@ -47,7 +48,7 @@
 
   .button {
     text-align: end;
-    button {
+    .normalButton {
       margin-top: 1rem;
       background: black;
       color: white;
@@ -60,6 +61,18 @@
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    .disabledButton {
+      margin-top: 1rem;
+      background: lightgray;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      transition: 0.2s ease;
+      padding: 15px 30px;
+      cursor: default;
     }
   }
 

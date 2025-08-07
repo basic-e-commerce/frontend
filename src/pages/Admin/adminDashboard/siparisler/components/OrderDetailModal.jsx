@@ -3,8 +3,6 @@ const OrderDetailModal = ({ order, onClose }) => {
   const kargoData = order?.orderStatusResponse?.orderPackages[0];
   const kargoIade = order?.orderStatusResponse?.refundOrderPackages[0];
 
-  console.log(kargoData);
-
   return (
     <div className="modal-overlay">
       <div className="modal">

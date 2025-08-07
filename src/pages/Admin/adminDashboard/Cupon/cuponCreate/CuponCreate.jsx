@@ -14,7 +14,6 @@ const CategoryCreate = () => {
       ? prev.filter((pid) => pid !== id)
       : [...prev, id];
     formik.setFieldValue("productIds", newProductIds);
-    console.log("Seçili ürünler:", newProductIds);
   };
 
   // Ürünleri filtrele

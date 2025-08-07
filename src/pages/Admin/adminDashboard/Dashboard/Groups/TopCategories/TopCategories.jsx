@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const COLORS = ["#1F1F1F", "#8C8C8C", "#E0E0E0"]; // Sırasıyla Ürün 1-2-3
 
 const TopCategoriesCard = ({ sepets }) => {
-  console.log(sepets);
   const pieData = sepets?.slice(0, 3).map((item, index) => ({
     name: item.productName,
     value: item.quantity,

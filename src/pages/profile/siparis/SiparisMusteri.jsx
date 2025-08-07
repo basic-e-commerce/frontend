@@ -50,8 +50,6 @@ const SiparisMusteri = () => {
     }
   };
 
-  console.log(selectedOrder);
-
   return (
     <div className="siparisBilgileri">
       <div className="title">

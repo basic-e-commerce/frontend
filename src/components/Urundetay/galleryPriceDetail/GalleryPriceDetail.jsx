@@ -8,7 +8,6 @@ import FiyatActions from "../fiyatActions/FiyatActions";
 
 const GalleryPriceDetail = ({ productDetail }) => {
   const { productDetailCover } = useSelector((state) => state.products);
-  console.log(productDetail);
 
   return (
     <div className="container">

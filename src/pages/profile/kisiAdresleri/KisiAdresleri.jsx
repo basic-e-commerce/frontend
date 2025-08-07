@@ -33,8 +33,6 @@ const KisiAdresleri = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [addresses, setAddresses] = useState([]);
 
-  console.log(selectedId);
-
   const fetchAddresses = async () => {
     try {
       const response = await getAdress();

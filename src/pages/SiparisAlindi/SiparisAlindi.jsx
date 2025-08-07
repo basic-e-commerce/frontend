@@ -23,7 +23,7 @@ const SiparisAlindi = () => {
         const response = await axios.get(
           `${BASE_URL}/api/v1/order/by-order-code?orderCode=${orderCode}`
         );
-        console.log("Gelen veri:", response.data);
+
         setOrderDetails(response.data);
       } catch (error) {
         console.error("Sipariş detayı alınamadı:", error);

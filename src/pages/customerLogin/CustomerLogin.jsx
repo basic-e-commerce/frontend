@@ -23,9 +23,6 @@ function CustomerLogin() {
           <div className="loginSectionLeft">
             <div className="title">
               <h2>Üye Ol</h2>
-              <div className="socialMedia">
-                <InstagramIcon />
-              </div>
             </div>
             <CustomerLoginForm formik={formik} />
           </div>

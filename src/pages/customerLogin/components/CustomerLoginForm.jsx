@@ -71,7 +71,7 @@ const CustomerLoginForm = ({ formik }) => {
             className={formik.isSubmitting ? "disabled" : "btn-card"}
             disabled={formik.isSubmitting}
           >
-            Giriş Yap
+            Üye Ol
           </button>
         </div>
       </Form>

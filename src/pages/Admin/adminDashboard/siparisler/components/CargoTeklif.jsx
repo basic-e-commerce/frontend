@@ -49,8 +49,6 @@ const CargoTeklif = ({
   submitSiparisCargo,
   orderCode,
 }) => {
-  console.log(responseTeklifData);
-
   if (stepLoading) {
     return <CargoInfoSkeleton />;
   }

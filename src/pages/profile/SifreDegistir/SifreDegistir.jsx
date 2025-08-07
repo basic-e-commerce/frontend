@@ -1,32 +1,15 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./SifreDegistir.scss";
-import api from "../../../api/api";
+import { SifreDegistirForm, SifreDegistirSkeleton } from "./components";
+import { useSifreDegistir } from "./hooks";
 
 const SifreDegistir = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [reNewPassword, setReNewPassword] = useState("");
+  const { handleSubmit } = useSifreDegistir();
+  const { isLoading } = useSelector((state) => state.loading);
 
-  const submit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await api.put(
-        "http://localhost:8083/api/v1/customer/update-password",
-        {
-          oldPassword: oldPassword,
-          password: newPassword,
-          rePassword: reNewPassword,
-        }
-      );
-
-      setNewPassword("");
-      setOldPassword("");
-      setReNewPassword("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  if (isLoading) {
+    return <SifreDegistirSkeleton />;
+  }
 
   return (
     <div className="sifreDegistir">
@@ -35,50 +18,7 @@ const SifreDegistir = () => {
       </div>
 
       <hr />
-      <form onSubmit={submit} className="bars">
-        <label>
-          Eski Şifre:
-          <input
-            type="password"
-            name="oldPassword"
-            id="current-password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-            autoComplete="off"
-          />
-        </label>
-
-        <label>
-          Yeni Şifre:
-          <input
-            type="password"
-            name="newPassword"
-            id="new-password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            autoComplete="off"
-            required
-          />
-        </label>
-
-        <label>
-          Yeni Şifre Tekrar:
-          <input
-            type="password"
-            name="confirmNewPassword"
-            id="confirm-password"
-            autoComplete="off"
-            value={reNewPassword}
-            onChange={(e) => setReNewPassword(e.target.value)}
-            required
-          />
-        </label>
-
-        <div className="button">
-          <button type="submit">Değiştir</button>
-        </div>
-      </form>
+      <SifreDegistirForm onSubmit={handleSubmit} isLoading={isLoading} />
     </div>
   );
 };
