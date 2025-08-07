@@ -1,23 +1,19 @@
 import "./KisiAdresleri.scss";
-import AddIcon from "@mui/icons-material/Add";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useAddresses, useLocationData, useModalState } from "./hooks";
 import {
-  addAdress,
-  deleteAdress,
-  getAdress,
-  getCity,
-  getDistrict,
-  updateAdress,
-} from "../../../api/apiAdress";
+  AddressCard,
+  AddAddressButton,
+  AddressForm,
+  DeleteConfirmationPopup,
+} from "./components";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import { useDispatch, useSelector } from "react-redux";
+import KisiAdresleriSkeleton from "./KisiAdresleriSkeleton";
 
 const KisiAdresleri = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [citys, setCitys] = useState([]);
-  const [districts, setDistricts] = useState([]);
-  const [editMode, setEditMode] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loading);
   const [tempAddress, setTempAddress] = useState({
     title: "",
     firstName: "",
@@ -30,70 +26,42 @@ const KisiAdresleri = () => {
     postalCode: "",
     phoneNo: "",
   });
-  const [selectedId, setSelectedId] = useState(null);
-  const [addresses, setAddresses] = useState([]);
-
-  const fetchAddresses = async () => {
-    try {
-      const response = await getAdress();
-      setAddresses(response);
-    } catch (error) {
-      console.error("Adresler alınırken hata oluştu:", error);
-    }
-  };
-
-  const fetchCity = async () => {
-    try {
-      const response = await getCity();
-      setCitys(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchDiscrict = async (cityCode) => {
-    try {
-      const response = await getDistrict(cityCode);
-      setDistricts(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAddresses();
-    fetchCity();
-  }, []);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const { addresses, addAddress, updateAddress, deleteAddress } =
+    useAddresses();
+  const { citys, districts, fetchDistrict } = useLocationData();
+  const {
+    modalOpen,
+    showPopup,
+    editMode,
+    selectedId,
+    openAddModal,
+    openEditModal,
+    closeModal,
+    openDeletePopup,
+    closePopup,
+  } = useModalState();
 
   useEffect(() => {
     if (tempAddress.cityCode) {
-      fetchDiscrict(tempAddress.cityCode);
+      fetchDistrict(tempAddress.cityCode);
     }
-  }, [tempAddress.cityCode]);
+  }, [tempAddress.cityCode, fetchDistrict]);
 
-  useEffect(() => {
-    if (modalOpen || showPopup) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [modalOpen, showPopup]);
-
-  const handleAddressSubmit = async (e) => {
-    e.preventDefault();
+  const handleAddressSubmit = async (values, { setSubmitting }) => {
     try {
       if (editMode) {
-        await updateAdress(tempAddress, selectedId);
+        await updateAddress(values, selectedId);
       } else {
-        await addAdress(tempAddress);
+        await addAddress(values);
       }
-      fetchAddresses();
-    } catch (error) {
-      console.error("Adres ekleme/güncelleme hatası:", error);
-    } finally {
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Adres başarıyla kaydedildi",
+          status: "success",
+        })
+      );
+      closeModal();
       setTempAddress({
         title: "",
         firstName: "",
@@ -106,48 +74,69 @@ const KisiAdresleri = () => {
         postalCode: "",
         phoneNo: "",
       });
-      setModalOpen(false);
-      setEditMode(false);
-      setSelectedId(null);
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message:
+            error.response?.data ||
+            error.response?.data.message ||
+            error.message,
+          status: "error",
+        })
+      );
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleDeleteSubmit = async (e) => {
     e.preventDefault();
+    setDeleteLoading(true);
     try {
-      await deleteAdress(selectedId);
-      fetchAddresses();
+      await deleteAddress(selectedId);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Adres başarıyla silindi",
+          status: "success",
+        })
+      );
+      closePopup();
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message:
+            error.response?.data ||
+            error.response?.data.message ||
+            error.message,
+          status: "error",
+        })
+      );
     } finally {
-      setShowPopup(false);
-      setSelectedId(null);
+      setDeleteLoading(false);
     }
   };
 
   const handleEditAddress = (id) => {
-    setSelectedId(id);
     const addressToEdit = addresses.find((item) => item.id === id);
-
-    const newAdres = {
-      title: addressToEdit.title,
-      firstName: addressToEdit.firstName,
-      lastName: addressToEdit.lastName,
-      countryName: addressToEdit.countryName,
-      cityCode: addressToEdit.cityCode,
-      districtId: addressToEdit.districtId,
-      addressLine1: addressToEdit.addressLine1,
-      postalCode: addressToEdit.postalCode,
-      phoneNo: addressToEdit.phoneNo,
-      username: addressToEdit.username,
-    };
-    setTempAddress(newAdres);
-    setEditMode(true);
-    setModalOpen(true);
+    if (addressToEdit) {
+      const newAdres = {
+        title: addressToEdit.title,
+        firstName: addressToEdit.firstName,
+        lastName: addressToEdit.lastName,
+        countryName: addressToEdit.countryName,
+        cityCode: addressToEdit.cityCode,
+        districtId: addressToEdit.districtId,
+        addressLine1: addressToEdit.addressLine1,
+        postalCode: addressToEdit.postalCode,
+        phoneNo: addressToEdit.phoneNo,
+        username: addressToEdit.username,
+      };
+      setTempAddress(newAdres);
+      openEditModal(id);
+    }
   };
 
   const handleAddAddress = () => {
-    setEditMode(false);
     setTempAddress({
       title: "",
       firstName: "",
@@ -160,13 +149,32 @@ const KisiAdresleri = () => {
       postalCode: "",
       phoneNo: "",
     });
-    setModalOpen(true);
+    openAddModal();
   };
 
-  const handleDeleteClick = (id) => {
-    setSelectedId(id);
-    setShowPopup(true);
+  const handleCityChange = (cityCode) => {
+    fetchDistrict(cityCode);
   };
+
+  const handleCancelModal = () => {
+    closeModal();
+    setTempAddress({
+      title: "",
+      firstName: "",
+      lastName: "",
+      username: "",
+      countryName: "TURKIYE",
+      districtId: "",
+      cityCode: "",
+      addressLine1: "",
+      postalCode: "",
+      phoneNo: "",
+    });
+  };
+
+  if (isLoading) {
+    return <KisiAdresleriSkeleton />;
+  }
 
   return (
     <div className="kisiAdresleri">
@@ -177,222 +185,37 @@ const KisiAdresleri = () => {
       <hr />
 
       <div className="papers">
-        <div className="add paper">
-          <button onClick={handleAddAddress}>
-            <AddIcon />
-            <strong>Adres Ekle</strong>
-          </button>
-        </div>
+        <AddAddressButton onClick={handleAddAddress} />
 
         {addresses.map((adres) => (
-          <div key={adres.id} className="kayitliAdres paper">
-            <div className="top">
-              <h4 className="adressTitle">{adres.title}</h4>
-              <div className="icons">
-                <button onClick={() => handleEditAddress(adres.id)}>
-                  <ModeEditIcon className="icon" />
-                </button>
-                <button onClick={() => handleDeleteClick(adres.id)}>
-                  <DeleteIcon className="icon" />
-                </button>
-              </div>
-            </div>
-            <div className="phone">
-              <p className="name">{adres.phoneNo}</p>
-            </div>
-            <div className="section">
-              <p className="name">{adres.name}</p>
-              <p className="adres">
-                {adres.addressLine1} {adres.postalCode} <br />
-                {`${adres.countryName} / ${adres.city}`}
-              </p>
-            </div>
-          </div>
+          <AddressCard
+            key={adres.id}
+            adres={adres}
+            onEdit={handleEditAddress}
+            onDelete={openDeletePopup}
+          />
         ))}
       </div>
 
       {modalOpen && (
-        <div className="modall">
-          <form onSubmit={handleAddressSubmit} className="modal-content">
-            <h3>{editMode ? "Adresi Duzenle" : "Yeni Adres Ekle"}</h3>
-            <div className="modelContentSection">
-              <div className="left">
-                <input
-                  type="text"
-                  placeholder="Adres Başlığı (Ev, İş vb.)"
-                  required
-                  value={tempAddress.title}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, title: e.target.value })
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="İsim"
-                  required
-                  value={tempAddress.firstName}
-                  onChange={(e) =>
-                    setTempAddress({
-                      ...tempAddress,
-                      firstName: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="Soyad"
-                  required
-                  value={tempAddress.lastName}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, lastName: e.target.value })
-                  }
-                />
-
-                <input
-                  required
-                  type="tel"
-                  placeholder="Telefon Numarası"
-                  value={tempAddress.phoneNo}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, phoneNo: e.target.value })
-                  }
-                />
-
-                <input
-                  required
-                  type="email"
-                  placeholder="Mail"
-                  value={tempAddress.username}
-                  onChange={(e) =>
-                    setTempAddress({ ...tempAddress, username: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="right">
-                <textarea
-                  required
-                  name="addressLine1"
-                  placeholder="Adres Satırı 1"
-                  value={tempAddress.addressLine1}
-                  onChange={(e) =>
-                    setTempAddress({
-                      ...tempAddress,
-                      addressLine1: e.target.value,
-                    })
-                  }
-                ></textarea>
-
-                <select
-                  required
-                  onChange={(e) => {
-                    setTempAddress({
-                      ...tempAddress,
-                      cityCode: e.target.value,
-                    });
-                  }}
-                  value={tempAddress.cityCode}
-                >
-                  <option value="">Şehir Seçin</option>
-                  {citys?.map((item, index) => (
-                    <option key={index} value={item.cityCode}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  required
-                  onChange={(e) => {
-                    setTempAddress({
-                      ...tempAddress,
-                      districtId: e.target.value,
-                    });
-                  }}
-                  value={tempAddress.districtId}
-                >
-                  <option value="">İlçe Seçin</option>
-                  {districts?.map((item, index) => (
-                    <option key={index} value={item.districtId}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-
-                <input
-                  required
-                  type="text"
-                  placeholder="Posta Kodu"
-                  value={tempAddress.postalCode}
-                  onChange={(e) =>
-                    setTempAddress({
-                      ...tempAddress,
-                      postalCode: e.target.value,
-                    })
-                  }
-                />
-              </div>
-            </div>
-
-            <div className="buttons">
-              <button
-                onClick={() => {
-                  setModalOpen(false);
-                  setSelectedId(null);
-                  setTempAddress({
-                    title: "",
-                    firstName: "",
-                    lastName: "",
-                    username: "",
-                    countryName: "TURKIYE",
-                    districtId: "",
-                    cityCode: "",
-                    addressLine1: "",
-                    postalCode: "",
-                    phoneNo: "",
-                  });
-                }}
-              >
-                İptal
-              </button>
-              <button type="submit">{editMode ? "Kaydet" : "Oluştur"}</button>
-            </div>
-          </form>
-        </div>
+        <AddressForm
+          editMode={editMode}
+          initialValues={tempAddress}
+          onSubmit={handleAddressSubmit}
+          onCancel={handleCancelModal}
+          citys={citys}
+          districts={districts}
+          onCityChange={handleCityChange}
+        />
       )}
 
       {showPopup && (
-        <div className="popupAdresler">
-          <form onSubmit={handleDeleteSubmit} className="popupAdresler-inner">
-            <p>Silmek istediğinize emin misiniz?</p>
-            <div className="popupAdresler-buttons">
-              <button
-                className="cancel"
-                onClick={() => {
-                  setTempAddress({
-                    title: "",
-                    firstName: "",
-                    lastName: "",
-                    username: "",
-                    countryName: "TURKIYE",
-                    districtId: "",
-                    cityCode: "",
-                    addressLine1: "",
-                    postalCode: "",
-                    phoneNo: "",
-                  });
-                  setSelectedId(null);
-                  setShowPopup(false);
-                }}
-              >
-                İptal
-              </button>
-              <button type="submit" className="confirm">
-                Sil
-              </button>
-            </div>
-          </form>
-        </div>
+        <DeleteConfirmationPopup
+          onConfirm={handleDeleteSubmit}
+          onCancel={closePopup}
+          deleteLoading={deleteLoading}
+          setDeleteLoading={setDeleteLoading}
+        />
       )}
     </div>
   );

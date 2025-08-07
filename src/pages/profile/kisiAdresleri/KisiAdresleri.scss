@@ -181,6 +181,17 @@
             color: white;
           }
         }
+
+        .disabledButton {
+          background: #ccc !important;
+          cursor: default;
+        }
+      }
+
+      .error-message {
+        color: red;
+        font-size: 0.7rem;
+        text-align: end;
       }
     }
   }
