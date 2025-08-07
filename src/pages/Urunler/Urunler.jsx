@@ -14,10 +14,11 @@ import {
 } from "../../redux/slices/categorySlice";
 import { setLoading } from "../../redux/slices/loadingSlice";
 import UrunlerSkeleton from "./UrunlerSkeleton";
+import { useRef } from "react";
 
 const Urunler = () => {
   const dispatch = useDispatch();
-
+  const isFirstRender = useRef(true);
   const { isLoading } = useSelector((state) => state.loading);
   const [currentItems, setCurrentItems] = useState([]);
   const { categoryLinkName } = useParams();
@@ -25,6 +26,7 @@ const Urunler = () => {
   const { categories } = useSelector((state) => state.categories);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [value, setValue] = useState([0, 5000]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -35,7 +37,13 @@ const Urunler = () => {
       dispatch(setLoading({ isLoading: true }));
       try {
         const [products, categories, category] = await Promise.all([
-          dispatch(getProductsCategoryLinkNameUser(categoryLinkName)).unwrap(),
+          dispatch(
+            getProductsCategoryLinkNameUser({
+              linkName: categoryLinkName,
+              min: value[0],
+              max: value[1],
+            })
+          ).unwrap(),
           dispatch(getCategories()).unwrap(),
           dispatch(getCategoryByCategoryLinkName(categoryLinkName)).unwrap(),
         ]);
@@ -50,6 +58,36 @@ const Urunler = () => {
 
     fetchData();
   }, [dispatch, categoryLinkName]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const delayDebounceFn = setTimeout(() => {
+      const fetchData = async () => {
+        dispatch(setLoading({ isLoading: true }));
+        try {
+          await dispatch(
+            getProductsCategoryLinkNameUser({
+              linkName: categoryLinkName,
+              min: value[0],
+              max: value[1],
+            })
+          ).unwrap();
+        } catch (error) {
+          console.log(error);
+        } finally {
+          dispatch(setLoading({ isLoading: false }));
+        }
+      };
+
+      fetchData();
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [value, categoryLinkName, dispatch]);
 
   if (isLoading) {
     return <UrunlerSkeleton />;
@@ -69,6 +107,8 @@ const Urunler = () => {
             categoryLinkName={categoryLinkName}
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
+            value={value}
+            setValue={setValue}
           />
 
           <div className="contentProjelerRight">

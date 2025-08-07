@@ -61,6 +61,35 @@
     }
   }
 
+  .filter {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .filterSection {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0rem 1rem;
+      .inputs {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input {
+          width: 60px;
+          padding: 6px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          text-align: center;
+        }
+
+        span {
+          font-size: 0.87rem;
+        }
+      }
+    }
+  }
+
   @media (max-width: 1024px) {
     padding-left: 16px;
     position: fixed;

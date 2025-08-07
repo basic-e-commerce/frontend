@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import "./SiparisAlindi.scss";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../redux/slices/sepetCartSlice";
 
-const SiparisAlindi = () => {
+const SiparisRed = () => {
   const [searchParams] = useSearchParams();
   const orderCode = searchParams.get("orderCode");
   const [orderDetails, setOrderDetails] = useState(null);
@@ -49,8 +48,8 @@ const SiparisAlindi = () => {
         {orderDetails ? (
           <div className="success-payment-content">
             <div className="topGroup">
-              <CheckCircleOutlineIcon className="iconnn" />
-              <h2>Siparişiniz Onaylandı</h2>
+              <CloseIcon className="iconnnRed" />
+              <h2>Siparişiniz Reddedildi</h2>
             </div>
 
             <div className="order-table">
@@ -63,8 +62,6 @@ const SiparisAlindi = () => {
                 <span className="value">{orderDetails?.customerPrice} ₺</span>
               </div>
             </div>
-
-            <p className="thanks-text">Teşekkür ederiz!</p>
           </div>
         ) : (
           <div className="success-payment-content">
@@ -90,4 +87,4 @@ const SiparisAlindi = () => {
   );
 };
 
-export default SiparisAlindi;
+export default SiparisRed;

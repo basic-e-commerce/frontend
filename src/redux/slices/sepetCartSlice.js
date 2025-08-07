@@ -86,6 +86,11 @@ const sepetCartSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(state.baslangıcState));
     },
+
+    clearCart: (state) => {
+      state.baslangıcState = [];
+      localStorage.setItem("cart", JSON.stringify([]));
+    },
   },
 
   extraReducers: (builder) => {
@@ -118,5 +123,6 @@ const sepetCartSlice = createSlice({
   },
 });
 
-export const { addToCart, updateQuantityLocal } = sepetCartSlice.actions;
+export const { addToCart, updateQuantityLocal, clearCart } =
+  sepetCartSlice.actions;
 export default sepetCartSlice.reducer;

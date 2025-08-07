@@ -12,6 +12,8 @@ export const useOrders = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedOrderByCargo, setSelectedOrderByCargo] = useState(null);
+  const [selectedIade, setSelectedIade] = useState(null);
+  const [selectedCancel, setselectedCancel] = useState(null);
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,7 +23,6 @@ export const useOrders = () => {
     "PRE_TRANSIT",
     "TRANSIT",
     "DELIVERED",
-    "FAILURE",
     "RETURNED",
   ];
   const [selectedTab, setSelectedTab] = useState("PENDING");
@@ -81,7 +82,7 @@ export const useOrders = () => {
     } catch (error) {
       dispatch(
         showAlertWithTimeout({
-          message: error.message,
+          message: error.message || error.response?.data || "Hata Var",
           status: "error",
         })
       );
@@ -100,10 +101,14 @@ export const useOrders = () => {
     setSelectedOrder,
     selectedOrderByCargo,
     setSelectedOrderByCargo,
+    selectedIade,
+    setSelectedIade,
     IsSubmit,
     setIsSubmit,
     tabs,
     selectedTab,
     setSelectedTab,
+    selectedCancel,
+    setselectedCancel,
   };
 };

@@ -1,0 +1,71 @@
+.popupAdresler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+.popupAdresler-inner {
+  min-width: 400px;
+  height: calc(150px + 1rem);
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.popupAdresler-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popupAdresler-buttons .cancel {
+  background: gray;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.popupAdresler-buttons .confirm {
+  background: red;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.popupAdresler-buttons .disabled {
+  background: lightgray;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .popupAdresler-inner {
+    min-width: unset;
+    width: 90vw;
+    max-width: 350px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .popupAdresler-inner {
+    width: 98vw;
+    max-width: 98vw;
+    padding: 10px;
+  }
+}

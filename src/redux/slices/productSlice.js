@@ -52,9 +52,9 @@ export const getProductsCategoryUser = createAsyncThunk(
 
 export const getProductsCategoryLinkNameUser = createAsyncThunk(
   "getProductsCategoryLinkNameUser",
-  async (linkName) => {
+  async ({ linkName, min, max }) => {
     try {
-      return await fetchProductsByCategoryLinkName(linkName);
+      return await fetchProductsByCategoryLinkName(linkName, min, max);
     } catch (error) {
       console.log(error);
     }

@@ -50,7 +50,8 @@ const Header = () => {
     }
     nav.push(
       { to: "/", label: "Anasayfa" },
-      { to: "/kategoriler", label: "Tüm Ürünler" }
+      { to: "/kategoriler", label: "Tüm Ürünler" },
+      { to: "/iletisim", label: "İletişim" }
     );
     return nav;
   }, [isLogin, role]);

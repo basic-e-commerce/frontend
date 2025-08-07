@@ -1,9 +1,16 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+import ClearIcon from "@mui/icons-material/Clear";
 
-const OrderTable = ({ orders, onViewDetails, onViewCargo, selectedTab }) => {
-  console.log(selectedTab);
-
+const OrderTable = ({
+  orders,
+  onViewDetails,
+  onViewCargo,
+  onViewIade,
+  selectedTab,
+  onViewCancel,
+}) => {
   return (
     <table className="custom-table">
       <thead>
@@ -22,13 +29,14 @@ const OrderTable = ({ orders, onViewDetails, onViewCargo, selectedTab }) => {
             <tr key={order.id}>
               <td>{order.orderCode}</td>
               <td>
-                {" "}
                 {order.firstName} {order.lastName}
               </td>
               <td>{order.totalPrice} ₺</td>
               <td>{order.installment}</td>
               <td>
-                {order?.orderStatusResponse?.orderPackages[0]?.cargoStatus ||
+                {order?.orderStatusResponse?.refundOrderPackages[0]
+                  ?.cargoStatus ||
+                  order?.orderStatusResponse?.orderPackages[0]?.cargoStatus ||
                   order?.orderStatusResponse?.status}
               </td>
               <td className="actions">
@@ -39,6 +47,24 @@ const OrderTable = ({ orders, onViewDetails, onViewCargo, selectedTab }) => {
                 {selectedTab === "APPROVED" ? (
                   <button onClick={() => onViewCargo(order)}>
                     <ShoppingBasketIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
+
+                {selectedTab === "APPROVED" ||
+                selectedTab === "PRE_TRANSIT" ||
+                selectedTab === "TRANSIT" ? (
+                  <button onClick={() => onViewCancel(order)}>
+                    <ClearIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
+
+                {selectedTab === "DELIVERED" ? (
+                  <button onClick={() => onViewIade(order)}>
+                    <DoNotDisturbOnIcon className="icon" />
                   </button>
                 ) : (
                   ""

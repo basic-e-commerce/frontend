@@ -1,6 +1,7 @@
 const OrderDetailModal = ({ order, onClose }) => {
   const invoice = order.invoiceResponseDto;
   const kargoData = order?.orderStatusResponse?.orderPackages[0];
+  const kargoIade = order?.orderStatusResponse?.refundOrderPackages[0];
 
   console.log(kargoData);
 
@@ -25,7 +26,7 @@ const OrderDetailModal = ({ order, onClose }) => {
                   <strong>Ad Soyad:</strong>
                 </td>
                 <td>
-                  {order.firstName} {order.lastName}
+                  {order.address.firstName} {order.address.lastName}
                 </td>
               </tr>
               <tr>
@@ -107,6 +108,76 @@ const OrderDetailModal = ({ order, onClose }) => {
           </table>
         </div>
 
+        <div className="info-wrapper" style={{ display: "flex", gap: "2rem" }}>
+          <table className="billing-table">
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Kupon:</strong>
+                </td>
+                <td>{order?.customerCouponDto?.couponCode || "Kupon Yok"}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Taksit:</strong>
+                </td>
+                <td>{order?.installment} taksit</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kargo:</strong>
+                </td>
+                <td>{order?.shippingFee} ₺</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kom + Kargo Ödenen:</strong>
+                </td>
+                <td>{order?.customerPrice} ₺</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table className="billing-table">
+            <tbody>
+              <tr>
+                <td>
+                  <strong>İlk indirimli Fiyat:</strong>
+                </td>
+                <td>
+                  {(order?.substractDiscountPrice || 0) +
+                    (order?.totalPrice || 0)}{" "}
+                  ₺
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kupon İndirimi:</strong>
+                </td>
+                <td>{order?.substractDiscountPrice} ₺</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>İade Tutarı:</strong>
+                </td>
+                <td>{order?.refundPrice} ₺</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kupon Uyg. Toplam:</strong>
+                </td>
+                <td>{order?.totalPrice} ₺</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         {kargoData && (
           <div
             className="info-wrapper"
@@ -148,12 +219,54 @@ const OrderDetailModal = ({ order, onClose }) => {
           </div>
         )}
 
+        {kargoIade && (
+          <div
+            className="info-wrapper"
+            style={{ display: "flex", gap: "2rem" }}
+          >
+            <table className="billing-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Kargo Firması:</strong>
+                  </td>
+                  <td>{kargoIade.cargoCompanyName}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Kargo ID:</strong>
+                  </td>
+                  <td>{kargoIade.cargoId}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table className="billing-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Kargo Durumu:</strong>
+                  </td>
+                  <td>{kargoIade.cargoStatus}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Kargo Nerde:</strong>
+                  </td>
+                  <td>{kargoIade.location}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
+
         <table className="product-table">
           <thead>
             <tr>
               <th>Görsel</th>
               <th>Ürün Adı</th>
               <th>Adet</th>
+              <th>İndirimli / Kuponlu</th>
             </tr>
           </thead>
           <tbody>
@@ -164,10 +277,62 @@ const OrderDetailModal = ({ order, onClose }) => {
                 </td>
                 <td>{item.productName}</td>
                 <td>{item.quantity}</td>
+                <td>
+                  <span
+                    style={{
+                      fontSize: "0.7rem",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {item.price}
+                  </span>
+                  <br />
+                  {item.discountPrice}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {order?.refundItemResponseDtos?.length > 0 && (
+          <>
+            <h4 style={{ margin: "4rem 0rem 2rem 0rem" }}>İade Olanlar</h4>
+
+            <table className="product-table">
+              <thead>
+                <tr>
+                  <th>Görsel</th>
+                  <th>Ürün Adı</th>
+                  <th>Adet</th>
+                  <th>İndirimli / Kuponlu</th>
+                </tr>
+              </thead>
+              <tbody>
+                {order?.refundItemResponseDtos?.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img src={item.coverImage} alt={item.productName} />
+                    </td>
+                    <td>{item.productName}</td>
+                    <td>{item.quantity}</td>
+                    <td>
+                      <span
+                        style={{
+                          fontSize: "0.7rem",
+                          textDecoration: "line-through",
+                        }}
+                      >
+                        {item.price}
+                      </span>{" "}
+                      <br />
+                      {item.discountPrice}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       </div>
     </div>
   );

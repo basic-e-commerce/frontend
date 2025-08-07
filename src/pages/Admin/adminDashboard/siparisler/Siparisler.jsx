@@ -8,6 +8,8 @@ import {
 } from "./components";
 import "./Siparisler.scss";
 import OrderDetailModalCargo from "./components/OrderDetailModalCargo";
+import OrderDetailModalIade from "./components/OrderDetailModalIade";
+import CancelOnayPopUp from "./components/CancelOnayPopUp";
 
 const Siparisler = () => {
   const { isLoading } = useSelector((state) => state.loading);
@@ -19,8 +21,12 @@ const Siparisler = () => {
     setSelectedOrder,
     selectedOrderByCargo,
     setSelectedOrderByCargo,
+    selectedIade,
+    setSelectedIade,
     setSelectedTab,
     setIsSubmit,
+    selectedCancel,
+    setselectedCancel,
   } = useOrders();
 
   if (isLoading) {
@@ -40,6 +46,8 @@ const Siparisler = () => {
           selectedTab={selectedTab}
           onViewCargo={setSelectedOrderByCargo}
           onViewDetails={setSelectedOrder}
+          onViewIade={setSelectedIade}
+          onViewCancel={setselectedCancel}
         />
         {selectedOrder && (
           <OrderDetailModal
@@ -53,6 +61,22 @@ const Siparisler = () => {
             setIsSubmit={setIsSubmit}
             order={selectedOrderByCargo}
             onClose={() => setSelectedOrderByCargo(null)}
+          />
+        )}
+
+        {selectedIade && (
+          <OrderDetailModalIade
+            setIsSubmit={setIsSubmit}
+            order={selectedIade}
+            onClose={() => setSelectedIade(null)}
+          />
+        )}
+
+        {selectedCancel && (
+          <CancelOnayPopUp
+            order={selectedCancel}
+            onClose={() => setselectedCancel(null)}
+            setIsSubmit={setIsSubmit}
           />
         )}
       </div>

@@ -40,11 +40,11 @@ export const fetchProductsByCategory = async (categoryId) => {
   return response.data;
 };
 
-export const fetchProductsByCategoryLinkName = async (linkName) => {
+export const fetchProductsByCategoryLinkName = async (linkName, min, max) => {
   const response = await axios.post(`${API_URL}/filter/small/link-name`, {
     linkName: linkName,
-    minPrice: 0.0,
-    maxPrice: 999999999.0,
+    minPrice: min,
+    maxPrice: max,
     sortBy: "comparePrice",
     sortDirection: "asc",
   });

@@ -3,6 +3,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 import data from "../../data.json";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -20,14 +21,39 @@ const Footer = () => {
         </div>
 
         <div className="footerItem">
-          <h3>Ürün Gamımız</h3>
+          <h3>Pollitikalar</h3>
           <hr />
           <ul className="footerHizmet">
-            {data.kategoriler.map((item, index) => (
-              <li key={index}>
-                <span>{item}</span>
-              </li>
-            ))}
+            <li>
+              <Link to={"/gizlilik-politikasi"}>
+                <span>Gizlilik Politikası</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/mesafeli-satis-sozlesmesi"}>
+                <span>Mesafeli Satış Sözleşmesi</span>{" "}
+              </Link>
+            </li>
+            <li>
+              <Link to={"/iade-ve-iptal-politikasi"}>
+                <span>İade ve İptal Politikası</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/cerez-politikasi"}>
+                <span>Çerez Politikası</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/kvkk-aydinlatma-metni"}>
+                <span>KVKK Aydınlatma Metni</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/on-bilgilendirme-formu"}>
+                <span>Ön Bilgilendirme Formu</span>
+              </Link>
+            </li>
           </ul>
         </div>
 

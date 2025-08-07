@@ -36,6 +36,16 @@ import UrunList from "./pages/Admin/adminDashboard/urunler/UrunList/UrunList";
 import CustomerLogin from "./pages/customerLogin/CustomerLogin";
 import CuponCreate from "./pages/Admin/adminDashboard/Cupon/cuponCreate/CuponCreate";
 import CuponList from "./pages/Admin/adminDashboard/Cupon/cuponList/CuponList";
+import SiparisRed from "./pages/SiparisAlindi/SiparisRed";
+import axios from "axios";
+import { BASE_URL } from "./config/baseApi";
+import GizlilikPolitikasi from "./pages/Politikalar/GizlilikPolitikasi";
+import MesafeliSatisSozlesmesi from "./pages/Politikalar/MesafeliSatisSozlesmesi";
+import OnBilgilendirmeFormu from "./pages/Politikalar/OnBilgilendirmeFormu";
+import IadeIptalPolitikasi from "./pages/Politikalar/IadeIptalPolitikasi";
+import KvkkAydinlatmaMetni from "./pages/Politikalar/KvkkAydinlatmaMetni";
+import CookiePolicy from "./pages/Politikalar/CookiePolicy";
+import Iletisim from "./pages/iletisim/Iletisim";
 
 function App() {
   const location = useLocation();
@@ -48,20 +58,28 @@ function App() {
     const silentLogin = async () => {
       try {
         const response = await api.post(
-          "/api/v1/auth/refresh",
+          `${BASE_URL}/api/v1/auth/refresh`,
           {},
           { withCredentials: true }
         );
         const data = response.data;
         dispatch(setLogin(data));
       } catch (err) {
-        console.log("Session expired or user not logged in", err);
         dispatch(setLogout());
+      }
+    };
+
+    const visitor = async () => {
+      try {
+        await axios.post(`${BASE_URL}/api/v1/visitors/visit`);
+      } catch (error) {
+        console.log(error);
       }
     };
 
     if (!accessToken) {
       silentLogin();
+      visitor();
     }
   }, [dispatch, accessToken]);
 
@@ -81,6 +99,27 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/siparis" element={<SiparisOlustur />} />
         <Route path="/success-payment" element={<SiparisAlindi />} />
+        <Route path="/fail-payment" element={<SiparisRed />} />
+        <Route path="/iletisim" element={<Iletisim />} />
+        <Route path="/gizlilik-politikasi" element={<GizlilikPolitikasi />} />
+        <Route
+          path="/mesafeli-satis-sozlesmesi"
+          element={<MesafeliSatisSozlesmesi />}
+        />
+        <Route
+          path="/on-bilgilendirme-formu"
+          element={<OnBilgilendirmeFormu />}
+        />
+        <Route
+          path="/iade-ve-iptal-politikasi"
+          element={<IadeIptalPolitikasi />}
+        />
+        <Route
+          path="/kvkk-aydinlatma-metni"
+          element={<KvkkAydinlatmaMetni />}
+        />
+
+        <Route path="/cerez-politikasi" element={<CookiePolicy />} />
 
         <Route
           path="/admins"
@@ -102,8 +141,6 @@ function App() {
           <Route path="siparisler" element={<Siparisler />} />
           <Route path="ayarlar" element={<Ayarlar />} />
         </Route>
-
-        {/* Protected Kullanıcı Alanları */}
 
         <Route
           path="/profil"

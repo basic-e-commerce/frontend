@@ -4,7 +4,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f9f9f9;
   min-height: calc(100vh - 140px);
   margin-bottom: -6rem;
 
@@ -29,6 +28,11 @@
     .iconnn {
       font-size: 3rem;
       color: darkgreen;
+    }
+
+    .iconnnRed {
+      font-size: 3rem;
+      color: darkred;
     }
 
     h1 {
@@ -75,5 +79,11 @@
       color: #4caf50;
       font-weight: 600;
     }
+  }
+
+  @media (max-width: 900px) {
+    min-height: auto;
+    margin-bottom: -3rem;
+    margin-top: calc(110px + 3rem);
   }
 }

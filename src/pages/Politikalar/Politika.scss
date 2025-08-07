@@ -1,0 +1,29 @@
+.privacy-policy,
+.mesafeli-satis-sozlesmesi,
+.bilgilendirme-formu,
+.iadeveiptalpolitikasi,
+.kvkkAydinlatmaMetni,
+.cookiePolicy {
+  margin-top: 140px;
+  h1,
+  h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 900px) {
+    margin-top: 110px;
+  }
+}

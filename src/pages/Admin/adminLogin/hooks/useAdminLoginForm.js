@@ -36,7 +36,7 @@ export const useAdminLoginForm = () => {
       setTimeout(() => {
         dispatch(
           showAlertWithTimeoutKullanici({
-            message: error.response.data,
+            message: error.response?.data || error.message,
             status: "error",
           })
         );
