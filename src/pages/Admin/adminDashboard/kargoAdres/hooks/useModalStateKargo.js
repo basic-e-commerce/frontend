@@ -7,7 +7,7 @@ export const useModalStateKargo = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
-    if (modalOpen || showPopup) {
+    if (modalOpen || showPopup || showFavoritePopup) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -15,7 +15,7 @@ export const useModalStateKargo = () => {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [modalOpen, showPopup]);
+  }, [modalOpen, showPopup, showFavoritePopup]);
 
   const openAddModal = () => {
     setSelectedId(null);

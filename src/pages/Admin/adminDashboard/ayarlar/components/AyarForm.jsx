@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const AyarForm = ({ formik, cities, districts, isLoading }) => {
+const AyarForm = ({ formik, cities, districts, isLoading, initialValues }) => {
   return (
     <>
       {/* name */}
@@ -409,8 +409,18 @@ const AyarForm = ({ formik, cities, districts, isLoading }) => {
       <div className="buttonContainer">
         <button
           type="submit"
-          className={isLoading ? "disabled" : ""}
-          disabled={isLoading}
+          className={
+            isLoading ||
+            !formik.isValid ||
+            JSON.stringify(formik.values) === JSON.stringify(initialValues)
+              ? "disabled"
+              : ""
+          }
+          disabled={
+            isLoading ||
+            !formik.isValid ||
+            JSON.stringify(formik.values) === JSON.stringify(initialValues)
+          }
         >
           {isLoading ? "Kaydediliyor..." : "Kaydet"}
         </button>

@@ -72,7 +72,7 @@ const OrderTable = ({
                   ""
                 )}
 
-                {selectedTab === "RETURNED" || selectedTab === "COMPLETED" ? (
+                {selectedTab === "RETURNED" || selectedTab === "CANCEL" ? (
                   <button onClick={() => onViewOdeme(order)}>
                     <CurrencyLiraIcon className="icon" />
                   </button>

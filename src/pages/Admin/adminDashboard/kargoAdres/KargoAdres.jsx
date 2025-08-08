@@ -35,7 +35,8 @@ const KargoAdres = () => {
   });
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
-  const { addresses, addAddress, deleteAddress } = useAddressesKargo();
+  const { addresses, addAddress, deleteAddress, fetchAddresses } =
+    useAddressesKargo();
   const { citys, districts, fetchDistrict } = useLocationDataKargo();
   const {
     modalOpen,
@@ -90,6 +91,7 @@ const KargoAdres = () => {
       );
     } finally {
       setSubmitting(false);
+      fetchAddresses();
     }
   };
 
@@ -117,6 +119,7 @@ const KargoAdres = () => {
     } finally {
       closePopup();
       setDeleteLoading(false);
+      fetchAddresses();
     }
   };
 
@@ -146,6 +149,7 @@ const KargoAdres = () => {
     } finally {
       closeFavoritePopup();
       setFavoriteLoading(false);
+      fetchAddresses();
     }
   };
 

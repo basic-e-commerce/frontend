@@ -103,6 +103,7 @@ const CuponList = () => {
           <th className="col-1">Kullanım</th>
           <th className="col-1">Toplam Limit</th>
           <th className="col-1">Min. Tutar</th>
+          <th className="col-1">Max. Tutar</th>
           <th className="col-2">Başlangıç</th>
           <th className="col-2">Bitiş</th>
           <th className="col-1">Durum</th>
@@ -120,6 +121,7 @@ const CuponList = () => {
               <td>{cupon.timesUsed}</td>
               <td>{cupon.totalUsageLimit}</td>
               <td>{cupon.minOrderAmountLimit}</td>
+              <td>{cupon.maxOrderAmountLimit}</td>
               <td>
                 {new Date(cupon.couponStartDate).toLocaleDateString()}
                 <br />

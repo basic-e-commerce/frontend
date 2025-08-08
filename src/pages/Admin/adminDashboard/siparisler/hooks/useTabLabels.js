@@ -15,6 +15,8 @@ export const useTabLabels = () => {
         return "Kargoda Kaybolanlar";
       case "RETURNED":
         return "İade Edilenler";
+      case "CANCEL":
+        return "İptal Edilenler";
       default:
         return tab;
     }

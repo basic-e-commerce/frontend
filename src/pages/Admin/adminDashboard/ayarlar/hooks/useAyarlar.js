@@ -18,6 +18,7 @@ export const useAyarlar = () => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [initialValues, setInitialValues] = useState({});
 
   const onToggle = () => {
     setIsOpen((prev) => !prev);
@@ -35,31 +36,57 @@ export const useAyarlar = () => {
       const response = await api.get(`${BASE_URL}/api/v1/merchant`);
       const merchantData = response.data[0];
 
+      const response2 = await api.get(
+        `${BASE_URL}/api/v1/merchant/public-detail`
+      );
+      const publicData = response2.data;
+
       const citiesData = await api.get(`${BASE_URL}/api/v1/city`);
       setCities(citiesData.data);
 
       const districtByCityCode = await api.get(
-        `${BASE_URL}/api/v1/district/city-code?cityCode=${response.data[0].address.city.cityCode}`
+        `${BASE_URL}/api/v1/district/city-code?cityCode=${response.data[0].cityCode}`
       );
       setDistricts(districtByCityCode.data);
 
       formik.setValues({
-        name: merchantData.name || "",
-        firstName: merchantData.address.firstName || "",
-        lastName: merchantData.address.lastName || "",
-        title: merchantData.address.title || "",
-        countryName: merchantData.address.country.upperName || "",
-        cityCode: merchantData.address.city.cityCode || "",
-        districtId: merchantData.address.district.districtId || "",
-        addressLine1: merchantData.address.addressLine1 || "",
-        postalCode: merchantData.address.postalCode || "",
-        phoneNo: merchantData.phoneNo || "",
-        email: merchantData.email || "",
-        minOrderAmount: merchantData.minOrderAmount || "",
-        shippingFee: merchantData.shippingFee || "",
-        emailPassword: merchantData.emailPassword || "",
-        instagram: merchantData.instagram || "",
-        instagramLink: merchantData.instagramLink || "",
+        name: merchantData?.name || "",
+        firstName: publicData?.firstName || "",
+        lastName: publicData?.lastName || "",
+        title: publicData?.title || "",
+        countryName: merchantData?.countryName || "",
+        cityCode: merchantData?.cityCode || "",
+        districtId: merchantData?.districtId || "",
+        addressLine1: merchantData?.addressLine1 || "",
+        postalCode: merchantData?.postalCode || "",
+        phoneNo: merchantData?.phoneNo || "",
+        email: merchantData?.email || "",
+        minOrderAmount: merchantData?.minOrderAmount || "",
+        shippingFee: merchantData?.shippingFee || "",
+        emailPassword: merchantData?.emailPassword || "",
+        instagram: merchantData?.instagram || "",
+        instagramLink: merchantData?.instagramLink || "",
+        footerDescription: merchantData.footerDescription || "",
+        openCloseHours: merchantData.openCloseHours || [],
+      });
+
+      setInitialValues({
+        name: merchantData?.name || "",
+        firstName: publicData?.firstName || "",
+        lastName: publicData?.lastName || "",
+        title: publicData?.title || "",
+        countryName: merchantData?.countryName || "",
+        cityCode: merchantData?.cityCode || "",
+        districtId: merchantData?.districtId || "",
+        addressLine1: merchantData?.addressLine1 || "",
+        postalCode: merchantData?.postalCode || "",
+        phoneNo: merchantData?.phoneNo || "",
+        email: merchantData?.email || "",
+        minOrderAmount: merchantData?.minOrderAmount || "",
+        shippingFee: merchantData?.shippingFee || "",
+        emailPassword: merchantData?.emailPassword || "",
+        instagram: merchantData?.instagram || "",
+        instagramLink: merchantData?.instagramLink || "",
         footerDescription: merchantData.footerDescription || "",
         openCloseHours: merchantData.openCloseHours || [],
       });
@@ -85,6 +112,7 @@ export const useAyarlar = () => {
     validateOnMount: true,
     validateOnChange: true,
     validateOnBlur: true,
+
     onSubmit: async (values) => {
       dispatch(
         setLoading({
@@ -110,6 +138,7 @@ export const useAyarlar = () => {
         );
       } finally {
         dispatch(clearLoading());
+        fetchAyarlar();
       }
     },
   });
@@ -121,5 +150,6 @@ export const useAyarlar = () => {
     districts,
     onToggle,
     isOpen,
+    initialValues,
   };
 };

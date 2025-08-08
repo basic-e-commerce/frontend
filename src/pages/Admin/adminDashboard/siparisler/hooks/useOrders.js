@@ -25,6 +25,7 @@ export const useOrders = () => {
     "TRANSIT",
     "DELIVERED",
     "RETURNED",
+    "CANCEL",
   ];
   const [selectedTab, setSelectedTab] = useState("PENDING");
   const TAB_FILTERS = {
@@ -60,6 +61,10 @@ export const useOrders = () => {
     },
     RETURNED: {
       refundOrder: true,
+    },
+    CANCEL: {
+      orderStatus: "CANCEL",
+      refundOrder: false,
     },
   };
 

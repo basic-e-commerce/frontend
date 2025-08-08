@@ -139,6 +139,33 @@ const CuponForm = ({ formik, isLoading }) => {
 
       <div className="form-group">
         <label>
+          Maksimum Sipariş Tutarı
+          <input
+            type="number"
+            name="maxOrderAmountLimit"
+            value={formik.values.maxOrderAmountLimit}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required
+            autoComplete="off"
+            className={
+              formik.touched.maxOrderAmountLimit &&
+              formik.errors.maxOrderAmountLimit
+                ? "error"
+                : ""
+            }
+          />
+        </label>
+        {formik.touched.maxOrderAmountLimit &&
+          formik.errors.maxOrderAmountLimit && (
+            <div className="error-message">
+              {formik.errors.maxOrderAmountLimit}
+            </div>
+          )}
+      </div>
+
+      <div className="form-group">
+        <label>
           Başlangıç
           <input
             type="date"

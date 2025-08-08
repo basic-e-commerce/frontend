@@ -5,8 +5,15 @@ import WorkingHours from "./components/WorkingHours";
 import { useAyarlar } from "./hooks";
 
 const Ayarlar = () => {
-  const { isLoading, formik, cities, districts, onToggle, isOpen } =
-    useAyarlar();
+  const {
+    isLoading,
+    formik,
+    cities,
+    districts,
+    onToggle,
+    isOpen,
+    initialValues,
+  } = useAyarlar();
 
   return (
     <div className="ayarlar">
@@ -29,6 +36,7 @@ const Ayarlar = () => {
                   districts={districts}
                   isLoading={isLoading}
                   formik={formik}
+                  initialValues={initialValues}
                 />
               </div>
             </div>

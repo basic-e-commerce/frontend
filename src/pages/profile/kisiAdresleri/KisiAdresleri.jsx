@@ -46,7 +46,7 @@ const KisiAdresleri = () => {
     if (tempAddress.cityCode) {
       fetchDistrict(tempAddress.cityCode);
     }
-  }, [tempAddress.cityCode, fetchDistrict]);
+  }, [tempAddress.cityCode]);
 
   const handleAddressSubmit = async (values, { setSubmitting }) => {
     try {
