@@ -55,4 +55,7 @@ export const customerLoginValidationSchema = Yup.object({
   rePassword: Yup.string()
     .required("Şifre tekrarı zorunludur")
     .oneOf([Yup.ref("password"), null], "Şifreler eşleşmiyor"),
+  privacyPolicy: Yup.boolean()
+    .oneOf([true], "Sözleşmeleri kabul etmelisiniz")
+    .required("Sözleşmeleri kabul etmelisiniz"),
 });

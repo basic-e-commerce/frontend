@@ -41,7 +41,7 @@ const SifreDegistirForm = ({ onSubmit, isLoading }) => {
               />
             </label>
             {errors.oldPassword && touched.oldPassword && (
-              <div className="error">{errors.oldPassword}</div>
+              <div className="errorSifreDegistir">{errors.oldPassword}</div>
             )}
           </div>
 
@@ -56,7 +56,7 @@ const SifreDegistirForm = ({ onSubmit, isLoading }) => {
               />
             </label>
             {errors.newPassword && touched.newPassword && (
-              <div className="error">{errors.newPassword}</div>
+              <div className="errorSifreDegistir">{errors.newPassword}</div>
             )}
           </div>
 
@@ -71,7 +71,7 @@ const SifreDegistirForm = ({ onSubmit, isLoading }) => {
               />
             </label>
             {errors.reNewPassword && touched.reNewPassword && (
-              <div className="error">{errors.reNewPassword}</div>
+              <div className="errorSifreDegistir">{errors.reNewPassword}</div>
             )}
           </div>
 

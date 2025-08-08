@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleApiError } from "../../../utils/errorHandler";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -19,6 +19,7 @@ export const useCustomerLoginForm = () => {
       username: "",
       password: "",
       rePassword: "",
+      privacyPolicy: false,
     },
     validationSchema: customerLoginValidationSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {

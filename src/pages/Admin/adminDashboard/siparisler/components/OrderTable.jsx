@@ -2,6 +2,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import ClearIcon from "@mui/icons-material/Clear";
+import CurrencyLiraIcon from "@mui/icons-material/CurrencyLira";
 
 const OrderTable = ({
   orders,
@@ -10,6 +11,7 @@ const OrderTable = ({
   onViewIade,
   selectedTab,
   onViewCancel,
+  onViewOdeme,
 }) => {
   return (
     <table className="custom-table">
@@ -65,6 +67,14 @@ const OrderTable = ({
                 {selectedTab === "DELIVERED" ? (
                   <button onClick={() => onViewIade(order)}>
                     <DoNotDisturbOnIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
+
+                {selectedTab === "RETURNED" || selectedTab === "COMPLETED" ? (
+                  <button onClick={() => onViewOdeme(order)}>
+                    <CurrencyLiraIcon className="icon" />
                   </button>
                 ) : (
                   ""

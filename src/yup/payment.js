@@ -18,4 +18,10 @@ export const paymentSchema = Yup.object().shape({
     .required("CVV zorunludur")
     .matches(/^[0-9]{3}$/, "3 haneli CVV giriniz"),
   installment: Yup.string().required("Taksit seçimi zorunludur"),
+  distanceSalesContract: Yup.boolean()
+    .oneOf([true], "Mesafeli satış sözleşmelerini onaylamanız gereklidir")
+    .required("Mesafeli satış sözleşmelerini onaylamanız gereklidir"),
+  kvkkConsent: Yup.boolean()
+    .oneOf([true], "KVKK Aydınlatma Metni'ni onaylamanız gereklidir")
+    .required("KVKK Aydınlatma Metni'ni onaylamanız gereklidir"),
 });

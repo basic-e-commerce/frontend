@@ -14,6 +14,7 @@ export const useOrders = () => {
   const [selectedOrderByCargo, setSelectedOrderByCargo] = useState(null);
   const [selectedIade, setSelectedIade] = useState(null);
   const [selectedCancel, setselectedCancel] = useState(null);
+  const [selectedOdeme, setSelectedOdeme] = useState(null);
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch();
 
@@ -110,5 +111,7 @@ export const useOrders = () => {
     setSelectedTab,
     selectedCancel,
     setselectedCancel,
+    selectedOdeme,
+    setSelectedOdeme,
   };
 };

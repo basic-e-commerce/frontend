@@ -18,9 +18,7 @@ import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 const Odeme = () => {
   const dispatch = useDispatch();
 
-  const { status, baslangıcState, cartItems } = useSelector(
-    (state) => state.sepet
-  );
+  const { baslangıcState, cartItems } = useSelector((state) => state.sepet);
   const {
     address,
     invoiceAddress,
@@ -48,6 +46,8 @@ const Odeme = () => {
       expiryYear: "",
       cvv: "",
       installment: "",
+      distanceSalesContract: false,
+      kvkkConsent: false,
     },
     validationSchema: paymentSchema,
     onSubmit: async (values) => {
@@ -269,6 +269,81 @@ const Odeme = () => {
 
               <div className="infoKomisyon">
                 <img src="/images/odeme/cards.png" alt="Kredi Kartları" />
+              </div>
+
+              <div className="checkbox-container">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="distanceSalesContract"
+                    checked={formik.values.distanceSalesContract}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <span className="checkmark"></span>
+                  <span className="checkbox-text">
+                    <a
+                      href="/on-bilgilendirme-formu"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontWeight: "bold",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Ön Bilgilendirme Formunu
+                    </a>{" "}
+                    ve{" "}
+                    <a
+                      href="/mesafeli-satis-sozlesmesi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontWeight: "bold",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Mesafeli satış sözleşmelerini
+                    </a>{" "}
+                    okudum ve kabul ediyorum.
+                  </span>
+                </label>
+                {formik.touched.distanceSalesContract &&
+                  formik.errors.distanceSalesContract && (
+                    <div className="error">
+                      {formik.errors.distanceSalesContract}
+                    </div>
+                  )}
+              </div>
+
+              <div className="checkbox-container">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="kvkkConsent"
+                    checked={formik.values.kvkkConsent}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <span className="checkmark"></span>
+                  <span className="checkbox-text">
+                    <a
+                      href="/kvkk-aydinlatma-metni"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontWeight: "bold",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      KVKK Aydınlatma Metni
+                    </a>{" "}
+                    ve Kişisel verilerin işlenmesine kabul ediyorum.
+                  </span>
+                </label>
+                {formik.touched.kvkkConsent && formik.errors.kvkkConsent && (
+                  <div className="error">{formik.errors.kvkkConsent}</div>
+                )}
               </div>
 
               <div className="submitButtonOde">

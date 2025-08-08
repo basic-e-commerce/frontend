@@ -409,10 +409,8 @@ const AyarForm = ({ formik, cities, districts, isLoading }) => {
       <div className="buttonContainer">
         <button
           type="submit"
-          className={
-            isLoading || !formik.isValid || !formik.dirty ? "disabled" : ""
-          }
-          disabled={isLoading || !formik.isValid || !formik.dirty}
+          className={isLoading ? "disabled" : ""}
+          disabled={isLoading}
         >
           {isLoading ? "Kaydediliyor..." : "Kaydet"}
         </button>

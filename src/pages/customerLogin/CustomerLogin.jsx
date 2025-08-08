@@ -1,5 +1,4 @@
 import "./CustomerLogin.scss";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import CustomerLoginForm from "./components/CustomerLoginForm";

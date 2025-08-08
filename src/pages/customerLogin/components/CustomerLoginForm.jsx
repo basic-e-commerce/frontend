@@ -61,6 +61,47 @@ const CustomerLoginForm = ({ formik }) => {
           </div>
         ))}
 
+        <div className="privacy-policy-container">
+          <label className="checkbox-label">
+            <Field
+              name="privacyPolicy"
+              type="checkbox"
+              className="privacy-checkbox"
+            />
+            <span className="checkbox-text">
+              <a
+                href="/gizlilik-politikasi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gizlilik sözleşmesini
+              </a>
+              {" ,"}
+              <a
+                href="/kvkk-aydinlatma-metni"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                KVKK Aydınlatma Metnini
+              </a>{" "}
+              ve{" "}
+              <a
+                href="/cerez-politikasi"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Çerez Politikasını
+              </a>{" "}
+              okudum ve kabul ediyorum
+            </span>
+          </label>
+          <ErrorMessage
+            name="privacyPolicy"
+            component="div"
+            className="error-message"
+          />
+        </div>
+
         {formik.errors.general && (
           <div className="error-message">{formik.errors.general}</div>
         )}
