@@ -1,5 +1,6 @@
 import "./Ayarlar.scss";
 import AyarForm from "./components/AyarForm";
+import SettingsSkeleton from "./components/SettingsSkeleton";
 import StoreInfo from "./components/StoreInfo";
 import WorkingHours from "./components/WorkingHours";
 import { useAyarlar } from "./hooks";
@@ -12,8 +13,12 @@ const Ayarlar = () => {
     districts,
     onToggle,
     isOpen,
-    initialValues,
+    initialValuesMe,
   } = useAyarlar();
+
+  if (isLoading) {
+    return <SettingsSkeleton />;
+  }
 
   return (
     <div className="ayarlar">
@@ -36,7 +41,7 @@ const Ayarlar = () => {
                   districts={districts}
                   isLoading={isLoading}
                   formik={formik}
-                  initialValues={initialValues}
+                  initialValuesMe={initialValuesMe}
                 />
               </div>
             </div>

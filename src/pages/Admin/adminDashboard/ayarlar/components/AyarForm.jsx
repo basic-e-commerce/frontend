@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 
-const AyarForm = ({ formik, cities, districts, isLoading, initialValues }) => {
+const AyarForm = ({
+  formik,
+  cities,
+  districts,
+  isLoading,
+  initialValuesMe,
+}) => {
   return (
     <>
       {/* name */}
@@ -412,14 +418,14 @@ const AyarForm = ({ formik, cities, districts, isLoading, initialValues }) => {
           className={
             isLoading ||
             !formik.isValid ||
-            JSON.stringify(formik.values) === JSON.stringify(initialValues)
+            JSON.stringify(formik.values) === JSON.stringify(initialValuesMe)
               ? "disabled"
               : ""
           }
           disabled={
             isLoading ||
             !formik.isValid ||
-            JSON.stringify(formik.values) === JSON.stringify(initialValues)
+            JSON.stringify(formik.values) === JSON.stringify(initialValuesMe)
           }
         >
           {isLoading ? "Kaydediliyor..." : "Kaydet"}
@@ -434,6 +440,7 @@ AyarForm.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   cities: PropTypes.array.isRequired,
   districts: PropTypes.array.isRequired,
+  initialValuesMe: PropTypes.object.isRequired,
 };
 
 export default AyarForm;

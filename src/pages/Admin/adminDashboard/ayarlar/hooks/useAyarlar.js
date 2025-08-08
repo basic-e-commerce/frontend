@@ -18,7 +18,7 @@ export const useAyarlar = () => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [initialValues, setInitialValues] = useState({});
+  const [initialValuesMe, setInitialValuesMe] = useState({});
 
   const onToggle = () => {
     setIsOpen((prev) => !prev);
@@ -28,7 +28,7 @@ export const useAyarlar = () => {
     dispatch(
       setLoading({
         isLoading: true,
-        message: "Kupon oluşturuluyor...",
+        message: "Ayarlar yükleniyor...",
       })
     );
 
@@ -70,7 +70,7 @@ export const useAyarlar = () => {
         openCloseHours: merchantData.openCloseHours || [],
       });
 
-      setInitialValues({
+      setInitialValuesMe({
         name: merchantData?.name || "",
         firstName: publicData?.firstName || "",
         lastName: publicData?.lastName || "",
@@ -150,6 +150,6 @@ export const useAyarlar = () => {
     districts,
     onToggle,
     isOpen,
-    initialValues,
+    initialValuesMe,
   };
 };

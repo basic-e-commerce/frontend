@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { showAlertWithTimeout } from "../../../../../redux/slices/alertSlice";
 
 const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
-  const invoice = order.invoiceResponseDto;
+  const invoice = order?.invoiceResponseDto;
   const [maxIade, setMaxIade] = useState(0);
   const [iadeAmount, setIadeAmount] = useState(0);
   const dispatch = useDispatch();
@@ -37,10 +37,10 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
     );
     try {
       await api.post(`${BASE_URL}/api/v1/payment/refund`, {
-        orderCode: order.orderCode,
+        orderCode: order?.orderCode,
         refundAmount: iadeAmount,
         orderItemRefundDtos:
-          order.orderStatusResponse?.refundOrderPackages?.[0]?.orderItems?.map(
+          order?.orderStatusResponse?.refundOrderPackages?.[0]?.orderItems?.map(
             (item) => ({
               orderItemId: item.orderItemId,
               productId: item.productId,
@@ -61,7 +61,7 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
       setTimeout(() => {
         dispatch(
           showAlertWithTimeout({
-            message: error.response?.data || error.message || "Hata Var",
+            message: error?.message || error?.response?.data || "Hata Var",
             status: "error",
           })
         );
@@ -263,10 +263,10 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
                 {order?.refundItemResponseDtos?.map((item, index) => (
                   <tr key={index}>
                     <td>
-                      <img src={item.coverImage} alt={item.productName} />
+                      <img src={item?.coverImage} alt={item.productName} />
                     </td>
-                    <td>{item.productName}</td>
-                    <td>{item.quantity}</td>
+                    <td>{item?.productName}</td>
+                    <td>{item?.quantity}</td>
                     <td>
                       <span
                         style={{
@@ -274,10 +274,10 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
                           textDecoration: "line-through",
                         }}
                       >
-                        {item.price}
+                        {item?.price}
                       </span>{" "}
                       <br />
-                      {item.discountPrice}
+                      {item?.discountPrice}
                     </td>
                   </tr>
                 ))}
