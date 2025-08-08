@@ -1,0 +1,199 @@
+.KargoAdresSkeleton {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .titleSkeleton {
+    margin-bottom: 20px;
+
+    .titleBar {
+      height: 32px;
+      width: 200px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: pulse 1.5s ease-in-out infinite;
+      border-radius: 6px;
+    }
+  }
+
+  .divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 20px 0;
+  }
+
+  .contentSkeleton {
+    .addButtonSkeleton {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 2px dashed #e0e0e0;
+
+      .buttonPulse {
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: pulse 1.5s ease-in-out infinite;
+        border-radius: 50%;
+      }
+
+      .buttonText {
+        height: 16px;
+        width: 120px;
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: pulse 1.5s ease-in-out infinite;
+        border-radius: 4px;
+      }
+    }
+
+    .addressCardSkeleton {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f0f0f0;
+
+      .cardHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+
+        .titlePulse {
+          height: 20px;
+          width: 150px;
+          background: linear-gradient(
+            90deg,
+            #f0f0f0 25%,
+            #e0e0e0 50%,
+            #f0f0f0 75%
+          );
+          background-size: 200% 100%;
+          animation: pulse 1.5s ease-in-out infinite;
+          border-radius: 4px;
+        }
+
+        .actionsPulse {
+          display: flex;
+          gap: 8px;
+
+          .actionDot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: pulse 1.5s ease-in-out infinite;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .cardContent {
+        .nameRow {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 12px;
+
+          .namePulse {
+            height: 16px;
+            width: 100px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: pulse 1.5s ease-in-out infinite;
+            border-radius: 4px;
+          }
+        }
+
+        .addressRow {
+          margin-bottom: 12px;
+
+          .addressPulse {
+            height: 16px;
+            width: 100%;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: pulse 1.5s ease-in-out infinite;
+            border-radius: 4px;
+          }
+        }
+
+        .locationRow {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 12px;
+
+          .locationPulse {
+            height: 16px;
+            width: 80px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: pulse 1.5s ease-in-out infinite;
+            border-radius: 4px;
+          }
+        }
+
+        .phoneRow {
+          .phonePulse {
+            height: 16px;
+            width: 120px;
+            background: linear-gradient(
+              90deg,
+              #f0f0f0 25%,
+              #e0e0e0 50%,
+              #f0f0f0 75%
+            );
+            background-size: 200% 100%;
+            animation: pulse 1.5s ease-in-out infinite;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}

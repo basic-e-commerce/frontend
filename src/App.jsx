@@ -46,6 +46,7 @@ import IadeIptalPolitikasi from "./pages/Politikalar/IadeIptalPolitikasi";
 import KvkkAydinlatmaMetni from "./pages/Politikalar/KvkkAydinlatmaMetni";
 import CookiePolicy from "./pages/Politikalar/CookiePolicy";
 import Iletisim from "./pages/iletisim/Iletisim";
+import KargoAdres from "./pages/Admin/adminDashboard/kargoAdres/KargoAdres";
 
 function App() {
   const location = useLocation();
@@ -140,6 +141,7 @@ function App() {
 
           <Route path="siparisler" element={<Siparisler />} />
           <Route path="ayarlar" element={<Ayarlar />} />
+          <Route path="kargo-adresleri" element={<KargoAdres />} />
         </Route>
 
         <Route
