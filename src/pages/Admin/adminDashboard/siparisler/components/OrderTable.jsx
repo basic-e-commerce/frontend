@@ -13,6 +13,7 @@ const OrderTable = ({
   selectedTab,
   onViewCancel,
   onViewOdeme,
+  onViewManualCargo,
 }) => {
   return (
     <table className="custom-table">
@@ -48,7 +49,7 @@ const OrderTable = ({
                 </button>
 
                 {selectedTab === "APPROVED" ? (
-                  <button onClick={() => onViewCargo(order)}>
+                  <button onClick={() => onViewManualCargo(order)}>
                     <BackHandIcon className="icon" />
                   </button>
                 ) : (

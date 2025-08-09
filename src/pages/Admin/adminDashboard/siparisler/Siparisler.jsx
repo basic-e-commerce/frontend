@@ -11,6 +11,7 @@ import OrderDetailModalCargo from "./components/OrderDetailModalCargo";
 import OrderDetailModalIade from "./components/OrderDetailModalIade";
 import CancelOnayPopUp from "./components/CancelOnayPopUp";
 import IadeOdemeOnayPopUp from "./components/IadeOdemeOnayPopUp";
+import OrderDetailModalManualCargo from "./components/OrderDetailModalManualCargo";
 
 const Siparisler = () => {
   const { isLoading } = useSelector((state) => state.loading);
@@ -30,6 +31,8 @@ const Siparisler = () => {
     setselectedCancel,
     selectedOdeme,
     setSelectedOdeme,
+    selectedManualCargo,
+    setSelectedManualCargo,
   } = useOrders();
 
   if (isLoading) {
@@ -52,6 +55,7 @@ const Siparisler = () => {
           onViewIade={setSelectedIade}
           onViewCancel={setselectedCancel}
           onViewOdeme={setSelectedOdeme}
+          onViewManualCargo={setSelectedManualCargo}
         />
         {selectedOrder && (
           <OrderDetailModal
@@ -88,6 +92,14 @@ const Siparisler = () => {
           <IadeOdemeOnayPopUp
             order={selectedOdeme}
             onClose={() => setSelectedOdeme(null)}
+            setIsSubmit={setIsSubmit}
+          />
+        )}
+
+        {selectedManualCargo && (
+          <OrderDetailModalManualCargo
+            order={selectedManualCargo}
+            onClose={() => setSelectedManualCargo(null)}
             setIsSubmit={setIsSubmit}
           />
         )}
