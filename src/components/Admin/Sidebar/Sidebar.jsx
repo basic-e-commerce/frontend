@@ -89,6 +89,13 @@ const Sidebar = () => {
             </Link>
           </li>
 
+          <li>
+            <Link to="/admins/anlasma-cargo">
+              <TrendingUpIcon className="icon" />
+              <span>Anlaşma Cargo</span>
+            </Link>
+          </li>
+
           <li style={{ marginBottom: "10px" }}>
             <button
               onClick={async () => {
