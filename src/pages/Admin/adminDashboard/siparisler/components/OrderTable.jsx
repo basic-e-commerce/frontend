@@ -3,6 +3,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import ClearIcon from "@mui/icons-material/Clear";
 import CurrencyLiraIcon from "@mui/icons-material/CurrencyLira";
+import BackHandIcon from "@mui/icons-material/BackHand";
 
 const OrderTable = ({
   orders,
@@ -22,7 +23,7 @@ const OrderTable = ({
           <th className="col-0">Tutar</th>
           <th className="col-0">Taksit</th>
           <th className="col-2">Durum</th>
-          <th className="col-0"></th>
+          <th className="col-1"></th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +46,14 @@ const OrderTable = ({
                 <button onClick={() => onViewDetails(order)}>
                   <VisibilityIcon className="icon" />
                 </button>
+
+                {selectedTab === "APPROVED" ? (
+                  <button onClick={() => onViewCargo(order)}>
+                    <BackHandIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
 
                 {selectedTab === "APPROVED" ? (
                   <button onClick={() => onViewCargo(order)}>

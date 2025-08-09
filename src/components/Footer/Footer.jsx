@@ -2,10 +2,9 @@ import "./Footer.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
-import data from "../../data.json";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ contactData }) => {
   return (
     <footer className="footer">
       <div className="container">
@@ -16,7 +15,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="metin">
-            <p>{data.footerDesc}</p>
+            <p>{contactData?.footerDescription}</p>
           </div>
         </div>
 
@@ -65,9 +64,9 @@ const Footer = () => {
               <div className="yeap">
                 <PhoneIcon />
 
-                <a href={data.telefon_linki}>
+                <a href={`tel:${contactData?.phoneNo}`}>
                   <span style={{ marginRight: "-0.5rem" }} className="ici">
-                    {data.telefon}
+                    {contactData?.phoneNo}
                   </span>
                 </a>
               </div>
@@ -77,10 +76,10 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={data.instagram_linki}
+                href={contactData?.instagramLink}
               >
                 <InstagramIcon />
-                <span>{data.instagram}</span>
+                <span>{contactData?.instagram}</span>
               </a>
             </li>
 
@@ -88,10 +87,13 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={data.adres_linki}
+                href={contactData?.addressLink}
               >
                 <MapIcon />
-                <span>{data.adres}</span>
+                <span>
+                  {contactData?.addressLine1} {contactData?.postalCode}{" "}
+                  {contactData?.district}/{contactData?.city}
+                </span>
               </a>
             </li>
           </ul>
@@ -102,7 +104,7 @@ const Footer = () => {
 
       <div className="container">
         <p style={{ fontSize: "0.85rem" }}>
-          Copyright 2025 © {data.magazaIsmi}. Bütün Hakları Saklıdır.
+          Copyright 2025 © {contactData?.name}. Bütün Hakları Saklıdır.
         </p>
       </div>
     </footer>

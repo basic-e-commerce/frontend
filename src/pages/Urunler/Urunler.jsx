@@ -1,5 +1,5 @@
 import "./Urunler.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { useParams } from "react-router-dom";
 import CategoryName from "../../components/categoryName/CategoryName";
@@ -14,11 +14,9 @@ import {
 } from "../../redux/slices/categorySlice";
 import { setLoading } from "../../redux/slices/loadingSlice";
 import UrunlerSkeleton from "./UrunlerSkeleton";
-import { useRef } from "react";
 
 const Urunler = () => {
   const dispatch = useDispatch();
-  const isFirstRender = useRef(true);
   const { isLoading } = useSelector((state) => state.loading);
   const [currentItems, setCurrentItems] = useState([]);
   const { categoryLinkName } = useParams();
@@ -28,70 +26,83 @@ const Urunler = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [value, setValue] = useState([0, 5000]);
 
+  const debounceTimerRef = useRef(null);
+  const prevCategoryRef = useRef(categoryLinkName);
+  const prevValueRef = useRef([0, 5000]);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleValueChange = (newValue) => {
+    setValue(newValue);
+
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      fetchProducts(categoryLinkName, newValue);
+      setSidebarOpen(false);
+    }, 500);
+  };
+
+  const fetchProducts = async (categoryName, priceRange) => {
+    dispatch(setLoading({ isLoading: true }));
+    try {
+      await dispatch(
+        getProductsCategoryLinkNameUser({
+          linkName: categoryName,
+          min: priceRange[0],
+          max: priceRange[1],
+        })
+      ).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(setLoading({ isLoading: false }));
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       dispatch(setLoading({ isLoading: true }));
       try {
-        const [products, categories, category] = await Promise.all([
-          dispatch(
-            getProductsCategoryLinkNameUser({
-              linkName: categoryLinkName,
-              min: value[0],
-              max: value[1],
-            })
-          ).unwrap(),
-          dispatch(getCategories()).unwrap(),
-          dispatch(getCategoryByCategoryLinkName(categoryLinkName)).unwrap(),
-        ]);
-
+        await dispatch(getCategories()).unwrap();
+        const category = await dispatch(
+          getCategoryByCategoryLinkName(categoryLinkName)
+        ).unwrap();
         setSelectedCategory(category);
+
+        // Category değiştiyse value'yu sıfırla ve fetch yap
+        if (prevCategoryRef.current !== categoryLinkName) {
+          setValue([0, 5000]);
+          prevValueRef.current = [0, 5000];
+
+          await fetchProducts(categoryLinkName, [0, 5000]);
+        } else {
+          // Category aynıysa sadece mevcut value ile fetch yap
+          await fetchProducts(categoryLinkName, value);
+        }
+
+        prevCategoryRef.current = categoryLinkName;
       } catch (error) {
         console.log(error);
       } finally {
         dispatch(setLoading({ isLoading: false }));
       }
     };
-
+    setSidebarOpen(false);
     fetchData();
   }, [dispatch, categoryLinkName]);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    const delayDebounceFn = setTimeout(() => {
-      const fetchData = async () => {
-        dispatch(setLoading({ isLoading: true }));
-        try {
-          await dispatch(
-            getProductsCategoryLinkNameUser({
-              linkName: categoryLinkName,
-              min: value[0],
-              max: value[1],
-            })
-          ).unwrap();
-        } catch (error) {
-          console.log(error);
-        } finally {
-          dispatch(setLoading({ isLoading: false }));
-        }
-      };
-
-      fetchData();
-    }, 500);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [value, categoryLinkName, dispatch]);
-
-  if (isLoading) {
-    return <UrunlerSkeleton />;
-  }
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="projeler">
@@ -108,7 +119,7 @@ const Urunler = () => {
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
             value={value}
-            setValue={setValue}
+            setValue={handleValueChange}
           />
 
           <div className="contentProjelerRight">

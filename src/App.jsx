@@ -25,7 +25,7 @@ import KisiAdresleri from "./pages/profile/kisiAdresleri/KisiAdresleri";
 import SiparisMusteri from "./pages/profile/siparis/SiparisMusteri";
 import Dashboard from "./pages/Admin/adminDashboard/Dashboard/Dashboard";
 import AdminLogin from "./pages/Admin/adminLogin/AdminLogin";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setLogin, setLogout } from "./redux/slices/authSlice";
 import api from "./api/api";
 import ProtectedRoute from "./context/ProtectedRoute";
@@ -55,35 +55,59 @@ function App() {
   const isAdminPanel = location.pathname.startsWith("/admins");
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.authSlice);
+  const [contactData, setContactData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const silentLogin = async () => {
+    const initializeApp = async () => {
       try {
-        const response = await api.post(
-          `${BASE_URL}/api/v1/auth/refresh`,
-          {},
-          { withCredentials: true }
-        );
-        const data = response.data;
-        dispatch(setLogin(data));
-      } catch (err) {
-        dispatch(setLogout());
+        const silentLogin = async () => {
+          try {
+            const response = await api.post(
+              `${BASE_URL}/api/v1/auth/refresh`,
+              {},
+              { withCredentials: true }
+            );
+            const data = response.data;
+            dispatch(setLogin(data));
+          } catch {
+            dispatch(setLogout());
+          }
+        };
+
+        const visitor = async () => {
+          try {
+            await axios.post(`${BASE_URL}/api/v1/visitors/visit`);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        const contact = async () => {
+          try {
+            const response = await axios.get(
+              `${BASE_URL}/api/v1/merchant/public-detail`
+            );
+            setContactData(response.data);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        if (!accessToken) {
+          await Promise.all([silentLogin(), visitor(), contact()]);
+        }
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    const visitor = async () => {
-      try {
-        await axios.post(`${BASE_URL}/api/v1/visitors/visit`);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (!accessToken) {
-      silentLogin();
-      visitor();
-    }
+    initializeApp();
   }, [dispatch, accessToken]);
+
+  if (isLoading) {
+    return <div>Yükleniyor...</div>;
+  }
 
   return (
     <>
@@ -102,7 +126,10 @@ function App() {
         <Route path="/siparis" element={<SiparisOlustur />} />
         <Route path="/success-payment" element={<SiparisAlindi />} />
         <Route path="/fail-payment" element={<SiparisRed />} />
-        <Route path="/iletisim" element={<Iletisim />} />
+        <Route
+          path="/iletisim"
+          element={<Iletisim contactData={contactData} />}
+        />
         <Route path="/gizlilik-politikasi" element={<GizlilikPolitikasi />} />
         <Route
           path="/mesafeli-satis-sozlesmesi"
@@ -161,8 +188,8 @@ function App() {
         </Route>
       </Routes>
 
-      {!isAdminRoute && <FooterTop />}
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && <FooterTop contactData={contactData} />}
+      {!isAdminRoute && <Footer contactData={contactData} />}
     </>
   );
 }

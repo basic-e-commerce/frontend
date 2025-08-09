@@ -1,9 +1,8 @@
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 import "./FooterTop.scss";
-import data from "../../data.json";
 
-const FooterTop = () => {
+const FooterTop = ({ contactData }) => {
   return (
     <div className="dikkat">
       <div className="container dikkatItems">
@@ -11,13 +10,13 @@ const FooterTop = () => {
           <PhoneIcon fontSize="large" className="iconDikkat" />
 
           <div className="infoDikkat">
-            <h3>Bizlere Ulaşın: {data.telefon}</h3>
+            <h3>Bizlere Ulaşın: {contactData?.phoneNo}</h3>
             <p>
               Yukarıdaki telefon numarası ile gönül rahatlığıyla iletişim
               kurabilirsiniz.
             </p>
             <div>
-              <a href={data.telefon_linki}>
+              <a href={`tel:${contactData?.phoneNo}`}>
                 <button>Hemen Ara</button>
               </a>
             </div>
@@ -29,9 +28,12 @@ const FooterTop = () => {
 
           <div className="infoDikkat">
             <h3>Adres İçin</h3>
-            <p>{data.adres}</p>
+            <p>
+              {contactData?.addressLine1} {contactData?.postalCode}{" "}
+              {contactData?.district}/{contactData?.city}
+            </p>
             <div>
-              <a target="_blank" href={data.adres_linki}>
+              <a target="_blank" href={contactData?.addressLink}>
                 <button>Yol Tarifi Al</button>
               </a>
             </div>

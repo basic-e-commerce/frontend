@@ -16,7 +16,7 @@
       .iframe {
         border-radius: 15px;
         width: 100%;
-        height: 450px;
+        height: 480px;
       }
     }
 
@@ -24,7 +24,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 2rem;
+      gap: 2.2rem;
       width: 50%;
 
       .itemIletisim {
@@ -42,6 +42,38 @@
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
+        }
+
+        p,
+        span {
+          font-size: 0.9rem;
+        }
+
+        .workingHoursGrid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          gap: 1rem;
+
+          .workingHoursItem {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            h4 {
+              font-size: 0.9rem;
+              font-weight: 600;
+              margin: 0;
+            }
+
+            p {
+              font-size: 0.85rem;
+              margin: 0;
+            }
+          }
+
+          @media (max-width: 900px) {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
         }
       }
     }
