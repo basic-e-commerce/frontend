@@ -10,14 +10,15 @@ const TopCategoriesCard = ({ sepets }) => {
     name: item.productName,
     value: item.quantity,
     color: COLORS[index] || "#CCCCCC", // fazla ürün gelirse default renk
+    inCardItem: item.inCardItem,
   }));
 
-  const total = pieData?.reduce((acc, item) => acc + item.value, 0) || 0;
+  const total = sepets?.length;
   const [popUp, setPopUp] = useState(false);
 
   return (
     <div className="top-categories-card">
-      <h3 className="title">Sepetinde Ürün Olanlar (Anlık)</h3>
+      <h3 className="title">Sepetinde Ürün Olanlar</h3>
 
       <div className="chart-wrapper">
         <PieChart width={140} height={140}>
@@ -35,7 +36,7 @@ const TopCategoriesCard = ({ sepets }) => {
             ))}
           </Pie>
         </PieChart>
-        <div className="total">{total} kişi</div>
+        <div className="total">{total} Ürün</div>
       </div>
 
       <div className="legend">
@@ -46,7 +47,7 @@ const TopCategoriesCard = ({ sepets }) => {
               style={{ backgroundColor: entry.color }}
             ></span>
             <span className="label">
-              {entry.name}: {entry.value} kişinin sepetinde
+              {entry.name}: {entry.inCardItem} kişinin sepetinde
             </span>
           </div>
         ))}
@@ -77,7 +78,7 @@ const TopCategoriesCard = ({ sepets }) => {
                     <p className="id">Ürün ID: {item.productId}</p>
                   </div>
                   <span className="sales">
-                    {item.quantity} kişinin sepetinde{" "}
+                    {item.inCardItem} kişinin sepetinde{" "}
                   </span>
                 </Link>
               ))}

@@ -1,5 +1,6 @@
 .dashboard {
   padding-bottom: 3rem;
+  position: relative;
 
   .dashboardContent {
     display: flex;
@@ -7,13 +8,85 @@
     gap: 2rem;
     .infoCards {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 0.5rem; // Öğeler arasındaki boşluk
     }
 
     .two {
       display: flex;
       gap: 1.5rem;
+    }
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999999;
+
+    .modal {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      height: 300px;
+      overflow-y: auto;
+
+      .close-btn {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background: transparent;
+        font-size: 1.5rem;
+        border: none;
+        cursor: pointer;
+      }
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .product-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+        }
+
+        .details {
+          flex-grow: 1;
+
+          .name {
+            font-weight: 500;
+            color: #1f1f1f;
+          }
+
+          .id {
+            font-size: 0.8rem;
+            color: #888;
+          }
+        }
+
+        .sales {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #555;
+        }
+      }
     }
   }
 }

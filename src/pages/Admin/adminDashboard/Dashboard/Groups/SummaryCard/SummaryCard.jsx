@@ -21,8 +21,10 @@ const SummaryCard = ({ satisData }) => {
 
   const totalItems = satisData?.totalQuantity || "Veri Yok"; // 280 ürün satıldı
   const totalAmount = satisData?.totalPrice?.toFixed(2) || "Veri Yok"; // Toplam gelir 120.000 TL
+  const totalRefund = satisData?.refundPrice?.toFixed(2) || "Veri Yok"; // Toplam iade edilen tutar
   const totalOrder = satisData?.totalOrder || "Veri Yok"; // Toplam Verilen Sipariş
-  const averageBasket = satisData?.averageOrderAmount?.toFixed(2) || "Veri Yok"; // Ortalama sepet tutarı
+  const averageBasket = satisData?.averageOrderAmount?.toFixed(1) || "Veri Yok"; // Ortalama sepet tutarı
+  const refundOrders = satisData?.refundOrders?.toFixed(0) || "Veri Yok"; // Toplam iade edilen sipariş
 
   return (
     <div className="summary-card">
@@ -59,7 +61,15 @@ const SummaryCard = ({ satisData }) => {
           <span>Toplam Sipariş:</span> {totalOrder}
         </p>
         <p>
-          <span>Toplam Tutar:</span> {totalAmount}₺
+          <span>Toplam Ciro:</span> {totalAmount}₺
+        </p>
+
+        <p>
+          <span>Toplam İade Sipariş:</span> {refundOrders} Adet
+        </p>
+
+        <p>
+          <span>Toplam İade Edilen Tutar:</span> {totalRefund}₺
         </p>
         <p>
           <span>Ortalama Sepet:</span> {averageBasket}₺
