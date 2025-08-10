@@ -94,7 +94,7 @@ export const useManualCargo = (order, onClose, setIsSubmit) => {
       setstepLoading(true);
 
       try {
-        await api.post(`${BASE_URL}/api/v1/order/cargo-one-step`, {
+        await api.post(`${BASE_URL}/api/v1/order/cargo-contract`, {
           orderCode: order.orderCode,
           cargoBuyDesiRequestAdminDataDto: [
             {
