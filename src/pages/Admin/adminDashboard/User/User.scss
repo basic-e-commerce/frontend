@@ -1,0 +1,62 @@
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.85rem;
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Sütun genişlikleri
+  thead {
+    tr {
+      th {
+        &.col-2 {
+          width: 33.33%;
+        }
+        &.col-1 {
+          width: 16.66%;
+        }
+
+        &.col-0 {
+          width: 10%;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td:nth-child(1) {
+        width: 33.33%;
+      }
+      td:nth-child(n + 2) {
+        width: 16.66%;
+      }
+    }
+
+    .manual {
+      background-color: rgb(221, 233, 234);
+    }
+  }
+
+  th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+
+  button {
+    margin-right: 0.5rem;
+    background-color: transparent;
+    .icon {
+      font-size: 1.3rem;
+    }
+  }
+}

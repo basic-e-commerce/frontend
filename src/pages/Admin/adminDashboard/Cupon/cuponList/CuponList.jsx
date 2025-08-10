@@ -107,7 +107,7 @@ const CuponList = () => {
           <th className="col-2">Başlangıç</th>
           <th className="col-2">Bitiş</th>
           <th className="col-1">Durum</th>
-          <th className="col-1">Aktif/Pasif</th>
+          <th className="col-1"></th>
         </tr>
       </thead>
       <tbody>

@@ -48,6 +48,7 @@ import CookiePolicy from "./pages/Politikalar/CookiePolicy";
 import Iletisim from "./pages/iletisim/Iletisim";
 import KargoAdres from "./pages/Admin/adminDashboard/kargoAdres/KargoAdres";
 import AnlasmaCargo from "./pages/Admin/adminDashboard/anlasmalıKargo/AnlasmaCargo";
+import User from "./pages/Admin/adminDashboard/User/User";
 
 function App() {
   const location = useLocation();
@@ -171,6 +172,7 @@ function App() {
           <Route path="ayarlar" element={<Ayarlar />} />
           <Route path="kargo-adresleri" element={<KargoAdres />} />
           <Route path="anlasma-cargo" element={<AnlasmaCargo />} />
+          <Route path="kullanicilar" element={<User />} />
         </Route>
 
         <Route

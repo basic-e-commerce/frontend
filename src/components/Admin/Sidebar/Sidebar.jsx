@@ -12,6 +12,18 @@ import { BASE_URL } from "../../../config/baseApi";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../../../redux/slices/authSlice";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import CategoryIcon from "@mui/icons-material/Category";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import BentoIcon from "@mui/icons-material/Bento";
+import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -28,70 +40,78 @@ const Sidebar = () => {
               <span>İstatistik ve Analizler</span>
             </Link>
           </li>
+
+          <li>
+            <Link to="/admins/kullanicilar">
+              <PersonIcon className="icon" />
+              <span>Kullanıcılar</span>
+            </Link>
+          </li>
+
           <li>
             <Link to="/admins/urunler">
-              <LoopIcon className="icon" />
+              <FormatListBulletedIcon className="icon" />
               <span>Ürünler</span>
             </Link>
           </li>
           <li>
             <Link to="/admins/urunekle">
-              <SlowMotionVideoIcon className="icon" />
+              <PlaylistAddIcon className="icon" />
               <span>Ürün Ekle</span>
             </Link>
           </li>
           <li>
             <Link to="/admins/kategoriler">
-              <CandlestickChartIcon className="icon" />
+              <BentoIcon className="icon" />
               <span>Kategoriler</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/kategoriekle">
-              <CelebrationIcon className="icon" />
+              <AddBoxIcon className="icon" />
               <span>Kategori Ekle</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/kuponekle">
-              <CelebrationIcon className="icon" />
+              <AddCircleIcon className="icon" />
               <span>Kupon Ekle</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/kuponlistele">
-              <CelebrationIcon className="icon" />
+              <LocalActivityIcon className="icon" />
               <span>Kupon Ayarları</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/siparisler">
-              <DonutLargeIcon className="icon" />
+              <ShoppingBasketIcon className="icon" />
               <span>Siparişleri Listele</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/ayarlar">
-              <TrendingUpIcon className="icon" />
+              <SettingsIcon className="icon" />
               <span>Ayarlar</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/kargo-adresleri">
-              <TrendingUpIcon className="icon" />
+              <HomeWorkIcon className="icon" />
               <span>Kargo Adresleri</span>
             </Link>
           </li>
 
           <li>
             <Link to="/admins/anlasma-cargo">
-              <TrendingUpIcon className="icon" />
+              <LocalShippingIcon className="icon" />
               <span>Anlaşma Cargo</span>
             </Link>
           </li>
