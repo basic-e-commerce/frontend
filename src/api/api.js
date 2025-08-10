@@ -61,8 +61,8 @@ api.interceptors.response.use(
 
           return api(originalRequest); // Orijinal isteği yeni token ile tekrar gönder
         } catch (refreshError) {
-          refreshSubscribers = []; // ❗️ temizlemeden önce reject edebilirsin
-          await logOutBackend();
+          refreshSubscribers = [];
+          await logOutBackend(); // patlama yerii
           dispatch?.(setLogout());
           return Promise.reject(refreshError);
         }

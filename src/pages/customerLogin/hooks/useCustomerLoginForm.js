@@ -41,12 +41,7 @@ export const useCustomerLoginForm = () => {
         setTimeout(() => {
           dispatch(
             showAlertWithTimeoutKullanici({
-              message:
-                typeof error.response.data === "string"
-                  ? error.response.data
-                  : error.response.data?.message ||
-                    error.response.data?.error ||
-                    "Bilinmeyen hata",
+              message: "Bilinmeyen hata",
               status: "error",
             })
           );
