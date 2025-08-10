@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "./CargoInfoSection.scss";
 import CargoInfoSkeleton from "./CargoInfoSkeleton";
 
-const CargoManuelSubmitSection = ({ formik, stepLoading }) => {
+const CargoAnlasmaliSubmitSection = ({ formik, stepLoading }) => {
   if (stepLoading) {
     return <CargoInfoSkeleton />;
   }
@@ -38,48 +38,6 @@ const CargoManuelSubmitSection = ({ formik, stepLoading }) => {
         </label>
         {formik.touched.cargoCompany && formik.errors.cargoCompany && (
           <div className="error-message">{formik.errors.cargoCompany}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>
-          Kargo Kodu:
-          <input
-            type="text"
-            name="cargoCode"
-            value={formik.values.cargoCode}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            autoComplete="off"
-            className={
-              formik.touched.cargoCode && formik.errors.cargoCode ? "error" : ""
-            }
-          />
-        </label>
-        {formik.touched.cargoCode && formik.errors.cargoCode && (
-          <div className="error-message">{formik.errors.cargoCode}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>
-          Kargo Ücreti (₺):
-          <input
-            type="number"
-            name="cargoFee"
-            value={formik.values.cargoFee}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            autoComplete="off"
-            className={
-              formik.touched.cargoFee && formik.errors.cargoFee ? "error" : ""
-            }
-          />
-        </label>
-        {formik.touched.cargoFee && formik.errors.cargoFee && (
-          <div className="error-message">{formik.errors.cargoFee}</div>
         )}
       </div>
 
@@ -230,7 +188,7 @@ const CargoManuelSubmitSection = ({ formik, stepLoading }) => {
   );
 };
 
-CargoManuelSubmitSection.propTypes = {
+CargoAnlasmaliSubmitSection.propTypes = {
   formik: PropTypes.shape({
     handleSubmit: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
@@ -247,9 +205,6 @@ CargoManuelSubmitSection.propTypes = {
         .isRequired,
       massUnit: PropTypes.string.isRequired,
       cargoCompany: PropTypes.string.isRequired,
-      cargoCode: PropTypes.string.isRequired,
-      cargoFee: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
     }).isRequired,
     touched: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -259,4 +214,4 @@ CargoManuelSubmitSection.propTypes = {
   stepLoading: PropTypes.bool.isRequired,
 };
 
-export default CargoManuelSubmitSection;
+export default CargoAnlasmaliSubmitSection;

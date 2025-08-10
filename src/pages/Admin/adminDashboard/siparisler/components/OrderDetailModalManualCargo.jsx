@@ -4,10 +4,19 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import "./OrderDetailModalCargo.scss";
 import { useManualCargo } from "../hooks";
 import CargoManuelSubmitSection from "./CargoManuelSubmitSection";
+import ManuelOption from "./ManuelOption";
+import CargoAnlasmaliSubmitSection from "./CargoAnlasmaliSubmitSection";
 
 const OrderDetailModalManualCargo = ({ order, onClose, setIsSubmit }) => {
-  const { formik, activeStep, steps, stepLoading, setActiveStep } =
-    useManualCargo(order, onClose, setIsSubmit);
+  const {
+    formik,
+    formikAnlasmali,
+    formikDirekt,
+    activeStep,
+    steps,
+    stepLoading,
+    setActiveStep,
+  } = useManualCargo(order, onClose, setIsSubmit);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -16,14 +25,33 @@ const OrderDetailModalManualCargo = ({ order, onClose, setIsSubmit }) => {
   const StepContent = useMemo(() => {
     switch (activeStep) {
       case 0:
+        return <ManuelOption setActiveStep={setActiveStep} />;
+
+      case 1:
+        return (
+          <CargoAnlasmaliSubmitSection
+            stepLoading={stepLoading}
+            formik={formikAnlasmali}
+          />
+        );
+
+      case 2:
         return (
           <CargoManuelSubmitSection stepLoading={stepLoading} formik={formik} />
+        );
+
+      case 3:
+        return (
+          <CargoAnlasmaliSubmitSection
+            stepLoading={stepLoading}
+            formik={formikDirekt}
+          />
         );
 
       default:
         return null;
     }
-  }, [activeStep, formik]);
+  }, [activeStep, formik, formikAnlasmali, formikDirekt]);
 
   return (
     <div className="modal-overlayyy">

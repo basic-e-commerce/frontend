@@ -3,7 +3,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import ClearIcon from "@mui/icons-material/Clear";
 import CurrencyLiraIcon from "@mui/icons-material/CurrencyLira";
-import BackHandIcon from "@mui/icons-material/BackHand";
+import MoveDownIcon from "@mui/icons-material/MoveDown";
 
 const OrderTable = ({
   orders,
@@ -50,7 +50,7 @@ const OrderTable = ({
 
                 {selectedTab === "APPROVED" ? (
                   <button onClick={() => onViewManualCargo(order)}>
-                    <BackHandIcon className="icon" />
+                    <ShoppingBasketIcon className="icon" />
                   </button>
                 ) : (
                   ""
@@ -58,7 +58,7 @@ const OrderTable = ({
 
                 {selectedTab === "APPROVED" ? (
                   <button onClick={() => onViewCargo(order)}>
-                    <ShoppingBasketIcon className="icon" />
+                    <MoveDownIcon className="icon" />
                   </button>
                 ) : (
                   ""
