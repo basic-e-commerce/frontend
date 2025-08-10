@@ -7,7 +7,6 @@ import axios from "axios";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 import { BASE_URL } from "../../../config/baseApi";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
-import api from "../../../api/api";
 
 export const useCustomerLoginForm = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ export const useCustomerLoginForm = () => {
     onSubmit: async (values, { setSubmitting }) => {
       dispatch(setLoading({ isLoading: true, message: "Ürün ekleniyor..." }));
       try {
-        await api.post(`${BASE_URL}/api/v1/customer`, values);
+        await axios.post(`${BASE_URL}/api/v1/customer`, values);
         setTimeout(() => {
           dispatch(
             showAlertWithTimeoutKullanici({
@@ -40,7 +39,7 @@ export const useCustomerLoginForm = () => {
         setTimeout(() => {
           dispatch(
             showAlertWithTimeoutKullanici({
-              message: "Bilinmeyen hata",
+              message: error.response?.data?.message || "Bilinmeyen hata oluştu";,
               status: "error",
             })
           );
