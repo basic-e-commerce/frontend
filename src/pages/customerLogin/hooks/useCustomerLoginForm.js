@@ -22,7 +22,7 @@ export const useCustomerLoginForm = () => {
       privacyPolicy: false,
     },
     validationSchema: customerLoginValidationSchema,
-    onSubmit: async (values, { setSubmitting, setErrors }) => {
+    onSubmit: async (values, { setSubmitting }) => {
       dispatch(setLoading({ isLoading: true, message: "Ürün ekleniyor..." }));
       try {
         await axios.post(`${BASE_URL}/api/v1/customer`, values);
@@ -36,8 +36,6 @@ export const useCustomerLoginForm = () => {
         }, 400);
         navigate("/customerlogin");
       } catch (error) {
-        const errorMessage = handleApiError(error);
-        setErrors({ general: errorMessage });
         setTimeout(() => {
           dispatch(
             showAlertWithTimeoutKullanici({
