@@ -13,14 +13,20 @@ const CancelOnayPopUp = ({ order, onClose, setIsSubmit }) => {
     e.preventDefault();
     setIsloading(true);
     try {
-      if (order?.orderStatusResponse?.orderPackages?.length > 0) {
-        await api.post(
-          `${BASE_URL}/api/v1/order/cargo-cancel?orderCode=${order.orderCode}&orderPackageId=${order?.orderStatusResponse?.orderPackages[0]?.id}`
-        );
-      } else {
+      if (order.orderStatusResponse?.orderPackages?.[0]?.manuel) {
         await api.post(
           `${BASE_URL}/api/v1/order/cargo-cancel?orderCode=${order.orderCode}`
         );
+      } else {
+        if (order?.orderStatusResponse?.orderPackages?.length > 0) {
+          await api.post(
+            `${BASE_URL}/api/v1/order/cargo-cancel?orderCode=${order.orderCode}&orderPackageId=${order?.orderStatusResponse?.orderPackages[0]?.id}`
+          );
+        } else {
+          await api.post(
+            `${BASE_URL}/api/v1/order/cargo-cancel?orderCode=${order.orderCode}`
+          );
+        }
       }
 
       setTimeout(() => {

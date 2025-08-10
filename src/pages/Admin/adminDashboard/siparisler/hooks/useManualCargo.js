@@ -58,7 +58,6 @@ export const useManualCargo = (order, onClose, setIsSubmit) => {
                 productId: item?.productId,
                 productQuantity: item?.quantity,
               })),
-              cargoFee: values.cargoFee,
             },
           ],
         });
@@ -80,7 +79,7 @@ export const useManualCargo = (order, onClose, setIsSubmit) => {
       } finally {
         setstepLoading(false);
         onClose();
-        setIsSubmit(true);
+        setIsSubmit((prev) => !prev);
       }
     },
   });
@@ -131,7 +130,7 @@ export const useManualCargo = (order, onClose, setIsSubmit) => {
       } finally {
         setstepLoading(false);
         onClose();
-        setIsSubmit(true);
+        setIsSubmit((prev) => !prev);
       }
     },
   });
@@ -182,7 +181,7 @@ export const useManualCargo = (order, onClose, setIsSubmit) => {
       } finally {
         setstepLoading(false);
         onClose();
-        setIsSubmit(true);
+        setIsSubmit((prev) => !prev);
       }
     },
   });

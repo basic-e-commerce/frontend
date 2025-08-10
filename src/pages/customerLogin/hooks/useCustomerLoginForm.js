@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { handleApiError } from "../../../utils/errorHandler";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { customerLoginValidationSchema } from "../yup/customerLoginValidation";

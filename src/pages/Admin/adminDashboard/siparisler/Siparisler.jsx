@@ -12,6 +12,7 @@ import OrderDetailModalIade from "./components/OrderDetailModalIade";
 import CancelOnayPopUp from "./components/CancelOnayPopUp";
 import IadeOdemeOnayPopUp from "./components/IadeOdemeOnayPopUp";
 import OrderDetailModalManualCargo from "./components/OrderDetailModalManualCargo";
+import HandleNextOnay from "./components/HandleNextOnay";
 
 const Siparisler = () => {
   const { isLoading } = useSelector((state) => state.loading);
@@ -33,6 +34,9 @@ const Siparisler = () => {
     setSelectedOdeme,
     selectedManualCargo,
     setSelectedManualCargo,
+    handleManualNextSubmit,
+    selectedHandleNext,
+    setSelectedHandleNext,
   } = useOrders();
 
   if (isLoading) {
@@ -56,6 +60,7 @@ const Siparisler = () => {
           onViewCancel={setselectedCancel}
           onViewOdeme={setSelectedOdeme}
           onViewManualCargo={setSelectedManualCargo}
+          onViewHandleNext={setSelectedHandleNext}
         />
         {selectedOrder && (
           <OrderDetailModal
@@ -101,6 +106,14 @@ const Siparisler = () => {
             order={selectedManualCargo}
             onClose={() => setSelectedManualCargo(null)}
             setIsSubmit={setIsSubmit}
+          />
+        )}
+
+        {selectedHandleNext && (
+          <HandleNextOnay
+            order={selectedHandleNext}
+            onClose={() => setSelectedHandleNext(null)}
+            handleManualNextSubmit={handleManualNextSubmit}
           />
         )}
       </div>

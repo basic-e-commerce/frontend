@@ -143,7 +143,7 @@ const OrderDetailModal = ({ order, onClose }) => {
             <tbody>
               <tr>
                 <td>
-                  <strong>İlk indirimli Fiyat:</strong>
+                  <strong>İlk indirimli Fiyat + Kargo:</strong>
                 </td>
                 <td>
                   {(order?.substractDiscountPrice || 0) +
@@ -168,7 +168,7 @@ const OrderDetailModal = ({ order, onClose }) => {
 
               <tr>
                 <td>
-                  <strong>Kupon Uyg. Toplam:</strong>
+                  <strong>Kupon Uyg. Toplam + Kargo:</strong>
                 </td>
                 <td>{order?.totalPrice} ₺</td>
               </tr>

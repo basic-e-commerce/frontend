@@ -24,8 +24,21 @@ const OrderDetailModalIade = ({ order, onClose, setIsSubmit }) => {
       willAccept: true,
     };
 
+    const payloadManuel = {
+      orderItemRefundDtos: refundItems,
+      orderCode: order.orderCode,
+    };
+
     try {
-      await api.post(`${BASE_URL}/api/v1/order/cargo-refund`, payload);
+      if (order.orderStatusResponse?.orderPackages?.[0]?.manuel) {
+        await api.post(
+          `${BASE_URL}/api/v1/order/cargo-manuel-refund`,
+          payloadManuel
+        );
+      } else {
+        await api.post(`${BASE_URL}/api/v1/order/cargo-refund`, payload);
+      }
+
       setTimeout(() => {
         dispatch(
           showAlertWithTimeout({

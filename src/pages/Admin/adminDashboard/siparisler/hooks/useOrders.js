@@ -16,6 +16,7 @@ export const useOrders = () => {
   const [selectedCancel, setselectedCancel] = useState(null);
   const [selectedOdeme, setSelectedOdeme] = useState(null);
   const [selectedManualCargo, setSelectedManualCargo] = useState(null);
+  const [selectedHandleNext, setSelectedHandleNext] = useState(null);
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch();
 
@@ -98,6 +99,32 @@ export const useOrders = () => {
     }
   };
 
+  const handleManualNextSubmit = async (orderPackageId, orderCode) => {
+    dispatch(
+      setLoading({ isLoading: true, message: "Siparişler yükleniyor..." })
+    );
+    try {
+      await api.put(
+        `${BASE_URL}/api/v1/order-package/manuel-update?orderPackageId=${orderPackageId}`,
+        {
+          orderPackageStatusCode: "DELIVERED",
+          orderCode: orderCode,
+        }
+      );
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message || error.response?.data || "Hata Var",
+          status: "error",
+        })
+      );
+    } finally {
+      dispatch(clearLoading());
+      setSelectedHandleNext(null);
+      setIsSubmit((prev) => !prev);
+    }
+  };
+
   useEffect(() => {
     fetchAdminOrder();
   }, [selectedTab, IsSubmit]);
@@ -121,5 +148,8 @@ export const useOrders = () => {
     setSelectedOdeme,
     selectedManualCargo,
     setSelectedManualCargo,
+    handleManualNextSubmit,
+    selectedHandleNext,
+    setSelectedHandleNext,
   };
 };

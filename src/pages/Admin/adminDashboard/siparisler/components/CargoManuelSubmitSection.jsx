@@ -64,27 +64,6 @@ const CargoManuelSubmitSection = ({ formik, stepLoading }) => {
 
       <div className="form-group">
         <label>
-          Kargo Ücreti (₺):
-          <input
-            type="number"
-            name="cargoFee"
-            value={formik.values.cargoFee}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            required
-            autoComplete="off"
-            className={
-              formik.touched.cargoFee && formik.errors.cargoFee ? "error" : ""
-            }
-          />
-        </label>
-        {formik.touched.cargoFee && formik.errors.cargoFee && (
-          <div className="error-message">{formik.errors.cargoFee}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label>
           Uzunluk:
           <input
             type="number"
@@ -248,8 +227,6 @@ CargoManuelSubmitSection.propTypes = {
       massUnit: PropTypes.string.isRequired,
       cargoCompany: PropTypes.string.isRequired,
       cargoCode: PropTypes.string.isRequired,
-      cargoFee: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
     }).isRequired,
     touched: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,

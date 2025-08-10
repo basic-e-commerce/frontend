@@ -25,11 +25,6 @@ export const cargoManualValidationSchema = Yup.object().shape({
     .required("Ağırlık birimi zorunludur"),
   cargoCode: Yup.string().required("Kargo kodu zorunludur"),
   cargoCompany: Yup.string().required("Kargo şirketi zorunludur"),
-
-  cargoFee: Yup.number()
-    .required("Kargo ücreti zorunludur")
-    .typeError("Sayı olmalı")
-    .min(1, "En az 1 olmalı"),
 });
 
 export const initialValues = {
@@ -41,5 +36,4 @@ export const initialValues = {
   massUnit: "kg",
   cargoCode: "",
   cargoCompany: "",
-  cargoFee: 0,
 };

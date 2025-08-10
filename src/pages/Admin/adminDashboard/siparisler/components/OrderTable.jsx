@@ -4,6 +4,7 @@ import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import ClearIcon from "@mui/icons-material/Clear";
 import CurrencyLiraIcon from "@mui/icons-material/CurrencyLira";
 import MoveDownIcon from "@mui/icons-material/MoveDown";
+import SwipeUpIcon from "@mui/icons-material/SwipeUp";
 
 const OrderTable = ({
   orders,
@@ -14,7 +15,10 @@ const OrderTable = ({
   onViewCancel,
   onViewOdeme,
   onViewManualCargo,
+  onViewHandleNext,
 }) => {
+  console.log(orders);
+
   return (
     <table className="custom-table">
       <thead>
@@ -30,7 +34,14 @@ const OrderTable = ({
       <tbody>
         {orders?.length > 0 ? (
           orders?.map((order) => (
-            <tr key={order.id}>
+            <tr
+              className={
+                order.orderStatusResponse?.orderPackages?.[0]?.manuel
+                  ? "manual"
+                  : ""
+              }
+              key={order.id}
+            >
               <td>{order.orderCode}</td>
               <td>
                 {order.firstName} {order.lastName}
@@ -85,6 +96,15 @@ const OrderTable = ({
                 {selectedTab === "RETURNED" || selectedTab === "CANCEL" ? (
                   <button onClick={() => onViewOdeme(order)}>
                     <CurrencyLiraIcon className="icon" />
+                  </button>
+                ) : (
+                  ""
+                )}
+
+                {selectedTab === "TRANSIT" &&
+                order.orderStatusResponse?.orderPackages?.[0]?.manuel ? (
+                  <button onClick={() => onViewHandleNext(order)}>
+                    <SwipeUpIcon className="icon" />
                   </button>
                 ) : (
                   ""

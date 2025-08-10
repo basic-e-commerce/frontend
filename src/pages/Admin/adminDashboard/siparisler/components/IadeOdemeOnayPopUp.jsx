@@ -39,15 +39,6 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
       await api.post(`${BASE_URL}/api/v1/payment/refund`, {
         orderCode: order?.orderCode,
         refundAmount: iadeAmount,
-        orderItemRefundDtos:
-          order?.orderStatusResponse?.refundOrderPackages?.[0]?.orderItems?.map(
-            (item) => ({
-              orderItemId: item.orderItemId,
-              productId: item.productId,
-              quantity: item.quantity,
-            })
-          ),
-        isIncludeShippingFee: true,
       });
       setTimeout(() => {
         dispatch(
@@ -61,7 +52,7 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
       setTimeout(() => {
         dispatch(
           showAlertWithTimeout({
-            message: error?.message || error?.response?.data || "Hata Var",
+            message: error?.response?.data || error?.message || "Hata Var",
             status: "error",
           })
         );
@@ -72,6 +63,8 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
       setIsSubmit(true);
     }
   };
+
+  console.log(order);
 
   return (
     <div className="modal-overlay">
@@ -295,7 +288,8 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
               type="number"
               value={iadeAmount}
               onChange={(e) => setIadeAmount(e.target.value)}
-              min={0}
+              min={1}
+              step="0.01"
             />
           </label>
           <div className="buttonContainer">
