@@ -1,62 +1,344 @@
+// User Management Block
+.user-management {
+  padding: 20px;
+}
+
+// User Profile Section Block
+.user-profile-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Profile Card Block
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+// Profile Avatar Block
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+// Avatar Placeholder Element
+.profile-avatar__placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+// Profile Info Block
+.profile-info {
+  flex: 1;
+}
+
+// Profile Name Element
+.profile-info__name {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+// Profile Username Element
+.profile-info__username {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+// Profile Date Element
+.profile-info__date {
+  margin: 0;
+  font-size: 14px;
+  color: #95a5a6;
+}
+
+// Profile Actions Block
+.profile-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+// Close Button Element
+.profile-actions__close-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+
+  &:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Orders Section Block
+.orders-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Orders Section Title Element
+.orders-section__title {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 12px;
+}
+
+// Orders Section Loading Element
+.orders-section__loading {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+// Orders Section Table Element
+.orders-section__table {
+  overflow-x: auto;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+// Detail Button Element
+.btn-detail {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Search Section Block
+.search-section {
+  margin-bottom: 24px;
+}
+
+// Search Container Element
+.search-section__container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Search Input Element
+.search-section__input {
+  width: 300px;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  &::placeholder {
+    color: #adb5bd;
+  }
+}
+
+// User Table Section Block
+.user-table-section {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Custom Table Block
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 0.85rem;
+  background: white;
+}
 
-  th,
-  td {
+// Table Header Element
+.custom-table__header {
+  background: #f8f9fa;
+}
+
+// Table Header Cell Element
+.custom-table__header-cell {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #e9ecef;
+  font-size: 14px;
+}
+
+// Table Body Cell Element
+.custom-table__body-cell {
+  padding: 16px 12px;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #495057;
+}
+
+// Table Row Element
+.custom-table__row {
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #f8f9fa;
+    transform: translateY(-1px);
+  }
+
+  // Selected Row Modifier
+  &--selected {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+
+    &:hover {
+      background: #e3f2fd;
+    }
+  }
+}
+
+// Actions Block
+.actions {
+  text-align: center;
+}
+
+// Action Button Element
+.actions__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: #6c757d;
+
+  &:hover {
+    background: #e9ecef;
+    color: #495057;
+  }
+}
+
+// Action Icon Element
+.actions__icon {
+  font-size: 20px;
+}
+
+// ========================================
+// RESPONSIVE DESIGN - MEDIA QUERIES
+// ========================================
+
+@media (max-width: 768px) {
+  .user-management {
     padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  // Sütun genişlikleri
-  thead {
-    tr {
-      th {
-        &.col-2 {
-          width: 33.33%;
-        }
-        &.col-1 {
-          width: 16.66%;
-        }
-
-        &.col-0 {
-          width: 10%;
-        }
-      }
-    }
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
   }
 
-  tbody {
-    tr {
-      td:nth-child(1) {
-        width: 33.33%;
-      }
-      td:nth-child(n + 2) {
-        width: 16.66%;
-      }
-    }
-
-    .manual {
-      background-color: rgb(221, 233, 234);
-    }
+  .profile-avatar__placeholder {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
   }
 
-  th {
-    background-color: #f9f9f9;
-    font-weight: bold;
+  .profile-info__name {
+    font-size: 20px;
   }
 
-  button {
-    margin-right: 0.5rem;
-    background-color: transparent;
-    .icon {
-      font-size: 1.3rem;
-    }
+  .profile-actions {
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  .profile-actions__close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .orders-section {
+    padding: 16px;
+  }
+
+  .orders-section__title {
+    font-size: 18px;
+  }
+
+  .search-section__container {
+    justify-content: center;
+  }
+
+  .search-section__input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .custom-table {
+    font-size: 12px;
+  }
+
+  .custom-table__header-cell,
+  .custom-table__body-cell {
+    padding: 12px 8px;
+  }
+
+  .btn-detail {
+    padding: 6px 12px;
+    font-size: 11px;
   }
 }

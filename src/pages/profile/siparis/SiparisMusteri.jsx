@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
 import ModalMusteri from "./ModalMusteri";
-import ordersMockData from "./ordersMockData";
 
 const SiparisMusteri = () => {
   const [orders, setOrders] = useState([]);
