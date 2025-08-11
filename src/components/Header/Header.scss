@@ -73,6 +73,10 @@
               display: inline;
               font-size: 0.95rem;
               color: whitesmoke;
+
+              @media (max-width: 900px) {
+                font-size: 0.85rem !important;
+              }
             }
           }
         }
@@ -570,7 +574,7 @@ body.sideMenu-open {
     .headerTopWrapper
     .headerTopLeft
     .header-cart-link {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     margin-right: 0.5rem;
   }
   .header .headerTop .container .headerTopWrapper .headerTopRight {
