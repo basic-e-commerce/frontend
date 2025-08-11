@@ -38,17 +38,21 @@ const GalleryPriceDetail = ({ productDetail, phoneNo, name }) => {
             quantity={productDetail.quantity}
           />
 
-          <div className="whatsappSiparis">
+          <a
+            href={`https://wa.me/${phoneNo || ""}`}
+            target="_blank"
+            className="whatsappSiparis"
+          >
             <WhatsAppIcon className="icon" />
             <div className="right">
               <div className="text">
                 <h3>WhatsApp Sipariş Hattı</h3>
-                <a href={`https://wa.me/${phoneNo || ""}`} target="_blank">
+                <p>
                   WhatsApp üzerinden sipariş için <span>buraya</span> tıklayın
-                </a>
+                </p>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
