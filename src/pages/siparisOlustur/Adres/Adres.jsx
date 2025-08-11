@@ -24,7 +24,7 @@ import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import OdemeSkeleton from "../Odeme/OdemeSkeleton";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
 
-export default function Adres() {
+export default function Adres({ minOrderAmount }) {
   const dispatch = useDispatch();
   const {
     address,
@@ -153,8 +153,6 @@ export default function Adres() {
   if (isLoading || !status == "LOADING") {
     return <OdemeSkeleton />;
   }
-
-  console.log(address, invoiceAddress);
 
   return (
     <div className="siparisAdresSection">
@@ -484,7 +482,7 @@ export default function Adres() {
         </form>
       </Paper>
 
-      <SiparisOzeti cartItems={cartItems} />
+      <SiparisOzeti minOrderAmount={minOrderAmount} cartItems={cartItems} />
     </div>
   );
 }

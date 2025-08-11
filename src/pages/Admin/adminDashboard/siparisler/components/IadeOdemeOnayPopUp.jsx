@@ -14,8 +14,6 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
   const [iadeAmount, setIadeAmount] = useState(0);
   const dispatch = useDispatch();
 
-  console.log(order);
-
   useEffect(() => {
     const fetchMaxIade = async () => {
       try {
@@ -63,8 +61,6 @@ const IadeOdemeOnayPopUp = ({ order, onClose, setIsSubmit }) => {
       setIsSubmit(true);
     }
   };
-
-  console.log(order);
 
   return (
     <div className="modal-overlay">

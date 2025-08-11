@@ -8,7 +8,7 @@ import OdemeSkeleton from "./Odeme/OdemeSkeleton";
 import { fetchCartItemsLoggedIn } from "../../redux/slices/sepetCartSlice";
 import { useNavigate } from "react-router-dom";
 
-const SiparisOlustur = () => {
+const SiparisOlustur = ({ minOrderAmount }) => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["Adres Bilgisi", "Ödeme"];
   const { isAuthChecked, isLogin } = useSelector((state) => state.authSlice);
@@ -79,9 +79,9 @@ const SiparisOlustur = () => {
   const StepContent = useMemo(() => {
     switch (activeStep) {
       case 0:
-        return <Adres />;
+        return <Adres minOrderAmount={minOrderAmount} />;
       case 1:
-        return <Odeme />;
+        return <Odeme minOrderAmount={minOrderAmount} />;
       default:
         return null;
     }
@@ -118,8 +118,6 @@ const SiparisOlustur = () => {
   if (!isAuthChecked) {
     return <OdemeSkeleton />;
   }
-
-  console.log(invoiceAddress);
 
   return (
     <div className="SiparisOlustur">

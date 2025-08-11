@@ -119,12 +119,28 @@ function App() {
         <Route path="/" element={<Anasayfa />} />
         <Route path="/kategoriler" element={<Categories />} />
         <Route path="/kategoriler/:categoryLinkName" element={<Urunler />} />
-        <Route path="/urunler/:productLinkName" element={<UrunDetay />} />
-        <Route path="/sepet" element={<Sepet />} />
+        <Route
+          path="/urunler/:productLinkName"
+          element={
+            <UrunDetay
+              name={contactData?.name}
+              phoneNo={contactData?.phoneNo}
+            />
+          }
+        />
+        <Route
+          path="/sepet"
+          element={<Sepet minOrderAmount={contactData?.minOrderAmount} />}
+        />
         <Route path="/customerlogin" element={<Login />} />
         <Route path="/customerregister" element={<CustomerLogin />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/siparis" element={<SiparisOlustur />} />
+        <Route
+          path="/siparis"
+          element={
+            <SiparisOlustur minOrderAmount={contactData?.minOrderAmount} />
+          }
+        />
         <Route path="/success-payment" element={<SiparisAlindi />} />
         <Route path="/fail-payment" element={<SiparisRed />} />
         <Route

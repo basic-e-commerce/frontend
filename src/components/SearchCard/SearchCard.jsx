@@ -2,7 +2,6 @@ import "./SearchCard.scss";
 import { Link } from "react-router-dom";
 
 const SearchCard = ({ product, setIsSearchOpen, setSearchTerm }) => {
-  console.log(product);
   return (
     <Link
       to={`/urunler/${product.linkName}`}

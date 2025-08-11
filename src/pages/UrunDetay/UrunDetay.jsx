@@ -11,7 +11,7 @@ import { clearLoading, setLoading } from "../../redux/slices/loadingSlice";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 import SikcaSorulan from "../../components/sikcaSorulan/SikcaSorulan";
 
-const UrunDetay = () => {
+const UrunDetay = ({ phoneNo, name }) => {
   const { productLinkName } = useParams();
   const dispatch = useDispatch();
   const { products, productDetail, productsStatus, productDetailStatus } =
@@ -46,13 +46,17 @@ const UrunDetay = () => {
     <>
       {productDetailStatus == "SUCCESS" && productsStatus == "SUCCESS" ? (
         <div className="projeDetay">
-          <GalleryPriceDetail productDetail={productDetail} />
+          <GalleryPriceDetail
+            productDetail={productDetail}
+            phoneNo={phoneNo}
+            name={name}
+          />
 
           <div className="digerUrunler">
             <div className="container">
               <Baslik
-                title={"Diger urunler"}
-                desc={"Sizler İçin En İyisi burada diyebiliriz"}
+                title={"Diğer Ürünler"}
+                desc={"Sizler İçin En İyisi Burada Diyebiliriz"}
               />
 
               <ProjelerGlide

@@ -15,7 +15,7 @@ import api from "../../../api/api";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 
-const Odeme = () => {
+const Odeme = ({ minOrderAmount }) => {
   const dispatch = useDispatch();
 
   const { baslangıcState, cartItems } = useSelector((state) => state.sepet);
@@ -362,7 +362,7 @@ const Odeme = () => {
         </form>
       </Paper>
 
-      <SiparisOzeti cartItems={cartItems} />
+      <SiparisOzeti minOrderAmount={minOrderAmount} cartItems={cartItems} />
     </div>
   );
 };

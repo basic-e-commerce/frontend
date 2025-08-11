@@ -17,8 +17,6 @@ const OrderTable = ({
   onViewManualCargo,
   onViewHandleNext,
 }) => {
-  console.log(orders);
-
   return (
     <table className="custom-table">
       <thead>

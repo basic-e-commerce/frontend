@@ -16,7 +16,7 @@ import SepetSkeleton from "./components/SepetSkeleton";
 import { clearLoading, setLoading } from "../../redux/slices/loadingSlice";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
-const Sepet = () => {
+const Sepet = ({ minOrderAmount }) => {
   const dispatch = useDispatch();
   const { cartItems, baslangıcState, status } = useSelector(
     (state) => state.sepet
@@ -196,6 +196,7 @@ const Sepet = () => {
             />
           </Paper>
           <FiyatOzet
+            minOrderAmount={minOrderAmount}
             cartItems={cartItems}
             isCartEmpty={!(cartItems?.details?.length > 0)}
           />

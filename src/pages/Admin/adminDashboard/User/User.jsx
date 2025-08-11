@@ -13,7 +13,6 @@ const User = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [loadingOrders, setLoadingOrders] = useState(false);
-  console.log(orders);
 
   useEffect(() => {
     const fetchUsers = async () => {

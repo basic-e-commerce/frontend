@@ -6,8 +6,6 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
   const kargoData = selectedOrder?.orderStatusResponse?.orderPackages[0];
   const kargoIade = selectedOrder?.orderStatusResponse?.refundOrderPackages[0];
 
-  console.log(selectedOrder);
-
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";

@@ -3,10 +3,9 @@ import MrGlide from "../urunDetayGlide/MrGlide";
 import "./GalleryPriceDetail.scss";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import NameAndMarka from "../nameAndMarka/NameAndMarka";
-import RatingAndCode from "../ratingAndCode/RatingAndCode";
 import FiyatActions from "../fiyatActions/FiyatActions";
 
-const GalleryPriceDetail = ({ productDetail }) => {
+const GalleryPriceDetail = ({ productDetail, phoneNo, name }) => {
   const { productDetailCover } = useSelector((state) => state.products);
 
   return (
@@ -24,7 +23,8 @@ const GalleryPriceDetail = ({ productDetail }) => {
 
         <div className="rightActionSide">
           <NameAndMarka
-            marka={"Sütaş"}
+            marka={name || ""}
+            stokKodu={productDetail.id}
             name={productDetail.name}
             desc={productDetail.description}
           />
@@ -43,9 +43,9 @@ const GalleryPriceDetail = ({ productDetail }) => {
             <div className="right">
               <div className="text">
                 <h3>WhatsApp Sipariş Hattı</h3>
-                <p>
+                <a href={`https://wa.me/${phoneNo || ""}`} target="_blank">
                   WhatsApp üzerinden sipariş için <span>buraya</span> tıklayın
-                </p>
+                </a>
               </div>
             </div>
           </div>

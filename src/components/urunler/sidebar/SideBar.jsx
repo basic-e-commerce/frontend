@@ -13,7 +13,7 @@ const SideBar = ({
   setValue,
 }) => {
   return (
-    <sidebar className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+    <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
       <div className="categories">
         <div className="title">
           <h3 style={{ fontSize: "1.1rem" }}>Kategoriler</h3>
@@ -88,7 +88,7 @@ const SideBar = ({
           </div>
         </div>
       </div>
-    </sidebar>
+    </div>
   );
 };
 

@@ -18,7 +18,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-const FiyatOzet = ({ cartItems, isCartEmpty }) => {
+const FiyatOzet = ({ cartItems, isCartEmpty, minOrderAmount }) => {
   return (
     <div className={isCartEmpty ? "fiyat none" : "fiyat"}>
       <Paper
@@ -29,7 +29,7 @@ const FiyatOzet = ({ cartItems, isCartEmpty }) => {
       >
         <div className="bar">
           <p>
-            <strong>1000 ₺</strong> üzeri alışverişe ücretsiz kargo!
+            <strong>{minOrderAmount} ₺</strong> üzeri alışverişe ücretsiz kargo!
           </p>
           <BorderLinearProgress
             variant="determinate"
