@@ -12,11 +12,11 @@ const validationSchema = Yup.object().shape({
     .required("Telefon alanı zorunludur")
     .test(
       "telefon-format",
-      "Telefon numarası +90 ile başlamalı ve geçerli bir formatta olmalıdır",
+      "Telefon numarası +90 ile başlamalı ve doğru telefon girilmelidir",
       function (value) {
         if (!value) return false;
 
-        if (value === "+90" || value.startsWith("+90")) {
+        if (value.length === 13 && value.startsWith("+90")) {
           return true;
         }
 

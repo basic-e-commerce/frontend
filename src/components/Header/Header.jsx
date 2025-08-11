@@ -194,7 +194,7 @@ const Header = () => {
 
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="buttonSearchContent"
+                className="buttonSearchContent header-cart-link"
               >
                 <SearchIcon className="icon" />
               </button>

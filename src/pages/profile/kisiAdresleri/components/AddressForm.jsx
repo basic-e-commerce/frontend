@@ -17,11 +17,28 @@ const AddressForm = ({
     username: Yup.string()
       .email("Geçerli bir email adresi giriniz")
       .required("Email gereklidir"),
-    phoneNo: Yup.string().required("Telefon numarası gereklidir"),
     addressLine1: Yup.string().required("Adres gereklidir"),
     cityCode: Yup.string().required("Şehir seçimi gereklidir"),
     districtId: Yup.string().required("İlçe seçimi gereklidir"),
     postalCode: Yup.string().required("Posta kodu gereklidir"),
+    phoneNo: Yup.string()
+      .required("Telefon alanı zorunludur")
+      .test(
+        "telefon-format",
+        "Telefon numarası +90 ile başlamalı ve doğru telefon girilmelidir",
+        function (value) {
+          if (!value) return false;
+
+          // 13 karakter zorunludur
+
+          if (value.length === 13 && value.startsWith("+90")) {
+            return true;
+          }
+
+          const phoneRegex = /^\+90\s?5\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
+          return phoneRegex.test(value);
+        }
+      ),
   });
 
   const handleCityChange = (e, setFieldValue) => {
