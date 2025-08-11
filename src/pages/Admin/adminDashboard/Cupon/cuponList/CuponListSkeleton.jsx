@@ -1,11 +1,11 @@
 import "./CuponList.scss"; // Aynı tablo stillerini kullansın diye
 import Skeleton from "@mui/material/Skeleton";
 
-const ROW_COUNT = 5; // Kaç satır skeleton gözüksün
+const ROW_COUNT = 3; // Kaç satır skeleton gözüksün
 
 const CuponListSkeleton = () => {
   return (
-    <table className="cupon-table">
+    <table className="cupon-table-cupon">
       <thead>
         <tr>
           <th className="col-2">Kupon Kodu</th>
@@ -15,10 +15,11 @@ const CuponListSkeleton = () => {
           <th className="col-1">Kullanım</th>
           <th className="col-1">Toplam Limit</th>
           <th className="col-1">Min. Tutar</th>
+          <th className="col-1">Max. Tutar</th>
           <th className="col-2">Başlangıç</th>
           <th className="col-2">Bitiş</th>
           <th className="col-1">Durum</th>
-          <th className="col-1">Aktif/Pasif</th>
+          <th className="col-1"></th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +39,9 @@ const CuponListSkeleton = () => {
             </td>
             <td>
               <Skeleton variant="text" width={40} />
+            </td>
+            <td>
+              <Skeleton variant="text" width={60} />
             </td>
             <td>
               <Skeleton variant="text" width={60} />

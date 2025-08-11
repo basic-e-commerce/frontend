@@ -12,9 +12,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOutBackend } from "../../api/apiAuth";
 import { setLogout } from "../../redux/slices/authSlice";
 import LoadingBarUser from "../LoadingBarUser/LoadingBarUser";
+import SearchIcon from "@mui/icons-material/Search";
+import SearchCard from "../SearchCard/SearchCard";
+import axios from "axios";
+import { BASE_URL } from "../../config/baseApi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -118,35 +125,80 @@ const Header = () => {
     }
   }, [isProfileMenuOpen, navigationData]);
 
+  const fetchSearchProducts = async (title) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/v1/product/search?searchTitle=${title}&page=0&size=10`
+      );
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Arama hatası:", error);
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value === "") {
+      setProducts([]);
+      setIsSearchOpen(false);
+    } else {
+      setTimeout(() => fetchSearchProducts(value), 500);
+    }
+  };
+
   return (
     <header className="header">
       <div className="headerTop">
         <div className="container">
           <div className="headerTopWrapper">
-            <div className="headerTopLeft">
-              {!isLogin ? (
-                <>
-                  <Link to="/customerregister" className="header-auth-link">
-                    <span>Kayıt Ol</span>
+            {isSearchOpen ? (
+              <div />
+            ) : (
+              <div className="headerTopLeft">
+                {!isLogin ? (
+                  <>
+                    <Link to="/customerregister" className="header-auth-link">
+                      <span>Kayıt Ol</span>
+                    </Link>
+                    <Link to="/customerlogin" className="header-auth-link">
+                      <span>Giriş Yap</span>
+                    </Link>
+                  </>
+                ) : role === "CUSTOMER" ? (
+                  <Link to="/profil/bilgiler" className="header-profile-link">
+                    <PersonIcon className="icon" />
+                    <span>Profilim</span>
                   </Link>
-                  <Link to="/customerlogin" className="header-auth-link">
-                    <span>Giriş Yap</span>
+                ) : (
+                  <Link to="/admins/dashboard" className="header-profile-link">
+                    <PersonIcon className="icon" />
+                    <span>Admin Paneli</span>
                   </Link>
-                </>
-              ) : role === "CUSTOMER" ? (
-                <Link to="/profil/bilgiler" className="header-profile-link">
-                  <PersonIcon className="icon" />
-                  <span>Profilim</span>
-                </Link>
-              ) : (
-                <Link to="/admins/dashboard" className="header-profile-link">
-                  <PersonIcon className="icon" />
-                  <span>Admin Paneli</span>
-                </Link>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             <div className="headerTopRight">
+              {isSearchOpen && (
+                <input
+                  type="text"
+                  className="searchInput"
+                  placeholder="Aramak için yazın..."
+                  autoFocus
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              )}
+
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="buttonSearchContent"
+              >
+                <SearchIcon className="icon" />
+              </button>
+
               <Link to="/sepet" className="header-cart-link">
                 <ShoppingCartIcon className="icon" />
                 <span>Sepet</span>
@@ -181,6 +233,38 @@ const Header = () => {
               {isMenuOpen ? <CloseIcon /> : <SegmentIcon />}
             </div>
           </div>
+
+          {isSearchOpen && searchTerm && (
+            <div className="searchWrapper">
+              <div className="container">
+                <div className="searchContent">
+                  <div className="topSearchh">
+                    <span>Bulunan Ürün: {products.length}</span>
+                    <button
+                      className="closeButton"
+                      onClick={() => {
+                        setIsSearchOpen(false);
+                        setSearchTerm("");
+                      }}
+                    >
+                      <CloseIcon />
+                    </button>
+                  </div>
+
+                  <div className="listSearch">
+                    {products?.map((product, index) => (
+                      <SearchCard
+                        key={index}
+                        product={product}
+                        setIsSearchOpen={setIsSearchOpen}
+                        setSearchTerm={setSearchTerm}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

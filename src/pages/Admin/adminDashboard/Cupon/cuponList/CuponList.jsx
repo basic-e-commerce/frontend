@@ -93,17 +93,17 @@ const CuponList = () => {
   }
 
   return (
-    <table className="cupon-table">
+    <table className="cupon-table-cupon">
       <thead>
         <tr>
           <th className="col-2">Kupon Kodu</th>
           <th className="col-2">Açıklama</th>
-          <th className="col-2">Tip</th>
-          <th className="col-1">Değer</th>
-          <th className="col-1">Kullanım</th>
-          <th className="col-1">Toplam Limit</th>
-          <th className="col-1">Min. Tutar</th>
-          <th className="col-1">Max. Tutar</th>
+          <th className="col-1">Tip</th>
+          <th className="col-0">Değer</th>
+          <th className="col-0">Kullanım</th>
+          <th className="col-0">Toplam Limit</th>
+          <th className="col-0">Min. Tutar</th>
+          <th className="col-0">Max. Tutar</th>
           <th className="col-2">Başlangıç</th>
           <th className="col-2">Bitiş</th>
           <th className="col-1">Durum</th>

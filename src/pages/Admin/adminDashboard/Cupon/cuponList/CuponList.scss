@@ -1,4 +1,4 @@
-.cupon-table {
+.cupon-table-cupon {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -18,6 +18,17 @@
   // Sütun genişlikleri
   thead {
     tr {
+      th {
+        &.col-2 {
+          width: 15%;
+        }
+        &.col-1 {
+          width: 10%;
+        }
+        &.col-0 {
+          width: 8%;
+        }
+      }
     }
   }
 

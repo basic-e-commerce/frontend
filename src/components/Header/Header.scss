@@ -55,17 +55,16 @@
         .headerTopRight {
           display: flex;
           align-items: center;
+
           gap: 1.5rem;
           .icon {
             color: whitesmoke;
             font-size: 1.2rem;
             transition: color 0.2s;
+            height: 100%;
+            display: flex;
           }
-          a:hover,
-          .header-auth-link:hover .icon,
-          .header-profile-link:hover .icon {
-            color: #ffd700;
-          }
+
           .header-cart-link {
             display: flex;
             align-items: center;
@@ -77,10 +76,9 @@
             }
           }
         }
-        .icon {
-          color: whitesmoke;
-          font-size: 1.2rem;
-          transition: color 0.2s;
+
+        .buttonSearchContent {
+          background-color: transparent;
         }
       }
     }
@@ -171,6 +169,67 @@
         display: flex;
       }
     }
+
+    .searchWrapper {
+      position: absolute;
+      top: calc(90px);
+      width: 70%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: whitesmoke;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      padding: 1.2rem;
+
+      .searchContent {
+        margin-top: -1rem;
+        background-color: whitesmoke;
+        // min-height: 140px;
+
+        .topSearchh {
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .closeButton {
+            display: flex;
+            justify-self: flex-end;
+            background-color: transparent;
+          }
+        }
+
+        .listSearch {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          column-gap: 2rem;
+          row-gap: 1rem;
+          max-height: 40vh;
+          overflow-y: auto;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .searchInput {
+    border: none;
+    border-bottom: 1px solid whitesmoke;
+    background-color: transparent;
+    color: whitesmoke;
+    font-size: 0.85rem;
+    outline: none;
+    width: 200px;
+    animation: slideInput 0.5s ease forwards;
+    padding-bottom: 3px;
+
+    &::placeholder {
+      color: #ccc;
+    }
   }
 
   .popupKullanici,
@@ -235,6 +294,17 @@
         display: flex;
       }
     }
+  }
+}
+
+@keyframes slideInput {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -412,6 +482,22 @@ body.sideMenu-open {
   overflow: hidden;
 }
 
+@media (max-width: 1024px) {
+  .header {
+    height: 110px;
+
+    .headerBottom {
+      .searchWrapper {
+        .searchContent {
+          .listSearch {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 900px) {
   .header {
     height: 110px;
@@ -452,6 +538,13 @@ body.sideMenu-open {
 
       .navigation.open {
         display: flex;
+      }
+
+      .searchWrapper {
+        top: 60px;
+        width: 100%;
+        padding-left: 0rem;
+        padding-right: 0rem;
       }
     }
   }
