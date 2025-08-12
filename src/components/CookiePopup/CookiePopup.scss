@@ -1,0 +1,253 @@
+// Cookie Popup Component Styles
+// ======================================
+
+// Variables
+$cookie-primary-color: #007bff;
+$cookie-primary-hover: #0056b3;
+$cookie-secondary-color: #f8f9fa;
+$cookie-secondary-hover: #e9ecef;
+$cookie-text-primary: #333;
+$cookie-text-secondary: #666;
+$cookie-border-color: #e9ecef;
+$cookie-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+$cookie-border-radius: 12px;
+$cookie-transition: all 0.2s ease;
+
+// Animations
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Main Container
+.cookie-popup {
+  &-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999999;
+    padding-bottom: 10px;
+  }
+
+  // Popup Container
+  background: white;
+  border-radius: $cookie-border-radius $cookie-border-radius 0 0;
+  box-shadow: $cookie-shadow;
+  width: 50%;
+  margin: 0 0 0 49vw; // Sola dayalı
+  animation: slideUp 0.3s ease-out;
+
+  // Content Area
+  &-content {
+    padding: 24px;
+  }
+
+  // Header Section
+  &-header {
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+      color: $cookie-text-primary;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  // Body Section
+  &-body {
+    p {
+      margin: 0 0 16px 0;
+      color: $cookie-text-secondary;
+      line-height: 1.6;
+      font-size: 0.95rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Links Section
+  &-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $cookie-border-color;
+  }
+
+  // Buttons Section
+  &-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+// Link Styles
+.cookie-link {
+  color: $cookie-primary-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: $cookie-transition;
+
+  &:hover {
+    color: $cookie-primary-hover;
+    text-decoration: underline;
+  }
+
+  &-separator {
+    color: #6c757d;
+    font-size: 0.8rem;
+  }
+}
+
+// Button Styles
+.cookie-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $cookie-transition;
+  min-width: 100px;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Button Variants
+  &-reject {
+    background-color: $cookie-secondary-color;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+
+    &:hover {
+      background-color: $cookie-secondary-hover;
+      border-color: #adb5bd;
+    }
+  }
+
+  &-accept {
+    background-color: $cookie-primary-color;
+    color: white;
+
+    &:hover {
+      background-color: $cookie-primary-hover;
+    }
+  }
+}
+
+// Responsive Design
+// ======================================
+
+// Tablet and Mobile (900px and below)
+@media (max-width: 900px) {
+  .cookie-popup {
+    width: 100%; // %100 genişlik
+    max-width: 100%;
+    margin: 0; // Merkeze hizala
+    padding-bottom: 0;
+    border-radius: 0; // Tamamen düz kenarlar
+
+    &-overlay {
+      padding: 0; // Tüm padding'leri sıfırla
+      margin: 0;
+      bottom: 0; // Tamamen aşağıya sıfırla
+    }
+
+    &-content {
+      padding: 16px;
+    }
+
+    &-header h3 {
+      font-size: 1.2rem; // Daha küçük başlık
+    }
+
+    &-body p {
+      font-size: 0.85rem; // Daha küçük paragraf
+    }
+
+    &-links {
+      flex-direction: column;
+      align-items: start;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+  }
+
+  .politikalar {
+    margin-bottom: 1.7rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .cookie-link {
+    font-size: 0.8rem; // Daha küçük linkler
+  }
+
+  .cookie-link-separator {
+    display: none;
+  }
+
+  .cookie-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.9rem; // Daha küçük buton yazısı
+  }
+}
+
+// Small Mobile (480px and below)
+@media (max-width: 480px) {
+  .cookie-popup {
+    &-overlay {
+      padding: 0; // Tamamen sıfırla
+    }
+
+    &-content {
+      padding: 12px; // Biraz daha kompakt
+    }
+
+    &-header h3 {
+      font-size: 1.1rem; // En küçük başlık
+    }
+
+    &-body p {
+      font-size: 0.8rem; // En küçük paragraf
+    }
+
+    &-links {
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+  }
+
+  .cookie-link {
+    font-size: 0.75rem; // En küçük linkler
+  }
+
+  .cookie-btn {
+    padding: 10px 14px;
+    font-size: 0.85rem; // En küçük buton yazısı
+  }
+}

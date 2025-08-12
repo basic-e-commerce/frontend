@@ -20,7 +20,7 @@ const Footer = ({ contactData }) => {
         </div>
 
         <div className="footerItem">
-          <h3>Pollitikalar</h3>
+          <h3>Politikalarımız</h3>
           <hr />
           <ul className="footerHizmet">
             <li>

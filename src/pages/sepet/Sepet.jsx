@@ -89,7 +89,7 @@ const Sepet = ({ minOrderAmount }) => {
       setTimeout(() => {
         dispatch(
           showAlertWithTimeoutKullanici({
-            message: error.response?.data?.error || "Böyle bir kupon yok",
+            message: error.response?.data?.message || "Böyle bir kupon yok",
             status: "error",
           })
         );

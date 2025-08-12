@@ -12,6 +12,7 @@ import Sepet from "./pages/sepet/Sepet";
 import Login from "./pages/login/Login";
 import AdminDashboard from "./pages/Admin/adminDashboard/AdminDashboard";
 import UrunEkle from "./pages/Admin/adminDashboard/urunler/urunEkle/UrunEkle";
+import CookiePopup from "./components/CookiePopup/CookiePopup";
 
 import UrunDuzenle from "./pages/Admin/adminDashboard/urunler/urunDuzenle/UrunDuzenle";
 import CategoryCreate from "./pages/Admin/adminDashboard/category/categoryCreate/CategoryCreate";
@@ -116,6 +117,7 @@ function App() {
 
   return (
     <>
+      <CookiePopup />
       {!isAdminPanel && <Header />}
       <ScrollToTop />
 

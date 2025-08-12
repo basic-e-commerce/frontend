@@ -24,7 +24,7 @@ const Anasayfa = () => {
     <PopulerProduct
       key="populer-product"
       title={"Ürünlerimiz"}
-      desc={"Tümü için projelerimiz sayfasına göz atın"}
+      desc={"Ürünlerimiz sayfasına göz atın"}
       products={products}
     />,
     <WhoFounder key="who-founder" />,
