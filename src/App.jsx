@@ -49,6 +49,8 @@ import Iletisim from "./pages/iletisim/Iletisim";
 import KargoAdres from "./pages/Admin/adminDashboard/kargoAdres/KargoAdres";
 import AnlasmaCargo from "./pages/Admin/adminDashboard/anlasmalıKargo/AnlasmaCargo";
 import User from "./pages/Admin/adminDashboard/User/User";
+import EpostaOnaylandi from "./pages/kullaniciActionPages/EpostaOnaylandi";
+import EpostaRed from "./pages/kullaniciActionPages/EpostaRed";
 
 function App() {
   const location = useLocation();
@@ -143,6 +145,8 @@ function App() {
         />
         <Route path="/success-payment" element={<SiparisAlindi />} />
         <Route path="/fail-payment" element={<SiparisRed />} />
+        <Route path="/account-verified" element={<EpostaOnaylandi />} />
+        <Route path="/account-red" element={<EpostaRed />} />
         <Route
           path="/iletisim"
           element={<Iletisim contactData={contactData} />}
