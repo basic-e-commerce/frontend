@@ -41,6 +41,10 @@
         input[type="checkbox"],
         input[type="radio"] {
           width: 1rem;
+
+          @media (max-width: 900px) {
+            width: 0.85rem;
+          }
         }
 
         .error {
