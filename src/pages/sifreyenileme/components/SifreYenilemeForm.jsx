@@ -1,35 +1,36 @@
-import { Form, Field, ErrorMessage, FormikProvider } from "formik";
-import { useLoginForm } from "../hooks/useLoginForm";
-import { Link } from "react-router-dom";
+import { FormikProvider, Form, Field, ErrorMessage } from "formik";
+import PropTypes from "prop-types";
 
 const fields = [
   {
-    name: "username",
-    label: "Kullanıcı Adı",
-    type: "email",
-    autoComplete: "username",
+    name: "password",
+    label: "Yeni Şifre",
+    type: "password",
+    autoComplete: "new-password",
   },
   {
-    name: "password",
-    label: "Şifre",
+    name: "rePassword",
+    label: "Yeni Şifre Tekrar",
     type: "password",
-    autoComplete: "current-password",
+    autoComplete: "new-password",
   },
 ];
 
-const LoginForm = () => {
-  const { formik } = useLoginForm();
-
+const SifreYenilemeForm = ({ formik }) => {
   return (
     <FormikProvider value={formik}>
-      <Form autoComplete="off">
+      <Form>
         {fields.map((field) => (
           <div className="abc" key={field.name}>
             <p>{field.label}</p>
             <label>
               <Field
                 name={field.name}
-                className="textInput"
+                className={`textInput${
+                  formik.touched[field.name] && formik.errors[field.name]
+                    ? " error"
+                    : ""
+                }`}
                 type={field.type}
                 autoComplete={field.autoComplete}
               />
@@ -42,15 +43,9 @@ const LoginForm = () => {
           </div>
         ))}
 
-        <ErrorMessage
-          name="general"
-          component="div"
-          className="error-message"
-        />
-
-        <Link className="sifremi-unuttum" to={"/sifremi-unuttum"}>
-          Şifremi Unuttum
-        </Link>
+        {formik.errors.general && (
+          <div className="error-message">{formik.errors.general}</div>
+        )}
 
         <div className="buttonContainer">
           <button
@@ -58,7 +53,7 @@ const LoginForm = () => {
             className={formik.isSubmitting ? "disabled" : "btn-card"}
             disabled={formik.isSubmitting}
           >
-            {formik.isSubmitting ? "Giriş Yapılıyor..." : "Giriş Yap"}
+            Şifremi Yenile
           </button>
         </div>
       </Form>
@@ -66,4 +61,8 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+SifreYenilemeForm.propTypes = {
+  formik: PropTypes.object.isRequired,
+};
+
+export default SifreYenilemeForm;

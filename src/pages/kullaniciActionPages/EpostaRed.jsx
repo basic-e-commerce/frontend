@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "./SiparisAlindi.scss";
 
 import CloseIcon from "@mui/icons-material/Close";
 
 const EpostaRed = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const message = searchParams.get("message");
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
@@ -38,7 +40,9 @@ const EpostaRed = () => {
             <h2>E-postanız onaylanamadı</h2>
           </div>
 
-          <p className="thanks-text-red">İletişime Geçin Lütfen!</p>
+          <p className="thanks-text-red">
+            {message || "İletişime Geçin Lütfen!"}
+          </p>
           <span style={{ fontSize: "0.8rem", textAlign: "center" }}>
             {countdown} saniye sonra ana sayfaya yönlendirileceksiniz.
           </span>

@@ -51,6 +51,8 @@ import AnlasmaCargo from "./pages/Admin/adminDashboard/anlasmalıKargo/AnlasmaCa
 import User from "./pages/Admin/adminDashboard/User/User";
 import EpostaOnaylandi from "./pages/kullaniciActionPages/EpostaOnaylandi";
 import EpostaRed from "./pages/kullaniciActionPages/EpostaRed";
+import SifremiUnuttum from "./pages/sifreUnuttum/SifremiUnuttum";
+import SifreYenileme from "./pages/sifreyenileme/SifreYenileme";
 
 function App() {
   const location = useLocation();
@@ -109,7 +111,7 @@ function App() {
   }, [dispatch, accessToken]);
 
   if (isLoading) {
-    return <div>Yükleniyor...</div>;
+    return <div></div>;
   }
 
   return (
@@ -146,7 +148,9 @@ function App() {
         <Route path="/success-payment" element={<SiparisAlindi />} />
         <Route path="/fail-payment" element={<SiparisRed />} />
         <Route path="/account-verified" element={<EpostaOnaylandi />} />
-        <Route path="/account-red" element={<EpostaRed />} />
+        <Route path="/account-not-verified" element={<EpostaRed />} />
+        <Route path="/sifremi-unuttum" element={<SifremiUnuttum />} />
+        <Route path="/password-reset" element={<SifreYenileme />} />
         <Route
           path="/iletisim"
           element={<Iletisim contactData={contactData} />}

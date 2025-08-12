@@ -1,4 +1,4 @@
-.login {
+.customerLogin {
   padding-top: calc(140px + 2rem);
   display: flex;
   align-items: center;
@@ -11,6 +11,8 @@
     width: 100%;
     display: flex;
     gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     p {
       font-size: 0.9rem;
@@ -18,7 +20,7 @@
 
     .loginSectionLeft {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
-      height: 30rem;
+
       padding: 1.5rem;
       flex: 3;
       display: flex;
@@ -79,12 +81,40 @@
           }
         }
 
-        .sifremi-unuttum {
-          text-decoration: none;
-          color: $primary-color;
-          font-size: 14px;
-          font-weight: bold;
-          text-align: end;
+        .privacy-policy-container {
+          margin-top: 1rem;
+
+          .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            justify-content: start;
+            gap: 0.5rem;
+            min-height: auto;
+            font-weight: normal;
+            cursor: pointer;
+
+            .privacy-checkbox {
+              width: auto;
+              margin-top: 2px;
+              cursor: pointer;
+            }
+
+            .checkbox-text {
+              font-size: 13px;
+              line-height: 1.4;
+              color: #333;
+
+              a {
+                text-decoration: none;
+                font-weight: bold;
+                text-decoration: underline;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
         }
 
         .buttonContainer {
@@ -102,6 +132,7 @@
             transition: background-color 0.2s ease;
             width: 100%;
           }
+
           .disabled {
             background-color: lightgray;
             cursor: not-allowed;
@@ -120,7 +151,7 @@
     .loginSectionRight {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
       background-color: $primary-color;
-      height: 30rem;
+
       padding: 1.5rem;
       flex: 2;
       display: flex;
@@ -138,7 +169,6 @@
         align-items: center;
         margin-bottom: 1rem;
       }
-
       .button-uyeol {
         border: 1px solid white;
         background-color: transparent;
