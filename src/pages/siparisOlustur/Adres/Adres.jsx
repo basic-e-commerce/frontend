@@ -23,8 +23,10 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import OdemeSkeleton from "../Odeme/OdemeSkeleton";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
+import { checkoutValidation } from "./checkoutValidation";
+import * as Yup from "yup";
 
-export default function Adres({ minOrderAmount }) {
+export default function Adres({ minOrderAmount, setHazir }) {
   const dispatch = useDispatch();
   const {
     address,
@@ -44,7 +46,8 @@ export default function Adres({ minOrderAmount }) {
 
   const [citys, setCitys] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [districtsInvoice, setDistrictsInvoice] = useState([]); // Fatura adresi için ayrı ilçe listesi
+  const [districtsInvoice, setDistrictsInvoice] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const fetchAddresses = async () => {
     try {
@@ -135,6 +138,48 @@ export default function Adres({ minOrderAmount }) {
     }
   }, [invoiceAddress.cityCode]);
 
+  useEffect(() => {
+    const validateForm = async () => {
+      try {
+        // Redux'tan gelen tüm veriyi tek objede topla
+        const formData = {
+          address,
+          invoiceAddress,
+          corporateInvoice,
+          diffAddress,
+          billingSame,
+          invoiceType,
+          selectedAdresId,
+        };
+
+        await checkoutValidation.validate(formData, { abortEarly: false });
+
+        // Eğer buraya geldiysek hata yok
+        setErrors({});
+        setHazir(true);
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const newErrors = {};
+          err.inner.forEach((validationError) => {
+            // path: örn. "address.firstName"
+            newErrors[validationError.path] = validationError.message;
+          });
+          setErrors(newErrors);
+        }
+        setHazir(false);
+      }
+    };
+
+    validateForm();
+  }, [
+    address,
+    invoiceAddress,
+    corporateInvoice,
+    diffAddress,
+    billingSame,
+    invoiceType,
+  ]);
+
   const selectedAdres = (adres) => {
     dispatch(updataSelectedAdresId(adres.id));
     dispatch(updateAddress(adres));
@@ -186,126 +231,160 @@ export default function Adres({ minOrderAmount }) {
               <div className="adressAsil">
                 <h2>Adres Bilgileri</h2>
                 {fields.map(({ key, placeholder }) => (
-                  <input
-                    key={key}
-                    placeholder={placeholder}
-                    value={address[key]}
+                  <div key={key}>
+                    <input
+                      placeholder={placeholder}
+                      value={address[key]}
+                      onChange={(e) =>
+                        dispatch(
+                          updateAddress({ ...address, [key]: e.target.value })
+                        )
+                      }
+                      required
+                    />
+                    {errors[`address.${key}`] && (
+                      <span className="error">{errors[`address.${key}`]}</span>
+                    )}
+                  </div>
+                ))}
+                <div>
+                  <select
+                    value={address.cityCode}
+                    onChange={(e) => {
+                      const selectedCity = citys.find(
+                        (city) => city.cityCode === e.target.value
+                      );
+                      dispatch(
+                        updateAddress({
+                          ...address,
+                          cityCode: e.target.value,
+                          city: selectedCity ? selectedCity.name : "",
+                          districtId: "",
+                        })
+                      );
+                    }}
+                    required
+                  >
+                    <option value="">Şehir Seçiniz</option>
+                    {citys.map((city) => (
+                      <option
+                        name={city.name}
+                        key={city.cityCode}
+                        value={city.cityCode}
+                      >
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors[`address.cityCode`] && (
+                    <span className="error">{errors[`address.cityCode`]}</span>
+                  )}
+                </div>
+
+                <div>
+                  <select
+                    value={address.districtId}
+                    onChange={(e) => {
+                      const selectedDistrict = districts.find(
+                        (district) => district.districtId == e.target.value
+                      );
+                      dispatch(
+                        updateAddress({
+                          ...address,
+                          districtId: e.target.value,
+                          district: selectedDistrict
+                            ? selectedDistrict.name
+                            : "",
+                        })
+                      );
+                    }}
+                    required
+                    disabled={address.cityCode ? false : true}
+                  >
+                    <option value="">İlçe Seçiniz</option>
+                    {districts.map((district) => (
+                      <option
+                        key={district.districtId}
+                        value={district.districtId}
+                      >
+                        {district.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors[`address.districtId`] && (
+                    <span className="error">
+                      {errors[`address.districtId`]}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <select
                     onChange={(e) =>
                       dispatch(
-                        updateAddress({ ...address, [key]: e.target.value })
+                        updateAddress({
+                          ...address,
+                          countryName: e.target.value,
+                        })
                       )
                     }
-                    required
-                  />
-                ))}
-
-                <select
-                  value={address.cityCode}
-                  onChange={(e) => {
-                    const selectedCity = citys.find(
-                      (city) => city.cityCode === e.target.value
-                    );
-                    dispatch(
-                      updateAddress({
-                        ...address,
-                        cityCode: e.target.value,
-                        city: selectedCity ? selectedCity.name : "",
-                        districtId: "",
-                      })
-                    );
-                  }}
-                  required
-                >
-                  <option value="">Şehir Seçiniz</option>
-                  {citys.map((city) => (
-                    <option
-                      name={city.name}
-                      key={city.cityCode}
-                      value={city.cityCode}
-                    >
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  value={address.districtId}
-                  onChange={(e) => {
-                    const selectedDistrict = districts.find(
-                      (district) => district.districtId == e.target.value
-                    );
-                    dispatch(
-                      updateAddress({
-                        ...address,
-                        districtId: e.target.value,
-                        district: selectedDistrict ? selectedDistrict.name : "",
-                      })
-                    );
-                  }}
-                  required
-                  disabled={address.cityCode ? false : true}
-                >
-                  <option value="">İlçe Seçiniz</option>
-                  {districts.map((district) => (
-                    <option
-                      key={district.districtId}
-                      value={district.districtId}
-                    >
-                      {district.name}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  onChange={(e) =>
-                    dispatch(
-                      updateAddress({ ...address, countryName: e.target.value })
-                    )
-                  }
-                  value={address.countryName}
-                  name="countryName"
-                  disabled
-                >
-                  <option value={"TURKIYE"}>Türkiye</option>
-                </select>
+                    value={address.countryName}
+                    name="countryName"
+                    disabled
+                  >
+                    <option value={"TURKIYE"}>Türkiye</option>
+                  </select>
+                  {errors[`address.countryName`] && (
+                    <span className="error">
+                      {errors[`address.countryName`]}
+                    </span>
+                  )}
+                </div>
               </div>
             )}
           </section>
 
           {isLogin && addressesOlan.length > 0 && !diffAddress && (
-            <div className="adresesContent">
-              {addressesOlan?.map((adres) => (
-                <div
-                  key={adres.id}
-                  onClick={() => {
-                    selectedAdres(adres);
-                  }}
-                  className={
-                    selectedAdresId == adres.id
-                      ? "kayitliAdres paper selectedAdres"
-                      : "kayitliAdres paper"
-                  }
-                >
-                  <div className="top">
-                    <h4 className="adressTitle">{adres.title}</h4>
-                    {selectedAdresId == adres.id ? (
-                      <DoneOutlineIcon className="iconTop" />
-                    ) : (
-                      ""
-                    )}
+            <div>
+              <div className="adresesContent">
+                {addressesOlan?.map((adres) => (
+                  <div
+                    key={adres.id}
+                    onClick={() => {
+                      selectedAdres(adres);
+                    }}
+                    className={
+                      selectedAdresId == adres.id
+                        ? "kayitliAdres paper selectedAdres"
+                        : "kayitliAdres paper"
+                    }
+                  >
+                    <div className="top">
+                      <h4 className="adressTitle">{adres.title}</h4>
+                      {selectedAdresId == adres.id ? (
+                        <DoneOutlineIcon className="iconTop" />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="phone">
+                      <p className="name">{adres.phoneNo}</p>
+                    </div>
+                    <div className="section">
+                      <p className="name">{adres.name}</p>
+                      <p className="adres">
+                        {adres.addressLine1} {adres.postalCode} <br />
+                        {`${adres.countryName} / ${adres.city}`}
+                      </p>
+                    </div>
                   </div>
-                  <div className="phone">
-                    <p className="name">{adres.phoneNo}</p>
-                  </div>
-                  <div className="section">
-                    <p className="name">{adres.name}</p>
-                    <p className="adres">
-                      {adres.addressLine1} {adres.postalCode} <br />
-                      {`${adres.countryName} / ${adres.city}`}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {errors[`selectedAdresId`] && (
+                <span className="error">{errors[`selectedAdresId`]}</span>
+              )}
             </div>
           )}
 
@@ -322,89 +401,123 @@ export default function Adres({ minOrderAmount }) {
             {!billingSame && (
               <div className="billing-address">
                 <h2>Fatura Adresi</h2>
+
                 {fields.map(({ key, placeholder }) => (
-                  <input
-                    key={key}
-                    placeholder={placeholder}
-                    value={invoiceAddress[key]}
+                  <div key={key}>
+                    <input
+                      placeholder={placeholder}
+                      value={invoiceAddress[key]}
+                      onChange={(e) =>
+                        dispatch(
+                          updateBillingAddress({
+                            ...invoiceAddress,
+                            [key]: e.target.value,
+                          })
+                        )
+                      }
+                      required
+                    />
+                    {errors[`invoiceAddress.${key}`] && (
+                      <span className="error">
+                        {errors[`invoiceAddress.${key}`]}
+                      </span>
+                    )}
+                  </div>
+                ))}
+
+                <div>
+                  <select
                     onChange={(e) =>
                       dispatch(
                         updateBillingAddress({
                           ...invoiceAddress,
-                          [key]: e.target.value,
+                          countryName: e.target.value,
                         })
                       )
                     }
+                    value={invoiceAddress.countryName}
+                    name="countryName"
+                    disabled
+                  >
+                    <option value={"TURKIYE"}>Türkiye</option>
+                  </select>
+                  {errors[`invoiceAddress.countryName`] && (
+                    <span className="error">
+                      {errors[`invoiceAddress.countryName`]}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <select
+                    value={invoiceAddress.cityCode}
+                    onChange={(e) => {
+                      const selectedCity = citys.find(
+                        (city) => city.cityCode === e.target.value
+                      );
+                      dispatch(
+                        updateBillingAddress({
+                          ...invoiceAddress,
+                          cityCode: e.target.value,
+                          city: selectedCity ? selectedCity.name : "",
+                          districtId: "",
+                        })
+                      );
+                    }}
                     required
-                  />
-                ))}
-                <select
-                  onChange={(e) =>
-                    dispatch(
-                      updateBillingAddress({
-                        ...invoiceAddress,
-                        countryName: e.target.value,
-                      })
-                    )
-                  }
-                  value={invoiceAddress.countryName}
-                  name="countryName"
-                  disabled
-                >
-                  <option value={"TURKIYE"}>Türkiye</option>
-                </select>
-                <select
-                  value={invoiceAddress.cityCode}
-                  onChange={(e) => {
-                    const selectedCity = citys.find(
-                      (city) => city.cityCode === e.target.value
-                    );
-                    dispatch(
-                      updateBillingAddress({
-                        ...invoiceAddress,
-                        cityCode: e.target.value,
-                        city: selectedCity ? selectedCity.name : "",
-                        districtId: "",
-                      })
-                    );
-                  }}
-                  required
-                >
-                  <option value="">Şehir Seçiniz</option>
-                  {citys.map((city) => (
-                    <option key={city.cityCode} value={city.cityCode}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
+                  >
+                    <option value="">Şehir Seçiniz</option>
+                    {citys.map((city) => (
+                      <option key={city.cityCode} value={city.cityCode}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors[`invoiceAddress.cityCode`] && (
+                    <span className="error">
+                      {errors[`invoiceAddress.cityCode`]}
+                    </span>
+                  )}
+                </div>
+
                 {/* İlçe seçimi */}
-                <select
-                  value={invoiceAddress.districtId}
-                  onChange={(e) => {
-                    const selectedDistrict = districtsInvoice.find(
-                      (district) => district.districtId == e.target.value
-                    );
-                    dispatch(
-                      updateBillingAddress({
-                        ...invoiceAddress,
-                        districtId: e.target.value,
-                        district: selectedDistrict ? selectedDistrict.name : "",
-                      })
-                    );
-                  }}
-                  required
-                  disabled={invoiceAddress.cityCode ? false : true}
-                >
-                  <option value="">İlçe Seçiniz</option>
-                  {districtsInvoice.map((district) => (
-                    <option
-                      key={district.districtId}
-                      value={district.districtId}
-                    >
-                      {district.name}
-                    </option>
-                  ))}
-                </select>
+                <div>
+                  <select
+                    value={invoiceAddress.districtId}
+                    onChange={(e) => {
+                      const selectedDistrict = districtsInvoice.find(
+                        (district) => district.districtId == e.target.value
+                      );
+                      dispatch(
+                        updateBillingAddress({
+                          ...invoiceAddress,
+                          districtId: e.target.value,
+                          district: selectedDistrict
+                            ? selectedDistrict.name
+                            : "",
+                        })
+                      );
+                    }}
+                    required
+                    disabled={invoiceAddress.cityCode ? false : true}
+                  >
+                    <option value="">İlçe Seçiniz</option>
+                    {districtsInvoice.map((district) => (
+                      <option
+                        key={district.districtId}
+                        value={district.districtId}
+                      >
+                        {district.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors[`invoiceAddress.districtId`] && (
+                    <span className="error">
+                      {errors[`invoiceAddress.districtId`]}
+                    </span>
+                  )}
+                </div>
               </div>
             )}
           </section>
@@ -437,45 +550,68 @@ export default function Adres({ minOrderAmount }) {
 
             {invoiceType === "CORPORATE" && (
               <div className="corporate-info">
-                <input
-                  placeholder="Vergi Dairesi"
-                  value={corporateInvoice.taxOffice}
-                  onChange={(e) =>
-                    dispatch(
-                      updateCorporateInfo({
-                        ...corporateInvoice,
-                        taxOffice: e.target.value,
-                      })
-                    )
-                  }
-                  required
-                />
-                <input
-                  placeholder="Vergi Numarası"
-                  value={corporateInvoice.taxNumber}
-                  onChange={(e) =>
-                    dispatch(
-                      updateCorporateInfo({
-                        ...corporateInvoice,
-                        taxNumber: e.target.value,
-                      })
-                    )
-                  }
-                  required
-                />
-                <input
-                  placeholder="Ticaret Ünvanı"
-                  value={corporateInvoice.companyName}
-                  onChange={(e) =>
-                    dispatch(
-                      updateCorporateInfo({
-                        ...corporateInvoice,
-                        companyName: e.target.value,
-                      })
-                    )
-                  }
-                  required
-                />
+                <div>
+                  <input
+                    placeholder="Vergi Dairesi"
+                    value={corporateInvoice.taxOffice}
+                    onChange={(e) =>
+                      dispatch(
+                        updateCorporateInfo({
+                          ...corporateInvoice,
+                          taxOffice: e.target.value,
+                        })
+                      )
+                    }
+                    required
+                  />
+                  {errors[`corporateInvoice.taxOffice`] && (
+                    <span className="error">
+                      {errors[`corporateInvoice.taxOffice`]}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    placeholder="Vergi Numarası"
+                    value={corporateInvoice.taxNumber}
+                    onChange={(e) =>
+                      dispatch(
+                        updateCorporateInfo({
+                          ...corporateInvoice,
+                          taxNumber: e.target.value,
+                        })
+                      )
+                    }
+                    required
+                  />
+                  {errors[`corporateInvoice.taxNumber`] && (
+                    <span className="error">
+                      {errors[`corporateInvoice.taxNumber`]}
+                    </span>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    placeholder="Ticaret Ünvanı"
+                    value={corporateInvoice.companyName}
+                    onChange={(e) =>
+                      dispatch(
+                        updateCorporateInfo({
+                          ...corporateInvoice,
+                          companyName: e.target.value,
+                        })
+                      )
+                    }
+                    required
+                  />
+                  {errors[`corporateInvoice.companyName`] && (
+                    <span className="error">
+                      {errors[`corporateInvoice.companyName`]}
+                    </span>
+                  )}
+                </div>
               </div>
             )}
           </section>

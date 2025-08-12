@@ -20,45 +20,10 @@ const SiparisOlustur = ({ minOrderAmount }) => {
     invoiceType,
     corporateInvoice,
   } = useSelector((state) => state.siparisSlice);
+  const [hazir, setHazir] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const isStepValid = () => {
-    const isAddressFilled =
-      address.firstName &&
-      address.lastName &&
-      address.username &&
-      address.city &&
-      address.cityCode &&
-      address.district &&
-      address.districtId &&
-      address.addressLine1 &&
-      address.postalCode &&
-      address.phoneNo;
-
-    const isInvoiceAddressFilled = billingSame
-      ? true
-      : invoiceAddress.firstName &&
-        invoiceAddress.lastName &&
-        invoiceAddress.username &&
-        invoiceAddress.city &&
-        invoiceAddress.cityCode &&
-        invoiceAddress.district &&
-        invoiceAddress.districtId &&
-        invoiceAddress.addressLine1 &&
-        invoiceAddress.postalCode &&
-        invoiceAddress.phoneNo;
-
-    const isCorporateValid =
-      invoiceType === "CORPORATE"
-        ? corporateInvoice.taxOffice &&
-          corporateInvoice.taxNumber &&
-          corporateInvoice.companyName
-        : true;
-
-    return isAddressFilled && isInvoiceAddressFilled && isCorporateValid;
-  };
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -79,7 +44,7 @@ const SiparisOlustur = ({ minOrderAmount }) => {
   const StepContent = useMemo(() => {
     switch (activeStep) {
       case 0:
-        return <Adres minOrderAmount={minOrderAmount} />;
+        return <Adres setHazir={setHazir} minOrderAmount={minOrderAmount} />;
       case 1:
         return <Odeme minOrderAmount={minOrderAmount} />;
       default:
@@ -150,9 +115,9 @@ const SiparisOlustur = ({ minOrderAmount }) => {
             {activeStep !== steps.length - 1 && (
               <button
                 id="bitirButtonuu"
-                className={isStepValid() ? "button" : "buttonDisabled"}
+                className={hazir ? "button" : "buttonDisabled"}
                 onClick={handleNext}
-                disabled={!isStepValid()}
+                disabled={!hazir}
               >
                 İleri
               </button>

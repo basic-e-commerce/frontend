@@ -35,6 +35,19 @@
           border: 1px solid #ddd;
           border-radius: 4px;
           font-size: 14px;
+          width: 100%;
+        }
+
+        input[type="checkbox"] {
+          width: 15px;
+        }
+
+        .error {
+          color: #dc3545;
+          font-size: 11px;
+          text-align: right;
+          margin-top: 2px;
+          display: block;
         }
 
         label {
@@ -165,6 +178,18 @@
       &:hover {
         border: 2px solid orange;
         transition: 0.3s;
+      }
+    }
+
+    .error {
+      color: #dc3545;
+      font-size: 0.85rem;
+      text-align: right;
+      margin-top: 10px;
+      display: block;
+
+      @media (max-width: 900px) {
+        font-size: 0.7rem;
       }
     }
   }

@@ -13,7 +13,7 @@ import axios from "axios";
 import { BASE_URL } from "../../../config/baseApi";
 import api from "../../../api/api";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const Odeme = ({ minOrderAmount }) => {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ const Odeme = ({ minOrderAmount }) => {
         } else {
           console.log("Beklenen HTML formatı değil:", response.data);
           dispatch(
-            showAlertWithTimeout({
+            showAlertWithTimeoutKullanici({
               message: "Beklenen HTML formatı değil",
               status: "error",
             })
@@ -106,7 +106,7 @@ const Odeme = ({ minOrderAmount }) => {
         }
       } catch (error) {
         dispatch(
-          showAlertWithTimeout({
+          showAlertWithTimeoutKullanici({
             message: error.message,
             status: "error",
           })
