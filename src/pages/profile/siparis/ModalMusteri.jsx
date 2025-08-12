@@ -1,3 +1,4 @@
+import "./ModalMusteri.scss";
 import { useEffect } from "react";
 
 const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
@@ -15,13 +16,13 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
 
   return (
     <div className="modal-musteri-overlay">
-      <div className="modal-musteri">
-        <button className="close-btn" onClick={handleCloseModal}>
+      <div className="modal-musteri-container">
+        <button className="modal-musteri-close-btn" onClick={handleCloseModal}>
           ×
         </button>
 
-        <div className="info-wrapper" style={{ display: "flex", gap: "2rem" }}>
-          <table className="info-table">
+        <div className="modal-musteri-info-section">
+          <table className="modal-musteri-info-table">
             <tbody>
               <tr>
                 <td>
@@ -57,7 +58,7 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
             </tbody>
           </table>
 
-          <table className="billing-table">
+          <table className="modal-musteri-billing-table">
             <tbody>
               <tr>
                 <td>
@@ -118,8 +119,8 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
           </table>
         </div>
 
-        <div className="info-wrapper" style={{ display: "flex", gap: "2rem" }}>
-          <table className="billing-table">
+        <div className="modal-musteri-info-section">
+          <table className="modal-musteri-billing-table">
             <tbody>
               <tr>
                 <td>
@@ -153,15 +154,46 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
             </tbody>
           </table>
 
-          <table className="billing-table"></table>
+          <table className="modal-musteri-billing-table">
+            <tbody>
+              <tr>
+                <td>
+                  <strong>İlk indirimli Fiyat + Kargo:</strong>
+                </td>
+                <td>
+                  {(selectedOrder?.substractDiscountPrice || 0) +
+                    (selectedOrder?.totalPrice || 0)}{" "}
+                  ₺
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kupon İndirimi:</strong>
+                </td>
+                <td>{selectedOrder?.substractDiscountPrice} ₺</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>İade Tutarı:</strong>
+                </td>
+                <td>{selectedOrder?.refundPrice} ₺</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Kupon Uyg. Toplam + Kargo:</strong>
+                </td>
+                <td>{selectedOrder?.totalPrice} ₺</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         {kargoData && (
-          <div
-            className="info-wrapper"
-            style={{ display: "flex", gap: "2rem" }}
-          >
-            <table className="billing-table">
+          <div className="modal-musteri-info-section">
+            <table className="modal-musteri-billing-table">
               <tbody>
                 <tr>
                   <td>
@@ -178,7 +210,7 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
               </tbody>
             </table>
 
-            <table className="billing-table">
+            <table className="modal-musteri-billing-table">
               <tbody>
                 <tr>
                   <td>
@@ -198,11 +230,8 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
         )}
 
         {kargoIade && (
-          <div
-            className="info-wrapper"
-            style={{ display: "flex", gap: "2rem" }}
-          >
-            <table className="billing-table">
+          <div className="modal-musteri-info-section">
+            <table className="modal-musteri-billing-table">
               <tbody>
                 <tr>
                   <td>
@@ -219,7 +248,7 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
               </tbody>
             </table>
 
-            <table className="billing-table">
+            <table className="modal-musteri-billing-table">
               <tbody>
                 <tr>
                   <td>
@@ -244,7 +273,7 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
           </div>
         )}
 
-        <table className="product-table">
+        <table className="modal-musteri-product-table">
           <thead>
             <tr>
               <th>Görsel</th>
@@ -282,7 +311,7 @@ const ModalMusteri = ({ handleCloseModal, selectedOrder }) => {
           <>
             <h4 style={{ margin: "4rem 0rem 2rem 0rem" }}>İade Olanlar</h4>
 
-            <table className="product-table">
+            <table className="modal-musteri-product-table">
               <thead>
                 <tr>
                   <th>Görsel</th>

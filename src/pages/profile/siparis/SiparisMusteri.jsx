@@ -33,49 +33,67 @@ const SiparisMusteri = () => {
   };
 
   return (
-    <div className="siparisBilgileri">
-      <div className="title">
+    <div className="siparis-musteri-container">
+      <div className="siparis-musteri-header">
         <h3>Sipariş Bilgileriniz</h3>
       </div>
 
-      <hr />
+      <hr className="siparis-musteri-divider" />
 
-      <div className="order-page">
-        <table className="custom-table">
-          <thead>
-            <tr>
-              <th className="col-2">Sipariş Kodu</th>
-              <th className="col-1">Tutar</th>
-              <th className="col-2">Durum</th>
-              <th className="col-1"></th>
+      <div className="siparis-musteri-content">
+        <table className="siparis-musteri-table">
+          <thead className="siparis-musteri-table-header">
+            <tr className="siparis-musteri-table-row">
+              <th className="siparis-musteri-table-cell siparis-musteri-col-order-code">
+                Sipariş Kodu
+              </th>
+              <th className="siparis-musteri-table-cell siparis-musteri-col-price">
+                Tutar
+              </th>
+              <th className="siparis-musteri-table-cell siparis-musteri-col-status">
+                Durum
+              </th>
+              <th className="siparis-musteri-table-cell siparis-musteri-col-date">
+                Tarih
+              </th>
+              <th className="siparis-musteri-table-cell siparis-musteri-col-actions"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="siparis-musteri-table-body">
             {orders.length > 0 ? (
               orders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.orderCode}</td>
-                  <td>{order.totalPrice}₺</td>
-                  <td>
+                <tr key={order.id} className="siparis-musteri-table-row">
+                  <td className="siparis-musteri-table-cell">
+                    {order.orderCode}
+                  </td>
+                  <td className="siparis-musteri-table-cell">
+                    {order.totalPrice}₺
+                  </td>
+                  <td className="siparis-musteri-table-cell">
                     {order?.orderStatusResponse?.refundOrderPackages[0]
                       ?.cargoStatus ||
                       order?.orderStatusResponse?.orderPackages[0]
                         ?.cargoStatus ||
                       order?.orderStatusResponse?.status}
                   </td>
-                  <td>
+                  <td className="siparis-musteri-table-cell">
+                    {order?.createdAt?.split("T")?.[0]}
+                  </td>
+                  <td className="siparis-musteri-table-cell">
                     <button
-                      className=""
+                      className="siparis-musteri-detail-btn"
                       onClick={() => handleDetailClick(order)}
                     >
-                      Ayrıntılar
+                      Detay
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan="4">Sipariş bulunamadı.</td>
+              <tr className="siparis-musteri-table-row">
+                <td colSpan="5" className="siparis-musteri-no-orders">
+                  Sipariş bulunamadı.
+                </td>
               </tr>
             )}
           </tbody>
