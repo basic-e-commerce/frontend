@@ -38,8 +38,9 @@
           width: 100%;
         }
 
-        input[type="checkbox"] {
-          width: 3px;
+        input[type="checkbox"],
+        input[type="radio"] {
+          width: 1rem;
         }
 
         .error {
