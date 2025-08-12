@@ -58,6 +58,7 @@ const Header = () => {
     nav.push(
       { to: "/", label: "Anasayfa" },
       { to: "/kategoriler", label: "Tüm Ürünler" },
+      { to: "/siparis-sorgula", label: "Sipariş Sorgula" },
       { to: "/iletisim", label: "İletişim" }
     );
     return nav;

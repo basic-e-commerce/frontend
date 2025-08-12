@@ -54,6 +54,7 @@ import EpostaOnaylandi from "./pages/kullaniciActionPages/EpostaOnaylandi";
 import EpostaRed from "./pages/kullaniciActionPages/EpostaRed";
 import SifremiUnuttum from "./pages/sifreUnuttum/SifremiUnuttum";
 import SifreYenileme from "./pages/sifreyenileme/SifreYenileme";
+import SiparisSorgu from "./pages/siparisSorgu/SiparisSorgu";
 
 function App() {
   const location = useLocation();
@@ -153,6 +154,7 @@ function App() {
         <Route path="/account-not-verified" element={<EpostaRed />} />
         <Route path="/sifremi-unuttum" element={<SifremiUnuttum />} />
         <Route path="/password-reset" element={<SifreYenileme />} />
+        <Route path="/siparis-sorgula" element={<SiparisSorgu />} />
         <Route
           path="/iletisim"
           element={<Iletisim contactData={contactData} />}

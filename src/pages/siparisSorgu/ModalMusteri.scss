@@ -1,0 +1,192 @@
+.modal-musteri-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal-musteri-container {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 900px;
+    width: 90vw;
+    max-height: 70vh;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .modal-musteri-close-btn {
+      position: sticky;
+      top: 0;
+      right: 0.5rem;
+      background: #fff;
+      border: none;
+      font-size: 1.7rem;
+      cursor: pointer;
+      color: #333;
+      z-index: 10;
+      float: right;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: #f8f9fa;
+      }
+
+      @media (max-width: 900px) {
+        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    .modal-musteri-info-section {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      clear: both;
+
+      .modal-musteri-info-table,
+      .modal-musteri-billing-table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 220px;
+        font-size: 0.85rem;
+
+        td {
+          padding: 0.5rem 0.75rem;
+          border-bottom: 1px solid #eee;
+
+          strong {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .modal-musteri-product-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 1.5rem;
+
+      th,
+      td {
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+      }
+
+      th {
+        background: #f7f7f7;
+        font-weight: 700;
+      }
+
+      img {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #eee;
+      }
+    }
+
+    // Scrollbar stilleri
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
+
+    @media (max-width: 900px) {
+      max-width: 98vw;
+      width: 95vw;
+      max-height: 70vh;
+      padding: 1.2rem 0.5rem;
+
+      .modal-musteri-info-section {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        .modal-musteri-info-table,
+        .modal-musteri-billing-table {
+          font-size: 0.8rem;
+          min-width: auto;
+
+          td {
+            padding: 0.4rem 0.5rem;
+          }
+        }
+      }
+
+      .modal-musteri-product-table {
+        font-size: 0.8rem;
+
+        img {
+          width: 50px;
+          height: 50px;
+        }
+
+        th,
+        td {
+          padding: 0.4rem 0.5rem;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      padding: 1rem 0.5rem;
+      max-height: 70vh;
+
+      .modal-musteri-info-section {
+        .modal-musteri-info-table,
+        .modal-musteri-billing-table {
+          font-size: 0.75rem;
+
+          td {
+            padding: 0.4rem 0.5rem;
+          }
+        }
+      }
+
+      .modal-musteri-product-table {
+        font-size: 0.75rem;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+
+        th,
+        td {
+          padding: 0.3rem 0.4rem;
+        }
+      }
+    }
+  }
+}

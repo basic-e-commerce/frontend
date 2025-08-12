@@ -1,0 +1,353 @@
+// Sipariş Sorgu Block
+.siparis-sorgu {
+  margin-top: calc(140px + 2rem);
+  margin-bottom: -2rem;
+}
+
+// Title Block
+.siparis-sorgu__title {
+  text-align: center;
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: black;
+}
+
+// Description Block
+.siparis-sorgu__description {
+  text-align: center;
+  margin: 0 0 32px 0;
+  font-size: 16px;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+// Form Block
+.siparis-sorgu__form {
+  max-width: 500px;
+  margin: 0 auto 32px auto;
+  padding: 24px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+// Form Group Block
+.form-group {
+  margin-bottom: 2rem;
+}
+
+// Form Label Element
+.form-group__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+// Form Input Element
+.form-group__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+}
+
+// Form Actions Block
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+// Button Block
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // Primary Button Modifier
+  &--primary {
+    background: black;
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  // Secondary Button Modifier
+  &--secondary {
+    background: #6c757d;
+    color: white;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+
+    &:hover:not(:disabled) {
+      background: #5a6268;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Error Message Block
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 24px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+// Sipariş Müşteri Container (Profil sayfasından alınan stiller)
+.siparis-musteri-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .siparis-musteri-header {
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+
+  .siparis-musteri-divider {
+    margin: 0 0 1.5rem 0;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .siparis-musteri-content {
+    overflow-x: auto;
+    width: 100%;
+
+    .siparis-musteri-table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      table-layout: auto;
+      font-size: 0.85rem;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      .siparis-musteri-table-header {
+        background-color: #f8f9fa;
+
+        .siparis-musteri-table-row {
+          .siparis-musteri-table-cell {
+            padding: 16px 12px;
+            text-align: left;
+            border-bottom: 2px solid #e9ecef;
+            border-right: 1px solid #e9ecef;
+            font-weight: 600;
+            color: #495057;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+          }
+        }
+      }
+
+      .siparis-musteri-table-body {
+        .siparis-musteri-table-row {
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+
+          &:last-child {
+            .siparis-musteri-table-cell {
+              border-bottom: none;
+            }
+          }
+
+          .siparis-musteri-table-cell {
+            padding: 16px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+            border-right: 1px solid #e9ecef;
+            color: #495057;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 50px;
+            max-width: 130px;
+
+            &.siparis-musteri-col-order-code {
+              font-weight: 500;
+              color: #007bff;
+              max-width: 130px;
+            }
+
+            &.siparis-musteri-col-price {
+              font-weight: 600;
+              color: #28a745;
+            }
+
+            &.siparis-musteri-col-status {
+              font-weight: 500;
+            }
+
+            &.siparis-musteri-col-date {
+              color: #6c757d;
+            }
+
+            &.siparis-musteri-col-actions {
+              text-align: center;
+            }
+          }
+
+          .siparis-musteri-detail-btn {
+            color: black;
+            background-color: transparent;
+            width: 60px;
+          }
+
+          .siparis-musteri-no-orders {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 2rem;
+            background-color: #f8f9fa;
+          }
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
+}
+
+// ========================================
+// RESPONSIVE DESIGN - MEDIA QUERIES
+// ========================================
+
+@media (max-width: 900px) {
+  .siparis-musteri-container {
+    .siparis-musteri-content {
+      .siparis-musteri-table {
+        font-size: 0.8rem;
+
+        .siparis-musteri-table-header,
+        .siparis-musteri-table-body {
+          .siparis-musteri-table-row {
+            .siparis-musteri-table-cell {
+              padding: 12px 8px;
+              border-right: 1px solid #e9ecef;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .siparis-sorgu {
+    padding: 12px;
+  }
+
+  .siparis-sorgu__container {
+    padding: 20px;
+  }
+
+  .siparis-sorgu__title {
+    font-size: 24px;
+  }
+
+  .siparis-sorgu__description {
+    font-size: 14px;
+  }
+
+  .siparis-sorgu__form {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .siparis-sorgu__container {
+    padding: 16px;
+  }
+
+  .siparis-sorgu__title {
+    font-size: 20px;
+  }
+}

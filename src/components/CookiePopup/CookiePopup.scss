@@ -1,7 +1,3 @@
-// Cookie Popup Component Styles
-// ======================================
-
-// Variables
 $cookie-primary-color: #007bff;
 $cookie-primary-hover: #0056b3;
 $cookie-secondary-color: #f8f9fa;
@@ -27,6 +23,14 @@ $cookie-transition: all 0.2s ease;
 
 // Main Container
 .cookie-popup {
+  // Popup Container
+  background: white;
+  border-radius: $cookie-border-radius $cookie-border-radius 0 0;
+  box-shadow: $cookie-shadow;
+  width: 50%;
+  margin: 0 0 0 49vw;
+  animation: slideUp 0.3s ease-out;
+
   &-overlay {
     position: fixed;
     bottom: 0;
@@ -35,14 +39,6 @@ $cookie-transition: all 0.2s ease;
     z-index: 99999999;
     padding-bottom: 10px;
   }
-
-  // Popup Container
-  background: white;
-  border-radius: $cookie-border-radius $cookie-border-radius 0 0;
-  box-shadow: $cookie-shadow;
-  width: 50%;
-  margin: 0 0 0 49vw; // Sola dayalı
-  animation: slideUp 0.3s ease-out;
 
   // Content Area
   &-content {
