@@ -50,26 +50,13 @@
         tr {
           th {
             &.col-2 {
-              width: 33.33%;
+              width: 28%;
             } // 2 birimlik kolon
-            &.col-1 {
-              width: 16.66%;
-            } // 1 birimlik kolon
           }
         }
       }
 
       // Body için aynı oranlar
-      tbody {
-        tr {
-          td:nth-child(1) {
-            width: 33.33%;
-          } // Öğrenci Ad Soyad
-          td:nth-child(n + 2) {
-            width: 16.66%;
-          } // Diğer sütunlar
-        }
-      }
 
       th {
         background-color: #f9f9f9;
@@ -94,116 +81,11 @@
         }
       }
     }
-
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999999999;
-
-      .modal {
-        background: white;
-        padding: 3rem;
-        border-radius: 12px;
-        max-width: 900px;
-        width: 100%;
-        position: relative;
-        height: 500px;
-        overflow-y: auto;
-
-        h2,
-        h3 {
-          margin-top: 0;
-        }
-
-        h3 {
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-        }
-
-        .close-btn {
-          position: absolute;
-          right: 1rem;
-          top: 1rem;
-          background: transparent;
-          font-size: 1.5rem;
-          border: none;
-          cursor: pointer;
-        }
-
-        .info-wrapper {
-          display: flex;
-          gap: 2rem;
-
-          .info-table,
-          .billing-table {
-            flex: 1;
-            font-size: 0.85rem;
-            border: 1px solid #eee;
-          }
-
-          .info-table td:first-child,
-          .billing-table td:first-child {
-            width: 120px;
-            font-weight: bold;
-          }
-
-          .info-table td,
-          .billing-table td {
-            padding: 0.5rem;
-          }
-        }
-
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-bottom: 1rem;
-
-          td,
-          th {
-            padding: 0.75rem;
-            text-align: left;
-            vertical-align: middle;
-          }
-        }
-
-        .product-table {
-          margin-top: 1rem;
-        }
-
-        .product-table th {
-          font-weight: bold;
-          background-color: #f8f8f8;
-          font-size: 0.85rem;
-        }
-
-        .product-table tr {
-          font-size: 0.85rem;
-        }
-
-        .product-table img {
-          width: 50px;
-          height: 50px;
-          object-fit: cover;
-          border-radius: 4px;
-        }
-
-        .product-table tr:not(:last-child) {
-          border-bottom: 1px solid #eee;
-        }
-      }
-    }
   }
 }
 
 .order-page,
-.modal-overlay .modal {
+.modal-overlay-musteri .modal-musteri {
   /* Scrollbar inceltme - Webkit tabanlı tarayıcılar */
   // Scrollbar stilleri (WebKit için)
   &::-webkit-scrollbar {

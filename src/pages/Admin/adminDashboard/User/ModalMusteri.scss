@@ -1,244 +1,157 @@
-.modal-musteri-overlay,
-.modal-overlayIade {
+.modal-musteri-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+}
 
-  .modal-musteri {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    max-width: 900px;
-    width: 100%;
-    position: relative;
-    height: 550px;
-    overflow-y: auto;
+.modal-musteri {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 90vw;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow-y: auto;
+  max-height: 70vh;
+}
 
-    h2,
-    h3 {
-      margin-top: 0;
-    }
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
 
-    h3 {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .close-btn {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      background: transparent;
-      font-size: 1.5rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .info-wrapper {
-      display: flex;
-      gap: 2rem;
-
-      .info-table,
-      .billing-table {
-        flex: 1;
-        font-size: 0.85rem;
-        border: 1px solid #eee;
-      }
-
-      .info-table td:first-child,
-      .billing-table td:first-child {
-        width: 120px;
-        font-weight: bold;
-      }
-
-      .info-table td,
-      .billing-table td {
-        padding: 0.5rem;
-      }
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1rem;
-
-      td,
-      th {
-        padding: 0.75rem;
-        text-align: left;
-        vertical-align: middle;
-      }
-    }
-
-    .product-table {
-      margin-top: 1rem;
-    }
-
-    .product-table th {
-      font-weight: bold;
-      background-color: #f8f8f8;
-      font-size: 0.85rem;
-    }
-
-    .product-table tr {
-      font-size: 0.85rem;
-    }
-
-    .product-table img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    .product-table tr:not(:last-child) {
-      border-bottom: 1px solid #eee;
-    }
-
-    .iade-form {
-      margin-top: 4rem;
-      h4 {
-        margin-bottom: 2rem;
-      }
-      p,
-      label {
-        font-size: 0.85rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-top: 0.4rem;
-        input {
-          padding: 0.4rem;
-          border-radius: 4px;
-          border: 1px solid lightgray;
-          width: 50%;
-        }
-      }
-      .buttonContainer {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 2rem;
-        button {
-          background-color: $primary-color;
-          color: #fff;
-          padding: 12px;
-          font-size: 0.85rem;
-          font-weight: bold;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s ease;
-          width: 25%;
-        }
-      }
-    }
+  @media (max-width: 900px) {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.5rem;
   }
 }
 
-.modal-overlayIade {
-  .modal {
-    form {
-      table {
-        .controlArtıEksi {
-          .buttonsControl {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+.info-wrapper {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
 
-            button {
-              background-color: transparent;
-              padding: 10px;
-            }
-          }
-        }
-      }
+.info-table,
+.billing-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 220px;
+  font-size: 0.85rem;
+}
 
-      .buttonContainer {
-        width: 25%;
-        justify-self: flex-end;
-        margin-top: 3rem;
+.info-table td,
+.billing-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+}
 
-        .button {
-          background-color: $primary-color;
-          color: #fff;
-          padding: 12px;
-          font-size: 0.85rem;
-          font-weight: bold;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s ease;
-          width: 100%;
-        }
+.info-table strong,
+.billing-table strong {
+  font-weight: 600;
+}
 
-        .disabledButton {
-          cursor: default;
-          background-color: gray;
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+}
 
-          &:hover {
-            background-color: gray;
-          }
-        }
-      }
-    }
+.product-table th,
+.product-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.product-table th {
+  background: #f7f7f7;
+  font-weight: 700;
+}
+
+.product-table img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+@media (max-width: 900px) {
+  .modal-musteri {
+    max-width: 98vw;
+    width: 90vw;
+    padding: 1.2rem 0.5rem;
+    max-height: 75vh;
   }
 
-  .skeleton-text,
-  .skeleton-img,
-  .skeleton-button {
-    background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.2s infinite ease-in-out;
-    border-radius: 4px;
+  .info-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
-  .skeleton-img {
+  .info-table,
+  .billing-table {
+    font-size: 0.8rem;
+    min-width: auto;
+  }
+
+  .product-table {
+    font-size: 0.8rem;
+  }
+
+  .product-table img {
     width: 50px;
     height: 50px;
   }
 
-  .skeleton-text.tiny {
-    height: 14px;
-    width: 30px;
+  .product-table th,
+  .product-table td {
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-musteri {
+    padding: 3rem 0.5rem;
+    max-height: 75vh;
   }
 
-  .skeleton-text.short {
-    height: 16px;
-    width: 100px;
+  .info-table,
+  .billing-table,
+  .product-table {
+    font-size: 0.75rem;
   }
 
-  .skeleton-text.medium {
-    height: 14px;
-    width: 70px;
+  .product-table img {
+    width: 40px;
+    height: 40px;
   }
 
-  .skeleton-button {
-    width: 80px;
-    height: 32px;
-    margin-top: 12px;
+  .product-table th,
+  .product-table td {
+    padding: 0.3rem 0.4rem;
   }
 
-  .skeleton-close-btn {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
-    opacity: 0.4;
-  }
-
-  @keyframes skeleton-loading {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
+  .info-table td,
+  .billing-table td {
+    padding: 0.4rem 0.5rem;
   }
 }

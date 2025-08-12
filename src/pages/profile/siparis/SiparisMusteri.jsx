@@ -32,23 +32,6 @@ const SiparisMusteri = () => {
     setSelectedOrder(null);
   };
 
-  const translateOrderStatus = (status) => {
-    switch (status) {
-      case "PENDING":
-        return "İşleniyor";
-      case "APPROVED":
-        return "Onaylandı";
-      case "SHIPPED":
-        return "Kargoya Verildi";
-      case "DELIVERED":
-        return "Teslim Edildi";
-      case "CANCELLED":
-        return "İptal Edildi";
-      default:
-        return "Bilinmiyor";
-    }
-  };
-
   return (
     <div className="siparisBilgileri">
       <div className="title">
@@ -63,7 +46,7 @@ const SiparisMusteri = () => {
             <tr>
               <th className="col-2">Sipariş Kodu</th>
               <th className="col-1">Tutar</th>
-              <th className="col-1">Durum</th>
+              <th className="col-2">Durum</th>
               <th className="col-1"></th>
             </tr>
           </thead>
@@ -73,10 +56,16 @@ const SiparisMusteri = () => {
                 <tr key={order.id}>
                   <td>{order.orderCode}</td>
                   <td>{order.totalPrice}₺</td>
-                  <td>{translateOrderStatus(order.orderStatus)}</td>
+                  <td>
+                    {order?.orderStatusResponse?.refundOrderPackages[0]
+                      ?.cargoStatus ||
+                      order?.orderStatusResponse?.orderPackages[0]
+                        ?.cargoStatus ||
+                      order?.orderStatusResponse?.status}
+                  </td>
                   <td>
                     <button
-                      className="btn-detail"
+                      className=""
                       onClick={() => handleDetailClick(order)}
                     >
                       Ayrıntılar
