@@ -5,7 +5,7 @@ import axios from "axios";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 import { BASE_URL } from "../../../config/baseApi";
 import { clearLoading, setLoading } from "../../../redux/slices/loadingSlice";
-import { customerLoginValidationSchema } from "../../customerLogin/yup/customerLoginValidation";
+import { sifreYenilemeValidationSchema } from "../yup/sifreYenilemeValidationSchema";
 
 export const useSifreYenilemeValidation = (generateCode) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const useSifreYenilemeValidation = (generateCode) => {
       password: "",
       rePassword: "",
     },
-    validationSchema: customerLoginValidationSchema,
+    validationSchema: sifreYenilemeValidationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       dispatch(
         setLoading({

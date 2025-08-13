@@ -9,7 +9,7 @@ function SifreYenileme() {
     (state) => state.authSlice
   );
   const [searchParams] = useSearchParams();
-  const generateCode = searchParams.get("generateCode");
+  const generateCode = searchParams.get("code");
   const formik = useSifreYenilemeValidation(generateCode);
 
   if (isLogin && role?.includes("CUSTOMER") && isAuthChecked) {
