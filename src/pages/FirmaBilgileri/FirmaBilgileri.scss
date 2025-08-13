@@ -1,0 +1,86 @@
+.firma-bilgileri {
+  margin-top: calc(140px + 2rem);
+  margin-bottom: -2rem;
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .firma-table {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+
+    .table-row {
+      display: flex;
+      border-bottom: 1px solid #e9ecef;
+      transition: background-color 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      .table-label {
+        flex: 0 0 200px;
+        padding: 1rem 1.5rem;
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+        border-right: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+      }
+
+      .table-value {
+        flex: 1;
+        padding: 1rem 1.5rem;
+        color: #212529;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+        word-break: break-word;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 900px) {
+  .firma-bilgileri {
+    margin-top: calc(100px + 2rem);
+    .page-title {
+      font-size: 1.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .firma-table {
+      .table-row {
+        flex-direction: column;
+
+        .table-label {
+          flex: none;
+          border-right: none;
+          border-bottom: 1px solid #e9ecef;
+          padding: 0.75rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .table-value {
+          padding: 0.75rem 1rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

@@ -103,7 +103,9 @@ const KvkkAydinlatmaMetni = () => {
         KVKK kapsamındaki haklarınızı kullanmak için bizimle iletişime
         geçebilirsiniz:
         <br />
-        <strong>E-posta:</strong> [E-posta adresinizi buraya yazabilirsiniz]
+        <strong>E-posta:</strong> info@gulcegida.com
+        <br />
+        <strong>Telefon:</strong> +90 541 687 75 02
         <br />
         <strong>Adres:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak No:22A
         Merkez / Çanakkale

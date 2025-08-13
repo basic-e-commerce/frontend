@@ -268,7 +268,10 @@ const Odeme = ({ minOrderAmount }) => {
               )}
 
               <div className="infoKomisyon">
-                <img src="/images/odeme/cards.png" alt="Kredi Kartları" />
+                <img
+                  src="/images/logo_band_colored@2x.png"
+                  alt="Kredi Kartları"
+                />
               </div>
 
               <div className="checkbox-container">

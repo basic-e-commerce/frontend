@@ -86,10 +86,10 @@ const CookiePolicy = () => {
           Merkez/Çanakkale
         </li>
         <li>
-          <strong>E-posta:</strong> [Varsa e-posta adresi buraya eklenebilir]
+          <strong>E-posta:</strong> info@gulcegida.com
         </li>
         <li>
-          <strong>Telefon:</strong> [Varsa telefon numarası buraya eklenebilir]
+          <strong>Telefon:</strong> +90 541 687 75 02
         </li>
       </ul>
     </div>

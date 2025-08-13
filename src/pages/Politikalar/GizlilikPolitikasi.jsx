@@ -21,6 +21,9 @@ const GizlilikPolitikasi = () => {
       <p>
         <strong>İletişim Bilgisi: </strong> info@gulcegida.com
       </p>
+      <p>
+        <strong>Telefon: </strong> +90 541 687 75 02
+      </p>
 
       <h2>1. Kişisel Verilerin Korunması</h2>
       <p>

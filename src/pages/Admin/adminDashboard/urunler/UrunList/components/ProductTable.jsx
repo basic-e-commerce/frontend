@@ -8,11 +8,11 @@ const ProductTable = ({ currentItems }) => {
       <table>
         <thead>
           <tr>
-            <th className="productNameTh">Product Name & Size</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Rating</th>
-            <th>Action</th>
+            <th className="productNameTh">Ürün İsmi</th>
+            <th>Fiyatı</th>
+            <th>Stok</th>
+            <th>Puan</th>
+            <th>İşlemler</th>
           </tr>
         </thead>
         <tbody>

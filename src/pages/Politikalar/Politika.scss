@@ -3,7 +3,8 @@
 .bilgilendirme-formu,
 .iadeveiptalpolitikasi,
 .kvkkAydinlatmaMetni,
-.cookiePolicy {
+.cookiePolicy,
+.meslek-kurallari {
   margin-top: 140px;
   h1,
   h2 {
@@ -11,7 +12,8 @@
     margin-bottom: 1rem;
   }
 
-  p {
+  p,
+  li {
     font-size: 0.9rem;
   }
 

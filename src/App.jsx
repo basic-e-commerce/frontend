@@ -55,6 +55,8 @@ import EpostaRed from "./pages/kullaniciActionPages/EpostaRed";
 import SifremiUnuttum from "./pages/sifreUnuttum/SifremiUnuttum";
 import SifreYenileme from "./pages/sifreyenileme/SifreYenileme";
 import SiparisSorgu from "./pages/siparisSorgu/SiparisSorgu";
+import FirmaBilgileri from "./pages/FirmaBilgileri/FirmaBilgileri";
+import MeslekKurallari from "./pages/Politikalar/MeslekKurallari";
 
 function App() {
   const location = useLocation();
@@ -178,6 +180,8 @@ function App() {
         />
 
         <Route path="/cerez-politikasi" element={<CookiePolicy />} />
+        <Route path="/firma-bilgileri" element={<FirmaBilgileri />} />
+        <Route path="/meslek-kurallari" element={<MeslekKurallari />} />
 
         <Route
           path="/admins"

@@ -19,10 +19,10 @@ const OnBilgilendirmeFormu = () => {
         No:22A Merkez / Çanakkale
       </p>
       <p>
-        <strong>E-posta:</strong> [e-posta adresinizi yazınız]
+        <strong>E-posta:</strong>info@gulcegida.com
       </p>
       <p>
-        <strong>Telefon:</strong> [telefon numaranızı yazınız]
+        <strong>Telefon:</strong> +90 541 687 75 02
       </p>
 
       <h2>Ürün ve Hizmet Bilgileri</h2>

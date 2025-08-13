@@ -22,9 +22,9 @@ const MesafeliSatisSozlesmesi = () => {
         <br />
         Adres: Cevatpaşa Mah. Kazım Karabekir Sokak No:22A Merkez / Çanakkale
         <br />
-        E-posta: info@orneksite.com
+        E-posta: info@gulcegida.com
         <br />
-        Telefon: 0541 687 75 02
+        Telefon: +90 541 687 75 02
       </p>
 
       <h2>2. Konu</h2>

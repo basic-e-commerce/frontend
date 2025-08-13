@@ -53,6 +53,22 @@ footer {
   gap: 1rem;
 }
 
+.bottomEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .odemeIcon {
+    height: 25px;
+  }
+
+  @media (max-width: 900px) {
+    gap: 1rem !important;
+    .odemeIcon {
+      height: 20px;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .footer {
     gap: 3rem;

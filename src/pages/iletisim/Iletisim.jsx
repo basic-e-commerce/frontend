@@ -16,10 +16,10 @@ const Iletisim = ({ contactData }) => {
         <div className="content">
           <div className="map">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.8088212526977!2d26.403226275703272!3d40.146542072040084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b1a9c2372acca7%3A0xee140f62509738b4!2sDetay%20Peyzaj!5e0!3m2!1str!2str!4v1749902238687!5m2!1str!2str"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3512.5742804343345!2d26.416648102012637!3d40.15538770037758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b1a82a9f86fbab%3A0x6d60d35f364075af!2sCevat%20Pa%C5%9Fa%2C%20Kaz%C4%B1m%20Karabekir%20Sk.%20No%3A22%2C%2017000%20%C3%87anakkale%20Merkez%2F%C3%87anakkale!5e0!3m2!1str!2str!4v1755083476312!5m2!1str!2str"
               className="iframe"
               style={{ border: "0px" }}
-              allowFullScreen=""
+              allowfullscreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>

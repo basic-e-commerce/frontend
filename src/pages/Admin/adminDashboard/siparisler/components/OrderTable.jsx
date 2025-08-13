@@ -25,6 +25,7 @@ const OrderTable = ({
           <th className="col-0">Ad Soyad</th>
           <th className="col-0">Tutar</th>
           <th className="col-0">Taksit</th>
+          <th className="col-1">Sipariş Tarihi</th>
           <th className="col-2">Durum</th>
           <th className="col-1"></th>
         </tr>
@@ -46,6 +47,7 @@ const OrderTable = ({
               </td>
               <td>{order.totalPrice} ₺</td>
               <td>{order.installment}</td>
+              <td>{order.createdAt.split("T")[0]}</td>
               <td>
                 {order?.orderStatusResponse?.refundOrderPackages[0]
                   ?.cargoStatus ||

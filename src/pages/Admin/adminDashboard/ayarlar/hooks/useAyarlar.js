@@ -143,6 +143,28 @@ export const useAyarlar = () => {
     },
   });
 
+  useEffect(() => {
+    if (formik.values.cityCode) {
+      const fetchDistricts = async () => {
+        try {
+          const districtByCityCode = await api.get(
+            `${BASE_URL}/api/v1/district/city-code?cityCode=${formik.values.cityCode}`
+          );
+          setDistricts(districtByCityCode.data);
+        } catch (error) {
+          dispatch(
+            showAlertWithTimeout({
+              message: error.response?.data || "İlçeler yüklenemedi",
+              status: "error",
+            })
+          );
+        }
+      };
+
+      fetchDistricts();
+    }
+  }, [formik.values.cityCode, dispatch]);
+
   return {
     isLoading,
     formik,

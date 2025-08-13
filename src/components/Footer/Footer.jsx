@@ -20,7 +20,7 @@ const Footer = ({ contactData }) => {
         </div>
 
         <div className="footerItem">
-          <h3>Politikalarımız</h3>
+          <h3>Politikalar & Önemli Bilgiler</h3>
           <hr />
           <ul className="footerHizmet">
             <li>
@@ -51,6 +51,16 @@ const Footer = ({ contactData }) => {
             <li>
               <Link to={"/on-bilgilendirme-formu"}>
                 <span>Ön Bilgilendirme Formu</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/firma-bilgileri"}>
+                <span>Firma Bilgileri</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/meslek-kurallari"}>
+                <span>Meslek Kuralları</span>
               </Link>
             </li>
           </ul>
@@ -102,10 +112,15 @@ const Footer = ({ contactData }) => {
 
       <hr style={{ width: "100%", border: "1px solid #dee0ea" }} />
 
-      <div className="container">
+      <div className="container bottomEnd">
         <p style={{ fontSize: "0.85rem" }}>
           Copyright 2025 © {contactData?.name}. Bütün Hakları Saklıdır.
         </p>
+        <img
+          className="odemeIcon"
+          src="/images/logo_band_colored@2x.png"
+          alt="Avon"
+        />
       </div>
     </footer>
   );

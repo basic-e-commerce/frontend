@@ -29,17 +29,16 @@ const ProductTableRow = ({ item }) => {
       </td>
       <td>
         <span className="stock">{item.quantity} stokta</span>
-        <br />
-        <span className="sold">10 Satılmış</span>
       </td>
       <td>
-        <div className="rating">
+        {/* <div className="rating">
           <StarRateIcon style={{ fontSize: "1.1rem" }} />
           <span>4.3</span>
         </div>
         <br />
-        <span className="reviews">{item.reviews}50 Yorum</span>
+        <span className="reviews">{item.reviews}50 Yorum</span>*/}
       </td>
+
       <td className="actions">
         <div className="buttonSectionContainer">
           <a

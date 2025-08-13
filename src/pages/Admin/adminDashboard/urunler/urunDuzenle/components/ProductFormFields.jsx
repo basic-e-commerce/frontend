@@ -56,7 +56,7 @@ const ProductFormFields = () => {
     },
     {
       name: "published",
-      label: "Published",
+      label: "Canlıda mı?",
       type: "select",
       options: [
         { value: "true", label: "Aktif" },
@@ -65,7 +65,7 @@ const ProductFormFields = () => {
     },
     {
       name: "disableOutOfStock",
-      label: "DisableOutOfStock",
+      label: "Stoğu Kapatma",
       type: "select",
       options: [
         { value: "true", label: "True" },
@@ -74,11 +74,11 @@ const ProductFormFields = () => {
     },
     {
       name: "productType",
-      label: "Birim",
+      label: "Ürün Tipi",
       type: "select",
       options: [
         { value: "", label: "Seçiniz" },
-        { value: "SIMPLE", label: "Simple" },
+        { value: "SIMPLE", label: "Normal" },
       ],
     },
     {
