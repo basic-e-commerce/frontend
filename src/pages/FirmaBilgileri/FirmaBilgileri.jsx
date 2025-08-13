@@ -45,7 +45,7 @@ const FirmaBilgileri = () => {
           </div>
 
           <div className="table-row">
-            <div className="table-label">Sicil Numarası</div>
+            <div className="table-label">Esnaf ve Sanatkar Sicil No</div>
             <div className="table-value">{firmaData.sicilNumarasi}</div>
           </div>
 
