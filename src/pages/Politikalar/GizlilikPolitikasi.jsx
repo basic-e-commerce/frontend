@@ -35,16 +35,17 @@ const GizlilikPolitikasi = () => {
         işlenmektedir.
       </p>
       <p>
-        <strong>Saklama Şekli:</strong> Kişisel veriler, kendi sistemimizde{" "}
-        <strong>hash algoritmaları</strong> ile korunmakta ve güvenli veri
-        tabanlarında saklanmaktadır.
+        <strong>Saklama Şekli:</strong> Kişisel veriler, güvenli sunucularda ve yetkisiz erişime
+        karşı korumalı veri tabanlarında saklanır.
+        Gerekli durumlarda endüstri standartlarında şifreleme ve
+        güvenlik yöntemleri kullanılır.
       </p>
 
       <h2>2. Çerez (Cookie) Kullanımı</h2>
       <p>
         Web sitemizde kullanıcı deneyimini geliştirmek ve analiz süreçlerini
-        desteklemek amacıyla <strong>çerezler (cookies)</strong>{" "}
-        kullanılmaktadır. Bu çerezler;
+        desteklemek amacıyla <strong>çerezler (cookies)</strong> kullanılmaktadır. 
+        Bu çerezler aşağıdaki amaçlarla kullanılır:
       </p>
       <ul>
         <li>Ziyaretçi tercihlerini hatırlamak,</li>
@@ -53,10 +54,7 @@ const GizlilikPolitikasi = () => {
           <strong>Meta Pixel</strong> teknolojisi ile kullanıcı davranışlarını
           analiz ederek reklam performansını artırmak,
         </li>
-        <li>
-          Giriş oturumlarının güvenliğini sağlamak için{" "}
-          <strong>HttpOnly refresh token cookie'leri</strong> kullanmak
-        </li>
+        <li>Oturum güvenliğini sağlamak</li>
       </ul>
       <p>
         Kullanıcılar, tarayıcı ayarları üzerinden zorunlu çerezler dışındaki
