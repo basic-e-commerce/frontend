@@ -1,38 +1,39 @@
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const MeslekKurallari = () => {
   return (
     <div className="meslek-kurallari container">
       <h1>Meslek Odası ve Davranış Kuralları</h1>
       <p>
-        <strong>Yürürlük Tarihi:</strong> 13.08.2025
+        <strong>Yürürlük Tarihi:</strong>{" "}
+        {companyData.policies.meslekKurallariDate}
       </p>
       <p>
-        <strong>İşletme Adı:</strong> Uğur Soner Doğan – Şahıs Firması
+        <strong>İşletme Adı:</strong> {companyData.company.fullName}
       </p>
       <p>
-        <strong>İş Yeri Adresi:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak
-        No:22A Merkez / Çanakkale
+        <strong>İş Yeri Adresi:</strong>{" "}
+        {companyData.company.address.fullAddress}
       </p>
       <p>
-        <strong>Ana Faaliyet Alanı:</strong> Bakkal ve marketlerde yapılan
-        perakende ticaret (Gıda, içecek)
+        <strong>Ana Faaliyet Alanı:</strong> {companyData.company.businessArea}
       </p>
       <p>
-        <strong>İletişim Bilgisi:</strong> info@gulcegida.com
+        <strong>İletişim Bilgisi:</strong> {companyData.company.contact.email}
       </p>
 
       <h2>1. Meslek Odası Bilgileri</h2>
       <p>
-        İşletmemiz, <strong>Çanakkale Bakkallar ve Bayiler Esnaf Odası</strong>
-        ’na kayıtlıdır. Oda,{" "}
-        <strong>Türkiye Esnaf ve Sanatkârlar Konfederasyonu (TESK)</strong>’e
-        bağlı olarak faaliyet göstermektedir.
+        İşletmemiz, <strong>{companyData.professional.chamber}</strong>
+        'na kayıtlıdır. Oda,{" "}
+        <strong>{companyData.professional.confederation}</strong>'e bağlı olarak
+        faaliyet göstermektedir.
       </p>
       <p>
         TESK Resmi Web Sitesi:{" "}
         <a
-          href="https://www.tesk.org.tr"
+          href={companyData.professional.teskWebsite}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -42,16 +43,14 @@ const MeslekKurallari = () => {
 
       <h2>2. Meslekle İlgili Davranış Kuralları</h2>
       <ul>
-        <li>
-          5362 sayılı Esnaf ve Sanatkârlar Meslek Kuruluşları Kanunu’na uymak.
-        </li>
+        <li>{companyData.legal.esnafLaw}'na uymak.</li>
         <li>
           Fiyat tarifelerini mevzuata uygun hazırlamak ve görünür şekilde
           sergilemek.
         </li>
         <li>Gıda güvenliği ve hijyen şartlarını sağlamak.</li>
         <li>Son kullanma tarihi geçmiş, kaçak veya sahte ürün satmamak.</li>
-        <li>Tüketici Kanunu’na uygun satış ve iade süreçlerini uygulamak.</li>
+        <li>Tüketici Kanunu'na uygun satış ve iade süreçlerini uygulamak.</li>
       </ul>
 
       <h2>3. Elektronik Olarak Ulaşım</h2>
@@ -78,8 +77,7 @@ const MeslekKurallari = () => {
           </a>
         </li>
         <li>
-          Yerel meslek odasının web sitesi (Çanakkale Bakkallar ve Bayiler Esnaf
-          Odası)
+          Yerel meslek odasının web sitesi ({companyData.professional.chamber})
         </li>
       </ul>
 

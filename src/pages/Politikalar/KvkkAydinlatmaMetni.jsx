@@ -1,4 +1,5 @@
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const KvkkAydinlatmaMetni = () => {
   return (
@@ -6,31 +7,29 @@ const KvkkAydinlatmaMetni = () => {
       <h1>KVKK Aydınlatma Metni</h1>
 
       <p>
-        Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu
-        (“KVKK”) uyarınca, <strong>Uğur Soner Doğan</strong> (Şahıs firması)
-        tarafından, veri sorumlusu sıfatıyla kişisel verilerinizin işlenmesine
-        ilişkin olarak hazırlanmıştır.
+        Bu aydınlatma metni, {companyData.legal.kvkkLaw} uyarınca,{" "}
+        <strong>{companyData.company.name}</strong> (Şahıs firması) tarafından,
+        veri sorumlusu sıfatıyla kişisel verilerinizin işlenmesine ilişkin
+        olarak hazırlanmıştır.
       </p>
       <p>
-        <strong>İşletme Unvanı:</strong> Uğur Soner Doğan
+        <strong>İşletme Unvanı:</strong> {companyData.company.name}
         <br />
-        <strong>Adres:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak No:22A
-        Merkez / Çanakkale
+        <strong>Adres:</strong> {companyData.company.address.fullAddress}
         <br />
-        <strong>Ana Faaliyet Alanı:</strong> Bakkal ve marketlerde yapılan
-        perakende ticaret (gıda, içecek)
+        <strong>Ana Faaliyet Alanı:</strong> {companyData.company.businessArea}
       </p>
 
       <h2>1. Kişisel Verilerin İşlenme Amaçları</h2>
       <p>
         Toplanan kişisel verileriniz; e-ticaret faaliyetlerinin yürütülmesi,
         sipariş süreçlerinin yönetilmesi, kargo ve teslimat işlemlerinin
-        gerçekleştirilmesi (Geliver kargo entegrasyonu dahil), kullanıcı
-        hesaplarının güvenliğinin sağlanması (örneğin HTTPOnly cookie ile
-        refresh token işlemleri), pazarlama ve reklam faaliyetleri
-        (Facebook/Meta Pixel algoritması aracılığıyla), müşteri destek
-        hizmetlerinin yürütülmesi ve yasal yükümlülüklerin yerine getirilmesi
-        amaçlarıyla işlenmektedir.
+        gerçekleştirilmesi ({companyData.services.cargo} kargo entegrasyonu
+        dahil), kullanıcı hesaplarının güvenliğinin sağlanması (örneğin HTTPOnly
+        cookie ile refresh token işlemleri), pazarlama ve reklam faaliyetleri (
+        {companyData.services.analytics} Pixel algoritması aracılığıyla),
+        müşteri destek hizmetlerinin yürütülmesi ve yasal yükümlülüklerin yerine
+        getirilmesi amaçlarıyla işlenmektedir.
       </p>
 
       <h2>2. İşlenen Kişisel Veriler</h2>
@@ -44,18 +43,18 @@ const KvkkAydinlatmaMetni = () => {
           <li>Kullanıcı davranış bilgileri (Pixel ile elde edilen veriler)</li>
         </ul>
         Verileriniz, sistemlerimizde{" "}
-        <strong>hash’lenmiş şekilde güvenli olarak</strong> saklanmaktadır.
+        <strong>hash'lenmiş şekilde güvenli olarak</strong> saklanmaktadır.
       </p>
 
       <h2>3. Kişisel Verilerin Aktarılması</h2>
       <p>
         Kişisel verileriniz;
         <ul>
-          <li>Kargo şirketlerine (örneğin Geliver)</li>
+          <li>Kargo şirketlerine (örneğin {companyData.services.cargo})</li>
           <li>Yazılım, bulut, ödeme ve pazarlama altyapı sağlayıcılarına</li>
           <li>Yetkili kamu kurum ve kuruluşlarına</li>
         </ul>
-        KVKK’nın 8. ve 9. maddelerine uygun olarak aktarılabilir.
+        KVKK'nın 8. ve 9. maddelerine uygun olarak aktarılabilir.
       </p>
 
       <h2>4. Veri Toplama Yöntemi ve Hukuki Sebep</h2>
@@ -74,7 +73,7 @@ const KvkkAydinlatmaMetni = () => {
 
       <h2>5. KVKK Kapsamındaki Haklarınız</h2>
       <p>
-        KVKK’nın 11. maddesi uyarınca, veri sahipleri olarak aşağıdaki haklara
+        KVKK'nın 11. maddesi uyarınca, veri sahipleri olarak aşağıdaki haklara
         sahipsiniz:
         <ul>
           <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
@@ -86,7 +85,7 @@ const KvkkAydinlatmaMetni = () => {
             Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme
           </li>
           <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
-          <li>KVKK’ya uygun olarak silinmesini veya yok edilmesini isteme</li>
+          <li>KVKK'ya uygun olarak silinmesini veya yok edilmesini isteme</li>
           <li>
             Bu işlemlerin aktarıldığı üçüncü kişilere bildirilmesini isteme
           </li>
@@ -103,14 +102,13 @@ const KvkkAydinlatmaMetni = () => {
         KVKK kapsamındaki haklarınızı kullanmak için bizimle iletişime
         geçebilirsiniz:
         <br />
-        <strong>E-posta:</strong> info@gulcegida.com
+        <strong>E-posta:</strong> {companyData.company.contact.email}
         <br />
-        <strong>Telefon:</strong> +90 541 687 75 02
+        <strong>Telefon:</strong> {companyData.company.contact.phone}
         <br />
-        <strong>Adres:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak No:22A
-        Merkez / Çanakkale
+        <strong>Adres:</strong> {companyData.company.address.fullAddress}
         <br />
-        <strong>Veri Sorumlusu:</strong> Uğur Soner Doğan
+        <strong>Veri Sorumlusu:</strong> {companyData.company.dataController}
       </p>
     </div>
   );

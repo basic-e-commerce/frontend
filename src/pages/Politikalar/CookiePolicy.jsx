@@ -1,4 +1,5 @@
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const CookiePolicy = () => {
   return (
@@ -7,8 +8,8 @@ const CookiePolicy = () => {
 
       <h2>1. Taraflar ve Amaç</h2>
       <p>
-        Bu Çerez Politikası, <strong>Uğur Soner Doğan</strong> şahıs firmasına
-        ait olan ve Cevatpaşa Mah. Kazım Karabekir Sokak No:22A Merkez/Çanakkale
+        Bu Çerez Politikası, <strong>{companyData.company.name}</strong> şahıs
+        firmasına ait olan ve {companyData.company.address.fullAddress}{" "}
         adresinde faaliyet gösteren işletmeye ait e-ticaret web sitesi üzerinden
         sunulan hizmetlerde kullanılan çerezlerin kullanım koşullarını açıklamak
         amacıyla hazırlanmıştır.
@@ -39,26 +40,27 @@ const CookiePolicy = () => {
         </li>
         <li>
           <strong>Reklam ve Hedefleme Çerezleri:</strong>{" "}
-          <strong>Meta (Facebook) Pixel</strong> gibi algoritmalar aracılığıyla
-          kullanıcı davranışlarını analiz ederek kişiselleştirilmiş reklamlar
-          sunmamıza olanak tanır.
+          <strong>{companyData.services.analytics} Pixel</strong> gibi
+          algoritmalar aracılığıyla kullanıcı davranışlarını analiz ederek
+          kişiselleştirilmiş reklamlar sunmamıza olanak tanır.
         </li>
       </ul>
 
       <h2>4. Üçüncü Taraf Çerezleri</h2>
       <p>
-        Web sitemiz, <strong>Geliver Kargo Entegrasyonu</strong> gibi üçüncü
-        taraf hizmetleri kullanabilir. Bu hizmetler de kendi çerezlerini
+        Web sitemiz,{" "}
+        <strong>{companyData.services.cargo} Kargo Entegrasyonu</strong> gibi
+        üçüncü taraf hizmetleri kullanabilir. Bu hizmetler de kendi çerezlerini
         kullanabilir. Bu tür çerezler hakkında detaylı bilgi ilgili üçüncü taraf
         sağlayıcılarının politikalarında yer almaktadır.
       </p>
 
       <h2>5. Kişisel Verilerin Korunması</h2>
       <p>
-        Topladığımız kişisel veriler, <strong>hash’lenmiş şekilde</strong>{" "}
-        güvenli olarak sistemimizde saklanmakta ve 6698 Sayılı Kişisel Verilerin
-        Korunması Kanunu’na (KVKK) uygun olarak işlenmektedir. Detaylı bilgi
-        için <strong>Gizlilik Politikamızı</strong> inceleyebilirsiniz.
+        Topladığımız kişisel veriler, <strong>hashlenmiş şekilde</strong>{" "}
+        güvenli olarak sistemimizde saklanmakta ve {companyData.legal.kvkkLaw}
+        &apos;na uygun olarak işlenmektedir. Detaylı bilgi için{" "}
+        <strong>Gizlilik Politikamızı</strong> inceleyebilirsiniz.
       </p>
 
       <h2>6. Çerezlerin Yönetimi</h2>
@@ -79,17 +81,16 @@ const CookiePolicy = () => {
       </p>
       <ul>
         <li>
-          <strong>Firma Adı:</strong> Uğur Soner Doğan (Şahıs Firması)
+          <strong>Firma Adı:</strong> {companyData.company.fullName}
         </li>
         <li>
-          <strong>Adres:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak No:22A
-          Merkez/Çanakkale
+          <strong>Adres:</strong> {companyData.company.address.fullAddress}
         </li>
         <li>
-          <strong>E-posta:</strong> info@gulcegida.com
+          <strong>E-posta:</strong> {companyData.company.contact.email}
         </li>
         <li>
-          <strong>Telefon:</strong> +90 541 687 75 02
+          <strong>Telefon:</strong> {companyData.company.contact.phone}
         </li>
       </ul>
     </div>

@@ -1,6 +1,5 @@
-import React from "react";
 import "./FirmaBilgileri.scss";
-import firmaData from "./dummyData.json";
+import { firmaBilgileri } from "../Politikalar/companyData.json";
 
 const FirmaBilgileri = () => {
   return (
@@ -11,57 +10,57 @@ const FirmaBilgileri = () => {
         <div className="firma-table">
           <div className="table-row">
             <div className="table-label">Firma Adı</div>
-            <div className="table-value">{firmaData.firmaAdi}</div>
+            <div className="table-value">{firmaBilgileri.firmaAdi}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Telefon</div>
-            <div className="table-value">{firmaData.telefon1}</div>
+            <div className="table-value">{firmaBilgileri.telefon1}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">E-mail</div>
-            <div className="table-value">{firmaData.email}</div>
+            <div className="table-value">{firmaBilgileri.email}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Adres</div>
-            <div className="table-value">{firmaData.adres}</div>
+            <div className="table-value">{firmaBilgileri.adres}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Ülke</div>
-            <div className="table-value">{firmaData.ulke}</div>
+            <div className="table-value">{firmaBilgileri.ulke}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Şehir</div>
-            <div className="table-value">{firmaData.sehir}</div>
+            <div className="table-value">{firmaBilgileri.sehir}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Semt</div>
-            <div className="table-value">{firmaData.semt}</div>
+            <div className="table-value">{firmaBilgileri.semt}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Esnaf ve Sanatkar Sicil No</div>
-            <div className="table-value">{firmaData.sicilNumarasi}</div>
+            <div className="table-value">{firmaBilgileri.sicilNumarasi}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Vergi No</div>
-            <div className="table-value">{firmaData.vergiNo}</div>
+            <div className="table-value">{firmaBilgileri.vergiNo}</div>
           </div>
 
           <div className="table-row">
             <div className="table-label">Vergi Dairesi</div>
-            <div className="table-value">{firmaData.vergiDairesi}</div>
+            <div className="table-value">{firmaBilgileri.vergiDairesi}</div>
           </div>
 
           <div className="table-row">
-            <div className="table-label">Mersis No</div>
-            <div className="table-value">{firmaData.mersisNo}</div>
+            <div className="table-label">Kep Adresi</div>
+            <div className="table-value">{firmaBilgileri.kepAdresi}</div>
           </div>
         </div>
       </div>

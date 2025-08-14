@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import companyData from "./companyData.json";
 
 const IadeIptalPolitikasi = () => {
   return (
@@ -6,19 +7,18 @@ const IadeIptalPolitikasi = () => {
       <h1>İade ve İptal Politikası</h1>
 
       <p>
-        Bu İade ve İptal Politikası, <strong>Uğur Soner Doğan</strong> adına
-        faaliyet gösteren şahıs firması tarafından işletilen e-ticaret sitesi
-        üzerinden yapılan alışverişlerde geçerlidir.
+        Bu İade ve İptal Politikası, <strong>{companyData.company.name}</strong>{" "}
+        adına faaliyet gösteren şahıs firması tarafından işletilen e-ticaret
+        sitesi üzerinden yapılan alışverişlerde geçerlidir.
       </p>
 
       <p>
-        <strong>Firma Ünvanı:</strong> Uğur Soner Doğan
+        <strong>Firma Ünvanı:</strong> {companyData.company.name}
         <br />
-        <strong>Ana Faaliyet Alanı:</strong> Bakkal ve marketlerde yapılan
-        perakende ticaret (Gıda, İçecek)
+        <strong>Ana Faaliyet Alanı:</strong> {companyData.company.businessArea}
         <br />
-        <strong>İş Yeri Adresi:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak
-        No:22A Merkez / Çanakkale
+        <strong>İş Yeri Adresi:</strong>{" "}
+        {companyData.company.address.fullAddress}
       </p>
 
       <h2>Sipariş İptali</h2>

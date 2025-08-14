@@ -1,0 +1,51 @@
+{
+  "company": {
+    "name": "Uğur Soner Doğan",
+    "type": "Şahıs Firması",
+    "fullName": "Uğur Soner Doğan (Şahıs Firması)",
+    "businessArea": "Bakkal ve marketlerde yapılan perakende ticaret (Gıda, içecek)",
+    "address": {
+      "street": "Cevatpaşa Mah. Kazım Karabekir Sokak No:22A",
+      "district": "Merkez",
+      "city": "Çanakkale",
+      "fullAddress": "Cevatpaşa Mah. Kazım Karabekir Sokak No:22A Merkez/Çanakkale"
+    },
+    "contact": {
+      "email": "info@gulcegida.com",
+      "phone": "+90 541 687 75 02"
+    },
+    "dataController": "Uğur Soner Doğan"
+  },
+  "policies": {
+    "effectiveDate": "07.08.2025",
+    "meslekKurallariDate": "13.08.2025"
+  },
+  "services": {
+    "cargo": "Geliver",
+    "payment": "İyzico",
+    "analytics": "Meta (Facebook) Pixel"
+  },
+  "legal": {
+    "kvkkLaw": "6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)",
+    "consumerLaw": "6502 sayılı Tüketicinin Korunması Hakkında Kanun",
+    "esnafLaw": "5362 sayılı Esnaf ve Sanatkârlar Meslek Kuruluşları Kanunu"
+  },
+  "professional": {
+    "chamber": "Çanakkale Bakkallar ve Bayiler Esnaf Odası",
+    "confederation": "Türkiye Esnaf ve Sanatkârlar Konfederasyonu (TESK)",
+    "teskWebsite": "https://www.tesk.org.tr"
+  },
+  "firmaBilgileri": {
+    "firmaAdi": "Uğur Soner Doğan – Şahıs Firması",
+    "telefon1": "+90541 687 75 02",
+    "email": "info@gulcegida.com",
+    "adres": "Cevatpaşa Mah. Kazım Karabekir Sokak No:22A",
+    "ulke": "Türkiye",
+    "sehir": "Çanakkale",
+    "semt": "Merkez",
+    "sicilNumarasi": "85885",
+    "vergiNo": "3060306793",
+    "vergiDairesi": "Çanakkale Vergi Dairesi",
+    "kepAdresi": "000000000000000000000000"
+  }
+}

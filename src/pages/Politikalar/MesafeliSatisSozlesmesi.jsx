@@ -1,4 +1,5 @@
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const MesafeliSatisSozlesmesi = () => {
   return (
@@ -8,23 +9,21 @@ const MesafeliSatisSozlesmesi = () => {
       <h2>1. Taraflar</h2>
       <p>
         Bu sözleşme, aşağıda bilgileri yer alan satıcı ile elektronik ortamda
-        ürün/hizmet satın alan alıcı arasında, 6502 sayılı Tüketicinin Korunması
-        Hakkında Kanun ve ilgili Mesafeli Sözleşmeler Yönetmeliği kapsamında
-        düzenlenmiştir.
+        ürün/hizmet satın alan alıcı arasında, {companyData.legal.consumerLaw}{" "}
+        ve ilgili Mesafeli Sözleşmeler Yönetmeliği kapsamında düzenlenmiştir.
       </p>
       <p style={{ marginTop: "1rem" }}>
         <strong>Satıcı:</strong>
         <br />
-        Ünvan: Uğur Soner Doğan (Şahıs Firması)
+        Ünvan: {companyData.company.fullName}
         <br />
-        Faaliyet Alanı: Bakkal ve marketlerde yapılan perakende ticaret (Gıda,
-        içecek)
+        Faaliyet Alanı: {companyData.company.businessArea}
         <br />
-        Adres: Cevatpaşa Mah. Kazım Karabekir Sokak No:22A Merkez / Çanakkale
+        Adres: {companyData.company.address.fullAddress}
         <br />
-        E-posta: info@gulcegida.com
+        E-posta: {companyData.company.contact.email}
         <br />
-        Telefon: +90 541 687 75 02
+        Telefon: {companyData.company.contact.phone}
       </p>
 
       <h2>2. Konu</h2>
@@ -43,12 +42,14 @@ const MesafeliSatisSozlesmesi = () => {
       <h2>4. Teslimat</h2>
       <p>
         Ürün, alıcının sipariş formunda belirttiği adrese, sistemimize entegre
-        edilmiş <strong>Geliver Kargo</strong> aracılığıyla teslim edilir.
+        edilmiş <strong>{companyData.services.cargo} Kargo</strong> aracılığıyla
+        teslim edilir.
       </p>
 
       <h2>5. Ödeme Bilgileri</h2>
       <p>
-        Ödeme, güvenli ödeme altyapısı İyzico üzerinden online olarak alınır.
+        Ödeme, güvenli ödeme altyapısı {companyData.services.payment} üzerinden
+        online olarak alınır.
       </p>
 
       <h2>6. Cayma Hakkı</h2>
@@ -60,7 +61,7 @@ const MesafeliSatisSozlesmesi = () => {
       <h2>7. Kişisel Verilerin Korunması</h2>
       <p>
         Alıcıya ait kişisel veriler, KVKK kapsamında korunmakta ve yalnızca
-        sözleşmenin ifası amacıyla kullanılmaktadır. Veriler hash’li olarak
+        sözleşmenin ifası amacıyla kullanılmaktadır. Veriler hash'li olarak
         güvenli biçimde saklanır.
       </p>
 

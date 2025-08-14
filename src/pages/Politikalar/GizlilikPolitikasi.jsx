@@ -1,58 +1,58 @@
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const GizlilikPolitikasi = () => {
   return (
     <div className="privacy-policy container">
       <h1>Gizlilik Politikası</h1>
       <p>
-        <strong>Yürürlük Tarihi:</strong> 07.08.2025
+        <strong>Yürürlük Tarihi:</strong> {companyData.policies.effectiveDate}
       </p>
       <p>
-        <strong>İşletme Adı:</strong> Uğur Soner Doğan – Şahıs Firması
+        <strong>İşletme Adı:</strong> {companyData.company.fullName}
       </p>
       <p>
-        <strong>İş Yeri Adresi:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak
-        No:22A Merkez / Çanakkale
+        <strong>İş Yeri Adresi:</strong>{" "}
+        {companyData.company.address.fullAddress}
       </p>
       <p>
-        <strong>Ana Faaliyet Alanı:</strong> Bakkal ve marketlerde yapılan
-        perakende ticaret (Gıda, içecek)
+        <strong>Ana Faaliyet Alanı:</strong> {companyData.company.businessArea}
       </p>
       <p>
-        <strong>İletişim Bilgisi: </strong> info@gulcegida.com
+        <strong>İletişim Bilgisi: </strong> {companyData.company.contact.email}
       </p>
       <p>
-        <strong>Telefon: </strong> +90 541 687 75 02
+        <strong>Telefon: </strong> {companyData.company.contact.phone}
       </p>
 
       <h2>1. Kişisel Verilerin Korunması</h2>
       <p>
         Tarafımıza iletilen tüm kişisel veriler,{" "}
-        <strong>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)</strong>{" "}
-        başta olmak üzere yürürlükteki mevzuata uygun şekilde işlenmekte,
-        saklanmakta ve korunmaktadır. Müşterilerimizin kişisel verileri, sadece
-        belirli amaçlarla sınırlı olarak ve açık rızaları doğrultusunda
-        işlenmektedir.
+        <strong>{companyData.legal.kvkkLaw}</strong> başta olmak üzere
+        yürürlükteki mevzuata uygun şekilde işlenmekte, saklanmakta ve
+        korunmaktadır. Müşterilerimizin kişisel verileri, sadece belirli
+        amaçlarla sınırlı olarak ve açık rızaları doğrultusunda işlenmektedir.
       </p>
       <p>
-        <strong>Saklama Şekli:</strong> Kişisel veriler, güvenli sunucularda ve yetkisiz erişime
-        karşı korumalı veri tabanlarında saklanır.
-        Gerekli durumlarda endüstri standartlarında şifreleme ve
-        güvenlik yöntemleri kullanılır.
+        <strong>Saklama Şekli:</strong> Kişisel veriler, güvenli sunucularda ve
+        yetkisiz erişime karşı korumalı veri tabanlarında saklanır. Gerekli
+        durumlarda endüstri standartlarında şifreleme ve güvenlik yöntemleri
+        kullanılır.
       </p>
 
       <h2>2. Çerez (Cookie) Kullanımı</h2>
       <p>
         Web sitemizde kullanıcı deneyimini geliştirmek ve analiz süreçlerini
-        desteklemek amacıyla <strong>çerezler (cookies)</strong> kullanılmaktadır. 
-        Bu çerezler aşağıdaki amaçlarla kullanılır:
+        desteklemek amacıyla <strong>çerezler (cookies)</strong>{" "}
+        kullanılmaktadır. Bu çerezler aşağıdaki amaçlarla kullanılır:
       </p>
       <ul>
         <li>Ziyaretçi tercihlerini hatırlamak,</li>
         <li>Web sitesi trafiğini analiz etmek,</li>
         <li>
-          <strong>Meta Pixel</strong> teknolojisi ile kullanıcı davranışlarını
-          analiz ederek reklam performansını artırmak,
+          <strong>{companyData.services.analytics} Pixel</strong> teknolojisi
+          ile kullanıcı davranışlarını analiz ederek reklam performansını
+          artırmak,
         </li>
         <li>Oturum güvenliğini sağlamak</li>
       </ul>
@@ -65,10 +65,10 @@ const GizlilikPolitikasi = () => {
       <h2>3. Üçüncü Taraf Entegrasyonlar</h2>
       <p>
         Sitemizde, sipariş süreçlerini daha hızlı ve verimli kılmak adına{" "}
-        <strong>Geliver Kargo entegrasyonu</strong> kullanılmaktadır. Bu
-        entegrasyon aracılığıyla yalnızca gönderim için gerekli olan bilgiler
-        paylaşılır ve üçüncü taraf hizmet sağlayıcının da veri koruma
-        yükümlülüklerine uygun hareket etmesi beklenmektedir.
+        <strong>{companyData.services.cargo} Kargo entegrasyonu</strong>{" "}
+        kullanılmaktadır. Bu entegrasyon aracılığıyla yalnızca gönderim için
+        gerekli olan bilgiler paylaşılır ve üçüncü taraf hizmet sağlayıcının da
+        veri koruma yükümlülüklerine uygun hareket etmesi beklenmektedir.
       </p>
 
       <h2>4. Verilerin Paylaşımı</h2>
@@ -92,7 +92,7 @@ const GizlilikPolitikasi = () => {
           bilme,
         </li>
         <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
-        <li>KVKK’ya uygun olarak silinmesini veya yok edilmesini isteme,</li>
+        <li>KVKK'ya uygun olarak silinmesini veya yok edilmesini isteme,</li>
         <li>
           Otomatik sistemler ile analiz sonucu aleyhte bir durum ortaya çıkarsa
           itiraz etme.

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Politika.scss";
+import companyData from "./companyData.json";
 
 const OnBilgilendirmeFormu = () => {
   return (
@@ -8,21 +9,21 @@ const OnBilgilendirmeFormu = () => {
 
       <h2>Satıcı Bilgileri</h2>
       <p>
-        <strong>Unvan:</strong> Uğur Soner Doğan (Şahıs Firması)
+        <strong>Unvan:</strong> {companyData.company.fullName}
       </p>
       <p>
-        <strong>Faaliyet Alanı:</strong> Bakkal ve marketlerde yapılan perakende
-        ticaret (Gıda, içecek)
+        <strong>Faaliyet Alanı:</strong> {companyData.company.businessArea}
       </p>
       <p>
-        <strong>İş Yeri Adresi:</strong> Cevatpaşa Mah. Kazım Karabekir Sokak
-        No:22A Merkez / Çanakkale
+        <strong>İş Yeri Adresi:</strong>{" "}
+        {companyData.company.address.fullAddress}
       </p>
       <p>
-        <strong>E-posta:</strong>info@gulcegida.com
+        <strong>E-posta:</strong>
+        {companyData.company.contact.email}
       </p>
       <p>
-        <strong>Telefon:</strong> +90 541 687 75 02
+        <strong>Telefon:</strong> {companyData.company.contact.phone}
       </p>
 
       <h2>Ürün ve Hizmet Bilgileri</h2>
@@ -35,10 +36,10 @@ const OnBilgilendirmeFormu = () => {
 
       <h2>Teslimat ve Kargo</h2>
       <p>
-        Siparişleriniz, anlaşmalı kargo firması <strong>Geliver</strong> ile
-        gönderilmektedir. Siparişler, stok durumuna göre en geç 3 iş günü içinde
-        kargoya teslim edilir. Kargo ücreti ve teslim süresi sipariş sırasında
-        belirtilecektir.
+        Siparişleriniz, anlaşmalı kargo firması{" "}
+        <strong>{companyData.services.cargo}</strong> ile gönderilmektedir.
+        Siparişler, stok durumuna göre en geç 3 iş günü içinde kargoya teslim
+        edilir. Kargo ücreti ve teslim süresi sipariş sırasında belirtilecektir.
       </p>
 
       <h2>Ödeme Yöntemleri</h2>
@@ -46,17 +47,17 @@ const OnBilgilendirmeFormu = () => {
         Müşteri, kredi kartı/banka kartı ile ödeme yapabilir. Ödemelerde{" "}
         <strong>httponly cookie</strong> ve <strong>refresh token</strong>
         teknolojileri kullanılmaktadır. İşlem güvenliği en üst düzeyde
-        sağlanmakta olup, müşteri verileri hash’li olarak sistemimizde
+        sağlanmakta olup, müşteri verileri hash'li olarak sistemimizde
         saklanmaktadır.
       </p>
 
       <h2>Kişisel Verilerin Korunması</h2>
       <p>
-        Kişisel veriler, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)
-        kapsamında korunmaktadır. Kullanıcı verileri, yalnızca yasal
-        zorunluluklar ve hizmet sunumu kapsamında işlenmekte olup, üçüncü
-        kişilerle paylaşılmamaktadır. Ayrıca Meta Pixel teknolojisi yalnızca
-        istatistik ve reklam optimizasyonu amacıyla kullanılmaktadır.
+        Kişisel veriler, {companyData.legal.kvkkLaw} kapsamında korunmaktadır.
+        Kullanıcı verileri, yalnızca yasal zorunluluklar ve hizmet sunumu
+        kapsamında işlenmekte olup, üçüncü kişilerle paylaşılmamaktadır. Ayrıca{" "}
+        {companyData.services.analytics} Pixel teknolojisi yalnızca istatistik
+        ve reklam optimizasyonu amacıyla kullanılmaktadır.
       </p>
 
       <h2>Cayma Hakkı ve İade Şartları</h2>
@@ -78,7 +79,7 @@ const OnBilgilendirmeFormu = () => {
 
       <h2>Diğer Hükümler</h2>
       <p>
-        Bu form, <strong>Mesafeli Satış Sözleşmesi</strong>’nin ayrılmaz bir
+        Bu form, <strong>Mesafeli Satış Sözleşmesi</strong>'nin ayrılmaz bir
         parçasıdır. Sipariş onayından önce müşteri bu formu okuyarak onaylamış
         sayılır.
       </p>
