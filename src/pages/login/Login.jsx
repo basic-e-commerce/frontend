@@ -18,13 +18,12 @@ function Login() {
           <div className="loginSectionLeft">
             <div className="title">
               <h2>Giriş Yap</h2>
-              <div className="socialMedia">
-                <InstagramIcon />
-              </div>
+              <div className="socialMedia"></div>
             </div>
 
             <LoginForm />
           </div>
+
           <div className="loginSectionRight">
             <div className="title">
               <h3>Henüz üye değil misin?</h3>

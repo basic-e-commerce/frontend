@@ -1,5 +1,6 @@
 import { FormikProvider, Form, Field, ErrorMessage } from "formik";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const fields = [
   {
@@ -38,6 +39,15 @@ const CustomerLoginForm = ({ formik }) => {
   return (
     <FormikProvider value={formik}>
       <Form>
+        <div className="mobile-uyeol">
+          <p>
+            Zaten üye misin?
+            <b>
+              <Link to={"/customerlogin"}>Giriş Yap</Link>
+            </b>
+          </p>
+        </div>
+
         {fields.map((field) => (
           <div className="abc" key={field.name}>
             <p>{field.label}</p>

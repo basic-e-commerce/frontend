@@ -119,7 +119,7 @@
           margin-top: 1rem;
           width: 20%;
           button {
-            background-color: black;
+            background-color: $primary-color;
             color: #fff;
             padding: 12px;
             font-size: 14px;
@@ -142,6 +142,19 @@
           font-size: 12px;
           margin-top: 10px;
           font-weight: normal;
+        }
+      }
+
+      .mobile-uyeol {
+        p {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          a {
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -193,6 +206,16 @@
 
       .loginSectionRight {
         display: none;
+      }
+    }
+  }
+
+  @media (min-width: 901px) {
+    .loginSection {
+      .loginSectionLeft {
+        .mobile-uyeol {
+          display: none;
+        }
       }
     }
   }

@@ -5,12 +5,12 @@
     {
       "img": "/images/acardion/1.jpg",
       "name": "Peynir",
-      "job": "Peynirin en doğal hali"
+      "job": ""
     },
     {
       "img": "/images/acardion/2.jpg",
       "name": "Zeytin",
-      "job": "Tarlamızdan Sofranıza"
+      "job": ""
     }
   ]
 }

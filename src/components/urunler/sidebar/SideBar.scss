@@ -25,8 +25,28 @@
 
       li {
         border-radius: 5px;
+
+        // Subcategories indentation
+        &.sub-category {
+          margin-left: 1.5rem;
+
+          a,
+          .parent-category {
+            font-size: 0.8rem;
+            padding: 8px 10px;
+          }
+        }
+
+        // Subcategories list styling
+        .sub-categories {
+          margin-top: 0.2rem;
+          margin-left: 0;
+          padding-left: 0;
+        }
+
         button,
-        a {
+        a,
+        .parent-category {
           width: 100%;
           background-color: transparent;
           &:hover {
@@ -53,6 +73,16 @@
             }
           }
         }
+
+        // Parent category styling (not clickable)
+        .parent-category {
+          cursor: default;
+          opacity: 0.8;
+
+          &:hover {
+            background-color: transparent !important;
+          }
+        }
       }
       .selected {
         background-color: rgb(215, 215, 215);
@@ -76,7 +106,7 @@
         justify-content: space-between;
 
         input {
-          width: 60px;
+          width: 70px;
           padding: 6px;
           border: 1px solid #ccc;
           border-radius: 4px;

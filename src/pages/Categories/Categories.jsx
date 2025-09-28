@@ -13,6 +13,8 @@ const Categories = () => {
   const { categories } = useSelector((state) => state.categories);
   const dispatch = useDispatch();
 
+  console.log(categories);
+
   useEffect(() => {
     const fetchCategories = async () => {
       dispatch(setLoading({ isLoading: true }));
@@ -45,14 +47,27 @@ const Categories = () => {
           desc={"Lütfen bir kategori seçin!"}
         />
         <div className="categoryCardsContent">
-          {categories?.map((item, index) => (
-            <CategoryCard
-              key={index}
-              linkName={item.categoryLinkName}
-              categoryName={item.categoryName}
-              img={item.coverImage?.url || null}
-            />
-          ))}
+          {categories?.map((item, index) =>
+            item.subCategories && item.subCategories.length > 0 ? (
+              // alt kategoriler varsa onları listele
+              item.subCategories.map((sub) => (
+                <CategoryCard
+                  key={sub.id}
+                  linkName={sub.categoryLinkName}
+                  categoryName={sub.categoryName}
+                  img={sub.coverImage?.url || null}
+                />
+              ))
+            ) : (
+              // alt kategori yoksa direk kendi kategorisini listele
+              <CategoryCard
+                key={item.id}
+                linkName={item.categoryLinkName}
+                categoryName={item.categoryName}
+                img={item.coverImage?.url || null}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

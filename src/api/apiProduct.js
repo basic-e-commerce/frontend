@@ -19,7 +19,7 @@ export const fetchProducts = async () => {
 
 // Belirli kategoriye ait ürünleri getir
 export const fetchProductsByCategoryAdmin = async (categoryId) => {
-  const response = await api.post(`${API_URL}/filter`, {
+  const response = await api.post(`${API_URL}/filter?page=0&size=99999999`, {
     categoryId: categoryId,
     minPrice: 0.0,
     maxPrice: 590000000.0,
@@ -41,13 +41,16 @@ export const fetchProductsByCategory = async (categoryId) => {
 };
 
 export const fetchProductsByCategoryLinkName = async (linkName, min, max) => {
-  const response = await axios.post(`${API_URL}/filter/small/link-name`, {
-    linkName: linkName,
-    minPrice: min,
-    maxPrice: max,
-    sortBy: "comparePrice",
-    sortDirection: "asc",
-  });
+  const response = await axios.post(
+    `${API_URL}/filter/small/link-name?page=0&size=99999999`,
+    {
+      linkName: linkName,
+      minPrice: min,
+      maxPrice: max,
+      sortBy: "comparePrice",
+      sortDirection: "asc",
+    }
+  );
   return response.data;
 };
 

@@ -69,7 +69,7 @@
     .list {
       display: grid;
       grid-template-columns: repeat(2, 1fr); /* 3 sütun */
-      row-gap: 3rem; /* Elemanlar arası boşluk */
+      row-gap: 3.5rem; /* Elemanlar arası boşluk */
       column-gap: 2rem;
     }
   }

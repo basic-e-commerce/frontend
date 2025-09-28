@@ -57,6 +57,7 @@ import SifreYenileme from "./pages/sifreyenileme/SifreYenileme";
 import SiparisSorgu from "./pages/siparisSorgu/SiparisSorgu";
 import FirmaBilgileri from "./pages/FirmaBilgileri/FirmaBilgileri";
 import MeslekKurallari from "./pages/Politikalar/MeslekKurallari";
+import ProfileNav from "./pages/profileNav/ProfileNav";
 
 function App() {
   const location = useLocation();
@@ -79,7 +80,8 @@ function App() {
             );
             const data = response.data;
             dispatch(setLogin(data));
-          } catch {
+          } catch (error) {
+            console.log(error);
             dispatch(setLogout());
           }
         };
@@ -115,7 +117,7 @@ function App() {
   }, [dispatch, accessToken]);
 
   if (isLoading) {
-    return <div></div>;
+    return <div>Yükleniyor</div>;
   }
 
   return (
@@ -157,6 +159,7 @@ function App() {
         <Route path="/sifremi-unuttum" element={<SifremiUnuttum />} />
         <Route path="/password-reset" element={<SifreYenileme />} />
         <Route path="/siparis-sorgula" element={<SiparisSorgu />} />
+
         <Route
           path="/iletisim"
           element={<Iletisim contactData={contactData} />}
@@ -220,6 +223,15 @@ function App() {
           <Route path="sifredegistir" element={<SifreDegistir />} />
           <Route path="siparislerim" element={<SiparisMusteri />} />
         </Route>
+
+        <Route
+          path="/profile-yonlendir"
+          element={
+            <ProtectedRoute allowedRoles={["CUSTOMER"]}>
+              <ProfileNav />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {!isAdminRoute && <FooterTop contactData={contactData} />}

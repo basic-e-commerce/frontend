@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SearchCard from "../SearchCard/SearchCard";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
+import StoreIcon from "@mui/icons-material/Store";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,17 +39,6 @@ const Header = () => {
   const getNavigationData = useCallback(() => {
     const nav = [];
 
-    if (isLogin && role === "CUSTOMER") {
-      nav.push({
-        label: "Profil",
-        submenu: [
-          { to: "/profil/bilgiler", label: "Kişisel Bilgiler" },
-          { to: "/profil/sifredegistir", label: "Şifre Ayarları" },
-          { to: "/profil/adreslerim", label: "Adreslerim" },
-          { to: "/profil/siparislerim", label: "Siparişlerim" },
-        ],
-      });
-    }
     if (isLogin && role === "ADMIN") {
       nav.push({
         label: "Yönetim Paneli",
@@ -158,26 +148,10 @@ const Header = () => {
               <div />
             ) : (
               <div className="headerTopLeft">
-                {!isLogin ? (
-                  <>
-                    <Link to="/customerregister" className="header-auth-link">
-                      <span>Kayıt Ol</span>
-                    </Link>
-                    <Link to="/customerlogin" className="header-auth-link">
-                      <span>Giriş Yap</span>
-                    </Link>
-                  </>
-                ) : role === "CUSTOMER" ? (
-                  <Link to="/profil/bilgiler" className="header-profile-link">
-                    <PersonIcon className="icon" />
-                    <span>Profilim</span>
-                  </Link>
-                ) : (
-                  <Link to="/admins/dashboard" className="header-profile-link">
-                    <PersonIcon className="icon" />
-                    <span>Admin Paneli</span>
-                  </Link>
-                )}
+                <Link className="header-cart-link" to="/kategoriler">
+                  <StoreIcon className="icon" />
+                  <span>Tüm Ürünler</span>
+                </Link>
               </div>
             )}
 
@@ -200,9 +174,22 @@ const Header = () => {
                 <SearchIcon className="icon" />
               </button>
 
+              {!isLogin ? (
+                <Link to="/customerlogin" className="header-cart-link">
+                  <PersonIcon className="icon" />
+                </Link>
+              ) : role === "CUSTOMER" ? (
+                <Link to="/profile-yonlendir" className="header-cart-link">
+                  <PersonIcon className="icon" />
+                </Link>
+              ) : (
+                <Link to="/admins/dashboard" className="header-profile-link">
+                  <PersonIcon className="icon" />
+                </Link>
+              )}
+
               <Link to="/sepet" className="header-cart-link">
                 <ShoppingCartIcon className="icon" />
-                <span>Sepet</span>
               </Link>
             </div>
           </div>
@@ -271,7 +258,7 @@ const Header = () => {
 
       <div className={`sideMenu ${isMenuOpen ? "open" : ""}`}>
         <div className="sideMenuLogo">
-          {/* <img src="/images/logo/logo.png" alt="Logo" />*/}
+          {/* <img src="/images/logo/logom.png" alt="Logo" />*/}
         </div>
         <div className="sideMenuContent">
           <nav>

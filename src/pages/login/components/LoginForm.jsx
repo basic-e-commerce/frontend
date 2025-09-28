@@ -23,6 +23,15 @@ const LoginForm = () => {
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off">
+        <div className="mobile-uyeol">
+          <p>
+            Henüz üye değil misin?
+            <b>
+              <Link to={"/customerregister"}>Üye Ol</Link>
+            </b>
+          </p>
+        </div>
+
         {fields.map((field) => (
           <div className="abc" key={field.name}>
             <p>{field.label}</p>

@@ -46,12 +46,7 @@ const CategorySingleDown = ({ categories, selectedCategory }) => {
       {categories?.map((category) => (
         <React.Fragment key={category.id}>
           {/* Ana Kategori - Eğer alt kategorisi varsa disabled olacak */}
-          <option
-            value={category.id}
-            disabled={category.subCategories.length > 0}
-          >
-            {category.categoryName}
-          </option>
+          <option value={category.id}>{category.categoryName}</option>
 
           {/* Alt Kategoriler (Eğer varsa) */}
           {category.subCategories.length > 0 &&

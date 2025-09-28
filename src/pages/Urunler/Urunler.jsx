@@ -24,11 +24,11 @@ const Urunler = () => {
   const { categories } = useSelector((state) => state.categories);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [value, setValue] = useState([0, 5000]);
+  const [value, setValue] = useState([0, 30000]);
 
   const debounceTimerRef = useRef(null);
   const prevCategoryRef = useRef(categoryLinkName);
-  const prevValueRef = useRef([0, 5000]);
+  const prevValueRef = useRef([0, 30000]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -60,7 +60,9 @@ const Urunler = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(setLoading({ isLoading: false }));
+      setTimeout(() => {
+        dispatch(setLoading({ isLoading: false }));
+      }, 400);
     }
   };
 
@@ -76,10 +78,10 @@ const Urunler = () => {
 
         // Category değiştiyse value'yu sıfırla ve fetch yap
         if (prevCategoryRef.current !== categoryLinkName) {
-          setValue([0, 5000]);
-          prevValueRef.current = [0, 5000];
+          setValue([0, 30000]);
+          prevValueRef.current = [0, 30000];
 
-          await fetchProducts(categoryLinkName, [0, 5000]);
+          await fetchProducts(categoryLinkName, [0, 30000]);
         } else {
           // Category aynıysa sadece mevcut value ile fetch yap
           await fetchProducts(categoryLinkName, value);
@@ -89,7 +91,9 @@ const Urunler = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        dispatch(setLoading({ isLoading: false }));
+        setTimeout(() => {
+          dispatch(setLoading({ isLoading: false }));
+        }, 400);
       }
     };
     setSidebarOpen(false);
@@ -103,6 +107,10 @@ const Urunler = () => {
       }
     };
   }, []);
+
+  if (isLoading) {
+    return <UrunlerSkeleton />;
+  }
 
   return (
     <div className="projeler">
